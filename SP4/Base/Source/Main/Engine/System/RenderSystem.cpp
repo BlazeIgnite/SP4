@@ -659,3 +659,20 @@ bool RenderSystem::loadingMeshDriven(const std::string &fileLocation)
 	//}
 	return false;
 }
+
+bool RenderSystem::ReadTileLayout(const std::string &fileLocation)
+{
+	std::ifstream file(fileLocation.c_str());
+	if (file.is_open())
+	{
+		std::string data = "";
+		std::vector<std::string> thekeys;
+		while (getline(file, data))
+		{
+			if (data == "" || data == "\n" || data == "\r")
+				continue;
+			std::string token;
+			std::istringstream iss(data);
+		}
+	}
+}

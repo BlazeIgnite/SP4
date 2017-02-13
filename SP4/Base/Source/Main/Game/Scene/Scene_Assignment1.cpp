@@ -25,6 +25,8 @@ void Scene_Assignment1::Init()
 
 	EventSystem::Instance().Init();
 
+	GameStage = true;
+
 	//Physics Related
 	TimeMultiplier = 1.f;
 	Math::InitRNG();
@@ -76,55 +78,6 @@ void Scene_Assignment1::Update(double dt)
 
 void Scene_Assignment1::RenderObjects(BaseObject *obj)
 {
-	if (obj->Active && obj->Visible && obj->GetEntityID() != "")
-	{
-		std::string Name = obj->GetEntityID();
-		if (Name == "Scavenger")
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
-			RenderMesh(meshList[GEO_SCAVENGER], false);
-			modelStack.PopMatrix();
-		}
-		else if (Name == "Drone")
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
-			RenderMesh(meshList[GEO_DRONE], false);
-			modelStack.PopMatrix();
-		}
-		else if (Name == "Zombie")
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
-			RenderMesh(meshList[GEO_ZOMBIE], false);
-			modelStack.PopMatrix();
-		}
-		else if (Name == "WildLife")
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
-			RenderMesh(meshList[GEO_WILDLIFE], false);
-			modelStack.PopMatrix();
-		}
-		else
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
-			RenderMesh(meshList[GEO_BULLET], false);
-			modelStack.PopMatrix();
-		}
-	}
 }
 
 void Scene_Assignment1::Render()

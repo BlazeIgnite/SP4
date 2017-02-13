@@ -154,6 +154,7 @@ protected:
 	Light lights[1];
 
 	bool bLightEnabled;
+	bool GameStage;
 
 	float fps;
 };

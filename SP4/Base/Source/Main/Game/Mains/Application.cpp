@@ -1,0 +1,184 @@
+#include "Application.h"
+
+//Include GLEW
+#include <GL/glew.h>
+
+//Include GLFW
+#include <GLFW/glfw3.h>
+
+//Include the standard C++ headers
+#include <stdio.h>
+#include <stdlib.h>
+
+//#include "../../Engine/System/SceneSystem.h"
+//#include "../../Engine/System/RenderSystem.h"
+
+#include "../Scene/Scene_Assignment1.h"
+
+GLFWwindow* m_window;
+const unsigned char FPS = 150; // FPS of this game
+const unsigned int frameTime = 1000 / FPS; // time for each frame
+int Application::ScreenHeight = 0;
+int Application::ScreenWidth = 0;
+
+//Define an error callback
+static void error_callback(int error, const char* description)
+{
+	fputs(description, stderr);
+	_fgetchar();
+}
+
+//Define the key input callback
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
+
+void resize_callback(GLFWwindow* window, int w, int h)
+{
+	Application::SetWindowWidth(w);
+	Application::SetWindowHeight(h);
+	glViewport(0, 0, w, h);
+}
+
+bool Application::IsKeyPressed(unsigned short key)
+{
+    return ((GetAsyncKeyState(key) & 0x8001) != 0);
+}
+bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - Middle
+{
+	return glfwGetMouseButton(m_window, key) != 0;
+}
+void Application::GetCursorPos(double *xpos, double *ypos)
+{
+	glfwGetCursorPos(m_window, xpos, ypos);
+}
+int Application::GetWindowWidth()
+{
+	return ScreenWidth;
+}
+int Application::GetWindowHeight()
+{
+	return ScreenHeight;
+}
+void Application::SetWindowWidth(const int& w)
+{
+	ScreenWidth = w;
+}
+void Application::SetWindowHeight(const int& h)
+{
+	ScreenHeight = h;
+}
+
+Application::Application()
+{
+}
+
+Application::~Application()
+{
+}
+
+void Application::Init()
+{
+	//Set the error callback
+	glfwSetErrorCallback(error_callback);
+
+	// Init the Scene System
+	//SceneSystem::Instance().Init();
+
+	//Initialize GLFW
+	if (!glfwInit())
+	{
+		exit(EXIT_FAILURE);
+	}
+
+	//Set the GLFW window creation hints - these are optional
+	glfwWindowHint(GLFW_SAMPLES, 4); //Request 4x antialiasing
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //Request a specific OpenGL version
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
+	//Borderless
+	//glfwWindowHint(GLFW_DECORATED, GL_FALSE);
+
+	// SIDE NOTE: DO NOT BUG TEST IN FULL SCREEN. IF IT LAGS OUT, YOU CANNOT CLOSE THE WINDOW!
+	const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	//Obtain Width and Height values from the monitor;
+
+	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+	//Create a window and create its OpenGL context
+	//ScreenWidth = 800;
+	//ScreenHeight = 600;
+	ScreenWidth = mode->width;
+	ScreenHeight = mode->height;
+	m_window = glfwCreateWindow(ScreenWidth, ScreenHeight, "Framework", NULL, NULL);
+
+	//If the window couldn't be created
+	if (!m_window)
+	{
+		fprintf( stderr, "Failed to open GLFW window.\n" );
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
+
+	//This function makes the context of the specified window current on the calling thread. 
+	glfwMakeContextCurrent(m_window);
+
+	//Sets the key callback
+	//glfwSetKeyCallback(m_window, key_callback);
+	glfwSetWindowSizeCallback(m_window, resize_callback);
+
+	glewExperimental = true; // Needed for core profile
+	//Initialize GLEW
+	GLenum err = glewInit();
+
+	//If GLEW hasn't initialized
+	if (err != GLEW_OK) 
+	{
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+		//return -1;
+	}
+
+	// Assign Scene Renderer
+	//RenderSystem* Renderer = new RenderSystem();
+	//Renderer->Init();
+	//SceneSystem::Instance().SetRenderSystem(*Renderer);
+}
+
+void Application::Run()
+{
+	//Main Loop
+	Scene *scene = new Scene_Assignment1();
+	scene->Init();
+
+	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
+	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
+	{
+		scene->Update(m_timer.getElapsedTime());
+		scene->Render();
+		//Swap buffers
+		glfwSwapBuffers(m_window);
+		//Get and organize events, like keyboard and mouse input, window resizing, etc...
+		glfwPollEvents();
+        m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
+
+	} //Check if the ESC key had been pressed or if the window had been closed
+	//SceneSystem::Instance().ClearMemoryUsage();
+	scene->Exit();
+	delete scene;
+}
+
+void Application::Exit()
+{
+	//Close OpenGL window and terminate GLFW
+	glfwDestroyWindow(m_window);
+	//Finalize and clean up GLFW
+	glfwTerminate();
+	_CrtDumpMemoryLeaks();
+}

@@ -7,6 +7,7 @@ using std::vector;
 
 class CharacterEntity : public BaseObject
 {
+protected:
 	enum Position
 	{
 		Position_Front = 1,
@@ -18,13 +19,6 @@ class CharacterEntity : public BaseObject
 		Target_Front = 1,
 		Target_Middle,
 		Target_Back,
-	};
-	class Skill
-	{
-	public:
-		Skill();
-		~Skill();
-		void SkillBehavior();
 	};
 	
 public:
@@ -53,9 +47,14 @@ public:
 	void SetMagic(float Magic);
 	void SetLuck(float Luck);
 
+	//Position Stuff
+	Position GetPosition(){ return position; }
+	void SetPosition(Position position){ this->position = position; }
+
 	void SetDamageMitigation();
 
 	void Init();
+
 
 private:
 	//Character's Base stats
@@ -68,11 +67,11 @@ private:
 	float Defense;
 	float Magic;
 	float Luck;
+	Position position;
 	//Base Stats End here
 
 	//Final stats
 	float Damagemitigation;
-	vector<Skill> Skillset;
 
 	
 };

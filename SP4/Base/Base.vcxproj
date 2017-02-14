@@ -16,6 +16,7 @@
     <ClCompile Include="Source\Main\Engine\State\StateManager.cpp" />
     <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\SceneSystem.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\ObjectManager.cpp" />
     <ClCompile Include="Source\Main\Game\Mains\Application.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Main\Engine\System\State\StateList.h" />
     <ClInclude Include="Main\Engine\System\State\StateManager.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\ObjectManager.h" />
     <ClInclude Include="Main\Engine\System\Objects\BaseObject.h" />

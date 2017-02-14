@@ -57,6 +57,36 @@
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Main\Game\AI\AIBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AICombined.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp">
+	  <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,6 +177,51 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\AI\AIBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\AI\AIStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AICombined.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIDefault.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h">
+	<Filter>Header Files</Filter>
+	</ClInclude>
+    <ClInclude Include="Source\Main\Engine\Lua\lauxlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Engine\Lua\lua.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Engine\Lua\lua.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Engine\Lua\luaconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Engine\Lua\lualib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Engine\System\LuaSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h">

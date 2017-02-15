@@ -7,6 +7,7 @@ enum STATUSEFFECTS
 	Bleed,
 	Buff,
 	Debuff,
+	No_Effect,
 };
 
 #endif

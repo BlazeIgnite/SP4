@@ -18,6 +18,8 @@
     <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\SceneSystem.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\Button.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBase.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.cpp" />
@@ -65,6 +67,8 @@
     <ClInclude Include="Main\Engine\System\State\State.h" />
     <ClInclude Include="Main\Engine\System\State\StateList.h" />
     <ClInclude Include="Main\Engine\System\State\StateManager.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\Button.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBase.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.h" />

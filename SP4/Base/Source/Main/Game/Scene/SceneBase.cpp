@@ -4,6 +4,7 @@
 #include "shader.hpp"
 #include "../Miscellaneous/MeshBuilder.h"
 #include "../../Game/Mains/Application.h"
+#include "../Systems/ObjectManager.h"
 #include "Utility.h"
 #include "LoadTGA.h"
 #include <sstream>
@@ -39,7 +40,10 @@ void SceneBase::Init()
 	glBindVertexArray(m_vertexArrayID);
 
 	m_programID = LoadShaders( "Shader//comg.vertexshader", "Shader//comg.fragmentshader" );
-	
+
+	ObjectManager::Instance().WorldHeight = 100.f;
+	ObjectManager::Instance().WorldWidth = ObjectManager::Instance().WorldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+
 	// Get a handle for our uniform
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
 	//m_parameters[U_MODEL] = glGetUniformLocation(m_programID, "M");
@@ -151,6 +155,11 @@ void SceneBase::Init()
 
 	meshList[GEO_BACKGROUND] = MeshBuilder::GenerateQuad("TexQuad", Color(), 1);
 	meshList[GEO_BACKGROUND]->textureID = LoadTGA("Image//warzone_city.tga");
+
+	meshList[GEO_HOVER] = MeshBuilder::GenerateQuad("Hover", Color(0.f,0.f,0.f), 1);
+	//meshList[GEO_HOVER]->textureID = LoadTGA("Image//BlueBar.tga");
+	meshList[GEO_DESCRIPTION] = MeshBuilder::GenerateQuad("Description", Color(1.f, 0.f, 0.f), 1);
+	//meshList[GEO_DESCRIPTION]->textureID = LoadTGA("Image//warzone_city.tga");
 
 	bLightEnabled = false;
 }
@@ -282,6 +291,9 @@ void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 void SceneBase::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	ObjectManager::Instance().WorldHeight = 100.f;
+	ObjectManager::Instance().WorldWidth = ObjectManager::Instance().WorldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+
 }
 
 void SceneBase::Exit()

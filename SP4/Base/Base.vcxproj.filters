@@ -58,8 +58,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp">
-		<Filter>Source Files</Filter>
-	</ClCompile>
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,6 +106,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Main\Engine\Audio\Audio_Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\Objects\Items\Consumables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -195,8 +198,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h">
-		<Filter>Header Files</Filter>
-	</ClInclude>
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -261,6 +264,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

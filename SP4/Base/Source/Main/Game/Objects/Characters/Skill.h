@@ -1,15 +1,13 @@
 #ifndef SKILL_H_
 #define SKILL_H_
 #include <string>
-#include "StatusEffects.h"
+#include "CharacterDatabase.h"
 #include "CharacterEntity.h"
 using std::string;
 
 
 class Skill
 {
-	CharacterEntity* TheCharacter;
-	CharacterEntity* theTarget;
 private:
 	float Multiplier;
 	float AbilityPointCost;
@@ -35,6 +33,11 @@ public:
 	virtual void SkillBehavior(ScaleFactor scalefactor);
 	//virtual void ApplyEffect(STATUSEFFECTS effect);
 	void ApplyEffect(STATUSEFFECTS effect);
+
+	//Sets and Gets Skill ID and name if necessary
+	void SetSkill_IDs(string Skill_name, int Skill_ID){ this->Skill_name = Skill_name; this->Skill_ID = Skill_ID; }
+	string GetSkillname(){ return Skill_name; }
+	int GetSkill_ID(){ return Skill_ID; }
 
 	//Sets and Gets AbilityPoint Cost if necessary
 	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }
@@ -65,7 +68,8 @@ private:
 public:
 	OffensiveSkill();
 	~OffensiveSkill();
-	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
+	virtual void SkillBehavior(ScaleFactor scalefactor, float Damagemitigation);
+	inline void SetCharacter(CharacterEntity* Character){this->Character = Character;}
 };
 
 class StatusEffectSkill : public Skill

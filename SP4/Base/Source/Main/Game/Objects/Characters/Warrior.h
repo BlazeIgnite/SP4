@@ -4,14 +4,15 @@
 #include "Skill.h"
 
 
-class Warrior : public CharacterEntity , protected OffensiveSkill
+class Warrior : public CharacterEntity
 {
 private:
-	OffensiveSkill *skill_1;
+	OffensiveSkill* skill_1;
 public:
 	Warrior();
 	~Warrior();
-	virtual void Init();
+	virtual void Init(int Level);
+	virtual void Levelup();
 };
 
 

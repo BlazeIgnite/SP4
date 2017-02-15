@@ -83,7 +83,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
-    <ClInclude Include="Source\Main\Game\Objects\Characters\StatusEffects.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
@@ -176,6 +176,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)/irrKlang/lib;$(SolutionDir)/Lua;$(SolutionDir)$(Configuration);$(SolutionDir)/glfw/lib-msvc100;$(SolutionDir)/glew/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Common.lib;winmm.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;lua5.1.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

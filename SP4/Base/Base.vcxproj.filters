@@ -260,10 +260,10 @@
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\StatusEffects.h">
+    <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h">
+    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h">

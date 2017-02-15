@@ -33,7 +33,7 @@ public:
 	Skill();
 	~Skill();
 	virtual void SkillBehavior(ScaleFactor scalefactor);
-	virtual void ApplyEffect(STATUSEFFECTS effect);
+	void ApplyEffect(STATUSEFFECTS effect);
 
 	//Sets and Gets AbilityPoint Cost if necessary
 	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }

@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-﻿Build started 2/15/2017 1:05:28 PM.
-     1>Project "C:\Users\151131H\Desktop\SP4\SP4\Common\Common.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 2/15/2017 1:22:31 PM.
+     1>Project "C:\Users\151131H\Desktop\SP4.1\SP4\Common\Common.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _VARIADIC_MAX=10 /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\DepthFBO.cpp Source\LoadOBJ.cpp Source\LoadTGA.cpp Source\MatrixStack.cpp Source\Mesh.cpp Source\Mtx44.cpp Source\shader.cpp Source\timer.cpp Source\Utility.cpp Source\Vector3.cpp
-=======
-﻿Build started 15/2/2017 1:01:27 PM.
-     1>Project "D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\Common\Common.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         D:\Program Files (x86)\Visual Studio 2013\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _VARIADIC_MAX=10 /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\DepthFBO.cpp Source\LoadOBJ.cpp Source\LoadTGA.cpp Source\MatrixStack.cpp Source\Mesh.cpp Source\Mtx44.cpp Source\shader.cpp Source\timer.cpp Source\Utility.cpp Source\Vector3.cpp
->>>>>>> 005764bacfeb268e9f4fc5eb2a15d4c5be00c29b
          Vector3.cpp
          Utility.cpp
          timer.cpp
@@ -21,11 +14,7 @@
          DepthFBO.cpp
          Generating Code...
        Lib:
-<<<<<<< HEAD
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\151131H\Desktop\SP4\SP4\Debug\Common.lib" /NOLOGO Debug\DepthFBO.obj
-=======
-         D:\Program Files (x86)\Visual Studio 2013\VC\bin\Lib.exe /OUT:"D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\Debug\Common.lib" /NOLOGO Debug\DepthFBO.obj
->>>>>>> 005764bacfeb268e9f4fc5eb2a15d4c5be00c29b
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\151131H\Desktop\SP4.1\SP4\Debug\Common.lib" /NOLOGO Debug\DepthFBO.obj
          Debug\LoadOBJ.obj
          Debug\LoadTGA.obj
          Debug\MatrixStack.obj
@@ -35,18 +24,9 @@
          Debug\timer.obj
          Debug\Utility.obj
          Debug\Vector3.obj
-<<<<<<< HEAD
-         Common.vcxproj -> C:\Users\151131H\Desktop\SP4\SP4\Debug\Common.lib
-     1>Done Building Project "C:\Users\151131H\Desktop\SP4\SP4\Common\Common.vcxproj" (Rebuild target(s)).
+         Common.vcxproj -> C:\Users\151131H\Desktop\SP4.1\SP4\Debug\Common.lib
+     1>Done Building Project "C:\Users\151131H\Desktop\SP4.1\SP4\Common\Common.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.88
-=======
-         Common.vcxproj -> D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\Debug\Common.lib
-     1>Done Building Project "D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\Common\Common.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:06.30
->>>>>>> 005764bacfeb268e9f4fc5eb2a15d4c5be00c29b
+Time Elapsed 00:00:05.33

@@ -54,12 +54,12 @@
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Source\Main\Game\Miscellaneous\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp">
-=======
+		<Filter>Source Files</Filter>
+	</ClCompile>
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,7 +103,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp">
->>>>>>> f83a2c0dd0b2e4b3b9df09f038e2acf58356535c
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -189,12 +188,12 @@
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Source\Main\Game\Miscellaneous\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h">
-=======
+		<Filter>Header Files</Filter>
+	</ClInclude>
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -256,7 +255,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Game\Objects\Characters\StatusEffects.h">
->>>>>>> f83a2c0dd0b2e4b3b9df09f038e2acf58356535c
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

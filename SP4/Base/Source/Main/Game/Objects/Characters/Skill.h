@@ -59,7 +59,7 @@ private:
 public:
 	OffensiveSkill();
 	~OffensiveSkill();
-	virtual void SkillBehavior(ScaleFactor scalefactor, float Damagemitigation);
+	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
 };
 
 class StatusEffectSkill : protected Skill
@@ -70,6 +70,6 @@ private:
 public:
 	StatusEffectSkill();
 	~StatusEffectSkill();
-	virtual void SkillBehavior(ScaleFactor scalefactor, float Damagemitigation);
+	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
 };
 #endif

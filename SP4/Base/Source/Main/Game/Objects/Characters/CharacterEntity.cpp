@@ -1,7 +1,7 @@
 #include "CharacterEntity.h"
 
 
-CharacterEntity::CharacterEntity()
+CharacterEntity::CharacterEntity() : Level(0), Health(0), MaxHealth(0), AbilityPoints(0), MaxAbilityPoints(0), Attack(0), Defense(0), Magic(0), Luck(0), position(Position_Front), DamageMitigation(0)
 {
 }
 
@@ -51,8 +51,8 @@ void CharacterEntity::SetDamageMitigation()
 	this->DamageMitigation = (this->Defense) / ((this->Defense) + 1);
 }
 
-void CharacterEntity::Init()
+void CharacterEntity::Init(int Level)
 {
-
+	SetDamageMitigation();
 }
 

@@ -44,6 +44,8 @@ void Scene_Assignment1::Init()
 	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
 
+	warrior1 = new Warrior();
+	warrior1->Init(1);
 }
 
 void Scene_Assignment1::UpdateCharacterLogic(double dt)

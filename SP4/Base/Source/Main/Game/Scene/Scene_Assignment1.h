@@ -23,6 +23,7 @@ private:
 	Button* button;
 	Button* button2;
 	Warrior* warrior1;
+	Warrior* warrior2;
 	Description* display;
 
 	std::vector<Button*> buttonVector;

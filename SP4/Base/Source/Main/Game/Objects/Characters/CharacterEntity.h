@@ -44,6 +44,7 @@ public:
 	void SetPosition(C_Position position){ this->position = position; }
 
 	void SetDamageMitigation();
+	float GetDamageMitigation(){ return DamageMitigation; }
 
 	virtual void Init(int Level);
 

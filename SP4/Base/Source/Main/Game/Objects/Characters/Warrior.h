@@ -6,13 +6,14 @@
 
 class Warrior : public CharacterEntity
 {
-private:
+public:
 	OffensiveSkill* skill_1;
 public:
 	Warrior();
 	~Warrior();
 	virtual void Init(int Level);
 	virtual void Levelup();
+	void Update(double dt);
 };
 
 

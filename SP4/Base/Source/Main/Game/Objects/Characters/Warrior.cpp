@@ -3,12 +3,12 @@
 using std::cout;
 using std::endl;
 
-float WarriorHealth[] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorAbilityPoints[] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorAttack[] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorDefense[] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorMagic[] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorLuck[] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorHealth[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorAbilityPoints[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorAttack[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorDefense[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorMagic[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorLuck[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
 
 Warrior::Warrior()
 {
@@ -40,6 +40,7 @@ void Warrior::Init(int Level)
 			<< endl << "Magic: " << GetMagic()
 			<< endl << "Luck" << GetLuck() << endl;
 	}
+	SetDamageMitigation();
 	
 
 
@@ -50,6 +51,7 @@ void Warrior::Init(int Level)
 	skill_1->SetAbilityCost(5);
 	skill_1->SetMultiplier(0.65f);
 	skill_1->SetActionCost(20.f);
+	skill_1->SetScaleFactor(Skill::Scale_Attack);
 	skill_1->SetSkillPosition(Position_Front);
 	skill_1->SetSkillTarget(Target_Front);
 
@@ -69,4 +71,14 @@ void Warrior::Levelup()
 	SetDefense(WarriorDefense[TempLevel - 1]);
 	SetMagic(WarriorMagic[TempLevel - 1]);
 	SetLuck(WarriorLuck[TempLevel - 1]);
+}
+
+void Warrior::Update(double dt)
+{
+	cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
+		<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
+		<< endl << "Attack: " << GetAttack()
+		<< endl << "Defense: " << GetDefense()
+		<< endl << "Magic: " << GetMagic()
+		<< endl << "Luck" << GetLuck() << endl;
 }

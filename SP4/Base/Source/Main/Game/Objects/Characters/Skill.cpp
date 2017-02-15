@@ -30,7 +30,7 @@ OffensiveSkill::~OffensiveSkill()
 
 }
 
-void OffensiveSkill::SkillBehavior(ScaleFactor scalefactor, float Damagemitigation)
+void OffensiveSkill::SkillBehavior(float Damagemitigation)
 {
 	if (Character == nullptr || Thetarget == nullptr)
 	{
@@ -76,7 +76,7 @@ StatusEffectSkill::~StatusEffectSkill()
 
 }
 
-void StatusEffectSkill::SkillBehavior(ScaleFactor scalefactor, float Damagemitigation)
+void StatusEffectSkill::SkillBehavior(float Damagemitigation)
 {
 	if (Character == nullptr || Thetarget == nullptr)
 	{

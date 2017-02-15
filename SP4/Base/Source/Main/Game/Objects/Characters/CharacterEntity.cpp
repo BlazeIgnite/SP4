@@ -48,7 +48,7 @@ void CharacterEntity::SetLuck(float Luck)
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->DamageMitigation = (this->Defense) / ((this->Defense) + 1);
+	this->DamageMitigation = 1 - (this->Defense / ((this->Defense) + 1));
 }
 
 void CharacterEntity::Init(int Level)

@@ -17,7 +17,7 @@ private:
 	C_Position RequiredPosition;
 	Target RequiredTarget; 
 	STATUSEFFECTS effect;
-protected:
+public:
 
 	enum ScaleFactor
 	{
@@ -65,11 +65,14 @@ class OffensiveSkill : public Skill
 private:
 	CharacterEntity* Character;
 	CharacterEntity* Thetarget;
+	ScaleFactor scalefactor;
 public:
 	OffensiveSkill();
 	~OffensiveSkill();
-	virtual void SkillBehavior(ScaleFactor scalefactor, float Damagemitigation);
-	inline void SetCharacter(CharacterEntity* Character){this->Character = Character;}
+	virtual void SkillBehavior(float Damagemitigation);
+	inline void SetCharacter(CharacterEntity* Character){ this->Character = Character; }
+	inline void SetTarget(CharacterEntity* Target){ this->Thetarget = Target; }
+	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
 };
 
 class StatusEffectSkill : public Skill
@@ -77,9 +80,11 @@ class StatusEffectSkill : public Skill
 private:
 	CharacterEntity* Character;
 	CharacterEntity* Thetarget;
+	ScaleFactor scalefactor;
 public:
 	StatusEffectSkill();
 	~StatusEffectSkill();
-	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
+	virtual void SkillBehavior(float DamageMitigation);
+	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
 };
 #endif

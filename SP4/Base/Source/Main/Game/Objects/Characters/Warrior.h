@@ -7,10 +7,11 @@
 class Warrior : public CharacterEntity , protected OffensiveSkill
 {
 private:
-	OffensiveSkill skill_1;
+	OffensiveSkill *skill_1;
 public:
 	Warrior();
 	~Warrior();
+	virtual void Init();
 };
 
 

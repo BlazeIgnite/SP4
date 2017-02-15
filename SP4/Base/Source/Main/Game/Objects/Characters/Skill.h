@@ -18,6 +18,7 @@ private:
 	string Skill_name;
 	Position RequiredPosition;
 	Target RequiredTarget;
+	STATUSEFFECTS effect;
 protected:
 
 	enum ScaleFactor
@@ -26,15 +27,21 @@ protected:
 		Scale_Magic,
 
 	};
+	
 
 public:
 	Skill();
 	~Skill();
 	virtual void SkillBehavior(ScaleFactor scalefactor);
+	virtual void ApplyEffect(STATUSEFFECTS effect);
 
 	//Sets and Gets AbilityPoint Cost if necessary
 	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }
 	float GetAbilityCost(){ return AbilityPointCost; }
+
+	//Sets and gets the Action Points used if necessary
+	void SetActionCost(float ActionPointcost){ this->ActionPointCost = ActionPointCost; }
+	float GetActionCost(){ return ActionPointCost; }
 
 	//Gets and Sets Multiplier of the Attack necessary
 	void SetMultiplier(float Multiplier){ this->Multiplier = Multiplier; }
@@ -48,7 +55,7 @@ public:
 };
 
 
-class OffensiveSkill : protected Skill
+class OffensiveSkill : public Skill
 {
 
 private:
@@ -60,7 +67,7 @@ public:
 	virtual void SkillBehavior(ScaleFactor scalefactor, float Damagemitigation);
 };
 
-class StatusEffectSkill : protected Skill
+class StatusEffectSkill : public Skill
 {
 private:
 	CharacterEntity* Character;

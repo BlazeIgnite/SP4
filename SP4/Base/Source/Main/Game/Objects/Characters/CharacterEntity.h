@@ -64,7 +64,6 @@ private:
 
 	//Final stats
 	float DamageMitigation;
-
 	
 	//vector<Skill> Skillset;
 };

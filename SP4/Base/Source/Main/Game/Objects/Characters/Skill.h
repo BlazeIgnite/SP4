@@ -80,6 +80,6 @@ private:
 public:
 	StatusEffectSkill();
 	~StatusEffectSkill();
-	virtual void SkillBehavior(ScaleFactor scalefactor, float Damagemitigation);
+	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
 };
 #endif

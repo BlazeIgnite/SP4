@@ -35,6 +35,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
+    <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\ObjectManager.cpp" />
     <ClCompile Include="Source\Main\Game\Mains\Application.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
+    <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\ObjectManager.h" />
     <ClInclude Include="Main\Engine\System\Objects\BaseObject.h" />

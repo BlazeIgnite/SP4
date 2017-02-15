@@ -6,7 +6,7 @@
 using std::string;
 
 
-class Skill : protected CharacterEntity
+class Skill
 {
 	CharacterEntity* TheCharacter;
 	CharacterEntity* theTarget;
@@ -16,8 +16,8 @@ private:
 	float ActionPointCost;
 	int Skill_ID;
 	string Skill_name;
-	Position RequiredPosition;
-	Target RequiredTarget;
+	C_Position RequiredPosition;
+	Target RequiredTarget; 
 	STATUSEFFECTS effect;
 protected:
 	enum ScaleFactor
@@ -32,7 +32,7 @@ public:
 	Skill();
 	~Skill();
 	virtual void SkillBehavior(ScaleFactor scalefactor);
-	virtual void ApplyEffect(STATUSEFFECTS effect);
+	//virtual void ApplyEffect(STATUSEFFECTS effect);
 
 	//Sets and Gets AbilityPoint Cost if necessary
 	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }
@@ -46,8 +46,8 @@ public:
 	void SetMultiplier(float Multiplier){ this->Multiplier = Multiplier; }
 	float GetMultiplier(){ return Multiplier; }
 
-	void SetSkillPosition(Position position){ this->RequiredPosition = position; }
-	Position GetSkillPosition(){ return RequiredPosition; }
+	void SetSkillPosition(C_Position position){ this->RequiredPosition = position; }
+	C_Position GetSkillPosition(){ return RequiredPosition; }
 
 	void SetSkillTarget(Target target){ this->RequiredTarget = target; }
 	Target GetSkillTarget(){ return RequiredTarget; }

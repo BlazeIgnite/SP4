@@ -674,5 +674,7 @@ bool RenderSystem::ReadTileLayout(const std::string &fileLocation)
 			std::string token;
 			std::istringstream iss(data);
 		}
+		return true;
 	}
+	return false;
 }

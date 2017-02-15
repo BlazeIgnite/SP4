@@ -26,6 +26,8 @@ void Scene_Assignment1::Init()
 	EventSystem::Instance().Init();
 	x, y = 0;
 
+	GameStage = true;
+
 	//Physics Related
 	TimeMultiplier = 1.f;
 	Math::InitRNG();

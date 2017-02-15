@@ -145,6 +145,7 @@ public:
 private:
 	bool OrthogonalModeActive;
 	bool loadingMeshDriven(const std::string &fileLocation);
+	bool ReadTileLayout(const std::string &fileLocation);
 	Mesh *ExportedFont;
 };
 

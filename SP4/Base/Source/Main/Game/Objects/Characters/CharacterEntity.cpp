@@ -2,44 +2,6 @@
 
 
 
-int CharacterEntity::GetLevel()
-{
-	return Level;
-}
-float CharacterEntity::GetHealth()
-{
-	return Health;
-}
-float CharacterEntity::GetMaxHealth()
-{
-	return MaxHealth;
-}
-float CharacterEntity::GetAbilityPoints()
-{
-	return AbilityPoints;
-}
-float CharacterEntity::GetMaxAbilityPoints()
-{
-	return MaxAbilityPoints;
-}
-float CharacterEntity::GetAttack()
-{
-	return Attack;
-}
-float CharacterEntity::GetDefense()
-{
-	return Defense;
-}
-float CharacterEntity::GetMagic()
-{
-	return Magic;
-}
-float CharacterEntity::GetLuck()
-{
-	return Luck;
-}
-
-
 void CharacterEntity::SetLevel(int Level)
 {
 	this->Level = Level;
@@ -52,11 +14,11 @@ void CharacterEntity::SetMaxHealth(float MaxHealth)
 {
 	this->MaxHealth = MaxHealth;
 }
-void CharacterEntity::SetAbilityPoints(float AbilityPoints)
+void CharacterEntity::SetAbilityPoints(int AbilityPoints)
 {
 	this->AbilityPoints = AbilityPoints;
 }
-void CharacterEntity::SetMaxAbilityPoints(float MaxAbilityPoints)
+void CharacterEntity::SetMaxAbilityPoints(int MaxAbilityPoints)
 {
 	this->MaxAbilityPoints = MaxAbilityPoints;
 }

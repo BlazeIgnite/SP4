@@ -26,22 +26,22 @@ public:
 	~CharacterEntity();
 
 	//Getters
-	int GetLevel();
-	float GetHealth(); 
-	float GetMaxHealth();
-	float GetAbilityPoints();
-	float GetMaxAbilityPoints();
-	float GetAttack();
-	float GetDefense();
-	float GetMagic();
-	float GetLuck();
+	int GetLevel() { return Level; }
+	float GetHealth() { return Health; }
+	float GetMaxHealth(){ return MaxHealth; }
+	int GetAbilityPoints(){ return AbilityPoints; }
+	int GetMaxAbilityPoints(){ return MaxAbilityPoints; }
+	float GetAttack(){ return Attack; }
+	float GetDefense(){ return Defense; }
+	float GetMagic(){ return Magic; }
+	float GetLuck(){ return Luck; }
 
 	//Setters
 	void SetLevel(int Level);
 	void SetHealth(float Health);
 	void SetMaxHealth(float MaxHealth);
-	void SetAbilityPoints(float AbilityPoints);
-	void SetMaxAbilityPoints(float MaxAbilityPoints);
+	void SetAbilityPoints(int AbilityPoints);
+	void SetMaxAbilityPoints(int MaxAbilityPoints);
 	void SetAttack(float Attack);
 	void SetDefense(float Defense);
 	void SetMagic(float Magic);
@@ -61,8 +61,8 @@ private:
 	int	Level;
 	float Health;
 	float MaxHealth;
-	float AbilityPoints;
-	float MaxAbilityPoints;
+	int AbilityPoints;
+	int MaxAbilityPoints;
 	float Attack;
 	float Defense;
 	float Magic;

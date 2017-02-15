@@ -14,6 +14,7 @@
 //#include "../../Engine/System/RenderSystem.h"
 
 #include "../Scene/Scene_Assignment1.h"
+#include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 150; // FPS of this game
@@ -145,6 +146,8 @@ void Application::Init()
 		//return -1;
 	}
 
+	AudioPlayer::Instance().Init();
+
 	// Assign Scene Renderer
 	//RenderSystem* Renderer = new RenderSystem();
 	//Renderer->Init();
@@ -176,6 +179,7 @@ void Application::Run()
 
 void Application::Exit()
 {
+	AudioPlayer::Instance().Exit();
 	//Close OpenGL window and terminate GLFW
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW

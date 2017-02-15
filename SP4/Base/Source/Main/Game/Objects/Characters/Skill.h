@@ -6,7 +6,7 @@
 using std::string;
 
 
-class Skill : protected CharacterEntity
+class Skill
 {
 	CharacterEntity* TheCharacter;
 	CharacterEntity* theTarget;
@@ -16,41 +16,47 @@ private:
 	float ActionPointCost;
 	int Skill_ID;
 	string Skill_name;
-	Position RequiredPosition;
-	Target RequiredTarget;
+	C_Position RequiredPosition;
+	Target RequiredTarget; 
+	STATUSEFFECTS effect;
 protected:
+
 	enum ScaleFactor
 	{
 		Scale_Attack = 1,
 		Scale_Magic,
 
 	};
+	
 
 public:
 	Skill();
 	~Skill();
 	virtual void SkillBehavior(ScaleFactor scalefactor);
+	//virtual void ApplyEffect(STATUSEFFECTS effect);
+	void ApplyEffect(STATUSEFFECTS effect);
 
 	//Sets and Gets AbilityPoint Cost if necessary
 	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }
 	float GetAbilityCost(){ return AbilityPointCost; }
 
+	//Sets and gets the Action Points used if necessary
+	void SetActionCost(float ActionPointcost){ this->ActionPointCost = ActionPointCost; }
+	float GetActionCost(){ return ActionPointCost; }
+
 	//Gets and Sets Multiplier of the Attack necessary
 	void SetMultiplier(float Multiplier){ this->Multiplier = Multiplier; }
 	float GetMultiplier(){ return Multiplier; }
 
-	void SetSkillPosition(Position position){ this->RequiredPosition = position; }
-	Position GetSkillPosition(){ return RequiredPosition; }
+	void SetSkillPosition(C_Position position){ this->RequiredPosition = position; }
+	C_Position GetSkillPosition(){ return RequiredPosition; }
 
 	void SetSkillTarget(Target target){ this->RequiredTarget = target; }
 	Target GetSkillTarget(){ return RequiredTarget; }
-
-
-
 };
 
 
-class OffensiveSkill : protected Skill
+class OffensiveSkill : public Skill
 {
 
 private:
@@ -62,7 +68,7 @@ public:
 	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
 };
 
-class StatusEffectSkill : protected Skill
+class StatusEffectSkill : public Skill
 {
 private:
 	CharacterEntity* Character;

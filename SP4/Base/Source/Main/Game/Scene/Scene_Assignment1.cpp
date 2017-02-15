@@ -2,7 +2,7 @@
 #include "GL\glew.h"
 #include "../Mains/Application.h"
 #include <sstream>
-#include "../Systems/ObjectManager.h"
+//#include "../Systems/ObjectManager.h"
 #include "../Systems/EventSystem.h"
 #include "../../Engine/State/StateList.h"
 
@@ -20,16 +20,30 @@ void Scene_Assignment1::Init()
 {
 	// Init Scene
 	SceneBase::Init();
-	ObjectManager::Instance().WorldHeight = 100.f;
-	ObjectManager::Instance().WorldWidth = ObjectManager::Instance().WorldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
+	
+	//buttonVector.push_back(button);
+	
 	EventSystem::Instance().Init();
+	x, y = 0;
 
 	GameStage = true;
 
 	//Physics Related
 	TimeMultiplier = 1.f;
 	Math::InitRNG();
+
+	button = new Button();
+	button->Init(Vector3(100, 50, 0), Vector3(5,5,1), "HOVER");
+	buttonVector.push_back(button);
+
+	display = new Description();
+	display->Init(Vector3(x, y, 0), Vector3(10, 10, 1), "HOVER");
+	DescriptionVector.push_back(display);
+
+	button2 = new Button();
+	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
+	buttonVector.push_back(button2);
+
 }
 
 void Scene_Assignment1::UpdateCharacterLogic(double dt)
@@ -73,11 +87,68 @@ void Scene_Assignment1::Update(double dt)
 	UpdateCharacterLogic(dt);
 	UpdateInternals(dt);
 	HandleUserInput();
-}
+	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
+	{
+		(*itr)->Update(dt);
+	}
+	for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
+	{
+		(*itr2)->Update(dt);
+	}
 
+}
 
 void Scene_Assignment1::RenderObjects(BaseObject *obj)
 {
+	/*if (obj->Active && obj->Visible && obj->GetEntityID() != "")
+	{
+		std::string Name = obj->GetEntityID();
+		if (Name == "Scavenger")
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
+			RenderMesh(meshList[GEO_SCAVENGER], false);
+			modelStack.PopMatrix();
+		}
+		else if (Name == "Drone")
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
+			RenderMesh(meshList[GEO_DRONE], false);
+			modelStack.PopMatrix();
+		}
+		else if (Name == "Zombie")
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
+			RenderMesh(meshList[GEO_ZOMBIE], false);
+			modelStack.PopMatrix();
+		}
+		else if (Name == "WildLife")
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
+			RenderMesh(meshList[GEO_WILDLIFE], false);
+			modelStack.PopMatrix();
+		}
+		else
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+			modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
+			RenderMesh(meshList[GEO_BULLET], false);
+			modelStack.PopMatrix();
+		}
+	}*/
 }
 
 void Scene_Assignment1::Render()
@@ -85,9 +156,7 @@ void Scene_Assignment1::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	//Calculating aspect ratio
-	ObjectManager::Instance().WorldHeight = 100.f;
-	ObjectManager::Instance().WorldWidth = ObjectManager::Instance().WorldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
+	
 	// Projection matrix : Orthographic Projection
 	Mtx44 projection;
 	projection.SetToOrtho(0, ObjectManager::Instance().WorldWidth, 0, ObjectManager::Instance().WorldHeight, -10, 10);
@@ -111,6 +180,57 @@ void Scene_Assignment1::Render()
 	RenderMesh(meshList[GEO_BACKGROUND], false);
 	modelStack.PopMatrix();
 
+	//for (std::vector<Item *>::iterator it = ObjectManager::Instance().GetItemList().begin(); it != ObjectManager::Instance().GetItemList().end(); ++it)
+	//{
+	//	Item *obj = (Item *)*it;
+	//	if (obj->Active && obj->Visible)
+	//	{
+	//		modelStack.PushMatrix();
+	//		modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+	//		modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+	//		modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
+	//		if (obj->GetEntityID() == "Ammo")
+	//		{
+	//			RenderMesh(meshList[GEO_AMMOPACK], false);
+	//		}
+	//		else if (obj->GetEntityID() == "Health")
+	//		{
+	//			RenderMesh(meshList[GEO_HEALTHPACK], false);
+	//		}
+	//		modelStack.PopMatrix();
+	//	}
+	//}
+
+	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
+	{
+		Button *obj = (Button *)*itr;
+		
+		modelStack.PushMatrix();
+		modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+		modelStack.Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+		if (obj->type == "HOVER")
+		{
+			RenderMesh(meshList[GEO_HOVER], false);
+		}
+		if (obj->type == "ITEM")
+		{
+			RenderMesh(meshList[GEO_HOVER], false);
+		}
+		modelStack.PopMatrix();
+		for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
+		{
+			Description* obj2 = (Description*)*itr2;
+			modelStack.PushMatrix();
+			modelStack.Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/10);
+			modelStack.Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+			if (obj->isitHover() && obj->type == "HOVER" && obj2->type == "HOVER")
+			{
+				RenderMesh(meshList[GEO_DESCRIPTION], false);
+			}
+			modelStack.PopMatrix();
+		}
+ 	}
 
 	//On screen text
 	std::stringstream ss;
@@ -121,7 +241,7 @@ void Scene_Assignment1::HandleUserInput()
 {
 	//Keys Section
 	//Mouse Section
-	double x, y;
+	
 	Application::GetCursorPos(&x, &y);
 	int w = Application::GetWindowWidth();
 	int h = Application::GetWindowHeight();

@@ -3,23 +3,13 @@
 
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
+#include "StatusEffects.h"
+
 using std::vector;
 
 class CharacterEntity : public BaseObject
 {
 protected:
-	enum Position
-	{
-		Position_Front = 1,
-		Position_Middle,
-		Position_Back,
-	};
-	enum Target
-	{
-		Target_Front = 1,
-		Target_Middle,
-		Target_Back,
-	};
 	
 public:
 	CharacterEntity();
@@ -48,8 +38,8 @@ public:
 	void SetLuck(float Luck);
 
 	//Position Stuff
-	Position GetPosition(){ return position; }
-	void SetPosition(Position position){ this->position = position; }
+	C_Position GetPosition(){ return position; }
+	void SetPosition(C_Position position){ this->position = position; }
 
 	void SetDamageMitigation();
 
@@ -67,12 +57,13 @@ private:
 	float Defense;
 	float Magic;
 	float Luck;
-	Position position;
+	C_Position position;
 	//Base Stats End here
 
 	//Final stats
 	float DamageMitigation;
 	
+	//vector<Skill> Skillset;
 };
 
 #endif

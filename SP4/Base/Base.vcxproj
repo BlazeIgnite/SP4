@@ -25,6 +25,8 @@
     <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
@@ -70,6 +72,8 @@
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Player.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\StatusEffects.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />

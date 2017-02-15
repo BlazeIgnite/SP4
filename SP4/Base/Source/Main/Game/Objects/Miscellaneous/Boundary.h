@@ -15,7 +15,7 @@ Defines the basic values of a boundary
 #include "Mtx44.h"
 #include "Projection.h"
 #include "../../../Engine/Objects/BaseObject.h"
-#include "../../Player/Bullet.h"
+//#include "../../Player/Bullet.h"
 
 class Boundary : public BaseObject
 {
@@ -36,7 +36,7 @@ public:
 	virtual bool CheckCollision(const Boundary &object);
 	virtual bool CheckCollision(const Vector3 &point);
 	bool BoundaryCheckBullet(const Vector3& bullet, const Vector3& Position, const float& Radius);
-	bool CheckCollisionLaser(const Vector3 &Pos, const Bullet& bullet, const float& Radius);
+	//bool CheckCollisionLaser(const Vector3 &Pos, const Bullet& bullet, const float& Radius);
 
 	virtual void ResetValues();
 	

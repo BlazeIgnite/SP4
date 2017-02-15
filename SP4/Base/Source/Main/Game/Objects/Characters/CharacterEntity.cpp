@@ -46,6 +46,7 @@ float CharacterEntity::GetLuck()
 	return Luck;
 }
 
+
 void CharacterEntity::SetLevel(int Level)
 {
 	this->Level = Level;
@@ -92,3 +93,4 @@ void CharacterEntity::Init()
 {
 
 }
+

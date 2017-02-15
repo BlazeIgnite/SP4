@@ -96,6 +96,9 @@
     <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main\Engine\System\State\State.h">
@@ -234,6 +237,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\Objects\Characters\StatusEffects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

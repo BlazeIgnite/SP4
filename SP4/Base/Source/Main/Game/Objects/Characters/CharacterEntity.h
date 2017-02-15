@@ -3,6 +3,7 @@
 
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
+
 using std::vector;
 
 class CharacterEntity : public BaseObject
@@ -72,7 +73,7 @@ private:
 
 	//Final stats
 	float DamageMitigation;
-	vector<Skill> Skillset;
+	//vector<Skill> Skillset;
 
 	
 };

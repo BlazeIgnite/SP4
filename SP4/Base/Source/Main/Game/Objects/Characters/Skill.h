@@ -20,6 +20,7 @@ private:
 	Target RequiredTarget; 
 	STATUSEFFECTS effect;
 protected:
+
 	enum ScaleFactor
 	{
 		Scale_Attack = 1,
@@ -33,6 +34,7 @@ public:
 	~Skill();
 	virtual void SkillBehavior(ScaleFactor scalefactor);
 	//virtual void ApplyEffect(STATUSEFFECTS effect);
+	void ApplyEffect(STATUSEFFECTS effect);
 
 	//Sets and Gets AbilityPoint Cost if necessary
 	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }
@@ -51,9 +53,6 @@ public:
 
 	void SetSkillTarget(Target target){ this->RequiredTarget = target; }
 	Target GetSkillTarget(){ return RequiredTarget; }
-
-
-
 };
 
 

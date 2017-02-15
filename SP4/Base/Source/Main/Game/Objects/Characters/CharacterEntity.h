@@ -4,6 +4,7 @@
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
 #include "StatusEffects.h"
+
 using std::vector;
 
 class CharacterEntity : public BaseObject
@@ -63,6 +64,7 @@ private:
 	float DamageMitigation;
 
 	
+	//vector<Skill> Skillset;
 };
 
 #endif

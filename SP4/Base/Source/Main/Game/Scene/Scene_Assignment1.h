@@ -4,14 +4,28 @@
 #include "../../Engine/Objects/BaseObject.h"
 #include <vector>
 #include "SceneBase.h"
+#include "../Miscellaneous/Button.h"
+#include "../Miscellaneous/Description.h"
+
+class Button;
+class Description;
 
 class Scene_Assignment1 : public SceneBase
 {
 private:
 	void RenderObjects(BaseObject *obj);
+	void tempRenderObjects();
 	void UpdateCharacterLogic(double dt);
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
+	Button* button;
+	Button* button2;
+	Description* display;
+
+	std::vector<Button*> buttonVector;
+	std::vector<Description*> DescriptionVector;
+
+	double x, y;
 
 public:
 	Scene_Assignment1();
@@ -30,6 +44,7 @@ protected:
 	//Physics Related
 	float TimeMultiplier;
 	unsigned short StoredIterator = 0;
+
 
 };
 

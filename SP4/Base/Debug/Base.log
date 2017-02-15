@@ -1,50 +1,9 @@
-﻿Build started 15/2/2017 1:01:33 PM.
-     1>Project "D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\Base\Base.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         D:\Program Files (x86)\Visual Studio 2013\VC\bin\CL.exe /c /I"D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\/Base/Source/Main/Engine/Lua" /I"D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\/Common/Source" /I"D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\/glew/include" /I"D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\/glfw/include" /ZI /nologo /W3 /WX- /Od /Oy- /D _VARIADIC_MAX=10 /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Main\Engine\Objects\BaseObject.cpp Source\Main\Engine\State\StateList.cpp Source\Main\Engine\State\StateManager.cpp Source\Main\Engine\System\LuaSystem.cpp Source\Main\Engine\System\RenderSystem.cpp Source\Main\Engine\System\SceneSystem.cpp Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp Source\Main\Game\AI\AIBase.cpp Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.cpp Source\Main\Game\AI\AIBehaviors\AICombined.cpp Source\Main\Game\AI\AIBehaviors\AIDefault.cpp Source\Main\Game\AI\AIStateManager.cpp Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp Source\Main\Game\Objects\Characters\CharacterEntity.cpp Source\Main\Game\Objects\Characters\Skill.cpp Source\Main\Game\Objects\Miscellaneous\Boundary.cpp Source\Main\Game\Objects\Miscellaneous\Projection.cpp Source\Main\Game\Objects\Characters\Warrior.cpp Source\Main\Game\Systems\EventSystem.cpp Source\Main\Game\Systems\ObjectManager.cpp Source\Main\Game\Mains\Application.cpp Source\Main\Game\Miscellaneous\Camera.cpp Source\Main\Game\Mains\main.cpp Source\Main\Game\Miscellaneous\MeshBuilder.cpp Source\Main\Game\Scene\Scene_Assignment1.cpp Source\Main\Game\Scene\SceneBase.cpp
-         SceneBase.cpp
-         Scene_Assignment1.cpp
-         MeshBuilder.cpp
-         main.cpp
-         Camera.cpp
-         Application.cpp
-         ObjectManager.cpp
-         EventSystem.cpp
-         Warrior.cpp
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\game\objects\characters\warrior.h(8): warning C4584: 'Warrior' : base-class 'CharacterEntity' is already a base-class of 'OffensiveSkill'
-                 d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\game\objects\characters\characterentity.h(8) : see declaration of 'CharacterEntity'
-                 d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\game\objects\characters\skill.h(60) : see declaration of 'OffensiveSkill'
-         Projection.cpp
-         Boundary.cpp
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\game\objects\miscellaneous\boundary.h(18): fatal error C1083: Cannot open include file: '../../Player/Bullet.h': No such file or directory
-         Skill.cpp
-         CharacterEntity.cpp
-         AIStatusEffect.cpp
-         AIStateManager.cpp
-         AIDefault.cpp
-         AICombined.cpp
-         AIBuffDebuff.cpp
-         AIBase.cpp
-         AIAllAttack.cpp
-         Generating Code...
-         Compiling...
-         SceneSystem.cpp
-         RenderSystem.cpp
-         LuaSystem.cpp
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\engine\system\luasystem.cpp(26): warning C4244: '=' : conversion from 'lua_Number' to 'int', possible loss of data
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\engine\system\luasystem.cpp(28): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\engine\system\luasystem.cpp(40): warning C4244: 'initializing' : conversion from 'lua_Integer' to 'float', possible loss of data
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\engine\system\luasystem.cpp(58): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 d:\program files (x86)\visual studio 2013\vc\include\stdio.h(356) : see declaration of 'sprintf'
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\engine\system\luasystem.cpp(69): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 d:\program files (x86)\visual studio 2013\vc\include\stdio.h(356) : see declaration of 'sprintf'
-         StateManager.cpp
-         StateList.cpp
-         BaseObject.cpp
-         Generating Code...
-     1>d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\source\main\engine\system\rendersystem.cpp(678): error C4716: 'RenderSystem::ReadTileLayout' : must return a value
-     1>Done Building Project "D:\School stuff\2016S2\DM2295\Solution_Folder\SP4\Base\Base.vcxproj" (Build target(s)) -- FAILED.
+﻿Build started 2/15/2017 1:25:39 PM.
+     1>Project "C:\Users\151131H\Desktop\SP4.1\SP4\Base\Base.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         Base.vcxproj -> C:\Users\151131H\Desktop\SP4.1\SP4\Debug\Base.exe
+     1>Done Building Project "C:\Users\151131H\Desktop\SP4.1\SP4\Base\Base.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:11.33
+Time Elapsed 00:00:00.08

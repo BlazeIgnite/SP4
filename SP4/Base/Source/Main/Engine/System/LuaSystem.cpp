@@ -90,13 +90,35 @@ void LuaSystem::GameSave(int SaveFile)
 	lua_State* lua = LuaSystem::Instance().GetLuaState("Lua//SaveFile.lua");
 	lua_getglobal(lua, "SavePlayerFile");
 	std::string Input = "";
-	Input += ""; // Player Name + "/n" + Player Gold + "/n" + Player furthest stage + "/n" + loop Player crafting item(add item name & count) + "/n" + loop Player Consumable Item(add item name & count) + "/n" + loop Player's Unit List(add Unit type & level)
+	Input += "";
+	// Player Name
+	// Player Tag (1~3)
+	// Player Gold
+	// Player furthest stage
+	// Loop Player crafting item(add item name & count)
+	// Loop Player Consumable Item(add item name & count)
+	// Loop Player's Unit List - Type, Level
 }
+
 void LuaSystem::StageSave()
 {
-
+	// Player Name
+	// Player Tag (1~3)
+	// Collected Gold
+	// Collected Material
+	// Cleared Percent
+	// Units in use - Name, Health, Level, Status Effect, Position
+	// Number of Enemy Killed
 }
+
 void LuaSystem::LoadGame(int SaveFile)
 {
+	// Player Name
+	// Player Tag(1~3)
+	// Player Gold
+	// Player furthest stage
+	// Loop Player crafting item(add item name & count)
+	// Loop Player Consumable Item(add item name & count)
+	// Loop Player's Unit List(add Unit type & level)
 
 }

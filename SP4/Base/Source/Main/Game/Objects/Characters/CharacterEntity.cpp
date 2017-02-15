@@ -1,6 +1,13 @@
 #include "CharacterEntity.h"
 
 
+CharacterEntity::CharacterEntity()
+{
+}
+
+CharacterEntity::~CharacterEntity()
+{
+}
 
 int CharacterEntity::GetLevel()
 {
@@ -78,7 +85,7 @@ void CharacterEntity::SetLuck(float Luck)
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->Damagemitigation = (this->Defense) / ((this->Defense) + 1);
+	this->DamageMitigation = (this->Defense) / ((this->Defense) + 1);
 }
 
 void CharacterEntity::Init()

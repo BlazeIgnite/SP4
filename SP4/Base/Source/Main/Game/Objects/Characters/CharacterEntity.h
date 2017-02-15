@@ -71,25 +71,10 @@ private:
 	//Base Stats End here
 
 	//Final stats
-	float Damagemitigation;
+	float DamageMitigation;
 	vector<Skill> Skillset;
 
 	
 };
-
-CharacterEntity::CharacterEntity()
-{
-}
-
-CharacterEntity::~CharacterEntity()
-{
-}
-
-
-
-
-
-
-
 
 #endif

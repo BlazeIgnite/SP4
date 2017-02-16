@@ -11,7 +11,7 @@ public:
 public:
 	Warrior();
 	~Warrior();
-	virtual void Init(int Level);
+	virtual void Initvalues(int Level);
 	virtual void Levelup();
 	void Update(double dt);
 };

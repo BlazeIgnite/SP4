@@ -125,7 +125,15 @@ std::vector<CharacterEntity*>& Player::GetClassUnitList(std::string& Name)
 {
 	return this->UnitList.find(Name)->second;
 }
+<<<<<<< HEAD
 std::map<std::string, unsigned int>& Player::GetConsumableList()
+=======
+std::vector<CharacterEntity*> Player::GetClassUnitList(std::string Name)
+{
+	return this->UnitList.find(Name)->second;
+}
+std::map<std::string, unsigned int> Player::GetConsumableList()
+>>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
 {
 	return this->ConsumableList;
 }
@@ -141,15 +149,39 @@ void Player::AddGold(int& AdditionalGold)
 }
 void Player::AddCharacter(std::string Name, CharacterEntity* newCharacter)
 {
+<<<<<<< HEAD
 	this->UnitList.find(Name)->second.push_back(newCharacter);
 
 	//UnitList.insert(std::pair<std::string, CharacterEntity* >(Name, newCharacter));
+=======
+	std::map<string, std::vector<CharacterEntity*>>::iterator itr = UnitList.find(Name);
+	if (itr == UnitList.end())
+	{
+		std::vector < CharacterEntity* > emptyCharacterEntity;
+		emptyCharacterEntity.push_back(newCharacter);
+		UnitList[Name] = emptyCharacterEntity;
+		//UnitList[Name].push_back(newCharacter);
+		//UnitList.insert(std::pair <string, std::vector<CharacterEntity*>>(Name, newCharacter));
+	}
+	else
+		this->UnitList.find(Name)->second.push_back(newCharacter);
+>>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
 }
 void Player::AddConsumableItem(std::string Name, int Amount)
 {
+	std::map<string, unsigned int>::iterator itr = ConsumableList.find(Name);
+	if (itr == ConsumableList.end())
+	{
+		ConsumableList[Name] = Amount;
+	}
 	this->ConsumableList.find(Name)->second += Amount;
 }
 void Player::AddMaterialItem(std::string Name, int Amount)
 {
+	std::map<string, unsigned int>::iterator itr = MaterialList.find(Name);
+	if (itr == ConsumableList.end())
+	{
+		MaterialList[Name] = Amount;
+	}
 	this->MaterialList.find(Name)->second += Amount;
 }

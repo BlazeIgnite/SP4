@@ -27,11 +27,19 @@ public:
 	unsigned int GetPlayerID();
 	unsigned int GetPlayerGold();
 	unsigned int GetPlayerStageCount();
+<<<<<<< HEAD
 
 	std::map<std::string, std::vector<CharacterEntity*>>& GetAllUnitList();
 	std::vector<CharacterEntity*>& GetClassUnitList(std::string&);
 	std::map<std::string, unsigned int>& GetConsumableList();
 	std::map<std::string, unsigned int>& GetMaterialList();
+=======
+	std::map<std::string, std::vector<CharacterEntity*>> GetAllUnitList();
+	std::vector<CharacterEntity*> GetClassUnitList(std::string&);
+	std::vector<CharacterEntity*> GetClassUnitList(std::string);
+	std::map<std::string, unsigned int> GetConsumableList();
+	std::map<std::string, unsigned int> GetMaterialList();
+>>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
 
 	void AddGold(int&);
 	void AddCharacter(std::string, CharacterEntity*);
@@ -62,5 +70,4 @@ private:
 
 	CharacterEntity* warrior;
 };
-
 #endif

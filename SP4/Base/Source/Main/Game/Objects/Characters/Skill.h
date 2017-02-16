@@ -90,7 +90,7 @@ public:
 	~RecoverSkill();
 	inline void SetCharacter(CharacterEntity* Character){ this->Character = Character; }
 	inline void SetTarget(CharacterEntity* Target){ this->Thetarget = Target; }
-	virtual void SkillBehavior(float DamageMitigation);
+	virtual void SkillBehavior();
 	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
 };
 #endif

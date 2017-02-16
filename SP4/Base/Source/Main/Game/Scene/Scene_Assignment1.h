@@ -7,6 +7,10 @@
 #include "../Miscellaneous/Button.h"
 #include "../Miscellaneous/Description.h"
 #include "../Objects/Characters/Warrior.h"
+<<<<<<< HEAD
+=======
+#include "../AI/AIBehaviors/AIDefault.h"
+>>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
 #include "../Objects/Characters/Player.h"
 
 class Button;
@@ -23,8 +27,10 @@ private:
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
 	Button* button;
 	Button* button2;
-	Warrior* warrior1;
-	Warrior* warrior2;
+	Player* player;
+	AIBase* AI;
+	//Warrior* warrior1;
+	//Warrior* warrior2;
 	Description* display;
 
 	Player* player;

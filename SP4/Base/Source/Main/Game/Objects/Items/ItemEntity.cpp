@@ -40,8 +40,16 @@ void ItemEntity::Use(std::string Item, CharacterEntity* Character)
 	{
 		if (GetAmount() > 0)
 		{
-			Character->SetHealth(comsumables->UseRedPot(Character->GetHealth()));
+			Character->SetHealth(comsumables->UseHealthPot(Character->GetHealth()));
 			Amount--;
 		}
 	}
 }
+
+//void ItemEntity::Combine(std::string one, std::string two, std::string three, std::string four, std::string five)
+//{
+//	if (one == "Red Herb" && two == "Reb Herb" && three == "Empty Bottle" && four == "" && five == "")
+//	{
+//		
+//	}
+//}

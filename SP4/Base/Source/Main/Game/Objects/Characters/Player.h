@@ -6,6 +6,7 @@
 
 #include "CharacterEntity.h"
 #include "../Items/ItemEntity.h"
+#include "Warrior.h"
 
 class Player
 {
@@ -36,9 +37,9 @@ private:
 	unsigned int PlayerID;
 	unsigned int PlayerGold;
 	unsigned int FurthestStageCount;
-	std::vector<CharacterEntity> UnitList;
-	std::vector<ItemEntity> ConsumableList;
-	std::vector<ItemEntity> MaterialList;
+	std::vector<CharacterEntity*> UnitList;
+	std::vector<ItemEntity*> ConsumableList;
+	std::vector<ItemEntity*> MaterialList;
 
 	ItemEntity* HealthPotion;
 	ItemEntity* ManaPotion;
@@ -46,6 +47,8 @@ private:
 	ItemEntity* HolyWater;
 	ItemEntity* AtkPotion;
 	ItemEntity* DefPotion;
+	CharacterEntity* warrior;
+	Warrior* warrior_stats;
 };
 
 Player::Player()
@@ -58,6 +61,10 @@ Player::~Player()
 
 void Player::Init()
 {
+	warrior = new Warrior();
+	AddCharacter(warrior);
+	UnitList.push_back(warrior);
+
 	HealthPotion =  new ItemEntity();
 	HealthPotion->SetName("HealthPotion");
 	HealthPotion->SetAmount(0);
@@ -129,7 +136,7 @@ void Player::AddGold(int& AdditionalGold)
 }
 void Player::AddCharacter(CharacterEntity* newCharacter)
 {
-	this->UnitList.push_back(*newCharacter);
+	this->UnitList.push_back(newCharacter);
 }
 void Player::AddConsumableItem(ItemEntity* newConsumable)
 {

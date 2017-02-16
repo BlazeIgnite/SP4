@@ -18,7 +18,7 @@ void Consumables::Update(double dt)
 
 }
 
-int Consumables::UseRedPot(int HP)
+int Consumables::UseHealthPot(int HP)
 {
 	HP += 30;
 	if (HP >= 100)

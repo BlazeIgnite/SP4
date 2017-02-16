@@ -3,17 +3,20 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
+#include "../../Base/Source/Main/Engine/Internal/SingletonTemplate.h"
 #include "CharacterEntity.h"
 #include "../Items/ItemEntity.h"
+#include "Warrior.h"
 
-class Player
+class Player : public SingletonTemplate<Player>
 {
 public:
 	Player();
 	~Player();
 
-	void Init();
+	void Init(const unsigned int&);
 
 	void SetPlayerName(const std::string&);
 	void SetPlayerID(const unsigned int&);
@@ -24,21 +27,29 @@ public:
 	unsigned int GetPlayerID();
 	unsigned int GetPlayerGold();
 	unsigned int GetPlayerStageCount();
-	std::vector<CharacterEntity*> GetUnitList();
+	std::map<std::string, std::vector<CharacterEntity*>> GetAllUnitList();
+	std::vector<CharacterEntity*> GetClassUnitList(std::string&);
+	std::map<std::string, unsigned int> GetConsumableList();
+	std::map<std::string, unsigned int> GetMaterialList();
 
 	void AddGold(int&);
-	void AddCharacter(CharacterEntity*);
-	void AddConsumableItem(ItemEntity*);
-	void AddMaterialItem(ItemEntity*);
+	void AddCharacter(std::string, CharacterEntity*);
+	void AddConsumableItem(std::string, int);
+	void AddMaterialItem(std::string, int);
 
 private:
 	std::string PlayerName;
 	unsigned int PlayerID;
 	unsigned int PlayerGold;
 	unsigned int FurthestStageCount;
-	std::vector<CharacterEntity> UnitList;
-	std::vector<ItemEntity> ConsumableList;
-	std::vector<ItemEntity> MaterialList;
+
+	std::vector<CharacterEntity*> UnitList;
+	std::vector<ItemEntity*> ConsumableList;
+	std::vector<ItemEntity*> MaterialList;
+
+	std::map<std::string, std::vector<CharacterEntity*>> UnitList;
+	std::map<std::string, unsigned int> ConsumableList;
+	std::map<std::string, unsigned int> MaterialList;
 
 	ItemEntity* HealthPotion;
 	ItemEntity* ManaPotion;
@@ -46,6 +57,8 @@ private:
 	ItemEntity* HolyWater;
 	ItemEntity* AtkPotion;
 	ItemEntity* DefPotion;
+	CharacterEntity* warrior;
+	Warrior* warrior_stats;
 };
 
 Player::Player()
@@ -56,26 +69,41 @@ Player::~Player()
 {
 }
 
-void Player::Init()
+void Player::Init(const unsigned int&)
 {
+	/*warrior = new Warrior();
+	AddCharacter(warrior);
+	UnitList.push_back(warrior);
+
 	HealthPotion =  new ItemEntity();
 	HealthPotion->SetName("HealthPotion");
 	HealthPotion->SetAmount(0);
+	AddConsumableItem(HealthPotion);
+
 	ManaPotion = new ItemEntity();
 	ManaPotion->SetName("ManaPotion");
 	ManaPotion->SetAmount(0);
+	AddConsumableItem(ManaPotion);
+
 	Bandage = new ItemEntity();
 	Bandage->SetName("Bandage");
 	Bandage->SetAmount(0);
+	AddConsumableItem(Bandage);
+
 	HolyWater = new ItemEntity();
 	HolyWater->SetName("HolyWater");
 	HolyWater->SetAmount(0);
+	AddConsumableItem(HolyWater);
+
 	AtkPotion = new ItemEntity();
 	AtkPotion->SetName("AtkPotion");
 	AtkPotion->SetAmount(0);
+	AddConsumableItem(AtkPotion);
+
 	DefPotion = new ItemEntity();
 	DefPotion->SetName("DefPotion");
 	DefPotion->SetAmount(0);
+	AddConsumableItem(DefPotion);*/
 }
 
 void Player::SetPlayerName(const std::string& newName)
@@ -116,18 +144,17 @@ void Player::AddGold(int& AdditionalGold)
 {
 	this->PlayerGold += AdditionalGold;
 }
-void Player::AddCharacter(CharacterEntity* newCharacter)
+void Player::AddCharacter(std::string name, CharacterEntity* newCharacter)
 {
-	this->UnitList.push_back(*newCharacter);
+	//this->UnitList.push_back(newCharacter);
 }
-void Player::AddConsumableItem(ItemEntity* newConsumable)
+void Player::AddConsumableItem(std::string name, int value)
 {
-	this->ConsumableList.push_back(*newConsumable);
+	//this->ConsumableList.push_back(*newConsumable);
 }
-void Player::AddMaterialItem(ItemEntity* newItem)
+void Player::AddMaterialItem(std::string name, int value)
 {
-	this->MaterialList.push_back(*newItem);
+	//this->MaterialList.push_back(*newItem);
 }
-
 
 #endif

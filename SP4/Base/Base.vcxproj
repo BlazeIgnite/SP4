@@ -15,6 +15,7 @@
     <ClCompile Include="Source\Main\Engine\Objects\BaseObject.cpp" />
     <ClCompile Include="Source\Main\Engine\State\StateList.cpp" />
     <ClCompile Include="Source\Main\Engine\State\StateManager.cpp" />
+    <ClCompile Include="Source\Main\Engine\System\InputManager.cpp" />
     <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\SceneSystem.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Items\Consumables.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Items\Resource.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
@@ -65,6 +67,7 @@
     <ClInclude Include="Main\Engine\System\Internal\Entity.h" />
     <ClInclude Include="Main\Engine\System\Internal\SingletonTemplate.h" />
     <ClInclude Include="Main\Engine\System\Internal\System.h" />
+    <ClInclude Include="Source\Main\Engine\System\InputManager.h" />
     <ClInclude Include="Source\Main\Engine\System\LuaSystem.h" />
     <ClInclude Include="Source\Main\Engine\System\RenderSystem.h" />
     <ClInclude Include="Source\Main\Engine\System\SceneSystem.h" />
@@ -89,6 +92,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Items\Resource.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />

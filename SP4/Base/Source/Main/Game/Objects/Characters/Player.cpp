@@ -61,7 +61,7 @@ void Player::Update(double dt)
 {
 	std::string temp = "Warrior";
 
-	std::cout << warrior->GetHealth() << std::endl;
+	//std::cout << warrior->GetHealth() << std::endl;
 
 	if (Application::IsKeyPressed('Y'))
 	{

@@ -7,6 +7,7 @@
 #include "../../Engine/State/StateList.h"
 #include "../Objects/Characters/CharacterDatabase.h"
 #include "../Systems/BattleSystem.h"
+#include "../Audio/Audio_Player.h"
 
 static bool MessageBoardActive = false;
 
@@ -37,14 +38,23 @@ void Scene_Assignment1::Init()
 
 	Warrior* warrior = new Warrior();
 	Warrior* warrior1 = new Warrior();
+
+	warrior->Init(2);
+	warrior1->Init(1);
+
 	player = new Player();
 	AI = new AIDefault();
-
+	AI->Init();
+	//bs = new BattleSystem();
+	//bs->Init();
 	player->AddCharacter("Warrior", warrior);
 	AI->AddTroop("Warrior", warrior1);
+	BattleSystem::Instance().Init();
+	BattleSystem::Instance().SetPlayerTroops(0, *(player->GetClassUnitList("Warrior").begin()));
+	BattleSystem::Instance().SetAITroops(0, *(AI->GetClassAIList("Warrior").begin()));
 
-	BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
-	BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
+	//BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
+	//BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
 
 	button = new Button();
 	button->Init(Vector3(100, 50, 0), Vector3(5,5,1), "HOVER");
@@ -57,16 +67,17 @@ void Scene_Assignment1::Init()
 	button2 = new Button();
 	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
-	warrior1 = new Warrior();
+	//warrior1 = new Warrior();
 
-	player = new Player();
-	player->Init(1);
-	warrior1->Init(112);
+	//player = new Player();
+	//player->Init(1);
+	//warrior1->Init(112);
 
-	warrior = new Warrior();
-	warrior->Init(1);
-	warrior->skill_1->SetTarget(warrior1);
+	//warrior = new Warrior();
+	//warrior->Init(1);
+	//warrior->skill_1->SetTarget(warrior1);
 	
+	AudioPlayer::Instance().PlayMusic("BGM");
 }
 
 void Scene_Assignment1::UpdateCharacterLogic(double dt)
@@ -111,6 +122,7 @@ void Scene_Assignment1::Update(double dt)
 	UpdateInternals(dt);
 	HandleUserInput();
 	player->Update(dt);
+	AI->Update(dt);
 	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
 	{
 		(*itr)->Update(dt);
@@ -326,6 +338,8 @@ void Scene_Assignment1::HandleUserInput()
 	static bool EButtonState = false;
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
+		if (BattleSystem::Instance().GetPlayerTurn())
+			BattleSystem::Instance().DamageCalculation(BattleSystem::Instance().GetPlayerTroopAttacking(0), 0);
 		EButtonState = true;
 	}
 	else if (EButtonState && !Application::IsKeyPressed('E'))
@@ -333,14 +347,18 @@ void Scene_Assignment1::HandleUserInput()
 		EButtonState = false;
 	}
 
-	if (Application::IsKeyPressed(VK_LBUTTON))
+	static bool LMouse = false;
+	if (!LMouse && Application::IsKeyPressed(VK_LBUTTON))
 	{
-		MessageBoardActive = true;
+		LMouse = true;
 	}
-	else if (Application::IsKeyPressed(VK_RBUTTON))
+	else if (LMouse && Application::IsKeyPressed(VK_LBUTTON))
 	{
-		MessageBoardActive = false;
+		LMouse = false;
 	}
+	//if (Application::IsKeyPressed(VK_RBUTTON))
+	//{
+	//}
 }
 
 void Scene_Assignment1::Exit()

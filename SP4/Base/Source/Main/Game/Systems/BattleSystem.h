@@ -30,12 +30,17 @@ public:
 	void SetPlayerTroops(size_t position, CharacterEntity* Troop);
 	void SetAITroops(size_t position, CharacterEntity* Troop);
 
+	CharacterEntity* GetPlayerTroopAttacking(size_t position);
+	CharacterEntity* GetAITroopAttacking(size_t position);
 	// Getters
 	bool GetPlayerTurn();
 	float GetTurnCost();
 
-	void SetStatusEffect(CharacterEntity* Attacker, Target target);
-	void DamageCalculation(CharacterEntity* Attacker, Target target);
+	// Damage Calculations all here
+	void DamageCalculation(CharacterEntity* Attacker, int target);
+
+	// Status Effect Calculations all here
+	void SetStatusEffect(CharacterEntity* Attacker, int target);
 
 };
 

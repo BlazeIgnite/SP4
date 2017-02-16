@@ -64,14 +64,8 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	AITroops.find(position)->second = Troop;
 }
 
-void BattleSystem::DamageCalculation(CharacterEntity* Attacker, Target target)
+void BattleSystem::DamageCalculation(CharacterEntity* Attacker, int target)
 {
-	/*
-	map<string, CharacterEntity*>::iterator itrPlayer = player->GetAllUnitList().begin();
-	map<string, CharacterEntity*>::iterator itrAI = AI->GetAIList().begin();  
-	*/ 
-
-
 	if (PlayerTurn)
 	{
 		CharacterEntity* TargetTroop = AITroops.find(target)->second;
@@ -87,28 +81,61 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, Target target)
 				break;
 			}
 		}*/
-		//SetPlayerTurn(false);
+
+		// Debugging
+		cout << "---------------------------------------------" << endl;
+		cout << "Player Troops" << endl;
+		for (int i = 0; i < PlayerTroops.size(); i++)
+		{
+			cout << "Troop position : " << i << " HP : " << PlayerTroops.find(i)->second->GetHealth() << endl;
+		}
+		cout << "AI Troops" << endl;
+		for (int i = 0; i < AITroops.size(); i++)
+		{
+			cout << "Troop position : " << i << " HP : " << AITroops.find(i)->second->GetHealth() << endl;
+		}
+		cout << "---------------------------------------------" << endl;
+
+		if (TargetTroop->GetHealth() < 0)
+			cout << "TROOP DOWN YO!" << endl;
+		SetPlayerTurn(false);
 	}
 	else
 	{
 		CharacterEntity* TargetTroop = PlayerTroops.find(target)->second;
 		TargetTroop->SetHealth(TargetTroop->GetHealth() - Attacker->GetAttack());
-		/*vector<CharacterEntity*>::iterator itrPlayer = player->GetClassUnitList(Attacker).begin();
-		for (; itrPlayer != player->GetUnitList().end(); itrPlayer++)
+
+		// Debugging
+		cout << "---------------------------------------------" << endl;
+		cout << "Player Troops" << endl;
+		for (int i = 0; i < PlayerTroops.size(); i++)
 		{
-			if ((*itrPlayer)->GetPosition() == target)
-			{
-				(*itrPlayer)->SetHealth((*itrPlayer)->GetHealth() - Attacker->GetAttack());
-				if ((*itrPlayer)->GetHealth() < 0)
-					(*itrPlayer)->SetDefeated(true);
-				break;
-			}
-		}*/
-		//SetPlayerTurn(true);
+			cout << "Troop position : " << i << " HP : " << PlayerTroops.find(i)->second->GetHealth() << endl;
+		}
+		cout << "AI Troops" << endl;
+		for (int i = 0; i < AITroops.size(); i++)
+		{
+			cout << "Troop position : " << i << " HP : " << AITroops.find(i)->second->GetHealth() << endl;
+		}
+		cout << "---------------------------------------------" << endl;
+
+		if (TargetTroop->GetHealth() < 0)
+			cout << "TROOP DOWN YO!" << endl;
+		SetPlayerTurn(true);
 	}
 }
 
-void BattleSystem::SetStatusEffect(CharacterEntity* Attacker, Target target)
+void BattleSystem::SetStatusEffect(CharacterEntity* Attacker, int target)
 {
 	
+}
+
+CharacterEntity* BattleSystem::GetPlayerTroopAttacking(size_t position)
+{
+	return PlayerTroops.find(position)->second;
+}
+
+CharacterEntity* BattleSystem::GetAITroopAttacking(size_t position)
+{
+	return AITroops.find(position)->second;
 }

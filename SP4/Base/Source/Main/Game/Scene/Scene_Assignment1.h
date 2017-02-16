@@ -9,6 +9,7 @@
 #include "../Objects/Characters/Warrior.h"
 #include "../AI/AIBehaviors/AIDefault.h"
 #include "../Objects/Characters/Player.h"
+#include "../Systems/BattleSystem.h"
 
 class Button;
 class Description;
@@ -26,6 +27,7 @@ private:
 	Button* button2;
 	Player* player;
 	AIBase* AI;
+	//BattleSystem* bs;
 	//Warrior* warrior1;
 	//Warrior* warrior2;
 	Description* display;

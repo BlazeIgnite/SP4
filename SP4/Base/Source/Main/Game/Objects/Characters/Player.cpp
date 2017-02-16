@@ -16,23 +16,34 @@ void Player::Init(const unsigned int& PlayerTag)
 	HealthPotion = new ItemEntity();
 	HealthPotion->SetName("HealthPotion");
 	HealthPotion->SetAmount(0);
+
 	ManaPotion = new ItemEntity();
 	ManaPotion->SetName("ManaPotion");
 	ManaPotion->SetAmount(0);
+
 	Bandage = new ItemEntity();
 	Bandage->SetName("Bandage");
 	Bandage->SetAmount(0);
+
 	HolyWater = new ItemEntity();
 	HolyWater->SetName("HolyWater");
 	HolyWater->SetAmount(0);
+
 	AtkPotion = new ItemEntity();
 	AtkPotion->SetName("AtkPotion");
 	AtkPotion->SetAmount(0);
+
 	DefPotion = new ItemEntity();
 	DefPotion->SetName("DefPotion");
 	DefPotion->SetAmount(0);
+
+	warrior = new Warrior();
+	warrior->Init(1);
+	AddCharacter("ChiBai", warrior);
+
 }
 
+//Player Setter
 void Player::SetPlayerName(const std::string& newName)
 {
 	this->PlayerName = newName;
@@ -50,7 +61,7 @@ void Player::SetPlayerStageCount(const unsigned int& newFurthestStageCount)
 	this->FurthestStageCount = newFurthestStageCount;
 }
 
-
+//Player Getter
 std::string Player::GetPlayerName()
 {
 	return this->PlayerName;
@@ -68,8 +79,7 @@ unsigned int Player::GetPlayerStageCount()
 	return this->FurthestStageCount;
 }
 
-
-
+//List Getter
 std::map<std::string, std::vector<CharacterEntity*>> Player::GetAllUnitList()
 {
 	return this->UnitList;
@@ -87,7 +97,7 @@ std::map<std::string, unsigned int> Player::GetMaterialList()
 	return this->MaterialList;
 }
 
-
+//Add
 void Player::AddGold(int& AdditionalGold)
 {
 	this->PlayerGold += AdditionalGold;

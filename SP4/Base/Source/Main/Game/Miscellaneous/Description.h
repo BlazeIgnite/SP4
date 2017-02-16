@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../Mains/Application.h"
-#include "../Scene/Scene_Assignment1.h"
+#include "Vector3.h"
 #include "Button.h"
 #include <iostream>
 

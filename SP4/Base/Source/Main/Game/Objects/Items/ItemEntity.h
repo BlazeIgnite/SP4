@@ -18,11 +18,10 @@ public:
 	unsigned int GetAmount();
 	std::string GetName();
 	void AddAmount(int&);
-	void Use(std::string Class, CharacterEntity* Character);
-	void Combine(std::string one, std::string two, std::string three, std::string four, std::string five);
+	void Use(std::string Item, CharacterEntity* Character);
+
+
 	Consumables* comsumables;
-
-
 private:
 	std::string Name;
 	unsigned int Amount;

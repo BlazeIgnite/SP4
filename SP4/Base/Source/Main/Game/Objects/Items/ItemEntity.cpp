@@ -36,6 +36,7 @@ void ItemEntity::AddAmount(int& AdditionalAmount)
 
 void ItemEntity::Use(std::string Item, CharacterEntity* Character)
 {
+	
 	if (Name == Item)
 	{
 		if (GetAmount() > 0)

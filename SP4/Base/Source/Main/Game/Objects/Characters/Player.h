@@ -17,7 +17,7 @@ public:
 	~Player();
 
 	void Init(const unsigned int&);
-
+	void Update(double dt);
 	void SetPlayerName(const std::string&);
 	void SetPlayerID(const unsigned int&);
 	void SetPlayerGold(const unsigned int&);
@@ -27,10 +27,11 @@ public:
 	unsigned int GetPlayerID();
 	unsigned int GetPlayerGold();
 	unsigned int GetPlayerStageCount();
-	std::map<std::string, std::vector<CharacterEntity*>> GetAllUnitList();
-	std::vector<CharacterEntity*> GetClassUnitList(std::string&);
-	std::map<std::string, unsigned int> GetConsumableList();
-	std::map<std::string, unsigned int> GetMaterialList();
+
+	std::map<std::string, std::vector<CharacterEntity*>>& GetAllUnitList();
+	std::vector<CharacterEntity*>& GetClassUnitList(std::string&);
+	std::map<std::string, unsigned int>& GetConsumableList();
+	std::map<std::string, unsigned int>& GetMaterialList();
 
 	void AddGold(int&);
 	void AddCharacter(std::string, CharacterEntity*);
@@ -50,9 +51,14 @@ private:
 	ItemEntity* HealthPotion;
 	ItemEntity* ManaPotion;
 	ItemEntity* Bandage;
-	ItemEntity* HolyWater;
 	ItemEntity* AtkPotion;
 	ItemEntity* DefPotion;
+
+	ItemEntity* RedHerb;
+	ItemEntity* BlueHerb;
+	ItemEntity* WhiteHerb;
+
+	bool Pressed = false;
 
 	CharacterEntity* warrior;
 };

@@ -7,6 +7,7 @@
 #include "../Miscellaneous/Button.h"
 #include "../Miscellaneous/Description.h"
 #include "../Objects/Characters/Warrior.h"
+#include "../Objects/Characters/Player.h"
 
 class Button;
 class Description;
@@ -25,6 +26,8 @@ private:
 	Warrior* warrior1;
 	Warrior* warrior2;
 	Description* display;
+
+	Player* player;
 
 	std::vector<Button*> buttonVector;
 	std::vector<Description*> DescriptionVector;

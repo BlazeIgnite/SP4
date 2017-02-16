@@ -51,6 +51,9 @@ void Scene_Assignment1::Init()
 	warrior1 = new Warrior();
 	warrior1->Init(1);
 	warrior1->skill_1->SetTarget(warrior2);
+
+	player = new Player();
+	player->Init(1);
 	
 }
 
@@ -95,6 +98,7 @@ void Scene_Assignment1::Update(double dt)
 	UpdateCharacterLogic(dt);
 	UpdateInternals(dt);
 	HandleUserInput();
+	player->Update(dt);
 	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
 	{
 		(*itr)->Update(dt);

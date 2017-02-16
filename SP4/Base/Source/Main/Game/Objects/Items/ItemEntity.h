@@ -19,12 +19,14 @@ public:
 	std::string GetName();
 	void AddAmount(int&);
 	void Use(std::string Item, CharacterEntity* Character);
+	Consumables* consumables;
 
 
-	Consumables* comsumables;
+
 private:
 	std::string Name;
 	unsigned int Amount;
+	void UseConsumableItem(std::string, unsigned int);
 };
 
 #endif

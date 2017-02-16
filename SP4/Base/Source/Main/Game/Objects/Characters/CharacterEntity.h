@@ -47,6 +47,7 @@ public:
 	float GetDamageMitigation(){ return DamageMitigation; }
 
 	virtual void Init(int Level);
+	virtual void Update(double dt);
 
 
 private:

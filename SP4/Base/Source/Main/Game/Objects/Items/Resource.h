@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <string>
 
 class Resource
@@ -9,6 +10,6 @@ public:
 	~Resource();
 
 	void Init();
-	void Update(double dt);
+	//void Update(double dt);
 };
 

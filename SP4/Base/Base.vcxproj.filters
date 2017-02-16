@@ -114,11 +114,12 @@
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Priest.cpp">
     <ClCompile Include="Source\Main\Game\Objects\Items\Resource.cpp">
-=======
     <ClCompile Include="Source\Main\Engine\System\InputManager.cpp">
->>>>>>> 571eb59345cb698d694d8bdbbfe54bf61029924d
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -283,10 +284,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
 <<<<<<< HEAD
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Priest.h">
     <ClInclude Include="Source\Main\Game\Objects\Items\Resource.h">
-=======
     <ClInclude Include="Source\Main\Engine\System\InputManager.h">
->>>>>>> 571eb59345cb698d694d8bdbbfe54bf61029924d
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

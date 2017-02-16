@@ -25,6 +25,7 @@ public:
 	float GetDefense(){ return Defense; }
 	float GetMagic(){ return Magic; }
 	float GetLuck(){ return Luck; }
+	bool GetDefeated() { return Defeated; }
 
 	//Setters
 	void SetLevel(int Level);
@@ -36,6 +37,7 @@ public:
 	void SetDefense(float Defense);
 	void SetMagic(float Magic);
 	void SetLuck(float Luck);
+	void SetDefeated(bool Defeated);
 
 	virtual void Levelup(){};
 
@@ -51,22 +53,24 @@ public:
 
 private:
 	//Character's Base stats
+	C_Position position;
 	int	Level;
-	float Health;
-	float MaxHealth;
 	int AbilityPoints;
 	int MaxAbilityPoints;
+	float Health;
+	float MaxHealth;
 	float Attack;
 	float Defense;
 	float Magic;
 	float Luck;
-	C_Position position;
 	//Base Stats End here
 
 	int ID;
 
 	//Final stats
 	float DamageMitigation;
+	
+	bool Defeated;
 	
 	//vector<Skill> Skillset;
 };

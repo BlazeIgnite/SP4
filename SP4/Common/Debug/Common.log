@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Build started 2/16/2017 1:50:58 PM.
      1>Project "C:\Users\150503N\Desktop\SP4\SP4\Common\Common.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -32,3 +33,10 @@
 Build succeeded.
 
 Time Elapsed 00:00:05.44
+=======
+﻿Build started 2/16/2017 2:00:10 PM.
+
+Build succeeded.
+
+Time Elapsed 00:00:00.01
+>>>>>>> 1bcc236017404a0c695925ec1ab9346f3d7d5e23

@@ -8,7 +8,7 @@ class Mage : public CharacterEntity, protected OffensiveSkill
 public:
 	Mage();
 	~Mage();
-	virtual void Init(int Level);
+	virtual void Initvalues(int Level);
 	virtual void Levelup();
 	void Update(double dt); 
 	OffensiveSkill* skill_1;

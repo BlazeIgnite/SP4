@@ -1,7 +1,7 @@
 #include "CharacterEntity.h"
 
 
-CharacterEntity::CharacterEntity() : Level(0), Health(0), MaxHealth(0), AbilityPoints(0), MaxAbilityPoints(0), Attack(0), Defense(0), Magic(0), Luck(0), position(Position_Front), DamageMitigation(0)
+CharacterEntity::CharacterEntity() : Level(0), Health(0), MaxHealth(0), AbilityPoints(0), MaxAbilityPoints(0), Attack(0), Defense(0), Magic(0), Luck(0), position(Position_Front), DamageMitigation(0), ID(0)
 {
 }
 
@@ -18,7 +18,7 @@ void CharacterEntity::SetHealth(float Health)
 	this->Health = Health;
 }
 void CharacterEntity::SetMaxHealth(float MaxHealth)
-{
+{ 
 	this->MaxHealth = MaxHealth;
 }
 void CharacterEntity::SetAbilityPoints(int AbilityPoints)
@@ -48,10 +48,10 @@ void CharacterEntity::SetLuck(float Luck)
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->DamageMitigation = (this->Defense / ((this->Defense) + 1));
+	this->DamageMitigation =(0.06 * Defense) / (1 + 0.06*this->Defense);
 }
 
-void CharacterEntity::Init(int Level)
+void CharacterEntity::Initvalues(int Level)
 {
 	SetDamageMitigation();
 }

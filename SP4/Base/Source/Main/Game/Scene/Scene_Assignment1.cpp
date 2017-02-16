@@ -46,10 +46,10 @@ void Scene_Assignment1::Init()
 	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
 	warrior2 = new Warrior();
-	warrior2->Init(21);
+	warrior2->Initvalues(112);
 
 	warrior1 = new Warrior();
-	warrior1->Init(1);
+	warrior1->Initvalues(1);
 	warrior1->skill_1->SetTarget(warrior2);
 	
 }
@@ -107,6 +107,11 @@ void Scene_Assignment1::Update(double dt)
 	{
 		warrior1->skill_1->SkillBehavior(warrior2->GetDamageMitigation());
 		warrior2->Update(dt);
+	}
+	if (Application::IsKeyPressed('D'))
+	{
+		warrior1->Levelup();
+		warrior1->Update(dt);
 	}
 	
 }

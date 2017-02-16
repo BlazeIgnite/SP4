@@ -106,7 +106,7 @@ RecoverSkill::~RecoverSkill()
 
 }
 
-void RecoverSkill::SkillBehavior(float Damagemitigation)
+void RecoverSkill::SkillBehavior()
 {
 	if (Character == nullptr || Thetarget == nullptr)
 	{
@@ -128,7 +128,6 @@ void RecoverSkill::SkillBehavior(float Damagemitigation)
 			if (Thetarget->GetPosition() == GetSkillTarget())
 			{
 				FinalDamagevalue = FinalDamagevalue * this->GetMultiplier();
-				FinalDamagevalue = FinalDamagevalue * (1.f - Damagemitigation);
 				float Targetfinalhealth = Thetarget->GetHealth();
 				Targetfinalhealth -= FinalDamagevalue;
 				Thetarget->SetHealth(Targetfinalhealth);

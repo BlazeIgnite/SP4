@@ -42,11 +42,11 @@ public:
 	//Position Stuff
 	C_Position GetPosition(){ return position; }
 	void SetPosition(C_Position position){ this->position = position; }
-
+	//This sets the Damage Mitigation for every level
 	void SetDamageMitigation();
 	float GetDamageMitigation(){ return DamageMitigation; }
 
-	virtual void Init(int Level);
+	virtual void Initvalues(int Level);
 
 
 private:
@@ -62,6 +62,8 @@ private:
 	float Luck;
 	C_Position position;
 	//Base Stats End here
+
+	int ID;
 
 	//Final stats
 	float DamageMitigation;

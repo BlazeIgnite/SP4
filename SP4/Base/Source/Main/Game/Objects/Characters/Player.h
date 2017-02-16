@@ -61,21 +61,32 @@ void Player::Init()
 	HealthPotion =  new ItemEntity();
 	HealthPotion->SetName("HealthPotion");
 	HealthPotion->SetAmount(0);
+	AddConsumableItem(HealthPotion);
+
 	ManaPotion = new ItemEntity();
 	ManaPotion->SetName("ManaPotion");
 	ManaPotion->SetAmount(0);
+	AddConsumableItem(ManaPotion);
+
 	Bandage = new ItemEntity();
 	Bandage->SetName("Bandage");
 	Bandage->SetAmount(0);
+	AddConsumableItem(Bandage);
+
 	HolyWater = new ItemEntity();
 	HolyWater->SetName("HolyWater");
 	HolyWater->SetAmount(0);
+	AddConsumableItem(HolyWater);
+
 	AtkPotion = new ItemEntity();
 	AtkPotion->SetName("AtkPotion");
 	AtkPotion->SetAmount(0);
+	AddConsumableItem(AtkPotion);
+
 	DefPotion = new ItemEntity();
 	DefPotion->SetName("DefPotion");
 	DefPotion->SetAmount(0);
+	AddConsumableItem(DefPotion);
 }
 
 void Player::SetPlayerName(const std::string& newName)
@@ -105,7 +116,7 @@ unsigned int Player::GetPlayerID()
 }
 unsigned int Player::GetPlayerGold()
 {
-	return this->GetPlayerGold;
+	return this->PlayerGold;
 }
 unsigned int Player::GetPlayerStageCount()
 {

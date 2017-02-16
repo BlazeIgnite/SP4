@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Consumables.h"
+#include "../Characters/CharacterEntity.h"
 
 class ItemEntity
 {
@@ -16,7 +17,7 @@ public:
 	unsigned int GetAmount();
 	std::string GetName();
 	void AddAmount(int&);
-	void Use();
+	void Use(std::string Class, CharacterEntity* Character);
 	Consumables* comsumables;
 
 private:

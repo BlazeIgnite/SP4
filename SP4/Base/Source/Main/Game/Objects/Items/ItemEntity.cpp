@@ -34,14 +34,14 @@ void ItemEntity::AddAmount(int& AdditionalAmount)
 	this->Amount += AdditionalAmount;
 }
 
-void ItemEntity::Use()
+void ItemEntity::Use(std::string Item, CharacterEntity* Character)
 {
-	if (Name == "Health")
+	if (Name == Item)
 	{
-		//SetHP(comsumables->UseRedPot(GetHP()));
-	}
-	if (Name == "Mana")
-	{
-		//SetHP(comsumables->UseManaPot(GetHP()));
+		if (GetAmount() > 0)
+		{
+			Character->SetHealth(comsumables->UseRedPot(Character->GetHealth()));
+			Amount--;
+		}
 	}
 }

@@ -32,7 +32,7 @@ public:
 	~Skill();
 	virtual void SkillBehavior(ScaleFactor scalefactor);
 	//virtual void ApplyEffect(STATUSEFFECTS effect);
-	void ApplyEffect(STATUSEFFECTS effect);
+	virtual void ApplyEffect(STATUSEFFECTS effect, int turns){};
 
 	//Sets and Gets Skill ID and name if necessary
 	void SetSkill_IDs(string Skill_name, int Skill_ID){ this->Skill_name = Skill_name; this->Skill_ID = Skill_ID; }
@@ -70,20 +70,26 @@ public:
 	OffensiveSkill();
 	~OffensiveSkill();
 	virtual void SkillBehavior(float Damagemitigation);
+	virtual void ApplyEffect(STATUSEFFECTS effect, int turns);
 	inline void SetCharacter(CharacterEntity* Character){ this->Character = Character; }
 	inline void SetTarget(CharacterEntity* Target){ this->Thetarget = Target; }
 	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
+	void shiftOwnPosition(int shift);
+	void shiftEnemyPosition(int shift);
+	int shiftposition;
 };
 
-class StatusEffectSkill : public Skill
+class RecoverSkill : public Skill
 {
 private:
 	CharacterEntity* Character;
 	CharacterEntity* Thetarget;
 	ScaleFactor scalefactor;
 public:
-	StatusEffectSkill();
-	~StatusEffectSkill();
+	RecoverSkill();
+	~RecoverSkill();
+	inline void SetCharacter(CharacterEntity* Character){ this->Character = Character; }
+	inline void SetTarget(CharacterEntity* Target){ this->Thetarget = Target; }
 	virtual void SkillBehavior(float DamageMitigation);
 	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
 };

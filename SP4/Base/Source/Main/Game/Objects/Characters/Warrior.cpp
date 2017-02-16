@@ -3,12 +3,12 @@
 using std::cout;
 using std::endl;
 
-float WarriorHealth[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorAbilityPoints[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorAttack[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorDefense[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorMagic[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float WarriorLuck[] = { 10, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorHealth[] = { 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
+float WarriorAbilityPoints[] = { 15, 15, 15, 20, 24, 27, 31, 32, 34, 37, 38, 39, 41, 43, 46, 50, 51, 53, 55, 60 };
+float WarriorAttack[] = { 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
+float WarriorDefense[] = { 15, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorMagic[] = { 2, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float WarriorLuck[] = { 1, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
 
 Warrior::Warrior()
 {
@@ -40,6 +40,27 @@ void Warrior::Init(int Level)
 			<< endl << "Magic: " << GetMagic()
 			<< endl << "Luck" << GetLuck() << endl;
 	}
+	if (Level > 20)
+	{
+		float Levelscale = Level - 20;
+		float finalscale = 1 + (Levelscale * 0.01f);
+		SetLevel(Level);
+		SetHealth((WarriorHealth[19] * finalscale));
+		SetMaxHealth(WarriorHealth[19] * finalscale);
+		SetAbilityPoints(WarriorAbilityPoints[19] * finalscale);
+		SetMaxAbilityPoints(WarriorAbilityPoints[19] * finalscale);
+		SetAttack(WarriorAttack[19] * finalscale);
+		SetDefense(WarriorDefense[19] * finalscale);
+		SetMagic(WarriorMagic[19] * finalscale);
+		SetLuck(WarriorLuck[19] * finalscale);
+		cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
+			<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
+			<< endl << "Attack: " << GetAttack()
+			<< endl << "Defense: " << GetDefense()
+			<< endl << "Magic: " << GetMagic()
+			<< endl << "Luck" << GetLuck() << endl;
+	}
+	SetPosition(Position_Front);
 	SetDamageMitigation();
 	
 
@@ -54,6 +75,7 @@ void Warrior::Init(int Level)
 	skill_1->SetScaleFactor(Skill::Scale_Attack);
 	skill_1->SetSkillPosition(Position_Front);
 	skill_1->SetSkillTarget(Target_Front);
+	skill_1->shiftposition = 0;
 
 
 }
@@ -75,10 +97,5 @@ void Warrior::Levelup()
 
 void Warrior::Update(double dt)
 {
-	cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
-		<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
-		<< endl << "Attack: " << GetAttack()
-		<< endl << "Defense: " << GetDefense()
-		<< endl << "Magic: " << GetMagic()
-		<< endl << "Luck" << GetLuck() << endl;
+
 }

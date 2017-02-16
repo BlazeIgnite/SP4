@@ -105,7 +105,7 @@ unsigned int Player::GetPlayerID()
 }
 unsigned int Player::GetPlayerGold()
 {
-	return this->GetPlayerGold;
+	return this->PlayerGold;
 }
 unsigned int Player::GetPlayerStageCount()
 {

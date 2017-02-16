@@ -28,7 +28,9 @@
     <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Priest.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Items\Consumables.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp" />
@@ -80,7 +82,9 @@
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Player.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Priest.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />

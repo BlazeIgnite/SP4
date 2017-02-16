@@ -33,3 +33,15 @@ void ItemEntity::AddAmount(int& AdditionalAmount)
 {
 	this->Amount += AdditionalAmount;
 }
+
+void ItemEntity::Use()
+{
+	if (Name == "Health")
+	{
+		//SetHP(comsumables->UseRedPot(GetHP()));
+	}
+	if (Name == "Mana")
+	{
+		//SetHP(comsumables->UseManaPot(GetHP()));
+	}
+}

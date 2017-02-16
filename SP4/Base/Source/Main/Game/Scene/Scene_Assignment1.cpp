@@ -5,6 +5,7 @@
 //#include "../Systems/ObjectManager.h"
 #include "../Systems/EventSystem.h"
 #include "../../Engine/State/StateList.h"
+#include "../Objects/Characters/CharacterDatabase.h"
 
 static bool MessageBoardActive = false;
 
@@ -25,6 +26,7 @@ void Scene_Assignment1::Init()
 	
 	EventSystem::Instance().Init();
 	x, y = 0;
+	//HP = 10;
 
 	GameStage = true;
 
@@ -43,7 +45,17 @@ void Scene_Assignment1::Init()
 	button2 = new Button();
 	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
+	warrior2 = new Warrior();
+	warrior2->Init(2);
 
+	warrior1 = new Warrior();
+	warrior1->Init(1);
+	warrior1->skill_1->SetTarget(warrior2);
+	
+	
+
+	warrior1 = new Warrior();
+	warrior1->Init(1);
 }
 
 void Scene_Assignment1::UpdateCharacterLogic(double dt)
@@ -95,7 +107,12 @@ void Scene_Assignment1::Update(double dt)
 	{
 		(*itr2)->Update(dt);
 	}
-
+	if (Application::IsKeyPressed('A'))
+	{
+		warrior1->skill_1->SkillBehavior(warrior2->GetDamageMitigation());
+		warrior2->Update(dt);
+	}
+	warrior2->Update(dt);
 }
 
 void Scene_Assignment1::RenderObjects(BaseObject *obj)
@@ -179,27 +196,6 @@ void Scene_Assignment1::Render()
 	modelStack.Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	RenderMesh(meshList[GEO_BACKGROUND], false);
 	modelStack.PopMatrix();
-
-	//for (std::vector<Item *>::iterator it = ObjectManager::Instance().GetItemList().begin(); it != ObjectManager::Instance().GetItemList().end(); ++it)
-	//{
-	//	Item *obj = (Item *)*it;
-	//	if (obj->Active && obj->Visible)
-	//	{
-	//		modelStack.PushMatrix();
-	//		modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-	//		modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-	//		modelStack.Scale(obj->GetDimensions().x, obj->GetDimensions().y, obj->GetDimensions().z);
-	//		if (obj->GetEntityID() == "Ammo")
-	//		{
-	//			RenderMesh(meshList[GEO_AMMOPACK], false);
-	//		}
-	//		else if (obj->GetEntityID() == "Health")
-	//		{
-	//			RenderMesh(meshList[GEO_HEALTHPACK], false);
-	//		}
-	//		modelStack.PopMatrix();
-	//	}
-	//}
 
 	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
 	{

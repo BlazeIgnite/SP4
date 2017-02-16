@@ -1,5 +1,5 @@
-#ifndef STATUSEFFECTS_H_
-#define STATUSEFFECTS_H_
+#ifndef CHARACTERDATABASE_H_
+#define CHARACTERDATABASE_H_
 
 enum STATUSEFFECTS
 {
@@ -23,5 +23,7 @@ enum Target
 	Target_Middle,
 	Target_Back,
 };
+
+
 
 #endif

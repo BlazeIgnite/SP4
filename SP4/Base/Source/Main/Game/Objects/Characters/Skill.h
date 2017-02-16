@@ -1,15 +1,13 @@
 #ifndef SKILL_H_
 #define SKILL_H_
 #include <string>
-#include "StatusEffects.h"
+#include "CharacterDatabase.h"
 #include "CharacterEntity.h"
 using std::string;
 
 
 class Skill
 {
-	CharacterEntity* TheCharacter;
-	CharacterEntity* theTarget;
 private:
 	float Multiplier;
 	float AbilityPointCost;
@@ -19,7 +17,7 @@ private:
 	C_Position RequiredPosition;
 	Target RequiredTarget; 
 	STATUSEFFECTS effect;
-protected:
+public:
 
 	enum ScaleFactor
 	{
@@ -35,6 +33,11 @@ public:
 	virtual void SkillBehavior(ScaleFactor scalefactor);
 	//virtual void ApplyEffect(STATUSEFFECTS effect);
 	void ApplyEffect(STATUSEFFECTS effect);
+
+	//Sets and Gets Skill ID and name if necessary
+	void SetSkill_IDs(string Skill_name, int Skill_ID){ this->Skill_name = Skill_name; this->Skill_ID = Skill_ID; }
+	string GetSkillname(){ return Skill_name; }
+	int GetSkill_ID(){ return Skill_ID; }
 
 	//Sets and Gets AbilityPoint Cost if necessary
 	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }
@@ -62,10 +65,14 @@ class OffensiveSkill : public Skill
 private:
 	CharacterEntity* Character;
 	CharacterEntity* Thetarget;
+	ScaleFactor scalefactor;
 public:
 	OffensiveSkill();
 	~OffensiveSkill();
-	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
+	virtual void SkillBehavior(float Damagemitigation);
+	inline void SetCharacter(CharacterEntity* Character){ this->Character = Character; }
+	inline void SetTarget(CharacterEntity* Target){ this->Thetarget = Target; }
+	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
 };
 
 class StatusEffectSkill : public Skill
@@ -73,9 +80,11 @@ class StatusEffectSkill : public Skill
 private:
 	CharacterEntity* Character;
 	CharacterEntity* Thetarget;
+	ScaleFactor scalefactor;
 public:
 	StatusEffectSkill();
 	~StatusEffectSkill();
-	virtual void SkillBehavior(ScaleFactor ScaleFactor, float DamageMitigation);
+	virtual void SkillBehavior(float DamageMitigation);
+	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
 };
 #endif

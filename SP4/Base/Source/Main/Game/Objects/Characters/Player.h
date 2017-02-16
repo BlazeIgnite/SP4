@@ -13,6 +13,8 @@ public:
 	Player();
 	~Player();
 
+	void Init();
+
 	void SetPlayerName(const std::string&);
 	void SetPlayerID(const unsigned int&);
 	void SetPlayerGold(const unsigned int&);
@@ -37,6 +39,13 @@ private:
 	std::vector<CharacterEntity> UnitList;
 	std::vector<ItemEntity> ConsumableList;
 	std::vector<ItemEntity> MaterialList;
+
+	ItemEntity* HealthPotion;
+	ItemEntity* ManaPotion;
+	ItemEntity* Bandage;
+	ItemEntity* HolyWater;
+	ItemEntity* AtkPotion;
+	ItemEntity* DefPotion;
 };
 
 Player::Player()
@@ -45,6 +54,28 @@ Player::Player()
 
 Player::~Player()
 {
+}
+
+void Player::Init()
+{
+	HealthPotion =  new ItemEntity();
+	HealthPotion->SetName("HealthPotion");
+	HealthPotion->SetAmount(0);
+	ManaPotion = new ItemEntity();
+	ManaPotion->SetName("ManaPotion");
+	ManaPotion->SetAmount(0);
+	Bandage = new ItemEntity();
+	Bandage->SetName("Bandage");
+	Bandage->SetAmount(0);
+	HolyWater = new ItemEntity();
+	HolyWater->SetName("HolyWater");
+	HolyWater->SetAmount(0);
+	AtkPotion = new ItemEntity();
+	AtkPotion->SetName("AtkPotion");
+	AtkPotion->SetAmount(0);
+	DefPotion = new ItemEntity();
+	DefPotion->SetName("DefPotion");
+	DefPotion->SetAmount(0);
 }
 
 void Player::SetPlayerName(const std::string& newName)

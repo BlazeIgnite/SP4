@@ -2,6 +2,7 @@
 #define ITEM_ENTITY_H
 
 #include <string>
+#include "Consumables.h"
 
 class ItemEntity
 {
@@ -14,8 +15,9 @@ public:
 
 	unsigned int GetAmount();
 	std::string GetName();
-
 	void AddAmount(int&);
+	void Use();
+	Consumables* comsumables;
 
 private:
 	std::string Name;

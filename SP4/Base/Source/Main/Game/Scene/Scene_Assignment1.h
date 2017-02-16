@@ -6,9 +6,11 @@
 #include "SceneBase.h"
 #include "../Miscellaneous/Button.h"
 #include "../Miscellaneous/Description.h"
+#include "../Objects/Characters/Warrior.h"
 
 class Button;
 class Description;
+class Warrior;
 
 class Scene_Assignment1 : public SceneBase
 {
@@ -20,6 +22,8 @@ private:
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
 	Button* button;
 	Button* button2;
+	Warrior* warrior1;
+	Warrior* warrior2;
 	Description* display;
 
 	std::vector<Button*> buttonVector;

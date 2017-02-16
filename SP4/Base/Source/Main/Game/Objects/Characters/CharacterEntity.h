@@ -3,11 +3,11 @@
 
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
-#include "StatusEffects.h"
+#include "CharacterDatabase.h"
 
 using std::vector;
 
-class CharacterEntity : public BaseObject
+class CharacterEntity : public BaseObject 
 {
 protected:
 	
@@ -37,13 +37,16 @@ public:
 	void SetMagic(float Magic);
 	void SetLuck(float Luck);
 
+	virtual void Levelup(){};
+
 	//Position Stuff
 	C_Position GetPosition(){ return position; }
 	void SetPosition(C_Position position){ this->position = position; }
 
 	void SetDamageMitigation();
+	float GetDamageMitigation(){ return DamageMitigation; }
 
-	void Init();
+	virtual void Init(int Level);
 
 
 private:

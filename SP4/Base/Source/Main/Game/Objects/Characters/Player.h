@@ -29,6 +29,7 @@ public:
 	unsigned int GetPlayerStageCount();
 	std::map<std::string, std::vector<CharacterEntity*>> GetAllUnitList();
 	std::vector<CharacterEntity*> GetClassUnitList(std::string&);
+	std::vector<CharacterEntity*> GetClassUnitList(std::string);
 	std::map<std::string, unsigned int> GetConsumableList();
 	std::map<std::string, unsigned int> GetMaterialList();
 

@@ -6,6 +6,7 @@
 #include "../Systems/EventSystem.h"
 #include "../../Engine/State/StateList.h"
 #include "../Objects/Characters/CharacterDatabase.h"
+#include "../Systems/BattleSystem.h"
 
 static bool MessageBoardActive = false;
 
@@ -34,6 +35,17 @@ void Scene_Assignment1::Init()
 	TimeMultiplier = 1.f;
 	Math::InitRNG();
 
+	Warrior* warrior = new Warrior();
+	Warrior* warrior1 = new Warrior();
+	player = new Player();
+	AI = new AIDefault();
+
+	player->AddCharacter("Warrior", warrior);
+	AI->AddTroop("Warrior", warrior1);
+
+	BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
+	BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
+
 	button = new Button();
 	button->Init(Vector3(100, 50, 0), Vector3(5,5,1), "HOVER");
 	buttonVector.push_back(button);
@@ -45,12 +57,6 @@ void Scene_Assignment1::Init()
 	button2 = new Button();
 	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
-	warrior2 = new Warrior();
-	warrior2->Init(21);
-
-	warrior1 = new Warrior();
-	warrior1->Init(1);
-	warrior1->skill_1->SetTarget(warrior2);
 	
 }
 
@@ -99,15 +105,15 @@ void Scene_Assignment1::Update(double dt)
 	{
 		(*itr)->Update(dt);
 	}
-	for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
-	{
-		(*itr2)->Update(dt);
-	}
-	if (Application::IsKeyPressed('A'))
-	{
-		warrior1->skill_1->SkillBehavior(warrior2->GetDamageMitigation());
-		warrior2->Update(dt);
-	}
+	//for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
+	//{
+	//	(*itr2)->Update(dt);
+	//}
+	//if (Application::IsKeyPressed('A'))
+	//{
+	//	warrior1->skill_1->SkillBehavior(warrior2->GetDamageMitigation());
+	//	warrior2->Update(dt);
+	//}
 	
 }
 

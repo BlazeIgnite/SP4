@@ -145,7 +145,7 @@ void LuaSystem::LoadGame(int SaveFile)
 			CharacterEntity* temp = new Warrior();
 			std::string VariableName = "Warrior" + std::to_string(Value);
 			unsigned int Level = GetIntValue(lua, VariableName.c_str());
-			temp->Initvalues(Level);
+			temp->Init(Level);
 			Player::Instance().AddCharacter("Warrior", temp);
 		}
 	}
@@ -156,7 +156,7 @@ void LuaSystem::LoadGame(int SaveFile)
 			CharacterEntity* temp = new Warrior();
 			std::string VariableName = "Healer" + std::to_string(Value);
 			unsigned int Level = GetIntValue(lua, VariableName.c_str());
-			temp->Initvalues(Level);
+			temp->Init(Level);
 			Player::Instance().AddCharacter("Healer", temp);
 		}
 	}
@@ -167,7 +167,7 @@ void LuaSystem::LoadGame(int SaveFile)
 			CharacterEntity* temp = new Warrior();
 			std::string VariableName = "Wizard" + std::to_string(Value);
 			unsigned int Level = GetIntValue(lua, VariableName.c_str());
-			temp->Initvalues(Level);
+			temp->Init(Level);
 			Player::Instance().AddCharacter("Wizard", temp);
 		}
 	}

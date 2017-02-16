@@ -20,7 +20,7 @@ Warrior::~Warrior()
 
 }
 
-void Warrior::Initvalues(int Level)
+void Warrior::Init(int Level)
 {
 	if (Level > 0 && Level < 21)
 	{

@@ -7,10 +7,7 @@
 #include "../Miscellaneous/Button.h"
 #include "../Miscellaneous/Description.h"
 #include "../Objects/Characters/Warrior.h"
-<<<<<<< HEAD
-=======
 #include "../AI/AIBehaviors/AIDefault.h"
->>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
 #include "../Objects/Characters/Player.h"
 
 class Button;
@@ -32,8 +29,6 @@ private:
 	//Warrior* warrior1;
 	//Warrior* warrior2;
 	Description* display;
-
-	Player* player;
 
 	std::vector<Button*> buttonVector;
 	std::vector<Description*> DescriptionVector;

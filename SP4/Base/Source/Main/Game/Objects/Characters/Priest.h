@@ -8,7 +8,7 @@ class Priest : public CharacterEntity, protected OffensiveSkill
 public:
 	Priest();
 	~Priest();
-	virtual void Initvalues(int Level);
+	virtual void Init(int Level);
 	virtual void Levelup();
 	void Update(double dt);
 	OffensiveSkill* skill_1;

@@ -21,7 +21,7 @@ Priest::~Priest()
 
 }
 
-void Priest::Initvalues(int Level)
+void Priest::Init(int Level)
 {
 	if (Level > 0 && Level < 21)
 	{

@@ -58,19 +58,14 @@ void Scene_Assignment1::Init()
 	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
 	warrior1 = new Warrior();
-<<<<<<< HEAD
-	warrior1->Init(1);
-	warrior1->skill_1->SetTarget(warrior2);
 
 	player = new Player();
 	player->Init(1);
-=======
-	warrior1->Initvalues(112);
+	warrior1->Init(112);
 
 	warrior = new Warrior();
-	warrior->Initvalues(1);
+	warrior->Init(1);
 	warrior->skill_1->SetTarget(warrior1);
->>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
 	
 }
 

@@ -1,46 +1,5 @@
-<<<<<<< HEAD
-﻿Build started 2/16/2017 5:53:25 PM.
-=======
-<<<<<<< HEAD
-﻿Build started 2/16/2017 1:50:58 PM.
-     1>Project "C:\Users\150503N\Desktop\SP4\SP4\Common\Common.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _VARIADIC_MAX=10 /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\DepthFBO.cpp Source\LoadOBJ.cpp Source\LoadTGA.cpp Source\MatrixStack.cpp Source\Mesh.cpp Source\Mtx44.cpp Source\shader.cpp Source\SimpleCommand.cpp Source\timer.cpp Source\Utility.cpp Source\Vector3.cpp
-         Vector3.cpp
-         Utility.cpp
-         timer.cpp
-         SimpleCommand.cpp
-         shader.cpp
-         Mtx44.cpp
-         Mesh.cpp
-         MatrixStack.cpp
-         LoadTGA.cpp
-         LoadOBJ.cpp
-         DepthFBO.cpp
-         Generating Code...
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\150503N\Desktop\SP4\SP4\Debug\Common.lib" /NOLOGO Debug\DepthFBO.obj
-         Debug\LoadOBJ.obj
-         Debug\LoadTGA.obj
-         Debug\MatrixStack.obj
-         Debug\Mesh.obj
-         Debug\Mtx44.obj
-         Debug\shader.obj
-         Debug\SimpleCommand.obj
-         Debug\timer.obj
-         Debug\Utility.obj
-         Debug\Vector3.obj
-         Common.vcxproj -> C:\Users\150503N\Desktop\SP4\SP4\Debug\Common.lib
-     1>Done Building Project "C:\Users\150503N\Desktop\SP4\SP4\Common\Common.vcxproj" (Build target(s)).
+﻿Build started 2/16/2017 6:08:12 PM.
 
 Build succeeded.
 
-Time Elapsed 00:00:05.44
-=======
-﻿Build started 2/16/2017 2:00:10 PM.
->>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
-
-Build succeeded.
-
-Time Elapsed 00:00:00.01
->>>>>>> 1bcc236017404a0c695925ec1ab9346f3d7d5e23
+Time Elapsed 00:00:00.00

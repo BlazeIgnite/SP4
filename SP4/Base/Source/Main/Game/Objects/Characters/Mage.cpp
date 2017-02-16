@@ -21,7 +21,7 @@ Mage::~Mage()
 
 }
 
-void Mage::Initvalues(int Level)
+void Mage::Init(int Level)
 {
 	if (Level > 0 && Level < 21)
 	{

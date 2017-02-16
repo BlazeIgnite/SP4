@@ -56,7 +56,7 @@ void CharacterEntity::SetDamageMitigation()
 	this->DamageMitigation =(0.06 * Defense) / (1 + 0.06*this->Defense);
 }
 
-void CharacterEntity::Initvalues(int Level)
+void CharacterEntity::Init(int Level)
 {
 	SetDamageMitigation();
 }

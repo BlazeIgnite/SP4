@@ -48,12 +48,9 @@ public:
 	void SetDamageMitigation();
 	float GetDamageMitigation(){ return DamageMitigation; }
 
-<<<<<<< HEAD
 	virtual void Init(int Level);
 	virtual void Update(double dt);
-=======
-	virtual void Initvalues(int Level);
->>>>>>> 88d1610f0a6675dc5b4de761a000ecef26fc4a0f
+	//virtual void Init(int Level);
 
 
 private:

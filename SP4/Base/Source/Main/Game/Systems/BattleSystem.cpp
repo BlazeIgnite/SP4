@@ -15,20 +15,8 @@ BattleSystem::~BattleSystem()
 
 void BattleSystem::Init()
 {
-	AI = NULL;
-	player = NULL;
 	SetPlayerTurn(true);
 	TurnCost = 100;
-}
-
-void BattleSystem::SetPlayer(Player* player)
-{
-	this->player = player;
-}
-
-void BattleSystem::SetAI(AIBase* AI)
-{
-	this->AI = AI;
 }
 
 void BattleSystem::SetTurnCost(float newTurnCost)
@@ -43,16 +31,6 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 		cout << "Player's Turn" << endl;
 	else
 		cout << "AI's Turn" << endl;
-}
-
-Player* BattleSystem::GetPlayer()
-{
-	return player;
-}
-
-AIBase* BattleSystem::GetAI()
-{
-	return AI;
 }
 
 float BattleSystem::GetTurnCost()

@@ -11,4 +11,13 @@ BattleSystem::~BattleSystem()
 }
 
 void BattleSystem::Attack()
-{}
+{
+	if (PlayerTurn)
+	{
+
+	}
+	else
+	{
+
+	}
+}

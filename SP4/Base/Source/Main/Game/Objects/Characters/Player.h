@@ -52,5 +52,4 @@ private:
 	ItemEntity* AtkPotion;
 	ItemEntity* DefPotion;
 };
-
 #endif

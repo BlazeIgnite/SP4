@@ -43,10 +43,6 @@ private:
 	unsigned int PlayerGold;
 	unsigned int FurthestStageCount;
 
-	std::vector<CharacterEntity*> UnitList;
-	std::vector<ItemEntity*> ConsumableList;
-	std::vector<ItemEntity*> MaterialList;
-
 	std::map<std::string, std::vector<CharacterEntity*>> UnitList;
 	std::map<std::string, unsigned int> ConsumableList;
 	std::map<std::string, unsigned int> MaterialList;

@@ -13,7 +13,7 @@ Mage::Mage()
 
 }
 
-Mage::Mage()
+Mage::~Mage()
 {
 
 }

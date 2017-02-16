@@ -1,4 +1,5 @@
 #include "SceneSystem.h"
+//#include "../../Game/Player/GlobalPlayer.h"
 #ifdef _DEBUG
 #include <assert.h>
 #endif
@@ -6,6 +7,7 @@
 void SceneSystem::Init()
 {
 	Renderer = nullptr;
+	cSS_InputManager = new InputManager();
 }
 
 void SceneSystem::Update(const float& dt)
@@ -15,39 +17,39 @@ void SceneSystem::Update(const float& dt)
 #endif
 }
 
-void SceneSystem::AddScene(SceneEntity &SceneObject)
+void SceneSystem::AddScene(SceneBase &SceneObject)
 {
-#ifdef _DEBUG
-	assert(Renderer != nullptr);  //Ensuring that a renderer has already been attached
-#endif
-	if (SceneHistory.empty() == true)
-	{
-		SceneHistory.push(&SceneObject);
-		Renderer->modelStack = SceneObject.modelStack;
-		Renderer->viewStack = SceneObject.viewStack;
-		Renderer->projectionStack = SceneObject.projectionStack;
-	}
-	StoredSceneList.insert(std::pair<std::string, SceneEntity*>(SceneObject.GetEntityID(), &SceneObject));
+//#ifdef _DEBUG
+//	assert(Renderer != nullptr);  //Ensuring that a renderer has already been attached
+//#endif
+//	if (SceneHistory.empty() == true)
+//	{
+//		SceneHistory.push(&SceneObject);
+//		Renderer->modelStack = SceneObject.modelStack;
+//		Renderer->viewStack = SceneObject.viewStack;
+//		Renderer->projectionStack = SceneObject.projectionStack;
+//	}
+//	StoredSceneList.insert(std::pair<std::string, SceneEntity*>(SceneObject.GetEntityID(), &SceneObject));
 }
 
 void SceneSystem::SwitchScene(const std::string &id_)
 {
-#ifdef _DEBUG
-	assert(Renderer != nullptr);
-#endif
-	std::map<std::string, SceneEntity*>::iterator it = StoredSceneList.find(id_);
-	if (it != StoredSceneList.end())
-	{
-		SceneHistory.push(it->second);
-		Renderer->modelStack = SceneHistory.back()->modelStack;
-		Renderer->viewStack = SceneHistory.back()->viewStack;
-		Renderer->projectionStack = SceneHistory.back()->projectionStack;
-	}
+//#ifdef _DEBUG
+//	assert(Renderer != nullptr);
+//#endif
+//	std::map<std::string, SceneBase*>::iterator it = StoredSceneList.find(id_);
+//	if (it != StoredSceneList.end())
+//	{
+//		SceneHistory.push(it->second);
+//		Renderer->modelStack = SceneHistory.back()->modelStack;
+//		Renderer->viewStack = SceneHistory.back()->viewStack;
+//		Renderer->projectionStack = SceneHistory.back()->projectionStack;
+//	}
 }
 
 bool SceneSystem::SwitchToPreviousScene()
 {
-	if (SceneHistory.size() > 1)
+/*	if (SceneHistory.size() > 1)
 	{
 		SceneHistory.pop();
 		Renderer->modelStack = SceneHistory.back()->modelStack;
@@ -55,25 +57,25 @@ bool SceneSystem::SwitchToPreviousScene()
 		Renderer->projectionStack = SceneHistory.back()->projectionStack;
 		return true;
 	}
-	else return false;
+	else */return false;
 }
 
-SceneEntity &SceneSystem::GetCurrentScene()
+SceneBase &SceneSystem::GetCurrentScene()
 {
 	return *SceneHistory.back();
 }
 
-SceneEntity &SceneSystem::GetRenderSystem()
-{
-	return *Renderer;
-}
+//SceneBase &SceneSystem::GetRenderSystem()
+//{
+//	//return *Renderer;
+//}
 
-void SceneSystem::SetRenderSystem(SceneEntity &SceneObject)
+void SceneSystem::SetRenderSystem(SceneBase &SceneObject)
 {
 #ifdef _DEBUG
-	assert(Renderer == nullptr);
+	//assert(Renderer == nullptr);
 #endif
-	Renderer = &SceneObject;
+	//Renderer = &SceneObject;
 }
 
 void SceneSystem::ClearMemoryUsage()
@@ -91,6 +93,7 @@ void SceneSystem::ClearMemoryUsage()
 		delete Renderer;
 		Renderer = nullptr;
 	}
+	//GlobalPlayer::Instance().Exit();
 
 	while (!SceneHistory.empty())
 	{

@@ -6,6 +6,7 @@
 #include <sstream>
 #include "SceneSystem.h"
 #include "../../Game/Mains/Application.h"
+#include "../../Base/Source/Main/Game/Systems/ObjectManager.h"
 
 RenderSystem::RenderSystem()
 	: SceneEntity()
@@ -37,7 +38,7 @@ RenderSystem::~RenderSystem()
 void RenderSystem::Init()
 {
 	// Black background
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -59,9 +60,12 @@ void RenderSystem::Init()
 	m_gPassShaderID = LoadShaders("Shader//GPass.vertexshader", "Shader//GPass.fragmentshader");
 	m_parameters[U_LIGHT_DEPTH_MVP_GPASS] = glGetUniformLocation(m_gPassShaderID, "lightDepthMVP");
 
-	m_programID = LoadShaders("Shader//Shadow.vertexshader", "Shader//Shadow.fragmentshader");
+	m_programID = LoadShaders("Shader//comg.vertexshader", "Shader//comg.fragmentshader");
 	m_parameters[U_LIGHT_DEPTH_MVP] = glGetUniformLocation(m_programID, "lightDepthMVP");
 	m_parameters[U_SHADOW_MAP] = glGetUniformLocation(m_programID, "shadowMap");
+
+	ObjectManager::Instance().WorldHeight = 100.f;
+	ObjectManager::Instance().WorldWidth = ObjectManager::Instance().WorldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	// Get a handle for our uniform
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -84,45 +88,18 @@ void RenderSystem::Init()
 	m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
 	m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
 	m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
-
-	// Shadow Alpha
-	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[0]");
-	m_parameters[U_SHADOW_COLOR_TEXTURE] = glGetUniformLocation(m_gPassShaderID, "colorTexture[0]");
-	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[1]");
-	m_parameters[U_SHADOW_COLOR_TEXTURE1] = glGetUniformLocation(m_gPassShaderID, "colorTexture[1]");
-	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED2] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[2]");
-	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
-
-	m_parameters[U_SHADOW_SAMPLING_AMOUNT] = glGetUniformLocation(m_programID, "shadowSamplingCount");
-
 	// Get a handle for our "colorTexture" uniform
-	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID, "colorTextureEnabled[0]");
-	m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture[0]");
-	m_parameters[U_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_programID, "colorTextureEnabled[1]");
-	m_parameters[U_COLOR_TEXTURE1] = glGetUniformLocation(m_programID, "colorTexture[1]");
-	m_parameters[U_COLOR_TEXTURE_ENABLED2] = glGetUniformLocation(m_programID, "colorTextureEnabled[2]");
-	m_parameters[U_COLOR_TEXTURE2] = glGetUniformLocation(m_programID, "colorTexture[2]");
-
+	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID, "colorTextureEnabled");
+	m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture");
 	// Get a handle for our "textColor" uniform
 	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
 	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
 
-	// Obtain a handle for the Fog Parameters
-	m_parameters[U_FOG_COLOR] = glGetUniformLocation(m_programID, "fogParam.Color");
-	m_parameters[U_FOG_START] = glGetUniformLocation(m_programID, "fogParam.FogStart");
-	m_parameters[U_FOG_END] = glGetUniformLocation(m_programID, "fogParam.FogEnd");
-	m_parameters[U_FOG_DENSITY] = glGetUniformLocation(m_programID, "fogParam.Density");
-	m_parameters[U_FOG_TYPE] = glGetUniformLocation(m_programID, "fogParam.Type");
-	m_parameters[U_FOG_ENABLED] = glGetUniformLocation(m_programID, "fogParam.FogEnabled");
-
 	// Use our shader
 	glUseProgram(m_programID);
 
-	m_lightDepthFBO.Init(4096, 4096);
-	glUniform1i(m_parameters[U_SHADOW_SAMPLING_AMOUNT], 1);
-
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(1600, 1400, 500);
+	lights[0].position.Set(0, 20, 0);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 1;
 	lights[0].kC = 1.f;
@@ -161,18 +138,18 @@ void RenderSystem::Init()
 
 void RenderSystem::Update(float dt)
 {
-	/*if (Application::IsKeyPressed('1')) {
+	if (Application::IsKeyPressed('1')) {
 	glEnable(GL_CULL_FACE);
 	}
 	if (Application::IsKeyPressed('2')) {
 	glDisable(GL_CULL_FACE);
-	}*/
-	//if (Application::IsKeyPressed('6')) {
-	//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//}
-	//if (Application::IsKeyPressed('7')) {
-	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//}
+	}
+	if (Application::IsKeyPressed('6')) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	if (Application::IsKeyPressed('7')) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
 }
 
 void RenderSystem::Render()
@@ -401,25 +378,25 @@ void RenderSystem::RenderMesh(Mesh &mesh, const bool &enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
-	if (m_renderPass == RENDER_PASS_PRE)
-	{
-		Mtx44 lightDepthMVP = m_lightDepthProj * m_lightDepthView * modelStack->Top();
-		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1, GL_FALSE, &lightDepthMVP.a[0]);
-		for (int i = 0; i < Mesh::MAX_TEXTURES; ++i)
-		{
-			if (mesh.textureArray[i] > 0)
-			{
-				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 1);
-				glActiveTexture(GL_TEXTURE0 + i);
-				glBindTexture(GL_TEXTURE_2D, mesh.textureArray[i]);
-				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE + i], i);
-			}
-			else
-				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 0);
-		}
-		mesh.Render();
-		return;
-	}
+	//if (m_renderPass == RENDER_PASS_PRE)
+	//{
+	//	Mtx44 lightDepthMVP = m_lightDepthProj * m_lightDepthView * modelStack->Top();
+	//	glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1, GL_FALSE, &lightDepthMVP.a[0]);
+	//	for (int i = 0; i < Mesh::MAX_TEXTURES; ++i)
+	//	{
+	//		if (mesh.textureArray[i] > 0)
+	//		{
+	//			glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 1);
+	//			glActiveTexture(GL_TEXTURE0 + i);
+	//			glBindTexture(GL_TEXTURE_2D, mesh.textureArray[i]);
+	//			glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE + i], i);
+	//		}
+	//		else
+	//			glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 0);
+	//	}
+	//	mesh.Render();
+	//	return;
+	//}
 
 	MVP = projectionStack->Top() * viewStack->Top() * modelStack->Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
@@ -429,12 +406,21 @@ void RenderSystem::RenderMesh(Mesh &mesh, const bool &enableLight)
 	glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView.a[0]);
 	if (enableLight)
 	{
-		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
+		//glUniform1i(m_parameters[U_LIGHTENABLED], 1);
+		//modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
+		//glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
+		//Mtx44 lightDepthMVP = m_lightDepthProj *	m_lightDepthView * modelStack->Top();
+		//glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1, GL_FALSE, &lightDepthMVP.a[0]);
+		////load material
+		//glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh.material.kAmbient.r);
+		//glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh.material.kDiffuse.r);
+		//glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh.material.kSpecular.r);
+		//glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh.material.kShininess);
+
+		modelView = viewStack->Top() * modelStack->Top();
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
 		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
-		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
-		Mtx44 lightDepthMVP = m_lightDepthProj *	m_lightDepthView * modelStack->Top();
-		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1, GL_FALSE, &lightDepthMVP.a[0]);
-		//load material
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView.a[0]);
 		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh.material.kAmbient.r);
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh.material.kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh.material.kSpecular.r);
@@ -538,125 +524,118 @@ void RenderSystem::SetHUD(const bool& m_bHUDmode)
 
 bool RenderSystem::loadingMeshDriven(const std::string &fileLocation)
 {
-	//std::ifstream file(fileLocation.c_str());
-	//if (file.is_open())
-	//{
-	//	std::string data = "";
-	//	std::vector<std::string> theKeys;
-	//	std::vector<std::string> theValues;
-	//	std::map<std::string, GLuint> targaStuff;
-	//	while (getline(file, data))
-	//	{
-	//		if (data == "" || data == "\n" || data == "\r")
-	//			continue;
-	//		std::string token;
-	//		std::istringstream iss(data);
-	//		if (theKeys.empty())
-	//		{   //Get the keys from CSV
-	//			while (getline(iss, token, ','))
-	//			{
-	//				convertStringToUpperCaps(token);
-	//				theKeys.push_back(token);
-	//			}
-	//		}
-	//		else {  //Begin getting all the values from the CSV
-	//			while (getline(iss, token, ','))
-	//			{
-	//				theValues.push_back(token);
-	//			}
-	//			//NAME
-	//			std::vector<std::string>::iterator it;
-	//			it = std::find(theKeys.begin(), theKeys.end(), "NAME");
-	//			size_t pos = it - theKeys.begin();
-	//			std::string theName = theValues[pos];
-	//			//NAME
-	//			Mesh *newMesh = nullptr;
-	//			//COLORS
-	//			float r = 0, g = 0, b = 0;
-	//			it = std::find(theKeys.begin(), theKeys.end(), "COLORR");
-	//			pos = it - theKeys.begin();
-	//			if (theValues[pos] == "")
-	//				r = 1;
-	//			else
-	//				r = stof(theValues[pos]);
-	//			it = std::find(theKeys.begin(), theKeys.end(), "COLORG");
-	//			pos = it - theKeys.begin();
-	//			if (theValues[pos] == "")
-	//				g = 1;
-	//			else
-	//				g = stof(theValues[pos]);
-	//			it = std::find(theKeys.begin(), theKeys.end(), "COLORB");
-	//			pos = it - theKeys.begin();
-	//			if (theValues[pos] == "")
-	//				b = 1;
-	//			else
-	//				b = stof(theValues[pos]);
-	//			//COLORS
-	//			//OBJECTYPE
-	//			it = std::find(theKeys.begin(), theKeys.end(), "OBJECTTYPE");
-	//			pos = it - theKeys.begin();
-	//			convertStringToUpperCaps(theValues[pos]);
-	//			//OBJECTYPE
-	//			std::string objectFile;
-	//			if (theValues[pos] == "TEXT") {
-	//				newMesh = MeshBuilder::GenerateText(theName, 16, 16);
-	//			}
-	//			else if (theValues[pos] == "QUAD") {
-	//				newMesh = MeshBuilder::GenerateQuad(theName, Color(r, g, b), 1.f);
-	//			}
-	//			else if (theValues[pos] == "3DOBJECT") {
-	//				it = std::find(theKeys.begin(), theKeys.end(), "OBJECTFILE");
-	//				pos = it - theKeys.begin();
-	//				newMesh = MeshBuilder::GenerateOBJ(theName, theValues[pos]);
-	//			}
-	//			else if (theValues[pos] == "CUBE") {
-	//				newMesh = MeshBuilder::GenerateCube(theName, Color(r, g, b));
-	//			}
-	//			else if (theValues[pos] == "SPRITE") {
-	//				unsigned row, col;
-	//				it = std::find(theKeys.begin(), theKeys.end(), "NUMROWS");
-	//				pos = it - theKeys.begin();
-	//				row = stoi(theValues[pos]);
-	//				it = std::find(theKeys.begin(), theKeys.end(), "NUMCOLUMNS");
-	//				pos = it - theKeys.begin();
-	//				col = stoi(theValues[pos]);
-	//				newMesh = MeshBuilder::GenerateSpriteAnimation(theName, row, col);
- //                   SpriteAnimation *theSprite = dynamic_cast<SpriteAnimation*>(newMesh);
- //                   theSprite->m_anim = new Animation();
- //                   theSprite->m_anim->Set(0, (row * col) - 1, 1, 1, true);
-	//			}
-	//			else {
-	//				continue;
-	//			}
-	//			//TEXTURES
-	//			for (unsigned num = 0; num < Mesh::MAX_TEXTURES; ++num)
-	//			{
-	//				std::ostringstream ss;
-	//				ss << "TEXTURE" << num + 1;
-	//				it = std::find(theKeys.begin(), theKeys.end(), ss.str());
-	//				pos = it - theKeys.begin();
-	//				if (theValues[pos] == "" || theValues[pos] == "\n" || theValues[pos] == "\r")
-	//					continue;
-	//				std::map<std::string, GLuint>::iterator it = targaStuff.find(theValues[pos]);
-	//				if (it != targaStuff.end())
-	//				{
-	//					newMesh->textureArray[num] = it->second;
-	//				}
-	//				else {
-	//					newMesh->textureArray[num] = LoadTGA(theValues[pos].c_str());
-	//					targaStuff.insert(std::pair<std::string, GLuint>(theValues[pos], newMesh->textureArray[num]));
-	//				}
-	//				if (num == 0)
-	//					newMesh->textureID = newMesh->textureArray[num];
-	//			}
-	//			//TEXTURES
-	//			MeshList.insert(std::pair<std::string, Mesh*>(newMesh->name, newMesh));
-	//			theValues.clear();
-	//		}
-	//	}
- //       file.close();
-	//	return true;
-	//}
+	std::ifstream file(fileLocation.c_str());
+	if (file.is_open())
+	{
+		std::string data = "";
+		std::vector<std::string> theKeys;
+		std::vector<std::string> theValues;
+		std::map<std::string, GLuint> targaStuff;
+		while (getline(file, data))
+		{
+			if (data == "" || data == "\n" || data == "\r")
+				continue;
+			std::string token;
+			std::istringstream iss(data);
+			if (theKeys.empty())
+			{   //Get the keys from CSV
+				while (getline(iss, token, ','))
+				{
+					CapitalizeString(token);
+					theKeys.push_back(token);
+				}
+			}
+			else 
+			{  //Begin getting all the values from the CSV
+				while (getline(iss, token, ','))
+				{
+					theValues.push_back(token);
+				}
+				//NAME
+				std::vector<std::string>::iterator it;
+				it = std::find(theKeys.begin(), theKeys.end(), "NAME");
+				size_t pos = it - theKeys.begin();
+				std::string theName = theValues[pos];
+				//NAME
+				Mesh *newMesh = nullptr;
+				//COLORS
+				float r = 0, g = 0, b = 0;
+				it = std::find(theKeys.begin(), theKeys.end(), "COLORR");
+				pos = it - theKeys.begin();
+				if (theValues[pos] == "")
+					r = 1;
+				else
+					r = stof(theValues[pos]);
+				it = std::find(theKeys.begin(), theKeys.end(), "COLORG");
+				pos = it - theKeys.begin();
+				if (theValues[pos] == "")
+					g = 1;
+				else
+					g = stof(theValues[pos]);
+				it = std::find(theKeys.begin(), theKeys.end(), "COLORB");
+				pos = it - theKeys.begin();
+				if (theValues[pos] == "")
+					b = 1;
+				else
+					b = stof(theValues[pos]);
+				//COLORS
+				//OBJECTYPE
+				it = std::find(theKeys.begin(), theKeys.end(), "OBJECTTYPE");
+				pos = it - theKeys.begin();
+				CapitalizeString(theValues[pos]);
+				//OBJECTYPE
+				std::string objectFile;
+				if (theValues[pos] == "TEXT") 
+				{
+					newMesh = MeshBuilder::GenerateText(theName, 16, 16);
+				}
+				else if (theValues[pos] == "QUAD") 
+				{
+					newMesh = MeshBuilder::GenerateQuad(theName, Color(r, g, b), 1.f);
+				}
+				else if (theValues[pos] == "3DOBJECT") 
+				{
+					it = std::find(theKeys.begin(), theKeys.end(), "OBJECTFILE");
+					pos = it - theKeys.begin();
+					newMesh = MeshBuilder::GenerateOBJ(theName, theValues[pos]);
+				}
+				else if (theValues[pos] == "CUBE") 
+				{
+					newMesh = MeshBuilder::GenerateCube(theName, Color(r, g, b));
+				}
+				else 
+				{
+					continue;
+				}
+				//TEXTURES
+				for (unsigned num = 0; num < Mesh::MAX_TEXTURES; ++num)
+				{
+					std::ostringstream ss;
+					ss << "TEXTURE" << num + 1;
+					it = std::find(theKeys.begin(), theKeys.end(), ss.str());
+					pos = it - theKeys.begin();
+					if (theValues[pos] == "" || theValues[pos] == "\n" || theValues[pos] == "\r")
+						continue;
+					std::map<std::string, GLuint>::iterator it = targaStuff.find(theValues[pos]);
+					if (it != targaStuff.end())
+					{
+						newMesh->textureArray[num] = it->second;
+					}
+					else {
+						newMesh->textureArray[num] = LoadTGA(theValues[pos].c_str());
+						targaStuff.insert(std::pair<std::string, GLuint>(theValues[pos], newMesh->textureArray[num]));
+					}
+					if (num == 0)
+						newMesh->textureID = newMesh->textureArray[num];
+				}
+				//TEXTURES
+				MeshList.insert(std::pair<std::string, Mesh*>(newMesh->name, newMesh));
+				theValues.clear();
+			}
+		}
+        file.close();
+		return true;
+	}
 
 	return false;
 }

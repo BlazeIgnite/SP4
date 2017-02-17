@@ -13,7 +13,7 @@ RedPotionCount = 1;
 BluePotionCount = 2;
 AttackPotionCount = 3;
 DefencePotionCount = 4;
-AttackPotionCount = 5;
+BandageCount = 5;
 
 NumberOfWarrior = 0;
 NumberOfHealer = 0;

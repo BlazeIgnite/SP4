@@ -6,6 +6,8 @@
 #include "../Systems/EventSystem.h"
 #include "../../Engine/State/StateList.h"
 #include "../Objects/Characters/CharacterDatabase.h"
+#include "../../Base/Source/Main/Engine/System/SceneSystem.h"
+#include "../../Base/Source/Main/Engine/System/RenderSystem.h"
 
 static bool MessageBoardActive = false;
 
@@ -20,10 +22,10 @@ Scene_Assignment1::~Scene_Assignment1()
 void Scene_Assignment1::Init()
 {
 	// Init Scene
-	SceneBase::Init();
+	//SceneBase::Init();
 	
 	//buttonVector.push_back(button);
-	
+	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 	x, y = 0;
 	//HP = 10;
@@ -35,15 +37,15 @@ void Scene_Assignment1::Init()
 	Math::InitRNG();
 
 	button = new Button();
-	button->Init(Vector3(100, 50, 0), Vector3(5,5,1), "HOVER");
+	button->Init(Vector3(100, 75, 1), Vector3(10,5,1), "HOVER");
 	buttonVector.push_back(button);
 
 	display = new Description();
-	display->Init(Vector3(x, y, 0), Vector3(10, 10, 1), "HOVER");
+	display->Init(Vector3(x, y, 2), Vector3(10, 10, 1), "HOVER");
 	DescriptionVector.push_back(display);
 
 	button2 = new Button();
-	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
+	button2->Init(Vector3(50, 50, 1), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
 	warrior2 = new Warrior();
 	warrior2->Init(2);
@@ -90,9 +92,9 @@ bool Scene_Assignment1::CheckCollision(BaseObject* o1, BaseObject* o2, std::stri
 	else return false;
 }
 
-void Scene_Assignment1::Update(double dt)
+void Scene_Assignment1::Update(float dt)
 {
-	SceneBase::Update(dt);
+	//SceneBase::Update(dt);
 	EventSystem::Instance().Update((float)dt);
 
 	// Update Calls
@@ -173,60 +175,68 @@ void Scene_Assignment1::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	//Calculating aspect ratio
-	
+	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
 	// Projection matrix : Orthographic Projection
 	Mtx44 projection;
 	projection.SetToOrtho(0, ObjectManager::Instance().WorldWidth, 0, ObjectManager::Instance().WorldHeight, -10, 10);
-	projectionStack.LoadMatrix(projection);
+	projectionStack->LoadMatrix(projection);
 	
 	// Camera matrix
-	viewStack.LoadIdentity();
-	viewStack.LookAt(
+	viewStack->LoadIdentity();
+	viewStack->LookAt(
 						camera.position.x, camera.position.y, camera.position.z,
 						camera.target.x, camera.target.y, camera.target.z,
 						camera.up.x, camera.up.y, camera.up.z
 					);
 	// Model matrix : an identity matrix (model will be at the origin)
-	modelStack.LoadIdentity();
+	modelStack->LoadIdentity();
 	
-	RenderMesh(meshList[GEO_AXES], false);
+	//RenderMesh(meshList[GEO_AXES], false);
+	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
 
-	modelStack.PushMatrix();
-	modelStack.Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5);
-	modelStack.Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
-	RenderMesh(meshList[GEO_BACKGROUND], false);
-	modelStack.PopMatrix();
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 0.f);
+	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
+	//RenderMesh(meshList[GEO_BACKGROUND], false);
+	//Renderer->SetHUD(true);
+	Renderer->RenderMesh("BackGround", false);
+	//Renderer->SetHUD(false);
+	modelStack->PopMatrix();
 
-	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
-	{
-		Button *obj = (Button *)*itr;
-		
-		modelStack.PushMatrix();
-		modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-		modelStack.Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-		if (obj->type == "HOVER")
-		{
-			RenderMesh(meshList[GEO_HOVER], false);
-		}
-		if (obj->type == "ITEM")
-		{
-			RenderMesh(meshList[GEO_HOVER], false);
-		}
-		modelStack.PopMatrix();
-		for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
-		{
-			Description* obj2 = (Description*)*itr2;
-			modelStack.PushMatrix();
-			modelStack.Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/10);
-			modelStack.Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
-			if (obj->isitHover() && obj->type == "HOVER" && obj2->type == "HOVER")
-			{
-				RenderMesh(meshList[GEO_DESCRIPTION], false);
-			}
-			modelStack.PopMatrix();
-		}
- 	}
+	//for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
+	//{
+	//	Button *obj = (Button *)*itr;
+	//	
+	//	modelStack->PushMatrix();
+	//	modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+	//	modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+	//	//modelStack->Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+	//	modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+	//	if (obj->type == "HOVER")
+	//	{
+	//		Renderer->RenderMesh("ButtonBorder", false);
+	//		modelStack->Translate(obj->GetScale().x * -0.045f, 0, 0);
+	//		modelStack->Scale(obj->GetScale().x * 0.01f, obj->GetScale().y * 0.15f, obj->GetScale().z * 0.15f);
+	//		Renderer->RenderText("New Game", Color(0, 1, 0));
+	//	}
+	//	if (obj->type == "ITEM")
+	//	{
+	//		Renderer->RenderMesh("GreenBorder", false);
+	//	}
+	//	modelStack->PopMatrix();
+	//	for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
+	//	{
+	//		Description* obj2 = (Description*)*itr2;
+	//		modelStack->PushMatrix();
+	//		modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/10);
+	//		modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+	//		if (obj->isitHover() && obj->type == "HOVER" && obj2->type == "HOVER")
+	//		{
+	//			Renderer->RenderMesh("Test", false);
+	//		}
+	//		modelStack->PopMatrix();
+	//	}
+ //	}
 
 	//On screen text
 	std::stringstream ss;
@@ -319,7 +329,7 @@ void Scene_Assignment1::HandleUserInput()
 
 void Scene_Assignment1::Exit()
 {
-	SceneBase::Exit();
+	//SceneBase::Exit();
 	//Cleanup Objects
 	ObjectManager::Instance().Exit();
 	

@@ -2,6 +2,7 @@
 #define SCENE_ASSIGNMENT1_H
 
 #include "../../Engine/Objects/BaseObject.h"
+#include "../../Engine/Objects/SceneEntity.h"
 #include <vector>
 #include "SceneBase.h"
 #include "../Miscellaneous/Button.h"
@@ -12,7 +13,7 @@ class Button;
 class Description;
 class Warrior;
 
-class Scene_Assignment1 : public SceneBase
+class Scene_Assignment1 : public SceneEntity
 {
 private:
 	void RenderObjects(BaseObject *obj);
@@ -36,7 +37,7 @@ public:
 	~Scene_Assignment1();
 
 	virtual void Init();
-	virtual void Update(double dt);
+	virtual void Update(float dt);
 	virtual void Render();
 	virtual void Exit();
 
@@ -48,8 +49,9 @@ protected:
 	//Physics Related
 	float TimeMultiplier;
 	unsigned short StoredIterator = 0;
+	bool GameStage;
 
-
+	Camera camera;
 };
 
 #endif

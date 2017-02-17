@@ -9,9 +9,14 @@ Player::~Player()
 {
 }
 
-void Player::Init(const unsigned int& PlayerTag)
+void Player::Init(const unsigned int PlayerTag)
 {
 	//LuaSystem::Instance().LoadGame(PlayerTag);
+
+	UnitList = std::map<std::string, std::vector<CharacterEntity*>>();
+	UnitList.insert(std::pair<std::string, std::vector<CharacterEntity*>>("Warrior", std::vector<CharacterEntity*>()));
+	UnitList.insert(std::pair<std::string, std::vector<CharacterEntity*>>("Healer", std::vector<CharacterEntity*>()));
+	UnitList.insert(std::pair<std::string, std::vector<CharacterEntity*>>("Wizard", std::vector<CharacterEntity*>()));
 
 	HealthPotion = new ItemEntity();
 	HealthPotion->SetName("HealthPotion");
@@ -33,19 +38,19 @@ void Player::Init(const unsigned int& PlayerTag)
 	DefPotion->SetAmount(0);
 }
 
-void Player::SetPlayerName(const std::string& newName)
+void Player::SetPlayerName(const std::string newName)
 {
 	this->PlayerName = newName;
 }
-void Player::SetPlayerID(const unsigned int& newID)
+void Player::SetPlayerID(const unsigned int newID)
 {
 	this->PlayerID = newID;
 }
-void Player::SetPlayerGold(const unsigned int& newGold)
+void Player::SetPlayerGold(const unsigned int newGold)
 {
 	this->PlayerGold = newGold;
 }
-void Player::SetPlayerStageCount(const unsigned int& newFurthestStageCount)
+void Player::SetPlayerStageCount(const unsigned int newFurthestStageCount)
 {
 	this->FurthestStageCount = newFurthestStageCount;
 }
@@ -74,7 +79,7 @@ std::map<std::string, std::vector<CharacterEntity*>> Player::GetAllUnitList()
 {
 	return this->UnitList;
 }
-std::vector<CharacterEntity*> Player::GetClassUnitList(std::string& Name)
+std::vector<CharacterEntity*> Player::GetClassUnitList(std::string Name)
 {
 	return this->UnitList.find(Name)->second;
 }

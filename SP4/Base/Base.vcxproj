@@ -34,6 +34,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />

@@ -13,6 +13,7 @@ public:
 		return app;
 	}
 	void Init();
+	void Update();
 	void Run();
 	void Exit();
 	static bool IsKeyPressed(unsigned short key);
@@ -33,6 +34,9 @@ private:
 
 	//Declare a window object
 	StopWatch m_timer;
+	double m_dElaspedTime;
+	double m_dAccumulatedTime_ThreadOne;
+	double m_dAccumulatedTime_ThreadTwo;
 };
 
 #endif

@@ -52,23 +52,23 @@ void InputManager::SetScreenSize(float x, float y)
 
 void InputManager::UpdateMouse()
 {
-	//New Version for use with my camera version
-	POINT mousePosition;
-	GetCursorPos(&mousePosition);
+	////New Version for use with my camera version
+	//POINT mousePosition;
+	//GetCursorPos(&mousePosition);
 
-	if (!cIM_inMouseMode)
-	{
-		int moveX = (int)cIM_ScreenWidth / 2;
-		int moveY = (int)cIM_ScreenHeight / 2;
+	//if (!cIM_inMouseMode)
+	//{
+	//	int moveX = (int)cIM_ScreenWidth / 2;
+	//	int moveY = (int)cIM_ScreenHeight / 2;
 
-		//Lock the cursor's position to the center of the screen.
-		SetCursorPos(moveX, moveY);
+	//	//Lock the cursor's position to the center of the screen.
+	//	SetCursorPos(moveX, moveY);
 
-		//Calculate the difference between the cursor coordinates between frames
-		cIM_CameraYaw = static_cast<float>(mousePosition.x - moveX);
-		cIM_CameraPitch = static_cast<float>(mousePosition.y - moveY);
-	}
-	SetMousePosition(Vector3((float)mousePosition.x, cIM_ScreenHeight - (float)mousePosition.y, 0.f));
+	//	//Calculate the difference between the cursor coordinates between frames
+	//	cIM_CameraYaw = static_cast<float>(mousePosition.x - moveX);
+	//	cIM_CameraPitch = static_cast<float>(mousePosition.y - moveY);
+	//}
+	//SetMousePosition(Vector3((float)mousePosition.x, cIM_ScreenHeight - (float)mousePosition.y, 0.f));
 }
 
 void InputManager::SetMouseToScreenCenter()

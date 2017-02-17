@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#include "../../Engine/System/SceneSystem.h"
-//#include "../../Engine/System/RenderSystem.h"
+#include "../../Engine/System/SceneSystem.h"
+#include "../../Engine/System/RenderSystem.h"
 
 #include "../Scene/Scene_Assignment1.h"
 #include "../Audio/Audio_Player.h"
@@ -87,7 +87,7 @@ void Application::Init()
 	glfwSetErrorCallback(error_callback);
 
 	// Init the Scene System
-	//SceneSystem::Instance().Init();
+	SceneSystem::Instance().Init();
 
 	//Initialize GLFW
 	if (!glfwInit())
@@ -149,22 +149,37 @@ void Application::Init()
 	AudioPlayer::Instance().Init();
 
 	// Assign Scene Renderer
-	//RenderSystem* Renderer = new RenderSystem();
-	//Renderer->Init();
-	//SceneSystem::Instance().SetRenderSystem(*Renderer);
+	RenderSystem* Renderer = new RenderSystem();
+	Renderer->Init();
+	SceneSystem::Instance().SetRenderSystem(*Renderer);
+
+	Scene_Assignment1* temp = new Scene_Assignment1();
+	temp->Init();
+	SceneSystem::Instance().AddScene(*temp);
 }
 
 void Application::Run()
 {
 	//Main Loop
-	Scene *scene = new Scene_Assignment1();
-	scene->Init();
+	//Scene *scene = new Scene_Assignment1();
+	//scene->Init();
+
+
+	HWND hwnd = GetActiveWindow();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
-		scene->Update(m_timer.getElapsedTime());
-		scene->Render();
+		if (hwnd == GetActiveWindow())
+		{
+			m_dElaspedTime = m_timer.getElapsedTime();
+			Update();
+			SceneSystem::Instance().GetCurrentScene().Render();
+		}
+
+
+		//scene->Update(m_timer.getElapsedTime());
+		//scene->Render();
 		//Swap buffers
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
@@ -173,8 +188,29 @@ void Application::Run()
 
 	} //Check if the ESC key had been pressed or if the window had been closed
 	//SceneSystem::Instance().ClearMemoryUsage();
-	scene->Exit();
-	delete scene;
+	//scene->Exit();
+	//delete scene;
+}
+
+void Application::Update()
+{
+	// Update threads
+	m_dAccumulatedTime_ThreadOne += m_dElaspedTime;
+	if (m_dAccumulatedTime_ThreadOne > 1 / frameTime)
+	{
+		SceneSystem::Instance().cSS_InputManager->UpdateMouse();
+		SceneSystem::Instance().cSS_InputManager->HandleUserInput();
+		//SceneSystem::Instance().cSS_PlayerUIManager->Update((float)m_dElaspedTime);
+		SceneSystem::Instance().GetCurrentScene().Update((float)m_dElaspedTime);
+		m_dAccumulatedTime_ThreadOne = 0.0;
+	}
+	m_dAccumulatedTime_ThreadTwo += m_dElaspedTime;
+	if (m_dAccumulatedTime_ThreadTwo > 1 / frameTime * 5)
+	{
+		//SceneSystem::Instance().cSS_PlayerUIManager->UpdateStats((float)m_dElaspedTime);
+		//MusicSystem::Instance().Update((float)m_dElaspedTime);
+		m_dAccumulatedTime_ThreadTwo = 0.0;
+	}
 }
 
 void Application::Exit()

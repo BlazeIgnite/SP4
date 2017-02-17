@@ -15,19 +15,19 @@ public:
 	Player();
 	~Player();
 
-	void Init(const unsigned int&);
+	void Init(const unsigned int);
 
-	void SetPlayerName(const std::string&);
-	void SetPlayerID(const unsigned int&);
-	void SetPlayerGold(const unsigned int&);
-	void SetPlayerStageCount(const unsigned int&);
+	void SetPlayerName(const std::string);
+	void SetPlayerID(const unsigned int);
+	void SetPlayerGold(const unsigned int);
+	void SetPlayerStageCount(const unsigned int);
 	
 	std::string GetPlayerName();
 	unsigned int GetPlayerID();
 	unsigned int GetPlayerGold();
 	unsigned int GetPlayerStageCount();
 	std::map<std::string, std::vector<CharacterEntity*>> GetAllUnitList();
-	std::vector<CharacterEntity*> GetClassUnitList(std::string&);
+	std::vector<CharacterEntity*> GetClassUnitList(std::string);
 	std::map<std::string, unsigned int> GetConsumableList();
 	std::map<std::string, unsigned int> GetMaterialList();
 

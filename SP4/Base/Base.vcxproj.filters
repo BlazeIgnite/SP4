@@ -117,6 +117,9 @@
     <ClCompile Include="Source\Main\Engine\System\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main\Engine\System\State\State.h">
@@ -279,6 +282,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Main\Engine\System\InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

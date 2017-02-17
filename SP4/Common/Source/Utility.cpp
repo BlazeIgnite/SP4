@@ -7,3 +7,17 @@ Position operator*(const Mtx44& lhs, const Position& rhs)
 		b[i] = lhs.a[0 * 4 + i] * rhs.x + lhs.a[1 * 4 + i] * rhs.y + lhs.a[2 * 4 + i] * rhs.z + lhs.a[3 * 4 + i] * 1;
 	return Position(b[0], b[1], b[2]);
 }
+
+bool FindWordInString(const std::string &theWord, const std::string &theStr)
+{
+	if (theStr.find(theWord) != std::string::npos)
+		return true;
+	return false;
+}
+
+void CapitalizeString(std::string &theString)
+{
+	for (std::string::iterator it = theString.begin(), end = theString.end(); it != end; ++it) {
+		(*it) = toupper(*it);
+	}
+}

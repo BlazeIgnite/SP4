@@ -122,6 +122,7 @@ public:
 
 		//Character Textures
 		GEO_WARRIOR,
+		GEO_WARRIOR_FRONT,
 
 		//Hover
 		GEO_HOVER,

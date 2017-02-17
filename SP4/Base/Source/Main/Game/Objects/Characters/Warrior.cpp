@@ -51,7 +51,7 @@ void Warrior::Levelup()
 		SetDefense(WarriorDefense[19] * finalscale);
 		SetMagic(WarriorMagic[19] * finalscale);
 		SetLuck(WarriorLuck[19] * finalscale);
-
+		SetDamageMitigation();
 	}
 }
 
@@ -85,17 +85,8 @@ void Warrior::Init(int Level)
 		SetLuck(WarriorLuck[19] * finalscale);
 
 	}
-	SetPosition(Position_Front);
 	SetDamageMitigation();
-	/*cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
-		<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
-		<< endl << "Attack: " << GetAttack()
-		<< endl << "Defense: " << GetDefense()
-		<< endl << "Magic: " << GetMagic()
-		<< endl << "Luck: " << GetLuck()
-		<< endl << "Damage Mitigation: " << GetDamageMitigation()
-		<< endl;*/
-
+	
 
 	//Sets up Skills used
 	skill_1 = new OffensiveSkill();
@@ -105,8 +96,6 @@ void Warrior::Init(int Level)
 	skill_1->SetMultiplier(0.65f);
 	skill_1->SetActionCost(20.f);
 	skill_1->SetScaleFactor(Skill::Scale_Attack);
-	skill_1->SetSkillPosition(Position_Front);
-	skill_1->SetSkillTarget(Target_Front);
 	skill_1->shiftposition = 0;
 
 	
@@ -122,14 +111,6 @@ void Warrior::Init(Vector3 Position, Vector3 Scale)
 
 void Warrior::Update(double dt)
 {
-	/*cout << "Level: " << GetLevel()
-		<< endl << "HP: " << GetHealth() << "/" << GetMaxHealth()
-		<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
-		<< endl << "Attack: " << GetAttack()
-		<< endl << "Defense: " << GetDefense()
-		<< endl << "Magic: " << GetMagic()
-		<< endl << "Luck: " << GetLuck()
-		<< endl << "Damage Mitigation: " << GetDamageMitigation()
-		<< endl;*/
+	
 }
 

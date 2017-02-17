@@ -41,9 +41,9 @@ void Scene_Assignment1::Init()
 
 	Mage* mage = new Mage();
 
-	warrior->Init(2);
+	warrior->Init(20);
 	warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
-	warrior1->Init(1);
+	warrior1->Init(20);
 	warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
 
 	mage->Init(1);
@@ -77,15 +77,7 @@ void Scene_Assignment1::Init()
 	button2 = new Button();
 	button2->Init(Vector3(50, 50, 0), Vector3(5, 5, 1), "ITEM");
 	buttonVector.push_back(button2);
-	//warrior1 = new Warrior();
-
-	//player = new Player();
-	//player->Init(1);
-	//warrior1->Init(112);
-
-	//warrior = new Warrior();
-	//warrior->Init(1);
-	//warrior->skill_1->SetTarget(warrior1);
+	
 	
 	AudioPlayer::Instance().PlayMusic("BGM");
 }
@@ -275,13 +267,14 @@ void Scene_Assignment1::Render()
 		modelStack.PushMatrix();
 		modelStack.Translate(object->Position.x, object->Position.y, object->Position.z);
 		modelStack.Scale(object->Scale.x, object->Scale.y, object->Scale.z);
-		RenderMesh(meshList[GEO_WARRIOR], false);
+		RenderMesh(meshList[GEO_WARRIOR_FRONT], false);
 		modelStack.PopMatrix();
 	}
 	//For AI rendering
-	/*for (std::vector<CharacterEntity*>::iterator it2 = )
+	int tempnum = 0;
+	/*for (map<size_t, CharacterEntity*>::iterator it2 = BattleSystem::Instance().GetAITroops().begin(); it2 != BattleSystem::Instance().GetAITroops().end(); it2++,tempnum++)
 	{
-
+		
 	}*/
 	//On screen text
 	std::stringstream ss;
@@ -314,7 +307,7 @@ void Scene_Assignment1::HandleUserInput()
 	static bool DButtonState = false;
 	if (!DButtonState && Application::IsKeyPressed('D'))
 	{
-		BattleSystem::Instance().SwitchSpots((&BattleSystem::Instance().GetPlayerTroops()), 0, 1);
+		BattleSystem::Instance().SwitchSpots(BattleSystem::Instance().GetPlayerTroops(), 0, 1);
 		DButtonState = true;
 	}
 	else if (DButtonState && !Application::IsKeyPressed('D'))
@@ -346,6 +339,9 @@ void Scene_Assignment1::HandleUserInput()
 	static bool QButtonState = false;
 	if (!QButtonState && Application::IsKeyPressed('Q'))
 	{
+		// if (BattleSystem::Instance().GetPlayerTurn())
+		// 	BattleSystem::Instance().DamageCalculation(BattleSystem::Instance().GetPlayerTroopAttacking(0), BattleSystem::Instance().GetAITroops().at(0), 0);
+
 		QButtonState = true;
 	}
 	else if (QButtonState && !Application::IsKeyPressed('Q'))

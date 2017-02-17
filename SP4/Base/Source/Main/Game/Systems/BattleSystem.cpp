@@ -96,7 +96,7 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 	if (PlayerTurn)
 	{
 		CharacterEntity* TargetTroop = AITroops.find(target)->second;
-		TargetTroop->SetHealth(TargetTroop->GetHealth() - Attacker->GetAttack());
+		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
 		/*vector<CharacterEntity*>::iterator itrAI = AI->GetClassAIList(Attacker).begin();
 		for (; itrAI != AI->GetAIList().end(); itrAI++)
 		{
@@ -149,7 +149,7 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 	else
 	{
 		CharacterEntity* TargetTroop = PlayerTroops.find(target)->second;
-		TargetTroop->SetHealth(TargetTroop->GetHealth() - Attacker->GetAttack());
+		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
 
 		// Debugging
 		cout << "---------------------------------------------" << endl;
@@ -185,10 +185,17 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 		SetPlayerTurn(true);
 	}
 }
-void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Skill AttackerSkill)
+void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
 {
 	if (PlayerTurn)
 	{
+		//Place shift codes here
+		if (AttackerSkill->shiftposition != 0)
+		{
+
+		}
+		AttackerSkill->SetTarget(GetAITroops().at(target));
+		AttackerSkill->SkillBehavior();
 	}
 	else
 	{

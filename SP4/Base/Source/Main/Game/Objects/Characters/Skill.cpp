@@ -3,7 +3,7 @@
 
 /************************************************/
 /*                   Skills                     */
-Skill::Skill()
+Skill::Skill() : shiftposition(0)
 {
 
 }
@@ -13,15 +13,15 @@ Skill::~Skill()
 
 }
 
-void Skill::SkillBehavior(ScaleFactor scalefactor)
+float Skill::SkillBehavior()
 {
-
+	return 0;
 }
 
 /************************************************/
 /*              Offensive skills                */
 
-OffensiveSkill::OffensiveSkill() : shiftposition(0)
+OffensiveSkill::OffensiveSkill()
 {
 
 }
@@ -31,61 +31,29 @@ OffensiveSkill::~OffensiveSkill()
 
 }
 
-void OffensiveSkill::SkillBehavior(float Damagemitigation)
+float OffensiveSkill::SkillBehavior()
 {
 	if (Character == nullptr || Thetarget == nullptr)
 	{
-		return;
+		return 0.f;
 	}
 	else
 	{
 		float FinalDamagevalue;
-		if (scalefactor == Scale_Attack)
+		if (GetScaleFactor() == Scale_Attack)
 		{
 			FinalDamagevalue = Character->GetAttack();
 		}
-		else if (scalefactor == Scale_Magic)
+		else if (GetScaleFactor() == Scale_Magic)
 		{
 			FinalDamagevalue = Character->GetMagic();
 		}
-		if (Character->GetPosition() == GetSkillPosition())
-		{
-			if (Thetarget->GetPosition() == GetSkillTarget())
-			{
-				FinalDamagevalue = FinalDamagevalue * this->GetMultiplier();
-				FinalDamagevalue = FinalDamagevalue * (Damagemitigation);
-				float Targetfinalhealth = Thetarget->GetHealth();
-				Targetfinalhealth -= FinalDamagevalue;
-				Thetarget->SetHealth(Targetfinalhealth);
-				shiftOwnPosition(shiftposition);
-			}
-		}
-	}
 
-}
-
-void OffensiveSkill::shiftOwnPosition(int shift)
-{
-	if (shift > 0 && Character->GetPosition() != Position_Back)
-	{
-		Character->SetPosition(static_cast<C_Position>(Character->GetPosition() + shift));
-		if (Character->GetPosition() > Position_Back)
-		{
-			Character->SetPosition(Position_Back);
-		}
+		FinalDamagevalue = FinalDamagevalue * this->GetMultiplier();
+		FinalDamagevalue * Thetarget->GetDamageMitigation();
+		return FinalDamagevalue;
 	}
-	else if (shift < 0 && Character->GetPosition() != Position_Front)
-	{
-		Character->SetPosition(static_cast<C_Position>(Character->GetPosition() + shift));
-		if (Character->GetPosition() < Position_Front)
-		{
-			Character->SetPosition(Position_Front);
-		}
-	}
-}
-void OffensiveSkill::shiftEnemyPosition(int shift)
-{
-
+	return 0.f;
 }
 
 void OffensiveSkill::ApplyEffect(STATUSEFFECTS effect, int turns)
@@ -94,46 +62,44 @@ void OffensiveSkill::ApplyEffect(STATUSEFFECTS effect, int turns)
 }
 
 /************************************************/
-/*            Status Effect skills              */
+/*               Revised Skills                 */
 
-RecoverSkill::RecoverSkill()
+Ability::Ability(string name,int id, int abilitycost,int actioncost, float multiplier, STATUSEFFECTS statuseffect, ScaleFactor scalefactor, int timer)
 {
-
+	this->name = name;
+	this->id = id;
+	this->abilitycost = abilitycost;
+	this->actioncost = actioncost;
+	this->multiplier = multiplier;
+	this->statuseffect = statuseffect;
+	this->scalefactor = scalefactor;
+	this->timer = timer;
 }
 
-RecoverSkill::~RecoverSkill()
+int Ability::AbilityBehavior()
 {
-
-}
-
-void RecoverSkill::SkillBehavior()
-{
-	if (Character == nullptr || Thetarget == nullptr)
+	if (character == nullptr || target == nullptr)
 	{
-		return;
+		return 0;
 	}
-	else
+	else if (character->GetAbilityPoints() >= abilitycost)
 	{
-		float FinalDamagevalue;
+		float Finaldamage;
 		if (scalefactor == Scale_Attack)
 		{
-			FinalDamagevalue = Character->GetAttack();
+			Finaldamage = character->GetAttack();
 		}
 		else if (scalefactor == Scale_Magic)
 		{
-			FinalDamagevalue = Character->GetMagic();
+			Finaldamage = character->GetMagic();
 		}
-		if (Character->GetPosition() == GetSkillPosition())
+		Finaldamage *= multiplier;
+		Finaldamage *= target->GetDamageMitigation();
+		if (statuseffect != No_Effect)
 		{
-			if (Thetarget->GetPosition() == GetSkillTarget())
-			{
-				FinalDamagevalue = FinalDamagevalue * this->GetMultiplier();
-				float Targetfinalhealth = Thetarget->GetHealth();
-				Targetfinalhealth -= FinalDamagevalue;
-				Thetarget->SetHealth(Targetfinalhealth);
-
-			}
+			character->ApplyEffect(statuseffect, timer);
 		}
+		return Finaldamage;
 	}
-
+	return 0;
 }

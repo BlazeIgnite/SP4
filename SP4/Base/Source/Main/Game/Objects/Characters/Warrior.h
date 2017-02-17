@@ -6,9 +6,7 @@
 
 class Warrior : public CharacterEntity
 {
-public:
-	OffensiveSkill* skill_1;
-private:
+
 public:
 	Warrior();
 	~Warrior();
@@ -17,7 +15,8 @@ public:
 	void Update(double dt);
 	virtual void Levelup();
 	Vector3 Position;
-	Vector3 Scale;
+	Vector3 Scale; 
+	OffensiveSkill* skill_1;
 };
 
 

@@ -164,6 +164,9 @@ void SceneBase::Init()
 	meshList[GEO_WARRIOR] = MeshBuilder::GenerateQuad("Warrior", Color(0.f, 0.f, 0.f), 1.f);
 	meshList[GEO_WARRIOR]->textureID = LoadTGA("Image//Warrior.tga");
 
+	meshList[GEO_WARRIOR_FRONT] = MeshBuilder::GenerateQuad("Warrior", Color(0.f, 0.f, 0.f), 1.f);
+	meshList[GEO_WARRIOR_FRONT]->textureID = LoadTGA("Image//Warrior_Front.tga");
+
 	bLightEnabled = false;
 }
 

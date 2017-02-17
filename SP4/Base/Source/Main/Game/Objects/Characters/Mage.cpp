@@ -62,7 +62,7 @@ void Mage::Init(int Level)
 			<< endl << "Magic: " << GetMagic()
 			<< endl << "Luck" << GetLuck() << endl;
 	}
-	SetPosition(Position_Back);
+//	SetPosition(Position_Back);
 	SetDamageMitigation();
 
 
@@ -73,8 +73,6 @@ void Mage::Init(int Level)
 	skill_1->SetMultiplier(0.65f);
 	skill_1->SetActionCost(20.f);
 	skill_1->SetScaleFactor(Skill::Scale_Magic);
-	skill_1->SetSkillPosition(Position_Front);
-	skill_1->SetSkillTarget(Target_Front);
 	skill_1->shiftposition = 0;
 }
 

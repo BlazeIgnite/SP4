@@ -10,12 +10,11 @@ public:
 
 	void Init();
 	void Update(double dt);
-	
 
-	int UseRedPot(int HP);
+	int UseHealthPot(int HP);
 	int UseManaPot(int Mana);
 	//int UseBandage()
-	int UseAtkBuffPot(int Attack);
-	int UseDefBuffPot(int Defense);
+	float UseAtkBuffPot(int Attack);
+	float UseDefBuffPot(int Defense);
 };
 

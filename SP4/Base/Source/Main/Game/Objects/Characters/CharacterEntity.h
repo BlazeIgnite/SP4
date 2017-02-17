@@ -3,14 +3,39 @@
 
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
+#include <string>
 #include "CharacterDatabase.h"
 
+using std::string;
 using std::vector;
 
 class CharacterEntity : public BaseObject 
 {
 protected:
-	
+
+private:
+	//Character's Base stats
+	C_Position position;
+
+	Vector3 Position;
+	Vector3 Scale;
+	int	Level;
+	int AbilityPoints;
+	int MaxAbilityPoints;
+	float Health;
+	float MaxHealth;
+	float Attack;
+	float Defense;
+	float Magic;
+	float Luck;
+	//Base Stats End here
+
+	int ID;
+
+	//Final stats
+	float DamageMitigation;
+
+	bool Defeated;
 public:
 	CharacterEntity();
 	~CharacterEntity();
@@ -25,6 +50,9 @@ public:
 	float GetDefense(){ return Defense; }
 	float GetMagic(){ return Magic; }
 	float GetLuck(){ return Luck; }
+	bool GetDefeated() { return Defeated; }
+	Vector3 GetVectorPosition(){ return Position; }
+	Vector3 GetScale(){ return Scale; }
 
 	//Setters
 	void SetLevel(int Level);
@@ -36,37 +64,26 @@ public:
 	void SetDefense(float Defense);
 	void SetMagic(float Magic);
 	void SetLuck(float Luck);
+	void SetDefeated(bool Defeated);
+	void SetVectorPosition(Vector3 Position){ this->Position = Position; }
+	void SetScale(Vector3 Scale){ this->Scale = Scale; }
 
 	virtual void Levelup(){};
 
 	//Position Stuff
 	C_Position GetPosition(){ return position; }
 	void SetPosition(C_Position position){ this->position = position; }
-
+	//This sets the Damage Mitigation for every level
 	void SetDamageMitigation();
 	float GetDamageMitigation(){ return DamageMitigation; }
 
+	void Init(Vector3 Position);
 	virtual void Init(int Level);
+	void Update(double dt);
 
 
-private:
-	//Character's Base stats
-	int	Level;
-	float Health;
-	float MaxHealth;
-	int AbilityPoints;
-	int MaxAbilityPoints;
-	float Attack;
-	float Defense;
-	float Magic;
-	float Luck;
-	C_Position position;
-	//Base Stats End here
+	string Name;
 
-	//Final stats
-	float DamageMitigation;
-	
-	//vector<Skill> Skillset;
 };
 
 #endif

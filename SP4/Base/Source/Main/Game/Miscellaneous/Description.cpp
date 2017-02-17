@@ -1,6 +1,8 @@
 #include "Description.h"
 #include "GL\glew.h"
 #include "../Systems/EventSystem.h"
+#include "../Mains/Application.h"
+#include "../Scene/Scene_Assignment1.h"
 
 Description::Description()
 {
@@ -37,7 +39,7 @@ void Description::Update(double dt)
 	float worldX = (float)x * ObjectManager::Instance().WorldWidth / (float)w;
 	float worldY = ((float)h - (float)y) * ObjectManager::Instance().WorldHeight / (float)h;
 
-	position = Vector3(worldX + scale.x * 0.5, worldY - scale.y * 0.5, 2);
+	position = Vector3(worldX + scale.x * 0.5, worldY - scale.y * 0.7, 2);
 }
 
 Vector3 Description::GetPosition()

@@ -8,40 +8,27 @@ ItemEntity::~ItemEntity()
 {
 }
 
-
-void ItemEntity::SetName(const std::string& newName)
-{
-	this->Name = newName;
-}
-
-void ItemEntity::SetAmount(const unsigned int& newAmount)
-{
-	this->Amount = newAmount;
-}
-
-std::string ItemEntity::GetName()
-{
-	return this->Name;
-}
-
-unsigned int ItemEntity::GetAmount()
-{
-	return this->Amount;
-}
-
-void ItemEntity::AddAmount(int& AdditionalAmount)
-{
-	this->Amount += AdditionalAmount;
-}
-
 void ItemEntity::Use(std::string Item, CharacterEntity* Character)
 {
-	if (Name == Item)
+	if (Item == "Red Potion")
 	{
-		if (GetAmount() > 0)
-		{
-			Character->SetHealth(comsumables->UseRedPot(Character->GetHealth()));
-			Amount--;
-		}
+		Character->SetHealth(consumables->UseHealthPot(Character->GetHealth()));
+	}
+	else if (Item == "Blue Potion")
+	{
+		Character->SetAbilityPoints(consumables->UseManaPot(Character->GetAbilityPoints()));
+	}
+	else if (Item == "Attack Potion")
+	{
+		Character->SetAttack(consumables->UseAtkBuffPot(Character->GetAttack()));
+	}
+	else if (Item == "Defense Potion")
+	{
+		Character->SetDefense(consumables->UseDefBuffPot(Character->GetDefense()));
+	}
+	else if (Item == "Bandage")
+	{
+
 	}
 }
+

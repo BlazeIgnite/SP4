@@ -1,7 +1,7 @@
 #pragma once
+#include "../Objects/Characters/Player.h"
 
-#include "../Mains/Application.h"
-#include "../Scene/Scene_Assignment1.h"
+#include "Vector3.h"
 #include <iostream>
 
 class Button
@@ -18,11 +18,15 @@ public:
 	Button();
 	~Button();
 
-	void Init(Vector3 Position, Vector3 Scale, std::string type);
+	void Init(Vector3 Position, Vector3 Scale, std::string type, Player* player);
+	void UpdateCrafting(double dt);
 	void Update(double dt);
-	std::string type;
 
+	Player* player;
+	std::string type;
 	bool isitHover();
+
+	bool isPressed;
 
 	Vector3 GetPosition();
 	Vector3 GetScale();

@@ -8,10 +8,12 @@
 #include "../Miscellaneous/Button.h"
 #include "../Miscellaneous/Description.h"
 #include "../Objects/Characters/Warrior.h"
+#include "../AI/AIBehaviors/AIDefault.h"
+#include "../Objects/Characters/Player.h"
+#include "../Systems/BattleSystem.h"
 
 class Button;
 class Description;
-class Warrior;
 
 class Scene_Assignment1 : public SceneEntity
 {
@@ -21,11 +23,21 @@ private:
 	void UpdateCharacterLogic(double dt);
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
-	Button* button;
-	Button* button2;
-	Warrior* warrior1;
-	Warrior* warrior2;
-	Description* display;
+	Button* CraftRedPot;
+	Button* CraftBluePot;
+	Button* CraftAtkPot;
+	Button* CraftDefPot;
+	Button* CraftBandage;
+	Description* CraftRedPotDes;
+	Description* CraftBluePotDes;
+	Description* CraftAtkPotDes;
+	Description* CraftDefPotDes;
+	Description* CraftBandageDes;
+	Player* player;
+	AIBase* AI;
+	//BattleSystem* bs;
+	//Warrior* warrior1;
+	//Warrior* warrior2;
 
 	std::vector<Button*> buttonVector;
 	std::vector<Description*> DescriptionVector;
@@ -40,6 +52,8 @@ public:
 	virtual void Update(float dt);
 	virtual void Render();
 	virtual void Exit();
+
+	void RenderCraftingButtons();
 
 	void HandleUserInput();
 

@@ -1,4 +1,5 @@
 #include "Skill.h"
+//#include "CharacterDatabase.h"
 
 /************************************************/
 /*                   Skills                     */
@@ -20,7 +21,7 @@ void Skill::SkillBehavior(ScaleFactor scalefactor)
 /************************************************/
 /*              Offensive skills                */
 
-OffensiveSkill::OffensiveSkill()
+OffensiveSkill::OffensiveSkill() : shiftposition(0)
 {
 
 }
@@ -52,31 +53,60 @@ void OffensiveSkill::SkillBehavior(float Damagemitigation)
 			if (Thetarget->GetPosition() == GetSkillTarget())
 			{
 				FinalDamagevalue = FinalDamagevalue * this->GetMultiplier();
-				FinalDamagevalue = FinalDamagevalue * (1.f - Damagemitigation);
+				FinalDamagevalue = FinalDamagevalue * (Damagemitigation);
 				float Targetfinalhealth = Thetarget->GetHealth();
 				Targetfinalhealth -= FinalDamagevalue;
 				Thetarget->SetHealth(Targetfinalhealth);
-
+				shiftOwnPosition(shiftposition);
 			}
 		}
 	}
 
 }
 
+void OffensiveSkill::shiftOwnPosition(int shift)
+{
+	if (shift > 0 && Character->GetPosition() != Position_Back)
+	{
+		Character->SetPosition(static_cast<C_Position>(Character->GetPosition() + shift));
+		if (Character->GetPosition() > Position_Back)
+		{
+			Character->SetPosition(Position_Back);
+		}
+	}
+	else if (shift < 0 && Character->GetPosition() != Position_Front)
+	{
+		Character->SetPosition(static_cast<C_Position>(Character->GetPosition() + shift));
+		if (Character->GetPosition() < Position_Front)
+		{
+			Character->SetPosition(Position_Front);
+		}
+	}
+}
+void OffensiveSkill::shiftEnemyPosition(int shift)
+{
+
+}
+
+void OffensiveSkill::ApplyEffect(STATUSEFFECTS effect, int turns)
+{
+
+}
+
 /************************************************/
 /*            Status Effect skills              */
 
-StatusEffectSkill::StatusEffectSkill()
+RecoverSkill::RecoverSkill()
 {
 
 }
 
-StatusEffectSkill::~StatusEffectSkill()
+RecoverSkill::~RecoverSkill()
 {
 
 }
 
-void StatusEffectSkill::SkillBehavior(float Damagemitigation)
+void RecoverSkill::SkillBehavior()
 {
 	if (Character == nullptr || Thetarget == nullptr)
 	{
@@ -98,7 +128,6 @@ void StatusEffectSkill::SkillBehavior(float Damagemitigation)
 			if (Thetarget->GetPosition() == GetSkillTarget())
 			{
 				FinalDamagevalue = FinalDamagevalue * this->GetMultiplier();
-				FinalDamagevalue = FinalDamagevalue * (1.f - Damagemitigation);
 				float Targetfinalhealth = Thetarget->GetHealth();
 				Targetfinalhealth -= FinalDamagevalue;
 				Thetarget->SetHealth(Targetfinalhealth);

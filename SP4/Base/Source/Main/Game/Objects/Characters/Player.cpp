@@ -23,61 +23,26 @@ void Player::Init(const unsigned int& PlayerTag)
 	ConsumableList.insert(std::pair < std::string, unsigned int>("HealthPotion", 0));
 	ConsumableList.insert(std::pair < std::string, unsigned int>("HealthPotion", 0));
 
-	for (int i = 0; i < 50; i++)
-	{
-		warrior = new Warrior();
-		warrior->Init(1);
-		AddCharacter("Warrior", warrior);
-	}
-	
-	HealthPotion = new ItemEntity();
+	MaterialList.insert(std::pair < std::string, unsigned int>("Red Herb", 0));
+	MaterialList.insert(std::pair < std::string, unsigned int>("Blue Herb", 0));
+	MaterialList.insert(std::pair < std::string, unsigned int>("White Herb", 0));
+	MaterialList.insert(std::pair < std::string, unsigned int>("Empty Bottle", 0));
+	MaterialList.insert(std::pair < std::string, unsigned int>("Cloth", 0));
+
+	item = new ItemEntity();
 	AddConsumableItem("Red Potion", 4);
 
-	//ManaPotion = new ItemEntity();
-	//ManaPotion->SetName("ManaPotion");
-	//ManaPotion->SetAmount(0);
-	//AddConsumableItem("ManaPotion", 1);
-
-	//Bandage = new ItemEntity();
-	//Bandage->SetName("Bandage");
-	//Bandage->SetAmount(0);
-	//AddConsumableItem("Bandage", 1);
-
-	//AtkPotion = new ItemEntity();
-	//AtkPotion->SetName("AtkPotion");
-	//AtkPotion->SetAmount(0);
-	//AddConsumableItem("AtkPotion", 1);.
-
-	//DefPotion = new ItemEntity();
-	//DefPotion->SetName("DefPotion");
-	//DefPotion->SetAmount(0);
-	//AddConsumableItem("DefPotion", 1);
-
-
-	            
+	AddMaterialItem("Red Herb", 5);
+	AddMaterialItem("Blue Herb", 5);
+	AddMaterialItem("White Herb", 3);
+	AddMaterialItem("Empty Bottle", 3);
+	AddMaterialItem("Cloth", 5);
 }
 
 void Player::Update(double dt)
 {
-	std::string temp = "Warrior";
+	
 
-	//std::cout << warrior->GetHealth() << std::endl;
-
-	if (Application::IsKeyPressed('Y'))
-	{
-		//GetConsumableList().find("Red Potion")->second;
-		if (!Pressed && GetConsumableList().find("Red Potion")->second > 0)
-		{
-			AddConsumableItem("Red Potion", -1);
-			HealthPotion->Use("Red Potion", warrior);
-			Pressed = true;
-		}
-	}
-	else
-	{
-		if (Pressed)
-			Pressed = false;
-	}
 }
 
 //Player Setter
@@ -170,7 +135,7 @@ void Player::AddConsumableItem(std::string Name, int Amount)
 void Player::AddMaterialItem(std::string Name, int Amount)
 {
 	std::map<string, unsigned int>::iterator itr = MaterialList.find(Name);
-	if (itr == ConsumableList.end())
+	if (itr == MaterialList.end())
 	{
 		MaterialList[Name] = Amount;
 	}

@@ -39,8 +39,8 @@ void AIDefault::Planning()
 
 void AIDefault::Execute()
 {
-	cout << "I end my turn" << endl;
-	BattleSystem::Instance().SetPlayerTurn(true);
+	//cout << "I end my turn" << endl;
+	//BattleSystem::Instance().SetPlayerTurn(true);
 	stateHolder->SetState("");
 }
 

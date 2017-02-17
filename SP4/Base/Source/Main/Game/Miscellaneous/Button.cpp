@@ -37,6 +37,11 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type, Player* pla
 
 void Button::Update(double dt)
 {
+
+}
+
+void Button::UpdateCrafting(double dt)
+{
 	Application::GetCursorPos(&x, &y);
 	isitHover();
 
@@ -61,9 +66,14 @@ void Button::Update(double dt)
 					isPressed = true;
 				}
 			}
-		}		
+		}	
+		else
+		{
+			isPressed = false;
+		}
 	}
-	else if (type == "Blue Potion" && isitHover())
+
+	if (type == "Blue Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
@@ -84,8 +94,13 @@ void Button::Update(double dt)
 				}
 			}
 		}
+		else
+		{
+			isPressed = false;
+		}
 	}
-	else if (type == "Attack Potion" && isitHover())
+
+	if (type == "Attack Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
@@ -107,8 +122,13 @@ void Button::Update(double dt)
 				}
 			}
 		}
+		else
+		{
+			isPressed = false;
+		}
 	}
-	else if (type == "Defense Potion" && isitHover())
+
+	if (type == "Defense Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
@@ -130,8 +150,13 @@ void Button::Update(double dt)
 				}
 			}
 		}
+		else
+		{
+			isPressed = false;
+		}
 	}
-	else if (type == "Bandage" && isitHover())
+
+	if (type == "Bandage" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
@@ -151,11 +176,10 @@ void Button::Update(double dt)
 				}
 			}
 		}
+		else
+			isPressed = false;
 	}
-	else
-	{
-		isPressed = false;
-	}
+	
 	//Crafting Page
 }
 

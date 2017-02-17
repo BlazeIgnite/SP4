@@ -8,12 +8,16 @@ class Warrior : public CharacterEntity
 {
 public:
 	OffensiveSkill* skill_1;
+private:
 public:
 	Warrior();
 	~Warrior();
+	void Init(const Vector3 Position, Vector3 Scale);
 	virtual void Init(int Level);
-	virtual void Levelup();
 	void Update(double dt);
+	virtual void Levelup();
+	Vector3 Position;
+	Vector3 Scale;
 };
 
 

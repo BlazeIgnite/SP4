@@ -9,6 +9,8 @@
 #include "CharacterEntity.h"
 #include "../Items/ItemEntity.h"
 #include "Warrior.h"
+#include "Mage.h"
+#include "Priest.h"
 
 class Player : public SingletonTemplate<Player>
 {
@@ -29,11 +31,11 @@ public:
 	unsigned int GetPlayerStageCount();
 
 	std::map<std::string, std::vector<CharacterEntity*>>& GetAllUnitList();
-	std::vector<CharacterEntity*>& GetClassUnitList(std::string&);
+	std::vector<CharacterEntity*>& GetClassUnitList(std::string);
 	std::map<std::string, unsigned int>& GetConsumableList();
 	std::map<std::string, unsigned int>& GetMaterialList();
 
-	std::vector<CharacterEntity*> GetClassUnitList(std::string);
+	//std::vector<CharacterEntity*> GetClassUnitList(std::string);
 
 
 	void AddGold(int&);

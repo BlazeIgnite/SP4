@@ -86,14 +86,14 @@ std::map<std::string, std::vector<CharacterEntity*>>& Player::GetAllUnitList()
 {
 	return this->UnitList;
 }
-std::vector<CharacterEntity*>& Player::GetClassUnitList(std::string& Name)
+std::vector<CharacterEntity*>& Player::GetClassUnitList(std::string Name)
 {
 	return this->UnitList.find(Name)->second;
 }
-std::vector<CharacterEntity*> Player::GetClassUnitList(std::string Name)
-{
-	return this->UnitList.find(Name)->second;
-}
+//std::vector<CharacterEntity*> Player::GetClassUnitList(std::string Name)
+//{
+//	return this->UnitList.find(Name)->second;
+//}
 std::map<std::string, unsigned int>& Player::GetConsumableList()
 {
 	return this->ConsumableList;

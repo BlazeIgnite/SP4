@@ -120,6 +120,9 @@ public:
 		GEO_ZOMBIE,
 		GEO_WILDLIFE,
 
+		//Character Textures
+		GEO_WARRIOR,
+
 		// Buttons
 		GEO_USE_REDPOT,
 		GEO_USE_BLUEPOT,
@@ -139,7 +142,7 @@ public:
 		GEO_DES_CRAFT_ATKPOT,
 		GEO_DES_CRAFT_DEFPOT,
 		GEO_DES_CRAFT_BANDAGE,
-
+		
 		GEO_BACKGROUND,
 		NUM_GEOMETRY,
 	};

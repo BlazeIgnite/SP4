@@ -189,6 +189,9 @@ void SceneBase::Init()
 	meshList[GEO_DES_CRAFT_BANDAGE]->textureID = LoadTGA("Image//Descriptions//BandageDescription.tga");
 
 
+	meshList[GEO_WARRIOR] = MeshBuilder::GenerateQuad("Warrior", Color(0.f, 0.f, 0.f), 1.f);
+	meshList[GEO_WARRIOR]->textureID = LoadTGA("Image//Warrior.tga");
+
 	bLightEnabled = false;
 }
 

@@ -3,59 +3,22 @@
 
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
+#include <string>
 #include "CharacterDatabase.h"
 
+using std::string;
 using std::vector;
 
 class CharacterEntity : public BaseObject 
 {
 protected:
-	
-public:
-	CharacterEntity();
-	~CharacterEntity();
-
-	//Getters
-	int GetLevel() { return Level; }
-	float GetHealth() { return Health; }
-	float GetMaxHealth(){ return MaxHealth; }
-	int GetAbilityPoints(){ return AbilityPoints; }
-	int GetMaxAbilityPoints(){ return MaxAbilityPoints; }
-	float GetAttack(){ return Attack; }
-	float GetDefense(){ return Defense; }
-	float GetMagic(){ return Magic; }
-	float GetLuck(){ return Luck; }
-	bool GetDefeated() { return Defeated; }
-
-	//Setters
-	void SetLevel(int Level);
-	void SetHealth(float Health);
-	void SetMaxHealth(float MaxHealth);
-	void SetAbilityPoints(int AbilityPoints);
-	void SetMaxAbilityPoints(int MaxAbilityPoints);
-	void SetAttack(float Attack);
-	void SetDefense(float Defense);
-	void SetMagic(float Magic);
-	void SetLuck(float Luck);
-	void SetDefeated(bool Defeated);
-
-	virtual void Levelup(){};
-
-	//Position Stuff
-	C_Position GetPosition(){ return position; }
-	void SetPosition(C_Position position){ this->position = position; }
-	//This sets the Damage Mitigation for every level
-	void SetDamageMitigation();
-	float GetDamageMitigation(){ return DamageMitigation; }
-
-	virtual void Init(int Level);
-	virtual void Update(double dt);
-	//virtual void Init(int Level);
-
 
 private:
 	//Character's Base stats
 	C_Position position;
+
+	Vector3 Position;
+	Vector3 Scale;
 	int	Level;
 	int AbilityPoints;
 	int MaxAbilityPoints;
@@ -71,10 +34,56 @@ private:
 
 	//Final stats
 	float DamageMitigation;
-	
+
 	bool Defeated;
-	
-	//vector<Skill> Skillset;
+public:
+	CharacterEntity();
+	~CharacterEntity();
+
+	//Getters
+	int GetLevel() { return Level; }
+	float GetHealth() { return Health; }
+	float GetMaxHealth(){ return MaxHealth; }
+	int GetAbilityPoints(){ return AbilityPoints; }
+	int GetMaxAbilityPoints(){ return MaxAbilityPoints; }
+	float GetAttack(){ return Attack; }
+	float GetDefense(){ return Defense; }
+	float GetMagic(){ return Magic; }
+	float GetLuck(){ return Luck; }
+	bool GetDefeated() { return Defeated; }
+	Vector3 GetVectorPosition(){ return Position; }
+	Vector3 GetScale(){ return Scale; }
+
+	//Setters
+	void SetLevel(int Level);
+	void SetHealth(float Health);
+	void SetMaxHealth(float MaxHealth);
+	void SetAbilityPoints(int AbilityPoints);
+	void SetMaxAbilityPoints(int MaxAbilityPoints);
+	void SetAttack(float Attack);
+	void SetDefense(float Defense);
+	void SetMagic(float Magic);
+	void SetLuck(float Luck);
+	void SetDefeated(bool Defeated);
+	void SetVectorPosition(Vector3 Position){ this->Position = Position; }
+	void SetScale(Vector3 Scale){ this->Scale = Scale; }
+
+	virtual void Levelup(){};
+
+	//Position Stuff
+	C_Position GetPosition(){ return position; }
+	void SetPosition(C_Position position){ this->position = position; }
+	//This sets the Damage Mitigation for every level
+	void SetDamageMitigation();
+	float GetDamageMitigation(){ return DamageMitigation; }
+
+	void Init(Vector3 Position);
+	virtual void Init(int Level);
+	void Update(double dt);
+
+
+	string Name;
+
 };
 
 #endif

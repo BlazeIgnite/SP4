@@ -31,15 +31,15 @@ public:
 	void SetPlayerTurn(bool newPlayerTurn);
 
 	// Getters
-	map<size_t, CharacterEntity*> GetPlayerTroops();
-	map<size_t, CharacterEntity*> GetAITroops();
+	map<size_t, CharacterEntity*>& GetPlayerTroops();
+	map<size_t, CharacterEntity*>& GetAITroops();
 	CharacterEntity* GetPlayerTroopAttacking(size_t position);
 	CharacterEntity* GetAITroopAttacking(size_t position);
 	float GetTurnCost();
 	bool GetPlayerTurn();
 
 	// Switching Spots
-	void SwitchSpots(map<size_t, CharacterEntity*> TroopMap, size_t FirstPosition, size_t SecondPosition);
+	void SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition);
 
 	// Damage Calculations all here
 	void DamageCalculation(CharacterEntity* Attacker, size_t target);

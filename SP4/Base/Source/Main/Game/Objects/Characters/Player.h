@@ -30,10 +30,13 @@ public:
 	unsigned int GetPlayerGold();
 	unsigned int GetPlayerStageCount();
 
-	std::map<std::string, std::vector<CharacterEntity*>> GetAllUnitList();
-	std::vector<CharacterEntity*> GetClassUnitList(std::string);
-	std::map<std::string, unsigned int> GetConsumableList();
-	std::map<std::string, unsigned int> GetMaterialList();
+	std::map<std::string, std::map<int, CharacterEntity*>>& GetAllUnitList();
+	std::map<int, CharacterEntity*>& GetClassUnitList(std::string&);
+	std::map<int, CharacterEntity*>& GetClassUnitList(std::string);
+	std::map<std::string, unsigned int>& GetConsumableList();
+	std::map<std::string, unsigned int>& GetMaterialList();
+
+	CharacterEntity* GetCharacterEntityInClassUnit(string ClassName, int ID);
 
 	void AddGold(int&);
 	void AddCharacter(std::string, CharacterEntity*);
@@ -47,7 +50,7 @@ private:
 	unsigned int PlayerGold;
 	unsigned int FurthestStageCount;
 
-	std::map<std::string, std::vector<CharacterEntity*>> UnitList;
+	std::map<std::string, std::map<int, CharacterEntity*>> UnitList;
 	std::map<std::string, unsigned int> ConsumableList;
 	std::map<std::string, unsigned int> MaterialList;
 

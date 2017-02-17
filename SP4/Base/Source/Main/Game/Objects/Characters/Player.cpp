@@ -12,10 +12,6 @@ Player::~Player()
 
 void Player::Init(const unsigned int PlayerTag)
 {
-	UnitList = std::map<std::string, std::vector<CharacterEntity*>>();
-	UnitList.insert(std::pair<std::string, std::vector<CharacterEntity*>>("Warrior", std::vector<CharacterEntity*>()));
-	UnitList.insert(std::pair<std::string, std::vector<CharacterEntity*>>("Healer", std::vector<CharacterEntity*>()));
-	UnitList.insert(std::pair<std::string, std::vector<CharacterEntity*>>("Wizard", std::vector<CharacterEntity*>()));
 	//LuaSystem::Instance().LoadGame(PlayerTag);
 	ConsumableList.insert(std::pair < std::string, unsigned int>("Red Potion", 0));
 	ConsumableList.insert(std::pair < std::string, unsigned int>("Blue Potion", 0));
@@ -80,25 +76,30 @@ unsigned int Player::GetPlayerStageCount()
 }
 
 //List Getter
-std::map<std::string, std::vector<CharacterEntity*>> Player::GetAllUnitList()
+std::map<std::string, std::map<int, CharacterEntity*>>& Player::GetAllUnitList()
 {
 	return this->UnitList;
 }
-std::vector<CharacterEntity*> Player::GetClassUnitList(std::string Name)
+std::map<int, CharacterEntity*>& Player::GetClassUnitList(std::string& Name)
 {
 	return this->UnitList.find(Name)->second;
 }
-//std::vector<CharacterEntity*> Player::GetClassUnitList(std::string Name)
-//{
-//	return this->UnitList.find(Name)->second;
-//}
-std::map<std::string, unsigned int> Player::GetConsumableList()
+std::map<int, CharacterEntity*>& Player::GetClassUnitList(std::string Name)
+{
+	return this->UnitList.find(Name)->second;
+}
+std::map<std::string, unsigned int>& Player::GetConsumableList()
 {
 	return this->ConsumableList;
 }
-std::map<std::string, unsigned int> Player::GetMaterialList()
+std::map<std::string, unsigned int>& Player::GetMaterialList()
 {
 	return this->MaterialList;
+}
+
+CharacterEntity* Player::GetCharacterEntityInClassUnit(string ClassName, int ID)
+{
+	return this->UnitList.find(ClassName)->second.find(ID)->second;
 }
 
 //Add
@@ -108,18 +109,17 @@ void Player::AddGold(int& AdditionalGold)
 }
 void Player::AddCharacter(std::string Name, CharacterEntity* newCharacter)
 {
-
-	std::map<string, std::vector<CharacterEntity*>>::iterator itr = UnitList.find(Name);
+	std::map<string, std::map<int, CharacterEntity*>>::iterator itr = UnitList.find(Name);
 	if (itr == UnitList.end())
 	{
-		std::vector < CharacterEntity* > emptyCharacterEntity;
-		emptyCharacterEntity.push_back(newCharacter);
-		UnitList[Name] = emptyCharacterEntity;
-		//UnitList[Name].push_back(newCharacter);
-		//UnitList.insert(std::pair <string, std::vector<CharacterEntity*>>(Name, newCharacter));
+		std::map < int, CharacterEntity* > EmptyMap;
+		EmptyMap[EmptyMap.size()] = newCharacter;
+		UnitList[Name] = EmptyMap;
 	}
 	else
-		this->UnitList.find(Name)->second.push_back(newCharacter);
+	{
+		this->UnitList.find(Name)->second[UnitList.find(Name)->second.size()] = newCharacter;
+	}
 }
 void Player::AddConsumableItem(std::string Name, int Amount)
 {

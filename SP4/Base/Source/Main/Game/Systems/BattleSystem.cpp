@@ -53,11 +53,11 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 }
 
 // Getters Here
-map<size_t, CharacterEntity*> BattleSystem::GetPlayerTroops()
+map<size_t, CharacterEntity*>& BattleSystem::GetPlayerTroops()
 {
 	return PlayerTroops;
 }
-map<size_t, CharacterEntity*> BattleSystem::GetAITroops()
+map<size_t, CharacterEntity*>& BattleSystem::GetAITroops()
 {
 	return AITroops;
 }
@@ -79,7 +79,7 @@ bool BattleSystem::GetPlayerTurn()
 }
 
 // Swtiching Spots in the BattleScene
-void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*> TroopMap, size_t FirstPosition, size_t SecondPosition)
+void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition)
 {
 	cout << "Troop Position " << FirstPosition << " : " << TroopMap.find(FirstPosition)->second->Name << endl;
 	cout << "Troop Position " << SecondPosition << " : " << TroopMap.find(SecondPosition)->second->Name << endl;

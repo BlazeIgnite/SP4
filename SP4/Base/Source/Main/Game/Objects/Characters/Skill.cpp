@@ -78,7 +78,7 @@ Ability::Ability(string name,int id, int abilitycost,int actioncost, float multi
 
 int Ability::AbilityBehavior()
 {
-	if (character == nullptr || target == nullptr)
+	/*if (character == nullptr || target == nullptr)
 	{
 		return 0;
 	}
@@ -101,5 +101,6 @@ int Ability::AbilityBehavior()
 		}
 		return Finaldamage;
 	}
+	*/
 	return 0;
 }

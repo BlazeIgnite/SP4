@@ -5,9 +5,11 @@
 #include <vector>
 #include <string>
 #include "CharacterDatabase.h"
+//#include "Skill.h"
 
 using std::string;
 using std::vector;
+class Skill;
 
 class CharacterEntity : public BaseObject 
 {
@@ -33,7 +35,6 @@ private:
 
 	//Final stats
 	float DamageMitigation;
-
 	bool Defeated;
 	enum CurrentEffect
 	{
@@ -44,6 +45,7 @@ private:
 		noeffect,
 	};
 protected:
+	Skill *skill;
 	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
 	int stuntimer, bleedtimer, debufftimer, bufftimer;
 
@@ -64,6 +66,7 @@ public:
 	bool GetDefeated() { return Defeated; }
 	Vector3 GetVectorPosition(){ return Position; }
 	Vector3 GetScale(){ return Scale; }
+	Skill* Getskill(){ return skill; }
 
 	//Setters
 	void SetLevel(int Level);

@@ -43,6 +43,7 @@ public:
 	void AddConsumableItem(std::string, int);
 	void AddMaterialItem(std::string, int);
 
+
 private:
 	std::string PlayerName;
 	unsigned int PlayerID;
@@ -53,15 +54,7 @@ private:
 	std::map<std::string, unsigned int> ConsumableList;
 	std::map<std::string, unsigned int> MaterialList;
 
-	ItemEntity* HealthPotion;
-	ItemEntity* ManaPotion;
-	ItemEntity* Bandage;
-	ItemEntity* AtkPotion;
-	ItemEntity* DefPotion;
-
-	ItemEntity* RedHerb;
-	ItemEntity* BlueHerb;
-	ItemEntity* WhiteHerb;
+	ItemEntity* item;
 
 	bool Pressed = false;
 

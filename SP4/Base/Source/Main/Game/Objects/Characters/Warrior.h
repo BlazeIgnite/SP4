@@ -16,7 +16,6 @@ public:
 	virtual void Levelup();
 	Vector3 Position;
 	Vector3 Scale; 
-	OffensiveSkill* skill_1;
 };
 
 

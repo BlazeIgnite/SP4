@@ -89,14 +89,13 @@ void Warrior::Init(int Level)
 	
 
 	//Sets up Skills used
-	skill_1 = new OffensiveSkill();
-	skill_1->SetCharacter(this);
-	skill_1->SetSkill_IDs("Bash", 1);
-	skill_1->SetAbilityCost(5);
-	skill_1->SetMultiplier(0.65f);
-	skill_1->SetActionCost(20.f);
-	skill_1->SetScaleFactor(Skill::Scale_Attack);
-	skill_1->shiftposition = 0;
+	skill = new OffensiveSkill();
+	skill->SetSkill_IDs("Bash", 1);
+	skill->SetAbilityCost(5);
+	skill->SetMultiplier(0.65f);
+	skill->SetActionCost(20.f);
+	skill->SetScaleFactor(Skill::Scale_Attack);
+	skill->shiftposition = 0;
 
 	
 }

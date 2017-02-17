@@ -194,7 +194,6 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 		{
 
 		}
-		AttackerSkill->SetTarget(GetAITroops().at(target));
 		AttackerSkill->SkillBehavior();
 	}
 	else

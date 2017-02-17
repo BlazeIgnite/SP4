@@ -1,22 +1,19 @@
 #ifndef SKILL_H_
 #define SKILL_H_
 #include <string>
-#include "CharacterDatabase.h"
 #include "CharacterEntity.h"
 using std::string;
 
 
 class Skill
 {
-private:
+protected:
 	float Multiplier;
 	float AbilityPointCost;
 	float ActionPointCost;
 	int Skill_ID;
 	string Skill_name;
 	STATUSEFFECTS effect;
-	CharacterEntity* Character;
-	CharacterEntity* Thetarget;
 public:
 
 	enum ScaleFactor
@@ -38,9 +35,6 @@ public:
 	virtual float SkillBehavior();
 	//virtual void ApplyEffect(STATUSEFFECTS effect);
 	virtual void ApplyEffect(STATUSEFFECTS effect, int turns){};
-
-	inline void SetCharacter(CharacterEntity* Character){ this->Character = Character; }
-	inline void SetTarget(CharacterEntity* Target){ this->Thetarget = Target; }
 
 	//Sets and Gets Skill ID and name if necessary
 	void SetSkill_IDs(string Skill_name, int Skill_ID){ this->Skill_name = Skill_name; this->Skill_ID = Skill_ID; }
@@ -106,8 +100,6 @@ public:
 	
 
 private:
-	CharacterEntity* character;
-	CharacterEntity* target;
 
 };
 #endif

@@ -1,4 +1,5 @@
 #include "CharacterEntity.h"
+#include "Skill.h"
 #include "../../Game/Mains/Application.h"
 
 

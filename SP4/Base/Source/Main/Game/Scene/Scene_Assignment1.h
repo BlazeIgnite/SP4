@@ -22,14 +22,21 @@ private:
 	void UpdateCharacterLogic(double dt);
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
-	Button* button;
-	Button* button2;
+	Button* CraftRedPot;
+	Button* CraftBluePot;
+	Button* CraftAtkPot;
+	Button* CraftDefPot;
+	Button* CraftBandage;
+	Description* CraftRedPotDes;
+	Description* CraftBluePotDes;
+	Description* CraftAtkPotDes;
+	Description* CraftDefPotDes;
+	Description* CraftBandageDes;
 	Player* player;
 	AIBase* AI;
 	//BattleSystem* bs;
 	//Warrior* warrior1;
 	//Warrior* warrior2;
-	Description* display;
 
 	std::vector<Button*> buttonVector;
 	std::vector<Description*> DescriptionVector;
@@ -44,6 +51,8 @@ public:
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
+
+	void RenderCraftingButtons();
 
 	void HandleUserInput();
 

@@ -18,12 +18,12 @@ public:
 	Player();
 	~Player();
 
-	void Init(const unsigned int&);
+	void Init(const unsigned int);
 	void Update(double dt);
-	void SetPlayerName(const std::string&);
-	void SetPlayerID(const unsigned int&);
-	void SetPlayerGold(const unsigned int&);
-	void SetPlayerStageCount(const unsigned int&);
+	void SetPlayerName(const std::string);
+	void SetPlayerID(const unsigned int);
+	void SetPlayerGold(const unsigned int);
+	void SetPlayerStageCount(const unsigned int);
 	
 	std::string GetPlayerName();
 	unsigned int GetPlayerID();

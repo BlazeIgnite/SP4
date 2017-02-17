@@ -44,7 +44,7 @@ void Player::Update(double dt)
 	
 }
 
-void Player::SetPlayerName(const std::string& newName)
+void Player::SetPlayerName(const std::string newName)
 {
 	this->PlayerName = newName;
 }
@@ -80,11 +80,11 @@ unsigned int Player::GetPlayerStageCount()
 }
 
 //List Getter
-std::map<std::string, std::vector<CharacterEntity*>>& Player::GetAllUnitList()
+std::map<std::string, std::vector<CharacterEntity*>> Player::GetAllUnitList()
 {
 	return this->UnitList;
 }
-std::vector<CharacterEntity*>& Player::GetClassUnitList(std::string Name)
+std::vector<CharacterEntity*> Player::GetClassUnitList(std::string Name)
 {
 	return this->UnitList.find(Name)->second;
 }
@@ -92,11 +92,11 @@ std::vector<CharacterEntity*>& Player::GetClassUnitList(std::string Name)
 //{
 //	return this->UnitList.find(Name)->second;
 //}
-std::map<std::string, unsigned int>& Player::GetConsumableList()
+std::map<std::string, unsigned int> Player::GetConsumableList()
 {
 	return this->ConsumableList;
 }
-std::map<std::string, unsigned int>& Player::GetMaterialList()
+std::map<std::string, unsigned int> Player::GetMaterialList()
 {
 	return this->MaterialList;
 }

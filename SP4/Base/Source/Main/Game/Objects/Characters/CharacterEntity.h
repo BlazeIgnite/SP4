@@ -5,9 +5,11 @@
 #include <vector>
 #include <string>
 #include "CharacterDatabase.h"
+//#include "Skill.h"
 
 using std::string;
 using std::vector;
+class Skill;
 
 class CharacterEntity : public BaseObject 
 {
@@ -15,7 +17,6 @@ protected:
 
 private:
 	//Character's Base stats
-	C_Position position;
 
 	Vector3 Position;
 	Vector3 Scale;
@@ -34,8 +35,20 @@ private:
 
 	//Final stats
 	float DamageMitigation;
-
 	bool Defeated;
+	enum CurrentEffect
+	{
+		isStunned = 1,
+		isBleed,
+		isDebuff,
+		isBuff,
+		noeffect,
+	};
+protected:
+	Skill *skill;
+	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
+	int stuntimer, bleedtimer, debufftimer, bufftimer;
+
 public:
 	CharacterEntity();
 	~CharacterEntity();
@@ -53,6 +66,7 @@ public:
 	bool GetDefeated() { return Defeated; }
 	Vector3 GetVectorPosition(){ return Position; }
 	Vector3 GetScale(){ return Scale; }
+	Skill* Getskill(){ return skill; }
 
 	//Setters
 	void SetLevel(int Level);
@@ -70,9 +84,6 @@ public:
 
 	virtual void Levelup(){};
 
-	//Position Stuff
-	C_Position GetPosition(){ return position; }
-	void SetPosition(C_Position position){ this->position = position; }
 	//This sets the Damage Mitigation for every level
 	void SetDamageMitigation();
 	float GetDamageMitigation(){ return DamageMitigation; }
@@ -80,7 +91,7 @@ public:
 	void Init(Vector3 Position);
 	virtual void Init(int Level);
 	void Update(double dt);
-
+	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
 
 	string Name;
 

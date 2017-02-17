@@ -1,5 +1,9 @@
-﻿Build started 2/17/2017 5:56:38 PM.
+﻿Build started 2/17/2017 5:03:22 PM.
+     1>Project "C:\Users\150503N\Desktop\SP4\SP4\Base\Base.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         Base.vcxproj -> C:\Users\150503N\Desktop\SP4\SP4\Debug\Base.exe
+     1>Done Building Project "C:\Users\150503N\Desktop\SP4\SP4\Base\Base.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.02
+Time Elapsed 00:00:00.08

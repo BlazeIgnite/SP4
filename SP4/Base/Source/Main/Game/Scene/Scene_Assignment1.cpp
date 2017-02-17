@@ -43,6 +43,12 @@ void Scene_Assignment1::Init()
 
 	Mage* mage = new Mage();
 
+	warrior->Init(20);
+	warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
+	warrior1->Init(20);
+	warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
+
+	mage->Init(1);
 	//warrior->Init(2);
 	//warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
 	//warrior1->Init(1);
@@ -357,6 +363,16 @@ void Scene_Assignment1::RenderCraftingButtons()
 		//	modelStack.PopMatrix();
 		//}
 	}
+	//For AI rendering
+	int tempnum = 0;
+	/*for (map<size_t, CharacterEntity*>::iterator it2 = BattleSystem::Instance().GetAITroops().begin(); it2 != BattleSystem::Instance().GetAITroops().end(); it2++,tempnum++)
+	{
+		
+	}*/
+	//On screen text
+	std::stringstream ss;
+	ss.str("");
+	
 }
 
 void Scene_Assignment1::HandleUserInput()
@@ -385,6 +401,7 @@ void Scene_Assignment1::HandleUserInput()
 	static bool DButtonState = false;
 	if (!DButtonState && Application::IsKeyPressed('D'))
 	{
+		BattleSystem::Instance().SwitchSpots(BattleSystem::Instance().GetPlayerTroops(), 0, 1);
 		//BattleSystem::Instance().SwitchSpots((&BattleSystem::Instance().GetPlayerTroops()), 0, 1);
 		DButtonState = true;
 	}
@@ -417,6 +434,9 @@ void Scene_Assignment1::HandleUserInput()
 	static bool QButtonState = false;
 	if (!QButtonState && Application::IsKeyPressed('Q'))
 	{
+		 if (BattleSystem::Instance().GetPlayerTurn())
+		 	BattleSystem::Instance().DamageCalculation(BattleSystem::Instance().GetPlayerTroopAttacking(0), 0, BattleSystem::Instance().GetPlayerTroopAttacking(0)->Getskill());
+
 		QButtonState = true;
 	}
 	else if (QButtonState && !Application::IsKeyPressed('Q'))

@@ -61,7 +61,7 @@ void Priest::Init(int Level)
 			<< endl << "Magic: " << GetMagic()
 			<< endl << "Luck" << GetLuck() << endl;
 	}
-	SetPosition(Position_Middle);
+	//SetPosition(Position_Middle);
 	SetDamageMitigation();
 }
 

@@ -40,13 +40,17 @@ void Scene_Assignment1::Init()
 	Warrior* warrior1 = new Warrior();
 
 	warrior->Init(2);
+	warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
 	warrior1->Init(1);
+	warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
 
 	player = new Player();
+	Player::Instance().Init(1);
 	AI = new AIDefault();
 	AI->Init();
 	//bs = new BattleSystem();
 	//bs->Init();
+	Player::Instance().AddCharacter("Warrior", warrior);
 	player->AddCharacter("Warrior", warrior);
 	AI->AddTroop("Warrior", warrior1);
 	BattleSystem::Instance().Init();
@@ -122,6 +126,7 @@ void Scene_Assignment1::Update(double dt)
 	UpdateInternals(dt);
 	HandleUserInput();
 	player->Update(dt);
+	Player::Instance().Update(dt);
 	AI->Update(dt);
 	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
 	{
@@ -131,16 +136,7 @@ void Scene_Assignment1::Update(double dt)
 	{
 		(*itr2)->Update(dt);
 	}
-	/*if (Application::IsKeyPressed('A'))
-	{
-		warrior->skill_1->SkillBehavior(warrior1->GetDamageMitigation());
-		warrior1->Update(dt);
-	}
-	if (Application::IsKeyPressed('D'))
-	{
-		warrior1->Levelup();
-		warrior1->Update(dt);
-	}*/
+	
 	//for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
 	//{
 	//	(*itr2)->Update(dt);
@@ -265,7 +261,22 @@ void Scene_Assignment1::Render()
 			modelStack.PopMatrix();
 		}
  	}
+	//renders troop list
+	std::string temp = "Warrior";
+	for (std::vector<CharacterEntity*>::iterator it = Player::Instance().GetClassUnitList(temp).begin(); it != Player::Instance().GetClassUnitList(temp).end(); ++it)
+	{
+		Warrior *object = (Warrior *)*it;
+		modelStack.PushMatrix();
+		modelStack.Translate(object->Position.x, object->Position.y, object->Position.z);
+		modelStack.Scale(object->Scale.x, object->Scale.y, object->Scale.z);
+		RenderMesh(meshList[GEO_WARRIOR], false);
+		modelStack.PopMatrix();
+	}
+	//For AI rendering
+	/*for (std::vector<CharacterEntity*>::iterator it2 = )
+	{
 
+	}*/
 	//On screen text
 	std::stringstream ss;
 	ss.str("");

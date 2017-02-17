@@ -120,6 +120,9 @@ public:
 		GEO_ZOMBIE,
 		GEO_WILDLIFE,
 
+		//Character Textures
+		GEO_WARRIOR,
+
 		//Hover
 		GEO_HOVER,
 		GEO_DESCRIPTION,

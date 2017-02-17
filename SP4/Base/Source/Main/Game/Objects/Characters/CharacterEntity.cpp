@@ -61,7 +61,13 @@ void CharacterEntity::Init(int Level)
 	SetDamageMitigation();
 }
 
-void CharacterEntity::Update(double dt)
+
+void CharacterEntity::Init(const Vector3 Position)
 {
+	this->Position = Position;
 }
 
+void CharacterEntity::Update(double dt)
+{
+
+}

@@ -161,6 +161,9 @@ void SceneBase::Init()
 	meshList[GEO_DESCRIPTION] = MeshBuilder::GenerateQuad("Description", Color(1.f, 0.f, 0.f), 1);
 	//meshList[GEO_DESCRIPTION]->textureID = LoadTGA("Image//warzone_city.tga");
 
+	meshList[GEO_WARRIOR] = MeshBuilder::GenerateQuad("Warrior", Color(0.f, 0.f, 0.f), 1.f);
+	meshList[GEO_WARRIOR]->textureID = LoadTGA("Image//Warrior.tga");
+
 	bLightEnabled = false;
 }
 

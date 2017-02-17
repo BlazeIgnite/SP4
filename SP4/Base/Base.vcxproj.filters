@@ -283,7 +283,6 @@
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h">
       <Filter>Header Files</Filter>
     </ClInclude>

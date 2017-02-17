@@ -13,7 +13,6 @@
 
 class Button;
 class Description;
-class Warrior;
 
 class Scene_Assignment1 : public SceneBase
 {

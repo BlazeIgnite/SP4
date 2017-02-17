@@ -3,8 +3,10 @@
 
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
+#include <string>
 #include "CharacterDatabase.h"
 
+using std::string;
 using std::vector;
 
 class CharacterEntity : public BaseObject 
@@ -80,7 +82,8 @@ public:
 	void Update(double dt);
 
 
-	
+	string Name;
+
 };
 
 #endif

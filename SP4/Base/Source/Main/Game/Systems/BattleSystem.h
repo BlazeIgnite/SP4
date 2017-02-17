@@ -21,26 +21,32 @@ public:
 	BattleSystem();
 	~BattleSystem();
 
+	// Initialising
 	void Init();
 
 	// Setters
-	void SetPlayerTurn(bool newPlayerTurn);
-	void SetTurnCost(float newTurnCost);
-
 	void SetPlayerTroops(size_t position, CharacterEntity* Troop);
 	void SetAITroops(size_t position, CharacterEntity* Troop);
+	void SetTurnCost(float newTurnCost);
+	void SetPlayerTurn(bool newPlayerTurn);
 
+	// Getters
+	map<size_t, CharacterEntity*> GetPlayerTroops();
+	map<size_t, CharacterEntity*> GetAITroops();
 	CharacterEntity* GetPlayerTroopAttacking(size_t position);
 	CharacterEntity* GetAITroopAttacking(size_t position);
-	// Getters
-	bool GetPlayerTurn();
 	float GetTurnCost();
+	bool GetPlayerTurn();
+
+	// Switching Spots
+	void SwitchSpots(map<size_t, CharacterEntity*> TroopMap, size_t FirstPosition, size_t SecondPosition);
 
 	// Damage Calculations all here
-	void DamageCalculation(CharacterEntity* Attacker, int target);
+	void DamageCalculation(CharacterEntity* Attacker, size_t target);
+	void DamageCalculation(CharacterEntity* Attacker, size_t target, Skill AttackerSkill);
 
 	// Status Effect Calculations all here
-	void SetStatusEffect(CharacterEntity* Attacker, int target);
+	void SetStatusEffect(CharacterEntity* Attacker, size_t target);
 
 };
 

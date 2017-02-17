@@ -3,8 +3,10 @@
 
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
+#include <string>
 #include "CharacterDatabase.h"
 
+using std::string;
 using std::vector;
 
 class CharacterEntity : public BaseObject 
@@ -53,6 +55,7 @@ public:
 	//virtual void Init(int Level);
 
 
+	string Name;
 private:
 	//Character's Base stats
 	C_Position position;

@@ -22,6 +22,7 @@ Warrior::~Warrior()
 
 void Warrior::Init(int Level)
 {
+	Name = "Warrior";
 	if (Level > 0 && Level < 21)
 	{
 		SetLevel(Level);

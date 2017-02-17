@@ -9,6 +9,8 @@
 #include "CharacterEntity.h"
 #include "../Items/ItemEntity.h"
 #include "Warrior.h"
+#include "Mage.h"
+#include "Priest.h"
 
 class Player : public SingletonTemplate<Player>
 {

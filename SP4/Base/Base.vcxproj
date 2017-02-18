@@ -42,6 +42,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
+    <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\ObjectManager.cpp" />
     <ClCompile Include="Source\Main\Game\Mains\Application.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\Camera.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />
+    <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\ObjectManager.h" />
     <ClInclude Include="Main\Engine\System\Objects\BaseObject.h" />
     <ClInclude Include="Main\Engine\System\Objects\CharacterEntity.h" />

@@ -31,6 +31,7 @@ void Scene_Assignment1::Init()
 	EventSystem::Instance().Init();
 	x, y = 0;
 	//HP = 10;
+	
 
 	GameStage = true;
 
@@ -60,6 +61,8 @@ void Scene_Assignment1::Init()
 	Player::Instance().Init(1);
 	AI = new AIDefault();
 	AI->Init();
+	inventory = new InventorySystem();
+	inventory->Init(player, x, y);
 	//bs = new BattleSystem();
 	//bs->Init();
 	Player::Instance().AddCharacter("Warrior", warrior);
@@ -73,40 +76,6 @@ void Scene_Assignment1::Init()
 
 	//BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
 	//BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
-
-	//Buttons
-	CraftRedPot = new Button();
-	CraftRedPot->Init(Vector3(75, 50, 0), Vector3(10, 10, 1), "Red Potion", player);
-	buttonVector.push_back(CraftRedPot);
-	CraftBluePot = new Button();
-	CraftBluePot->Init(Vector3(90, 50, 0), Vector3(10, 10, 1), "Blue Potion", player);
-	buttonVector.push_back(CraftBluePot);
-	CraftAtkPot = new Button();
-	CraftAtkPot->Init(Vector3(75, 35, 0), Vector3(10, 10, 1), "Attack Potion", player);
-	buttonVector.push_back(CraftAtkPot);
-	CraftDefPot = new Button();
-	CraftDefPot->Init(Vector3(90, 35, 0), Vector3(10, 10, 1), "Defense Potion", player);
-	buttonVector.push_back(CraftDefPot);
-	CraftBandage = new Button();
-	CraftBandage->Init(Vector3(82.5f, 20, 0), Vector3(12, 10, 1), "Bandage", player);
-	buttonVector.push_back(CraftBandage);
-
-	//Descriptions
-	CraftRedPotDes = new Description();
-	CraftRedPotDes->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Red Potion");
-	DescriptionVector.push_back(CraftRedPotDes);
-	CraftBluePotDes = new Description();
-	CraftBluePotDes->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Blue Potion");
-	DescriptionVector.push_back(CraftBluePotDes);
-	CraftAtkPotDes = new Description();
-	CraftAtkPotDes->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Attack Potion");
-	DescriptionVector.push_back(CraftAtkPotDes);
-	CraftDefPotDes = new Description();
-	CraftDefPotDes->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Defense Potion");
-	DescriptionVector.push_back(CraftDefPotDes);
-	CraftBandageDes = new Description();
-	CraftBandageDes->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Bandage");
-	DescriptionVector.push_back(CraftBandageDes);
 
 	//warrior1 = new Warrior();
 
@@ -165,16 +134,7 @@ void Scene_Assignment1::Update(float dt)
 	player->Update(dt);
 	Player::Instance().Update(dt);
 	AI->Update(dt);
-
-	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
-	{
-		(*itr)->Update(dt);
-		(*itr)->UpdateCrafting(dt);
-	}
-	for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
-	{
-		(*itr2)->Update(dt);
-	}
+	inventory->Update(dt);
 
 	/*if (Application::IsKeyPressed('A'))
 	{
@@ -267,16 +227,16 @@ void Scene_Assignment1::Render()
 	//RenderMesh(meshList[GEO_AXES], false);
 	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
 
+	RenderCraftingButtons();
+
 	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 0.f);
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -1.f);
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	//RenderMesh(meshList[GEO_BACKGROUND], false);
 	//Renderer->SetHUD(true);
-	Renderer->RenderMesh("BackGround", false);
+	//Renderer->RenderMesh("BackGround", false);
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
-
-	RenderCraftingButtons();
 
 	//renders troop list
 	/*std::string temp = "Warrior";
@@ -305,75 +265,77 @@ void Scene_Assignment1::Render()
 
 void Scene_Assignment1::RenderCraftingButtons()
 {
-	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
+	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
+	for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
 	{
-		//Button *obj = (Button *)*itr;
+		Button *obj = (Button *)*itr;
 
-		//modelStack.PushMatrix();
-		//modelStack.Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
-		////modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-		//modelStack.Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-		//if (obj->type == "Red Potion")
-		//{
-		//	RenderMesh(meshList[GEO_CRAFT_REDPOT], false);
-		//}
-		//if (obj->type == "Blue Potion")
-		//{
-		//	RenderMesh(meshList[GEO_CRAFT_BLUEPOT], false);
-		//}
-		//if (obj->type == "Attack Potion")
-		//{
-		//	RenderMesh(meshList[GEO_CRAFT_ATKPOT], false);
-		//}
-		//if (obj->type == "Defense Potion")
-		//{
-		//	RenderMesh(meshList[GEO_CRAFT_DEFPOT], false);
-		//}
-		//if (obj->type == "Bandage")
-		//{
-		//	RenderMesh(meshList[GEO_CRAFT_BANDAGE], false);
-		//}
-		//modelStack.PopMatrix();
-		//for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
-		//{
-		//	Description* obj2 = (Description*)*itr2;
-		//	modelStack.PushMatrix();
-		//	modelStack.Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/10);
-		//	modelStack.Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
-		//	if (obj->isitHover() && obj->type == "Red Potion" && obj2->type == "Red Potion")
-		//	{
-		//		RenderMesh(meshList[GEO_DES_CRAFT_REDPOT], false);
-		//	}
-		//	if (obj->isitHover() && obj->type == "Blue Potion" && obj2->type == "Blue Potion")
-		//	{
-		//		RenderMesh(meshList[GEO_DES_CRAFT_BLUEPOT], false);
-		//	}
-		//	if (obj->isitHover() && obj->type == "Attack Potion" && obj2->type == "Attack Potion")
-		//	{
-		//		RenderMesh(meshList[GEO_DES_CRAFT_ATKPOT], false);
-		//	}
-		//	if (obj->isitHover() && obj->type == "Defense Potion" && obj2->type == "Defense Potion")
-		//	{
-		//		RenderMesh(meshList[GEO_DES_CRAFT_DEFPOT], false);
-		//	}
-		//	if (obj->isitHover() && obj->type == "Bandage" && obj2->type == "Bandage")
-		//	{
-		//		RenderMesh(meshList[GEO_DES_CRAFT_BANDAGE], false);
-		//	}
-		//	modelStack.PopMatrix();
-		//}
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+		if (obj->type == "Red Potion")
+		{
+			Renderer->RenderMesh("CraftRedPotion", false);
+		}
+		if (obj->type == "Blue Potion")
+		{
+			Renderer->RenderMesh("CraftBluePotion", false);
+		}
+		if (obj->type == "Attack Potion")
+		{
+			Renderer->RenderMesh("CraftAttackPotion", false);
+		}
+		if (obj->type == "Defense Potion")
+		{
+			Renderer->RenderMesh("CraftDefencePotion", false);
+		}
+		if (obj->type == "Bandage")
+		{
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		}
+		modelStack->PopMatrix();
+		for (std::vector<Description*>::iterator itr2 = inventory->DescriptionVector.begin(); itr2 != inventory->DescriptionVector.end(); itr2++)
+		{
+			Description* obj2 = (Description*)*itr2;
+			modelStack->PushMatrix();
+			modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/10);
+			modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+			if (obj->isitHover() && obj->type == "Red Potion" && obj2->type == "Red Potion")
+			{
+				Renderer->RenderMesh("DescripRedPotion", false);
+			}
+			if (obj->isitHover() && obj->type == "Blue Potion" && obj2->type == "Blue Potion")
+			{
+				Renderer->RenderMesh("DescripBluePotion", false);
+			}
+			if (obj->isitHover() && obj->type == "Attack Potion" && obj2->type == "Attack Potion")
+			{
+				Renderer->RenderMesh("DescripAttackPotion", false);
+			}
+			if (obj->isitHover() && obj->type == "Defense Potion" && obj2->type == "Defense Potion")
+			{
+				Renderer->RenderMesh("DescripDefencePotion", false);
+			}
+			if (obj->isitHover() && obj->type == "Bandage" && obj2->type == "Bandage")
+			{
+				Renderer->RenderMesh("DescripBandagePotion", false);
+			}
+			modelStack->PopMatrix();
+		}
 	}
-	//For AI rendering
-	int tempnum = 0;
-	/*for (map<size_t, CharacterEntity*>::iterator it2 = BattleSystem::Instance().GetAITroops().begin(); it2 != BattleSystem::Instance().GetAITroops().end(); it2++,tempnum++)
-	{
-		
-	}*/
-	//On screen text
-	std::stringstream ss;
-	ss.str("");
-	
+	//	//For AI rendering
+	//	int tempnum = 0;
+	//	/*for (map<size_t, CharacterEntity*>::iterator it2 = BattleSystem::Instance().GetAITroops().begin(); it2 != BattleSystem::Instance().GetAITroops().end(); it2++,tempnum++)
+	//	{
+	//		
+	//	}*/
+	//	//On screen text
+	//	std::stringstream ss;
+	//	ss.str("");
+	//	
 }
+
 
 void Scene_Assignment1::HandleUserInput()
 {

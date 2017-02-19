@@ -23,7 +23,6 @@ Mage::~Mage()
 
 void Mage::Init(int Level)
 {
-	Name = "Mage";
 	if (Level > 0 && Level < 21)
 	{
 		SetLevel(Level);

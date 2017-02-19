@@ -14,13 +14,20 @@ class Ability;
 
 class CharacterEntity : public BaseObject 
 {
-protected:
-
-private:
 	//Character's Base stats
+	// Can this be in a bool? you are using up 4 bytes for each enum value as compared to 1 byte (bool).
+	enum CurrentEffect
+	{
+		isStunned = 1,
+		isBleed,
+		isDebuff,
+		isBuff,
+		noeffect,
+	};
 
 	Vector3 Position;
 	Vector3 Scale;
+	string Name;
 	int	Level;
 	int AbilityPoints;
 	int MaxAbilityPoints;
@@ -32,19 +39,9 @@ private:
 	float Luck;
 	//Base Stats End here
 
-	int ID;
-
 	//Final stats
 	float DamageMitigation;
 	bool Defeated;
-	enum CurrentEffect
-	{
-		isStunned = 1,
-		isBleed,
-		isDebuff,
-		isBuff,
-		noeffect,
-	};
 protected:
 	Ability *skill;
 	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
@@ -55,21 +52,25 @@ public:
 	~CharacterEntity();
 
 	//Getters
+	Vector3 GetVectorPosition(){ return Position; }
+	Vector3 GetScale(){ return Scale; }
+	string GetName(){ return Name; }
 	int GetLevel() { return Level; }
-	float GetHealth() { return Health; }
-	float GetMaxHealth(){ return MaxHealth; }
 	int GetAbilityPoints(){ return AbilityPoints; }
 	int GetMaxAbilityPoints(){ return MaxAbilityPoints; }
+	float GetHealth() { return Health; }
+	float GetMaxHealth(){ return MaxHealth; }
 	float GetAttack(){ return Attack; }
 	float GetDefense(){ return Defense; }
 	float GetMagic(){ return Magic; }
 	float GetLuck(){ return Luck; }
 	bool GetDefeated() { return Defeated; }
-	Vector3 GetVectorPosition(){ return Position; }
-	Vector3 GetScale(){ return Scale; }
 	Ability* Getskill(){ return skill; }
 
 	//Setters
+	void SetVectorPosition(Vector3 Position){ this->Position = Position; }
+	void SetScale(Vector3 Scale){ this->Scale = Scale; }
+	void SetName(string Name){ this->Name = Name; }
 	void SetLevel(int Level);
 	void SetHealth(float Health);
 	void SetMaxHealth(float MaxHealth);
@@ -80,8 +81,6 @@ public:
 	void SetMagic(float Magic);
 	void SetLuck(float Luck);
 	void SetDefeated(bool Defeated);
-	void SetVectorPosition(Vector3 Position){ this->Position = Position; }
-	void SetScale(Vector3 Scale){ this->Scale = Scale; }
 
 	virtual void Levelup(){};
 
@@ -94,7 +93,6 @@ public:
 	void Update(double dt);
 	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
 
-	string Name;
 //	map<string, Ability> Abilities;
 };
 

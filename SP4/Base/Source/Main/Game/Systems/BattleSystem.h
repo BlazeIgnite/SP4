@@ -18,6 +18,7 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 
 	size_t TurnCost;
 	bool PlayerTurn;
+	bool PlayerWon;
 public:
 	BattleSystem();
 	~BattleSystem();
@@ -31,6 +32,7 @@ public:
 	void SetSelectedTroop(CharacterEntity* newSelectedTroop);
 	void SetTurnCost(size_t newTurnCost);
 	void SetPlayerTurn(bool newPlayerTurn);
+	void SetPlayerWon(bool newPlayerWon);
 
 	// Getters
 	map<size_t, CharacterEntity*>& GetPlayerTroops();
@@ -40,6 +42,7 @@ public:
 	CharacterEntity* GetSelectedTroop();
 	size_t GetTurnCost();
 	bool GetPlayerTurn();
+	bool GetPlayerWon();
 
 	// Switching Spots
 	void SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition);

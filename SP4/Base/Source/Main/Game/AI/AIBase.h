@@ -1,19 +1,18 @@
 #ifndef AI_BASE_H
 #define AI_BASE_H
 
-#include <map>
 #include <vector>
 #include "AIStateManager.h"
 #include "AIBattlePlanner.h"
 #include "../Objects/Characters/CharacterEntity.h"
 
-using std::map;
 using std::vector;
+
 class AIBase
 {
 protected:
 	// The troops that the AI will have 
-	map<string, vector<CharacterEntity*>> TroopList;
+	vector<CharacterEntity*> TroopList;
 	AIStateManager* stateHolder;
 	AIBattlePlanner* BattlePlanHolder;
 public:
@@ -26,10 +25,9 @@ public:
 	virtual void Execute() = 0;
 	virtual void Exit();
 
-	virtual	void AddTroop(string Name, CharacterEntity* Troop);
-	virtual map<string, vector<CharacterEntity*>> GetAllAIList();
-	virtual vector<CharacterEntity*> GetClassAIList(string& Name);
-	virtual vector<CharacterEntity*> GetClassAIList(string Name);
+	virtual	void AddTroop(CharacterEntity* Troop);
+	virtual vector<CharacterEntity*> GetAIList();
+	virtual CharacterEntity* GetCharacterEntity(string Name);
 };
 
 #endif

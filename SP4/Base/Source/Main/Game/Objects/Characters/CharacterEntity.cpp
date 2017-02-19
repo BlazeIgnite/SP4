@@ -3,10 +3,23 @@
 #include "../../Game/Mains/Application.h"
 
 
-CharacterEntity::CharacterEntity() : Name(""), Level(0), Health(0)
-, MaxHealth(0), AbilityPoints(0), MaxAbilityPoints(0), Attack(0), Defense(0)
-, Magic(0), Luck(0), DamageMitigation(0), Defeated(false), ID(0)
-, stuntimer(0), bleedtimer(0), bufftimer(0), debufftimer(0)
+CharacterEntity::CharacterEntity() 
+: Name("")
+, Level(0)
+, Health(0)
+, MaxHealth(0)
+, AbilityPoints(0)
+, MaxAbilityPoints(0)
+, Attack(0)
+, Defense(0)
+, Magic(0)
+, Luck(0)
+, DamageMitigation(0)
+, Defeated(false)
+, stuntimer(0)
+, bleedtimer(0)
+, bufftimer(0)
+, debufftimer(0)
 {
 }
 
@@ -57,7 +70,7 @@ void CharacterEntity::SetDefeated(bool newDefeated)
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->DamageMitigation =(0.06 * Defense) / (1 + 0.06*this->Defense);
+	this->DamageMitigation =(0.06 * Defense) / (1 + 0.06 * Defense);
 }
 
 void CharacterEntity::Init(int Level)

@@ -18,6 +18,7 @@ void BattleSystem::Init()
 	SelectedTroop = NULL;
 	SetTurnCost(100);
 	SetPlayerTurn(true);
+	SetPlayerWon(true);
 }
 
 // Setters Here
@@ -57,6 +58,10 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 	else
 		cout << "AI's Turn" << endl;
 }
+void BattleSystem::SetPlayerWon(bool newPlayerWon)
+{
+	PlayerWon = newPlayerWon;
+}
 
 // Getters Here
 map<size_t, CharacterEntity*>& BattleSystem::GetPlayerTroops()
@@ -87,18 +92,18 @@ bool BattleSystem::GetPlayerTurn()
 {
 	return PlayerTurn;
 }
+bool BattleSystem::GetPlayerWon()
+{
+	return PlayerWon;
+}
 
 
 // Swtiching Spots in the BattleScene
 void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition)
 {
-	cout << "Troop Position " << FirstPosition << " : " << TroopMap.find(FirstPosition)->second->Name << endl;
-	cout << "Troop Position " << SecondPosition << " : " << TroopMap.find(SecondPosition)->second->Name << endl;
 	CharacterEntity* temp = TroopMap.find(FirstPosition)->second;
 	TroopMap[FirstPosition] = TroopMap[SecondPosition];
 	TroopMap[SecondPosition] = temp;
-	cout << "Troop Position " << FirstPosition << " : " << TroopMap.find(FirstPosition)->second->Name << endl;
-	cout << "Troop Position " << SecondPosition << " : " << TroopMap.find(SecondPosition)->second->Name << endl;
 }
 void BattleSystem::MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap)
 {

@@ -15,7 +15,7 @@ Button::~Button()
 {
 }
 
-void Button::Init(Vector3 Position, Vector3 Scale, std::string type, Player* player)
+void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 {
 	x = 0;
 	y = 0;
@@ -31,8 +31,6 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type, Player* pla
 	minHeight = position.y - scale.y / 2;
 	minWidth = position.x - scale.x / 2;
 	isPressed = false;
-	this->player = player;
-	
 }
 
 void Button::Update(double dt)
@@ -52,11 +50,11 @@ void Button::UpdateCrafting(double dt)
 		{
 			if (!isPressed)
 			{
-				if ((player->GetMaterialList().find("Red Herb")->second > 1) && (player->GetMaterialList().find("Empty Bottle")->second > 0))
+				if ((Player::Instance().GetMaterialList().find("Red Herb")->second > 1) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
 				{
-					player->AddMaterialItem("Red Herb", -2);
-					player->AddMaterialItem("Empty Bottle", -1);
-					player->AddConsumableItem("Red Potion", 1);
+					Player::Instance().AddMaterialItem("Red Herb", -2);
+					Player::Instance().AddMaterialItem("Empty Bottle", -1);
+					Player::Instance().AddConsumableItem("Red Potion", 1);
 					std::cout << "Red Potion Crafted" << std::endl;
 					isPressed = true;
 				}
@@ -79,11 +77,11 @@ void Button::UpdateCrafting(double dt)
 		{
 			if (!isPressed)
 			{
-				if ((player->GetMaterialList().find("Blue Herb")->second > 1) && (player->GetMaterialList().find("Empty Bottle")->second > 0))
+				if ((Player::Instance().GetMaterialList().find("Blue Herb")->second > 1) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
 				{
-					player->AddMaterialItem("Blue Herb", -2);
-					player->AddMaterialItem("Empty Bottle", -1);
-					player->AddConsumableItem("Blue Potion", 1);
+					Player::Instance().AddMaterialItem("Blue Herb", -2);
+					Player::Instance().AddMaterialItem("Empty Bottle", -1);
+					Player::Instance().AddConsumableItem("Blue Potion", 1);
 					std::cout << "Blue Potion Crafted" << std::endl;
 					isPressed = true;
 				}
@@ -106,12 +104,12 @@ void Button::UpdateCrafting(double dt)
 		{
 			if (!isPressed)
 			{
-				if ((player->GetMaterialList().find("White Herb")->second > 0) && (player->GetMaterialList().find("Red Herb")->second > 2) && (player->GetMaterialList().find("Empty Bottle")->second > 0))
+				if ((Player::Instance().GetMaterialList().find("White Herb")->second > 0) && (Player::Instance().GetMaterialList().find("Red Herb")->second > 2) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
 				{
-					player->AddMaterialItem("White Herb", -1);
-					player->AddMaterialItem("Red Herb", -3);
-					player->AddMaterialItem("Empty Bottle", -1);
-					player->AddConsumableItem("Attack Potion", 1);
+					Player::Instance().AddMaterialItem("White Herb", -1);
+					Player::Instance().AddMaterialItem("Red Herb", -3);
+					Player::Instance().AddMaterialItem("Empty Bottle", -1);
+					Player::Instance().AddConsumableItem("Attack Potion", 1);
 					std::cout << "Attack Potion Crafted" << std::endl;
 					isPressed = true;
 				}
@@ -134,12 +132,12 @@ void Button::UpdateCrafting(double dt)
 		{
 			if (!isPressed)
 			{
-				if ((player->GetMaterialList().find("White Herb")->second > 0) && (player->GetMaterialList().find("Blue Herb")->second > 2) && (player->GetMaterialList().find("Empty Bottle")->second > 0))
+				if ((Player::Instance().GetMaterialList().find("White Herb")->second > 0) && (Player::Instance().GetMaterialList().find("Blue Herb")->second > 2) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
 				{
-					player->AddMaterialItem("White Herb", -1);
-					player->AddMaterialItem("Blue Herb", -3);
-					player->AddMaterialItem("Empty Bottle", -1);
-					player->AddConsumableItem("Defense Potion", 1);
+					Player::Instance().AddMaterialItem("White Herb", -1);
+					Player::Instance().AddMaterialItem("Blue Herb", -3);
+					Player::Instance().AddMaterialItem("Empty Bottle", -1);
+					Player::Instance().AddConsumableItem("Defense Potion", 1);
 					std::cout << "Defense Potion Crafted" << std::endl;
 					isPressed = true;
 				}
@@ -162,10 +160,10 @@ void Button::UpdateCrafting(double dt)
 		{
 			if (!isPressed)
 			{
-				if (player->GetMaterialList().find("Cloth")->second > 2)
+				if (Player::Instance().GetMaterialList().find("Cloth")->second > 2)
 				{
-					player->AddMaterialItem("Cloth", -3);
-					player->AddConsumableItem("Bandage", 1);
+					Player::Instance().AddMaterialItem("Cloth", -3);
+					Player::Instance().AddConsumableItem("Bandage", 1);
 					std::cout << "Bandage Crafted" << std::endl;
 					isPressed = true;
 				}

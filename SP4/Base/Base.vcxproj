@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\DescriptionText.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
@@ -85,6 +87,7 @@
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIDefault.h" />
     <ClInclude Include="Source\Main\Game\AI\AIStateManager.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\DescriptionText.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h" />
@@ -99,6 +102,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
+    <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />

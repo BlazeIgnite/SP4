@@ -14,6 +14,7 @@
 #include "../../Engine/System/RenderSystem.h"
 
 #include "../Scene/Scene_Assignment1.h"
+#include "../Scene/MainMenu.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -154,6 +155,7 @@ void Application::Init()
 	SceneSystem::Instance().SetRenderSystem(*Renderer);
 
 	Scene_Assignment1* temp = new Scene_Assignment1();
+	//MainMenu* temp = new MainMenu();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
 }

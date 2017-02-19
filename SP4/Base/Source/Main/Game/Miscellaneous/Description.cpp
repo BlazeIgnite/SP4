@@ -29,6 +29,9 @@ void Description::Init(Vector3 Position, Vector3 Scale, std::string type)
 
 	this->type = type;
 
+	text = new DescriptionText();
+	text->Init(Vector3(0,0,0), Vector3(2 ,2, 2), type, "Test");
+
 }
 
 void Description::Update(double dt)
@@ -38,8 +41,7 @@ void Description::Update(double dt)
 	int h = Application::GetWindowHeight();
 	float worldX = (float)x * ObjectManager::Instance().WorldWidth / (float)w;
 	float worldY = ((float)h - (float)y) * ObjectManager::Instance().WorldHeight / (float)h;
-
-	position = Vector3(worldX + scale.x * 0.5, worldY - scale.y * 0.7, 2);
+	position = Vector3(worldX + scale.x * 0.5, worldY - scale.y * 0.5, 2);
 }
 
 Vector3 Description::GetPosition()

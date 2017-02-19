@@ -4,12 +4,13 @@
 #include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
 #include <string>
+#include <map>
 #include "CharacterDatabase.h"
-//#include "Skill.h"
 
 using std::string;
 using std::vector;
-class Skill;
+using std::map;
+class Ability;
 
 class CharacterEntity : public BaseObject 
 {
@@ -45,7 +46,7 @@ private:
 		noeffect,
 	};
 protected:
-	Skill *skill;
+	Ability *skill;
 	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
 	int stuntimer, bleedtimer, debufftimer, bufftimer;
 
@@ -66,7 +67,7 @@ public:
 	bool GetDefeated() { return Defeated; }
 	Vector3 GetVectorPosition(){ return Position; }
 	Vector3 GetScale(){ return Scale; }
-	Skill* Getskill(){ return skill; }
+	Ability* Getskill(){ return skill; }
 
 	//Setters
 	void SetLevel(int Level);
@@ -94,7 +95,7 @@ public:
 	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
 
 	string Name;
-
+//	map<string, Ability> Abilities;
 };
 
 #endif

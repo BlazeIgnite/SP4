@@ -43,7 +43,7 @@ public:
 
 	// Damage Calculations all here
 	void DamageCalculation(CharacterEntity* Attacker, size_t target);
-	void DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill);
+	void DamageCalculation(CharacterEntity* Attacker, size_t target, Ability* AttackerSkill);
 
 	// Status Effect Calculations all here
 	void SetStatusEffect(CharacterEntity* Attacker, size_t target);

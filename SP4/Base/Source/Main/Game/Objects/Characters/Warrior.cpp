@@ -12,7 +12,7 @@ float WarriorLuck[] = { 10, 12, 14, 15, 15, 15, 20, 20, 25, 25, 25, 25, 25, 25, 
 
 Warrior::Warrior()
 {
-
+	skill = new Bash();
 }
 
 Warrior::~Warrior()
@@ -88,14 +88,6 @@ void Warrior::Init(int Level)
 	SetDamageMitigation();
 	
 
-	//Sets up Skills used
-	skill = new OffensiveSkill();
-	skill->SetSkill_IDs("Bash", 1);
-	skill->SetAbilityCost(5);
-	skill->SetMultiplier(0.65f);
-	skill->SetActionCost(20.f);
-	skill->SetScaleFactor(Skill::Scale_Attack);
-	skill->shiftposition = 0;
 
 	
 }

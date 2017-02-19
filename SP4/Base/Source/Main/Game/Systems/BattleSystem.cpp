@@ -185,16 +185,24 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 		SetPlayerTurn(true);
 	}
 }
-void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
+void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Ability* AttackerSkill)
 {
 	if (PlayerTurn)
 	{
 		//Place shift codes here
-		if (AttackerSkill->shiftposition != 0)
-		{
+		AttackerSkill->ApplyAbility(Attacker,GetAITroops().at(target));
 
+		cout << "---------------------------------------------" << endl;
+		cout << "Player Troops" << endl;
+		for (size_t i = 0; i < PlayerTroops.size(); i++)
+		{
+			cout << "Troop position : " << i << " HP : " << PlayerTroops.find(i)->second->GetHealth() << endl;
 		}
-		AttackerSkill->SkillBehavior();
+		cout << "AI Troops" << endl;
+		for (size_t i = 0; i < AITroops.size(); i++)
+		{
+			cout << "Troop position : " << i << " HP : " << AITroops.find(i)->second->GetHealth() << endl;
+		}
 	}
 	else
 	{

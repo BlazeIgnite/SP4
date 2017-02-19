@@ -3,7 +3,7 @@
 #include "Skill.h"
 #include "CharacterEntity.h"
 
-class Priest : public CharacterEntity, protected OffensiveSkill
+class Priest : public CharacterEntity
 {
 public:
 	Priest();
@@ -11,7 +11,7 @@ public:
 	virtual void Init(int Level);
 	virtual void Levelup();
 	void Update(double dt);
-	OffensiveSkill* skill_1;
+//	OffensiveSkill* skill_1;
 };
 
 

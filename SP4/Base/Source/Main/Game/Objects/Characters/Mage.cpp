@@ -65,7 +65,7 @@ void Mage::Init(int Level)
 //	SetPosition(Position_Back);
 	SetDamageMitigation();
 
-
+/*
 
 	skill_1 = new OffensiveSkill();
 	skill_1->SetSkill_IDs("Magic Bolt", 1);
@@ -73,7 +73,7 @@ void Mage::Init(int Level)
 	skill_1->SetMultiplier(0.65f);
 	skill_1->SetActionCost(20.f);
 	skill_1->SetScaleFactor(Skill::Scale_Magic);
-	skill_1->shiftposition = 0;
+	skill_1->shiftposition = 0;*/
 }
 
 void Mage::Levelup()

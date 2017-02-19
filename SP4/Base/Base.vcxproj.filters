@@ -40,6 +40,8 @@
     <ClCompile Include="Source\Main\Game\Scene\Scene_Assignment1.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBase.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBattlePlanner.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -101,6 +103,8 @@
     <ClInclude Include="Source\Main\Game\Scene\Scene_Assignment1.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBase.h" />
     <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBattlePlanner.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

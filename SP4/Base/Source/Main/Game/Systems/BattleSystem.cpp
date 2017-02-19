@@ -15,8 +15,9 @@ BattleSystem::~BattleSystem()
 // Initialising Here
 void BattleSystem::Init()
 {
+	SelectedTroop = NULL;
+	SetTurnCost(100);
 	SetPlayerTurn(true);
-	TurnCost = 100;
 }
 
 // Setters Here
@@ -39,12 +40,17 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	}
 	AITroops.find(position)->second = Troop;
 }
-void BattleSystem::SetTurnCost(float newTurnCost)
+void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
+{
+	SelectedTroop = newSelectedTroop;
+}
+void BattleSystem::SetTurnCost(size_t newTurnCost)
 {
 	TurnCost = newTurnCost;
 }
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
+	SetTurnCost(100);
 	PlayerTurn = newPlayerTurn;
 	if (PlayerTurn)
 		cout << "Player's Turn" << endl;
@@ -69,7 +75,11 @@ CharacterEntity* BattleSystem::GetAITroopAttacking(size_t position)
 {
 	return AITroops.find(position)->second;
 }
-float BattleSystem::GetTurnCost()
+CharacterEntity* BattleSystem::GetSelectedTroop()
+{
+	return SelectedTroop;
+}
+size_t BattleSystem::GetTurnCost()
 {
 	return TurnCost;
 }
@@ -77,6 +87,7 @@ bool BattleSystem::GetPlayerTurn()
 {
 	return PlayerTurn;
 }
+
 
 // Swtiching Spots in the BattleScene
 void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition)
@@ -89,6 +100,25 @@ void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t F
 	cout << "Troop Position " << FirstPosition << " : " << TroopMap.find(FirstPosition)->second->Name << endl;
 	cout << "Troop Position " << SecondPosition << " : " << TroopMap.find(SecondPosition)->second->Name << endl;
 }
+void BattleSystem::MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap)
+{
+	SwitchSpots(TroopMap, 0, 1);
+	SwitchSpots(TroopMap, 0, 2);
+}
+void BattleSystem::MoveTroopBackByTwo(map<size_t, CharacterEntity*>& TroopMap)
+{
+	SwitchSpots(TroopMap, 0, 2);
+	SwitchSpots(TroopMap, 0, 1);
+}
+void BattleSystem::MoveTroopFrontByOne(map<size_t, CharacterEntity*>& TroopMap)
+{
+	MoveTroopBackByTwo(TroopMap);
+}
+void BattleSystem::MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap)
+{
+	MoveTroopBackByOne(TroopMap);
+}
+
 
 // Battle Damage Calculation for basic attack and Skills here
 void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
@@ -97,31 +127,8 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 	{
 		CharacterEntity* TargetTroop = AITroops.find(target)->second;
 		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
-		/*vector<CharacterEntity*>::iterator itrAI = AI->GetClassAIList(Attacker).begin();
-		for (; itrAI != AI->GetAIList().end(); itrAI++)
-		{
-			if ((*itrAI)->GetPosition() == target)
-			{
-				(*itrAI)->SetHealth((*itrAI)->GetHealth() - Attacker->GetAttack());
-				if ((*itrAI)->GetHealth() < 0)
-					(*itrAI)->SetDefeated(true);
-				break;
-			}
-		}*/
-
-		// Debugging
-		cout << "---------------------------------------------" << endl;
-		cout << "Player Troops" << endl;
-		for (size_t i = 0; i < PlayerTroops.size(); i++)
-		{
-			cout << "Troop position : " << i << " HP : " << PlayerTroops.find(i)->second->GetHealth() << endl;
-		}
-		cout << "AI Troops" << endl;
-		for (size_t i = 0; i < AITroops.size(); i++)
-		{
-			cout << "Troop position : " << i << " HP : " << AITroops.find(i)->second->GetHealth() << endl;
-		}
-		cout << "---------------------------------------------" << endl;
+		// One more line of code needed, the default attack cost put here
+		// TurnCost -= AttackCost;
 
 		if (TargetTroop->GetHealth() < 0)
 		{
@@ -151,19 +158,8 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 		CharacterEntity* TargetTroop = PlayerTroops.find(target)->second;
 		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
 
-		// Debugging
-		cout << "---------------------------------------------" << endl;
-		cout << "Player Troops" << endl;
-		for (size_t i = 0; i < PlayerTroops.size(); i++)
-		{
-			cout << "Troop position : " << i << " HP : " << PlayerTroops.find(i)->second->GetHealth() << endl;
-		}
-		cout << "AI Troops" << endl;
-		for (size_t i = 0; i < AITroops.size(); i++)
-		{
-			cout << "Troop position : " << i << " HP : " << AITroops.find(i)->second->GetHealth() << endl;
-		}
-		cout << "---------------------------------------------" << endl;
+		// One more line of code needed, the default attack cost put here
+		// TurnCost -= AttackCost;
 
 		if (TargetTroop->GetHealth() < 0)
 		{
@@ -192,7 +188,14 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 		//Place shift codes here
 		if (AttackerSkill->shiftposition != 0)
 		{
-
+			if (AttackerSkill->shiftposition == 1)
+				MoveTroopBackByOne(AITroops);
+			else if (AttackerSkill->shiftposition == 2)
+				MoveTroopBackByTwo(AITroops);
+			else if (AttackerSkill->shiftposition == -1)
+				MoveTroopFrontByOne(AITroops);
+			else if (AttackerSkill->shiftposition == -2)
+				MoveTroopFrontByTwo(AITroops);
 		}
 		AttackerSkill->SkillBehavior();
 	}
@@ -201,8 +204,47 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 	}
 }
 
-// Dealing any status Effect to opponent goes here
-void BattleSystem::SetStatusEffect(CharacterEntity* Attacker, size_t target)
+/*
+*
+*	Function: ApplyFriendlyEffect
+*	Purpose: Any Buffs or healing goes into this function
+*
+*	When to be called: When healing or buff to teammate is done
+*
+*/
+void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate)
 {
-	
+	// Logic to maybe Healing or applying friendly effect here
+	// SkillOfUser->ApplyEffect(TeamMap.find(TargettedTeammate)->second);
+}
+
+
+// Dealing any status Effect to opponent goes here
+/*
+*
+*	Function: SetStatusEffect
+*	Purpose: It finds the Certain Troop to be affected by a status effect. Pass in the team and the target
+*
+*	When to be called: It should be called when any troop wants to set a status effect to opponent, if its not called within the BattleSystem, either player is hacking or we are bad at coding
+*
+*/
+void BattleSystem::SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target)
+{
+	// Set the status Effect of the Character Entity Here
+	//TeamMap.find(target)->second->SetStatusEffect( stun? / poison? / burn?);
+}
+
+/*
+*
+*	Function: Reset
+*	Purpose: Empties the maps of battle scene
+*
+*	When to be called: ONLY call it after Battle is completed
+*
+*/
+void BattleSystem::Reset()
+{
+	SetTurnCost(100);
+	PlayerTroops.clear();
+	AITroops.clear();
 }

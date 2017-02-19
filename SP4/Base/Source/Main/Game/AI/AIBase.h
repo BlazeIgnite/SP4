@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include "AIStateManager.h"
+#include "AIBattlePlanner.h"
 #include "../Objects/Characters/CharacterEntity.h"
 
 using std::map;
@@ -14,6 +15,7 @@ protected:
 	// The troops that the AI will have 
 	map<string, vector<CharacterEntity*>> TroopList;
 	AIStateManager* stateHolder;
+	AIBattlePlanner* BattlePlanHolder;
 public:
 	AIBase();
 	~AIBase();

@@ -1,5 +1,4 @@
 #pragma once
-#include "../Objects/Characters/Player.h"
 
 #include "Vector3.h"
 #include <iostream>
@@ -18,11 +17,10 @@ public:
 	Button();
 	~Button();
 
-	void Init(Vector3 Position, Vector3 Scale, std::string type, Player* player);
+	void Init(Vector3 Position, Vector3 Scale, std::string type);
 	void UpdateCrafting(double dt);
 	void Update(double dt);
 
-	Player* player;
 	std::string type;
 	bool isitHover();
 

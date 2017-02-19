@@ -14,6 +14,8 @@
 #include "../../Engine/System/RenderSystem.h"
 
 #include "../Scene/Scene_Assignment1.h"
+#include "../Scene/MainMenu.h"
+#include "../Scene/SceneBattles.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -153,7 +155,9 @@ void Application::Init()
 	Renderer->Init();
 	SceneSystem::Instance().SetRenderSystem(*Renderer);
 
-	Scene_Assignment1* temp = new Scene_Assignment1();
+	//Scene_Assignment1* temp = new Scene_Assignment1();
+	//MainMenu* temp = new MainMenu();
+	SceneBattles* temp = new SceneBattles();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
 }

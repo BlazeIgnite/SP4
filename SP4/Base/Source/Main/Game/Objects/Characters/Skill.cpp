@@ -41,6 +41,7 @@ name("Bash")
 , statuseffect(Stun)
 , timer(3)
 , multiplier(0.65f)
+, shiftposition(0)
 {
 
 }

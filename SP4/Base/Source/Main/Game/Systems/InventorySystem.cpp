@@ -9,23 +9,23 @@ InventorySystem::~InventorySystem()
 {
 }
 
-void InventorySystem::Init(Player* player, double x, double y)
+void InventorySystem::Init(double x, double y)
 {
 	//Buttons
 	CraftRedPot = new Button();
-	CraftRedPot->Init(Vector3(75, 50, 0), Vector3(10, 10, 1), "Red Potion", player);
+	CraftRedPot->Init(Vector3(75, 50, 0), Vector3(10, 10, 1), "Red Potion");
 	buttonVector.push_back(CraftRedPot);
 	CraftBluePot = new Button();
-	CraftBluePot->Init(Vector3(90, 50, 0), Vector3(10, 10, 1), "Blue Potion", player);
+	CraftBluePot->Init(Vector3(90, 50, 0), Vector3(10, 10, 1), "Blue Potion");
 	buttonVector.push_back(CraftBluePot);
 	CraftAtkPot = new Button();
-	CraftAtkPot->Init(Vector3(75, 35, 0), Vector3(10, 10, 1), "Attack Potion", player);
+	CraftAtkPot->Init(Vector3(75, 35, 0), Vector3(10, 10, 1), "Attack Potion");
 	buttonVector.push_back(CraftAtkPot);
 	CraftDefPot = new Button();
-	CraftDefPot->Init(Vector3(90, 35, 0), Vector3(10, 10, 1), "Defense Potion", player);
+	CraftDefPot->Init(Vector3(90, 35, 0), Vector3(10, 10, 1), "Defense Potion");
 	buttonVector.push_back(CraftDefPot);
 	CraftBandage = new Button();
-	CraftBandage->Init(Vector3(82.5f, 20, 0), Vector3(12, 10, 1), "Bandage", player);
+	CraftBandage->Init(Vector3(82.5f, 20, 0), Vector3(12, 10, 1), "Bandage");
 	buttonVector.push_back(CraftBandage);
 
 	//Descriptions

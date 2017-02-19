@@ -62,7 +62,7 @@ void Scene_Assignment1::Init()
 	AI = new AIDefault();
 	AI->Init();
 	inventory = new InventorySystem();
-	inventory->Init(player, x, y);
+	inventory->Init(x, y);
 	//bs = new BattleSystem();
 	//bs->Init();
 	Player::Instance().AddCharacter("Warrior", warrior);
@@ -87,7 +87,7 @@ void Scene_Assignment1::Init()
 	//warrior->Init(1);
 	//warrior->skill_1->SetTarget(warrior1);
 	
-	AudioPlayer::Instance().PlayMusic("BGM");
+	//AudioPlayer::Instance().PlayMusic("BGM");
 }
 
 void Scene_Assignment1::UpdateCharacterLogic(double dt)
@@ -270,6 +270,7 @@ void Scene_Assignment1::RenderCraftingButtons()
 	{
 		Button *obj = (Button *)*itr;
 
+		//Buttons
 		modelStack->PushMatrix();
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
 		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
@@ -295,47 +296,63 @@ void Scene_Assignment1::RenderCraftingButtons()
 			Renderer->RenderMesh("CraftBandagePotion", false);
 		}
 		modelStack->PopMatrix();
+
+		//Description
 		for (std::vector<Description*>::iterator itr2 = inventory->DescriptionVector.begin(); itr2 != inventory->DescriptionVector.end(); itr2++)
 		{
 			Description* obj2 = (Description*)*itr2;
 			modelStack->PushMatrix();
-			modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/10);
-			modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+			modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/5);
+			
 			if (obj->isitHover() && obj->type == "Red Potion" && obj2->type == "Red Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripRedPotion", false);
+				modelStack->PopMatrix();
+				//if (obj2->text->GetType() == "Red Potion")
+				//{
+				//	modelStack->PushMatrix();
+				//	std::cout << "out" << std::endl;
+				//	modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+				//	modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+				//	Renderer->RenderText("text", "x2", Color(1, 1, 1));
+				//	modelStack->PopMatrix();
+				//	
+				//}
 			}
 			if (obj->isitHover() && obj->type == "Blue Potion" && obj2->type == "Blue Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripBluePotion", false);
+				modelStack->PopMatrix();
 			}
 			if (obj->isitHover() && obj->type == "Attack Potion" && obj2->type == "Attack Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripAttackPotion", false);
+				modelStack->PopMatrix();
 			}
 			if (obj->isitHover() && obj->type == "Defense Potion" && obj2->type == "Defense Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripDefencePotion", false);
+				modelStack->PopMatrix();
 			}
 			if (obj->isitHover() && obj->type == "Bandage" && obj2->type == "Bandage")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripBandagePotion", false);
+				modelStack->PopMatrix();
 			}
 			modelStack->PopMatrix();
 		}
 	}
-	//	//For AI rendering
-	//	int tempnum = 0;
-	//	/*for (map<size_t, CharacterEntity*>::iterator it2 = BattleSystem::Instance().GetAITroops().begin(); it2 != BattleSystem::Instance().GetAITroops().end(); it2++,tempnum++)
-	//	{
-	//		
-	//	}*/
-	//	//On screen text
-	//	std::stringstream ss;
-	//	ss.str("");
-	//	
 }
-
 
 void Scene_Assignment1::HandleUserInput()
 {

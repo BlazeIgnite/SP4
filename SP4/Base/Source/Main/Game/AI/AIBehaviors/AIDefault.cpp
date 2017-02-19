@@ -34,12 +34,12 @@ void AIDefault::Update(double dt)
 
 void AIDefault::Planning()
 {
+	
 	stateHolder->SetState("Execute");
 }
 
 void AIDefault::Execute()
 {
-	cout << "I end my turn" << endl;
 	BattleSystem::Instance().SetPlayerTurn(true);
 	stateHolder->SetState("");
 }

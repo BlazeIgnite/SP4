@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Vector3.h"
-#include "Button.h"
 #include <iostream>
+#include "DescriptionText.h"
 
 class Description
 {
@@ -22,6 +22,8 @@ public:
 	void Update(double dt);
 	std::string type;
 	
+	DescriptionText* text;
+
 	Vector3 GetPosition();
 	Vector3 GetScale();
 };

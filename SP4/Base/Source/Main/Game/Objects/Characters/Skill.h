@@ -8,6 +8,7 @@ using std::string;
 class Ability
 {
 public:
+	__readonly int shiftposition = 0;
 	Ability();
 	~Ability(){};
 	virtual void ApplyAbility(CharacterEntity* Character, CharacterEntity* target	);
@@ -15,6 +16,7 @@ public:
 class PhysicalAbility : public Ability
 {
 public:
+	__readonly int shiftposition = 0;
 	PhysicalAbility(){};
 	~PhysicalAbility(){};
 	virtual void ApplyAbility(CharacterEntity* Character, CharacterEntity* target)
@@ -25,6 +27,7 @@ public:
 class Bash : public PhysicalAbility
 {
 public:
+	__readonly int shiftposition;
 	__readonly string name;
 	__readonly int id, abilitycost, actioncost, timer;
 	__readonly float multiplier;

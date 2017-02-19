@@ -14,8 +14,11 @@ public:
 	AudioPlayer();
 	~AudioPlayer();
 	void Init();
+
 	void PlayMusic(string MusicName = "");
 	void PlayBGM();
+	void PlayBattleMusic();
+	
 	void SetVolume(float vol);
 	void Exit();
 };

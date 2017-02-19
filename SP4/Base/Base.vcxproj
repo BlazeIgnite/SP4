@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\SceneSystem.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBattlePlanner.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\Button.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\DescriptionText.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp" />
@@ -40,6 +42,8 @@
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
@@ -76,6 +80,7 @@
     <ClInclude Include="Main\Engine\System\State\State.h" />
     <ClInclude Include="Main\Engine\System\State\StateList.h" />
     <ClInclude Include="Main\Engine\System\State\StateManager.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBattlePlanner.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\Button.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.h" />
@@ -85,6 +90,7 @@
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIDefault.h" />
     <ClInclude Include="Source\Main\Game\AI\AIStateManager.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\DescriptionText.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h" />
@@ -99,6 +105,8 @@
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
+    <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />

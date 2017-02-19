@@ -1,321 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Source\Main\Engine\Audio\Audio_Player.cpp" />
+    <ClCompile Include="Source\Main\Engine\Objects\BaseObject.cpp" />
+    <ClCompile Include="Source\Main\Engine\State\StateList.cpp" />
+    <ClCompile Include="Source\Main\Engine\State\StateManager.cpp" />
+    <ClCompile Include="Source\Main\Engine\System\InputManager.cpp" />
+    <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp" />
+    <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
+    <ClCompile Include="Source\Main\Engine\System\SceneSystem.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\Button.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBase.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AICombined.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Priest.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Items\Consumables.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Items\Resource.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
+    <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
+    <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
+    <ClCompile Include="Source\Main\Game\Systems\ObjectManager.cpp" />
+    <ClCompile Include="Source\Main\Game\Mains\Application.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\Camera.cpp" />
+    <ClCompile Include="Source\Main\Game\Mains\main.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\Scene_Assignment1.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneBase.cpp" />
+    <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBattlePlanner.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Main\Engine\Objects\BaseObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Engine\State\StateList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Engine\State\StateManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Engine\System\SceneSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Mains\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Mains\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Miscellaneous\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Miscellaneous\MeshBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Scene\Scene_Assignment1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Scene\SceneBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Systems\ObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Miscellaneous\Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\AI\AIBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AICombined.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Engine\Audio\Audio_Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Items\Consumables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Characters\Priest.cpp">
-    <ClCompile Include="Source\Main\Game\Objects\Items\Resource.cpp">
-    <ClCompile Include="Source\Main\Engine\System\InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
+    <ClInclude Include="Source\Main\Engine\Internal\Entity.h" />
+    <ClInclude Include="Source\Main\Engine\Internal\SingletonTemplate.h" />
+    <ClInclude Include="Source\Main\Engine\Internal\System.h" />
+    <ClInclude Include="Source\Main\Engine\Lua\lauxlib.h" />
+    <ClInclude Include="Source\Main\Engine\Lua\lua.h" />
+    <ClInclude Include="Source\Main\Engine\Lua\lua.hpp" />
+    <ClInclude Include="Source\Main\Engine\Lua\luaconf.h" />
+    <ClInclude Include="Source\Main\Engine\Lua\lualib.h" />
+    <ClInclude Include="Source\Main\Engine\Objects\BaseObject.h" />
+    <ClInclude Include="Source\Main\Engine\Objects\SceneEntity.h" />
+    <ClInclude Include="Source\Main\Engine\State\State.h" />
+    <ClInclude Include="Source\Main\Engine\State\StateList.h" />
+    <ClInclude Include="Source\Main\Engine\State\StateManager.h" />
+    <ClInclude Include="Main\Engine\System\Internal\Entity.h" />
+    <ClInclude Include="Main\Engine\System\Internal\SingletonTemplate.h" />
+    <ClInclude Include="Main\Engine\System\Internal\System.h" />
+    <ClInclude Include="Source\Main\Engine\System\InputManager.h" />
+    <ClInclude Include="Source\Main\Engine\System\LuaSystem.h" />
+    <ClInclude Include="Source\Main\Engine\System\RenderSystem.h" />
+    <ClInclude Include="Source\Main\Engine\System\SceneSystem.h" />
+    <ClInclude Include="Main\Engine\System\State\State.h" />
+    <ClInclude Include="Main\Engine\System\State\StateList.h" />
+    <ClInclude Include="Main\Engine\System\State\StateManager.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\Button.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBase.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AICombined.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIDefault.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIStateManager.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Player.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Priest.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Items\Resource.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
+    <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />
+    <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />
+    <ClInclude Include="Source\Main\Game\Systems\ObjectManager.h" />
+    <ClInclude Include="Main\Engine\System\Objects\BaseObject.h" />
+    <ClInclude Include="Main\Engine\System\Objects\CharacterEntity.h" />
+    <ClInclude Include="Source\Main\Game\Mains\Application.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\Camera.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\MeshBuilder.h" />
+    <ClInclude Include="Source\Main\Game\Scene\Scene.h" />
+    <ClInclude Include="Source\Main\Game\Scene\Scene_Assignment1.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneBase.h" />
+    <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBattlePlanner.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Main\Engine\System\State\State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Engine\System\State\StateList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Engine\System\State\StateManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Engine\System\Internal\System.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Engine\System\Internal\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Engine\System\Internal\SingletonTemplate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Engine\System\Objects\CharacterEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main\Engine\System\Objects\BaseObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Internal\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Internal\SingletonTemplate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Internal\System.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Objects\BaseObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Objects\SceneEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\State\State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\State\StateList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\State\StateManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\System\RenderSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\System\SceneSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Mains\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Miscellaneous\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Miscellaneous\MeshBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Scene\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Scene\Scene_Assignment1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Scene\SceneBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Systems\ObjectManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Systems\EventSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Miscellaneous\Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\AI\AIBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\AI\AIStateManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AICombined.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIDefault.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Lua\lauxlib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Lua\lua.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Lua\lua.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Lua\luaconf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Lua\lualib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\System\LuaSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Characters\Priest.h">
-    <ClInclude Include="Source\Main\Game\Objects\Items\Resource.h">
-    <ClInclude Include="Source\Main\Engine\System\InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shader\comg.fragmentshader">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shader\comg.vertexshader">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shader\Shadow.vertexshader">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shader\GPass.fragmentshader">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shader\GPass.vertexshader">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shader\Shadow.fragmentshader">
-      <Filter>Shader</Filter>
-    </None>
+    <None Include="Shader\comg.fragmentshader" />
+    <None Include="Shader\comg.vertexshader" />
+    <None Include="Shader\GPass.fragmentshader" />
+    <None Include="Shader\GPass.vertexshader" />
+    <None Include="Shader\Shadow.fragmentshader" />
+    <None Include="Shader\Shadow.vertexshader" />
   </ItemGroup>
 </Project>

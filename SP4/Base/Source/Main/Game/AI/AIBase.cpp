@@ -14,6 +14,7 @@ AIBase::~AIBase()
 void AIBase::Init()
 {
 	stateHolder = new AIStateManager();
+	BattlePlanHolder = new AIBattlePlanner();
 }
 
 void AIBase::Exit()
@@ -22,6 +23,11 @@ void AIBase::Exit()
 	{
 		delete stateHolder;
 		stateHolder = NULL;
+	}
+	if (BattlePlanHolder)
+	{
+		delete BattlePlanHolder;
+		BattlePlanHolder = NULL;
 	}
 }
 

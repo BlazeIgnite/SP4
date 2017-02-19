@@ -13,9 +13,10 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 {
 	map<size_t, CharacterEntity*> PlayerTroops;
 	map<size_t, CharacterEntity*> AITroops;
+	
+	CharacterEntity* SelectedTroop;
 
-	float TurnCost;
-
+	size_t TurnCost;
 	bool PlayerTurn;
 public:
 	BattleSystem();
@@ -27,7 +28,8 @@ public:
 	// Setters
 	void SetPlayerTroops(size_t position, CharacterEntity* Troop);
 	void SetAITroops(size_t position, CharacterEntity* Troop);
-	void SetTurnCost(float newTurnCost);
+	void SetSelectedTroop(CharacterEntity* newSelectedTroop);
+	void SetTurnCost(size_t newTurnCost);
 	void SetPlayerTurn(bool newPlayerTurn);
 
 	// Getters
@@ -35,18 +37,26 @@ public:
 	map<size_t, CharacterEntity*>& GetAITroops();
 	CharacterEntity* GetPlayerTroopAttacking(size_t position);
 	CharacterEntity* GetAITroopAttacking(size_t position);
-	float GetTurnCost();
+	CharacterEntity* GetSelectedTroop();
+	size_t GetTurnCost();
 	bool GetPlayerTurn();
 
 	// Switching Spots
 	void SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition);
+	void MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap);
+	void MoveTroopBackByTwo(map<size_t, CharacterEntity*>& TroopMap);
+	void MoveTroopFrontByOne(map<size_t, CharacterEntity*>& TroopMap);
+	void MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap);
 
 	// Damage Calculations all here
 	void DamageCalculation(CharacterEntity* Attacker, size_t target);
 	void DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill);
+	void ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate);
 
 	// Status Effect Calculations all here
-	void SetStatusEffect(CharacterEntity* Attacker, size_t target);
+	void SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target);
+
+	void Reset();
 
 };
 

@@ -11,7 +11,6 @@ float WarriorDefense[] = { 0.f, 3.0f, 3.8f, 4.6f, 5.4f, 6.2f, 7.0f, 7.8f, 8.6f, 
 
 Warrior::Warrior()
 {
-	skill = new Bash();
 	NormalAttackmultiplier = 0.75f;
 }
 

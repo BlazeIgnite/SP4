@@ -9,7 +9,7 @@
 #include "../AI/AIBehaviors/AIDefault.h"
 #include "../Objects/Characters/Player.h"
 #include "../Systems/BattleSystem.h"
-#include "../Systems/InventorySystem.h"
+#include "../Objects/Miscellaneous/InventoryButtons.h"
 
 class Scene_Assignment1 : public SceneEntity
 {
@@ -25,7 +25,7 @@ private:
 	//BattleSystem* bs;
 	//Warrior* warrior1;
 	//Warrior* warrior2;
-	InventorySystem* inventory;
+	InventoryButtons* inventory;
 	double x, y;
 
 public:

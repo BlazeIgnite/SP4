@@ -19,6 +19,8 @@ SceneBattles::~SceneBattles()
 void SceneBattles::Init()
 {
 	// Init Scene
+	Button = new BattleButton();
+	Button->Init();
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
 }
@@ -57,6 +59,7 @@ bool SceneBattles::CheckCollision(BaseObject* o1, BaseObject* o2, std::string ty
 
 void SceneBattles::Update(float dt)
 {
+	Button->Update(dt);
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)

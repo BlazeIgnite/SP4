@@ -39,11 +39,13 @@
     <ClCompile Include="Source\Main\Game\Miscellaneous\MeshBuilder.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\Scene_Assignment1.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBase.cpp" />
-    <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\DescriptionText.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBattlePlanner.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SplashScreen.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -104,11 +106,13 @@
     <ClInclude Include="Source\Main\Game\Scene\Scene.h" />
     <ClInclude Include="Source\Main\Game\Scene\Scene_Assignment1.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBase.h" />
-    <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DescriptionText.h" />
     <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBattlePlanner.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SplashScreen.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

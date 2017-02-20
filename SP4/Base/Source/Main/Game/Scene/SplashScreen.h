@@ -1,5 +1,4 @@
-#ifndef MAINMENU_H
-#define MAINMENU_H
+#pragma once
 
 #include "../Objects/Items/ItemEntity.h"
 #include "../Miscellaneous/Button.h"
@@ -10,26 +9,23 @@
 #include "SceneBase.h"
 #include "../../Engine/Objects/BaseObject.h"
 
-class MainMenu : public SceneEntity
+class SplashScreen : public SceneEntity
 {
 private:
-	Button* StartMission;
-	Button* Inventory;
+	Button* Start;
 	Button* Setting;
 	Button* ExitGame;
 
 	Camera camera;
-
 public:
-	MainMenu();
-	~MainMenu();
+	SplashScreen();
+	~SplashScreen();
 
 	void Init();
 	void Update(float dt);
 	void Render();
 	void Exit();
-
 	std::vector<Button*> buttonList;
+
 };
 
-#endif

@@ -61,7 +61,7 @@ void Scene_Assignment1::Init()
 	Player::Instance().Init(1);
 	AI = new AIDefault();
 	AI->Init();
-	inventory = new InventorySystem();
+	inventory = new InventoryButtons();
 	inventory->Init(x, y);
 	//bs = new BattleSystem();
 	//bs->Init();

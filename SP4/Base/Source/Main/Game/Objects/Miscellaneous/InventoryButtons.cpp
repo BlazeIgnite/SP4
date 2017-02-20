@@ -1,15 +1,15 @@
-#include "InventorySystem.h"
+#include "InventoryButtons.h"
 
-InventorySystem::InventorySystem()
+InventoryButtons::InventoryButtons()
 {
 }
 
 
-InventorySystem::~InventorySystem()
+InventoryButtons::~InventoryButtons()
 {
 }
 
-void InventorySystem::Init(double x, double y)
+void InventoryButtons::Init(double x, double y)
 {
 	//Buttons
 	CraftRedPot = new Button();
@@ -46,7 +46,7 @@ void InventorySystem::Init(double x, double y)
 	DescriptionVector.push_back(CraftBandageDes);
 }
 
-void InventorySystem::Update(float dt)
+void InventoryButtons::Update(float dt)
 {
 	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
 	{

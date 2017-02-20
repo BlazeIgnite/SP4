@@ -5,9 +5,10 @@
 #include "../AI/AIBehaviors/AIDefault.h"
 #include "../Objects/Characters/Player.h"
 #include "../Systems/BattleSystem.h"
-#include "../Systems/InventorySystem.h"
 #include "../../Engine/Objects/BaseObject.h"
 #include "../../Engine/Objects/SceneEntity.h"
+#include "../Objects/Miscellaneous/BattleButton.h"
+
 
 class SceneBattles : public SceneEntity
 {
@@ -20,6 +21,8 @@ private:
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
 
 	double x, y;
+
+	BattleButton* Button;
 
 public:
 	SceneBattles();

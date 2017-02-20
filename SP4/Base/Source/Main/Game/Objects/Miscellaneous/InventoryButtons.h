@@ -1,12 +1,12 @@
-#ifndef INVENTORY_SYSTEM
-#define INVENTORY_SYSTEM
+#ifndef INVENTORY_BUTTON
+#define INVENTORY_BUTTON
 
-#include "../Objects/Items/ItemEntity.h"
-#include "../Miscellaneous/Button.h"
-#include "../Miscellaneous/Description.h"
-#include "../Objects/Characters/Player.h"
+#include "../../Objects/Items/ItemEntity.h"
+#include "../../Miscellaneous/Button.h"
+#include "../../Miscellaneous/Description.h"
+#include "../../Objects/Characters/Player.h"
 
-class InventorySystem
+class InventoryButtons
 {
 private:
 	Button* CraftRedPot;
@@ -14,15 +14,18 @@ private:
 	Button* CraftAtkPot;
 	Button* CraftDefPot;
 	Button* CraftBandage;
+
 	Description* CraftRedPotDes;
 	Description* CraftBluePotDes;
 	Description* CraftAtkPotDes;
 	Description* CraftDefPotDes;
 	Description* CraftBandageDes;
 
+
+
 public:
-	InventorySystem();
-	~InventorySystem();
+	InventoryButtons();
+	~InventoryButtons();
 
 	void Init(double x, double y);
 	void Update(float dt);

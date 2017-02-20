@@ -1,4 +1,4 @@
-#include "MainMenu.h"
+#include "SplashScreen.h"
 #include "../Systems/ObjectManager.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
@@ -6,42 +6,38 @@
 #include "GL\glew.h"
 #include "../Mains/Application.h"
 
-MainMenu::MainMenu()
+SplashScreen::SplashScreen()
 {
 }
 
 
-MainMenu::~MainMenu()
+SplashScreen::~SplashScreen()
 {
 }
 
-void MainMenu::Init()
+void SplashScreen::Init()
 {
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 
-	StartMission = new Button();
-	StartMission->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 40, 1), Vector3(5, 5, 5), "StartMission");
-	buttonList.push_back(StartMission);
-
-	Inventory = new Button();
-	Inventory->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 30, 1), Vector3(5, 5, 5), "Inventory");
-	buttonList.push_back(Inventory);
+	Start = new Button();
+	Start->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 30, 1), Vector3(5, 5, 5), "Start");
+	buttonList.push_back(Start);
 
 	Setting = new Button();
-	Setting->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 20, 1), Vector3(5,5,5), "Setting");
+	Setting->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 20, 1), Vector3(5, 5, 5), "Setting");
 	buttonList.push_back(Setting);
 
 	ExitGame = new Button();
-	ExitGame->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 10, 1), Vector3(5,5,5), "ExitGame");
+	ExitGame->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 10, 1), Vector3(5, 5, 5), "ExitGame");
 	buttonList.push_back(ExitGame);
 }
 
-void MainMenu::Update(float dt)
+void SplashScreen::Update(float dt)
 {
 }
 
-void MainMenu::Render()
+void SplashScreen::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -67,13 +63,9 @@ void MainMenu::Render()
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
 		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-		if (obj->type == "StartMission")
+		if (obj->type == "Start")
 		{
-			Renderer->RenderMesh("StartMission", false);
-		}
-		if (obj->type == "Inventory")
-		{
-			Renderer->RenderMesh("Inventory", false);
+			Renderer->RenderMesh("Start", false);
 		}
 		if (obj->type == "Setting")
 		{
@@ -87,7 +79,7 @@ void MainMenu::Render()
 	}
 }
 
-void MainMenu::Exit()
+void SplashScreen::Exit()
 {
 	ObjectManager::Instance().Exit();
 

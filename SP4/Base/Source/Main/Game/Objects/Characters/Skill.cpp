@@ -16,6 +16,9 @@ Skill::Skill()
 	for (int i = 0; i < 3; i++)
 	{
 		RequiredPosition[i] = false;
+	}
+	for (int i = 0; i < 4; i++)
+	{
 		SelectableTarget[i] = false;
 	}
 }

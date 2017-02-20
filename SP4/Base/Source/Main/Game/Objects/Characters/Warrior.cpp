@@ -16,14 +16,6 @@ Warrior::Warrior()
 
 Warrior::~Warrior()
 {
-	for (vector<Skill*>::iterator it = SkillList.begin(); it != SkillList.end(); it++)
-	{
-		if ((*it) != nullptr)
-		{
-			delete (*it);
-			(*it) = nullptr;
-		}
-	}
 }
 
 void Warrior::Init(int Level)
@@ -57,44 +49,119 @@ void Warrior::LevelUp()
 {
 	if (Level <= 10)
 	{
+		Skill* skill = new Skill();
 		if (Level == 10)
 		{
 			// Divine Execution
-			Skill* skill = new Skill();
+			// Setting Name of skill
 			skill->SetName("Divine Execution");
+
+			// Setting Action Cost for Battle
 			skill->SetActionCost(85);
+			
+			// Setting the cooldown time after activation
 			skill->SetMaxTurnCooldown(5);
-			skill->SetRequiredPosition(0, 0);
+
+			// Setting the Required Position to use skill
+			skill->SetRequiredPosition(0, true);
+
+			// Setting the Selectable Position to use skill on
+			skill->SetSelectableTarget(0, true);
+
+			// Now the Warrior is allowed to use this skill
 			SkillList.push_back(skill);
 		}
 		else if (Level == 4)
 		{
-			// Taunt Skill
-			Skill* skill = new Skill();
+			// Taunt
+			// Setting Name of skill
 			skill->SetName("Taunt");
-			skill->SetActionCost(35);
-			skill->SetMaxTurnCooldown(2);
-			skill->SetStatusEffect(1, "Buff");
-			//skill->
 
-			// 
+			// Setting Action Cost for Battle
+			skill->SetActionCost(35);
+
+			// Setting the cooldown time after activation
+			skill->SetMaxTurnCooldown(2);
+
+			// Setting of how many turns status effect affects, what status effect is it
+			skill->SetStatusEffect(1, "Buff");
+
+			// Setting the Required Position to use skill
+			skill->SetRequiredPosition(0, true);
+			
+			// Setting the Selectable Position to use skill on
+			skill->SetSelectableTarget(4, true);
+			
+			// Now the Warrior is allowed to use this skill
+			SkillList.push_back(skill);
+
+			
+			// Stab Skill
 			skill = new Skill();
+
+			// Setting Name of skill
+			skill->SetName("Stab");
+
+			// Setting Action Cost for Battle
+			skill->SetActionCost(25);
+			
+			// Setting the cooldown time after activation
+			skill->SetMaxTurnCooldown(3);
+
+			// Setting of how many turns status effect affects, what status effect is it
+			skill->SetStatusEffect(3, "Bleed");
+
+			// Setting the Required Position to use skill on
+			skill->SetRequiredPosition(0, true);
+
+			// Setting the Selectable Position to use skill on
+			skill->SetSelectableTarget(0, true);
+			skill->SetSelectableTarget(1, true);
+
+			// Now the Warrior is allowed to use this skill
+			SkillList.push_back(skill);
 		}
 		else if (Level == 2)
 		{
-			Skill* skill = new Skill();
+			// Bash Skill
+			// Setting Name of skill
+			skill->SetName("Bash");
+
+			// Setting Action Cost for Battle
+			skill->SetActionCost(25);
+
+			// Setting the cooldown time after activation
+			skill->SetMaxTurnCooldown(2);
+
+			// Setting of how many turns status effect affects, what status effect is it
+			skill->SetStatusEffect(1, "Stun");
+
+			// Setting the Required Position to use skill on
+			skill->SetRequiredPosition(0, true);
+
+			// Setting the Selectable Position to use skill on
+			skill->SetSelectableTarget(0, true);
+			skill->SetSelectableTarget(1, true);
+
+			// Now the Warrior is allowed to use this skill
+			SkillList.push_back(skill);
+		}
+		else
+		{
+			delete skill;
+			skill = nullptr;
 		}
 	}
 
+	// Updates the damage for battle system to use every time Entity levels up
 	for (vector<Skill*>::iterator it = SkillList.begin(); it != SkillList.end(); it++)
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Rush")
-			SkillItr->SetDamage(GetAttack() * 0.3);
+			SkillItr->SetDamage((int)(GetAttack() * 0.3));
 		else if (SkillItr->GetName() == "Bash")
-			SkillItr->SetDamage(GetAttack() * 0.3);
+			SkillItr->SetDamage((int)(GetAttack() * 0.3));
 		else if (SkillItr->GetName() == "Divine Execution")
-			SkillItr->SetDamage(GetAttack() * 1.5);
+			SkillItr->SetDamage((int)(GetAttack() * 1.5));
 	}
-
 }

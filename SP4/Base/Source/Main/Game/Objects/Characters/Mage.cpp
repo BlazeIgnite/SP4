@@ -57,7 +57,69 @@ void Mage::Init(int Level)
 
 void Mage::Levelup()
 {
+	if (Level <= 10)
+	{
+		Skill* skill = new Skill();
+		if (Level == 10)
+		{
+			skill->SetName("Ars Arcanum");
+			skill->SetActionCost(100);
+			skill->SetMaxTurnCooldown(6);
+			skill->SetStatusEffect(2, "Bleed");
+			skill->SetStatusEffect(2, "Debuff");
+			skill->SetRequiredPosition(2, true);
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetSelectableTarget(i, true);
+			}
+			SkillList.push_back(skill);
+		}
+		else if (Level == 5)
+		{
+			skill->SetName("Miasmic Cloud");
+			skill->SetActionCost(40);
+			skill->SetMaxTurnCooldown(2);
+			skill->SetStatusEffect(3, "Debuff");
+			skill->SetRequiredPosition(1, true);
+			skill->SetRequiredPosition(2, true);
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetSelectableTarget(i, true);
+			}
+			SkillList.push_back(skill);
+		}
+		else if (Level == 4)
+		{
+			skill->SetName("Unholy Incantation");
+			skill->SetActionCost(40);
+			skill->SetMaxTurnCooldown(2);
+			//skill->SetShiftPosition()
+			skill->SetRequiredPosition(0, true);
+			skill->SetRequiredPosition(1, true);
+			skill->SetSelectableTarget(0, true);
+			skill->SetSelectableTarget(1, true);
 
+			SkillList.push_back(skill);
+		}
+		else
+		{
+			delete skill;
+			skill = nullptr;
+		}
+	}
+
+	for (vector<Skill*>::iterator it = SkillList.begin(); it != SkillList.end(); it++)
+	{
+		Skill* SkillItr = (*it);
+		if (SkillItr->GetName() == "Ars Arcanum")
+			SkillItr->SetDamage((int)(GetAttack() * 0.9));
+		else if (SkillItr->GetName() == "Unholy Incantation")
+			SkillItr->SetDamage((int)(GetAttack() * 0.2));
+		else if (SkillItr->GetName() == "Blinding Flash")
+			SkillItr->SetDamage((int)(GetAttack() * 0.15));
+		else if (SkillItr->GetName() == "Magic Bolt")
+			SkillItr->SetDamage((int)(GetAttack() * 0.75));
+	}
 }
 
 void Mage::Update(double dt)

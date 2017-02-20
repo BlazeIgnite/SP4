@@ -1,51 +1,33 @@
 #ifndef CHARACTER_ENTITY_H
 #define CHARACTER_ENTITY_H
 
-#include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
 #include <vector>
 #include <string>
-#include <map>
-#include "CharacterDatabase.h"
+#include "../../Base/Source/Main/Engine/Objects/BaseObject.h"
+#include "../../Objects/Characters/Skill.h"
 
 using std::string;
 using std::vector;
-using std::map;
-class Ability;
 
-class CharacterEntity : public BaseObject 
+class CharacterEntity : public BaseObject
 {
+protected:
 	//Character's Base stats
-	// Can this be in a bool? you are using up 4 bytes for each enum value as compared to 1 byte (bool).
-	enum CurrentEffect
-	{
-		isStunned = 1,
-		isBleed,
-		isDebuff,
-		isBuff,
-		noeffect,
-	};
-
 	Vector3 Position;
 	Vector3 Scale;
+	vector<Skill*> SkillList;
 	string Name;
-	int	Level;
-	int AbilityPoints;
-	int MaxAbilityPoints;
-	float Health;
-	float MaxHealth;
-	float Attack;
-	float Defense;
-	float Magic;
-	float Luck;
-	//Base Stats End here
+	size_t Level;
+	size_t Health;
+	size_t MaxHealth;
+	size_t Attack;
+	size_t Defense;
+	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
 
-	//Final stats
-	float DamageMitigation;
+	//Base Stats End here
+	int DamageMitigation;
 	bool Defeated;
-protected:
-	Ability *skill;
-	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
-	int stuntimer, bleedtimer, debufftimer, bufftimer;
+	bool Stunned, Bleeding, Buffed, Debuffed;
 
 public:
 	CharacterEntity();
@@ -55,43 +37,48 @@ public:
 	Vector3 GetVectorPosition(){ return Position; }
 	Vector3 GetScale(){ return Scale; }
 	string GetName(){ return Name; }
-	int GetLevel() { return Level; }
-	int GetAbilityPoints(){ return AbilityPoints; }
-	int GetMaxAbilityPoints(){ return MaxAbilityPoints; }
-	float GetHealth() { return Health; }
-	float GetMaxHealth(){ return MaxHealth; }
-	float GetAttack(){ return Attack; }
-	float GetDefense(){ return Defense; }
-	float GetMagic(){ return Magic; }
-	float GetLuck(){ return Luck; }
+	size_t GetLevel() { return Level; }
+	size_t GetHealth() { return Health; }
+	size_t GetMaxHealth(){ return MaxHealth; }
+	size_t GetAttack(){ return Attack; }
+	size_t GetDefense(){ return Defense; }
+	size_t GetStunTimer(){ return StunTimer; }
+	size_t GetBleedTimer(){ return BleedTimer; }
+	size_t GetDebuffTimer(){ return DebuffTimer; }
+	size_t GetBuffTimer(){ return BuffTimer; }
 	bool GetDefeated() { return Defeated; }
-	Ability* Getskill(){ return skill; }
+	bool GetStunned(){ return Stunned; }
+	bool GetBleeding(){ return Bleeding; }
+	bool GetBuffed(){ return Buffed; }
+	bool GetDebuffed(){ return Debuffed; }
 
 	//Setters
-	void SetVectorPosition(Vector3 Position){ this->Position = Position; }
-	void SetScale(Vector3 Scale){ this->Scale = Scale; }
-	void SetName(string Name){ this->Name = Name; }
-	void SetLevel(int Level);
-	void SetHealth(float Health);
-	void SetMaxHealth(float MaxHealth);
-	void SetAbilityPoints(int AbilityPoints);
-	void SetMaxAbilityPoints(int MaxAbilityPoints);
-	void SetAttack(float Attack);
-	void SetDefense(float Defense);
-	void SetMagic(float Magic);
-	void SetLuck(float Luck);
+	void SetPosition(Vector3 Position);
+	void SetScale(Vector3 Scale);
+	void SetName(string Name);
+	void SetLevel(size_t Level);
+	void SetHealth(size_t Health);
+	void SetMaxHealth(size_t MaxHealth);
+	void SetAttack(size_t Attack);
+	void SetDefense(size_t Defense);
+	void SetStunTimer(size_t StunTimer);
+	void SetBleedTimer(size_t BleedTimer);
+	void SetDebuffTimer(size_t DebuffTimer);
+	void SetBuffTimer(size_t BuffTimer);
 	void SetDefeated(bool Defeated);
+	void SetStunned(bool Stunned);
+	void SetBleeding(bool Bleeding);
+	void SetBuffed(bool Buffed);
+	void SetDebuffed(bool Debuffed);
 
-	virtual void Levelup(){};
+	virtual void LevelUp() = 0;
 
 	//This sets the Damage Mitigation for every level
 	void SetDamageMitigation();
-	float GetDamageMitigation(){ return DamageMitigation; }
+	int GetDamageMitigation(){ return DamageMitigation; }
 
-	void Init(Vector3 Position);
 	virtual void Init(int Level);
 	void Update(double dt);
-	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
 
 //	map<string, Ability> Abilities;
 };

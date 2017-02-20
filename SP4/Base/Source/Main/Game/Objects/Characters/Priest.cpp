@@ -28,18 +28,8 @@ void Priest::Init(int Level)
 		SetLevel(Level);
 		SetHealth(PriestHealth[Level - 1]);
 		SetMaxHealth(PriestHealth[Level - 1]);
-		SetAbilityPoints(PriestAbilityPoints[Level - 1]);
-		SetMaxAbilityPoints(PriestAbilityPoints[Level - 1]);
 		SetAttack(PriestAttack[Level - 1]);
 		SetDefense(PriestDefense[Level - 1]);
-		SetMagic(PriestMagic[Level - 1]);
-		SetLuck(PriestLuck[Level - 1]);
-		cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
-			<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
-			<< endl << "Attack: " << GetAttack()
-			<< endl << "Defense: " << GetDefense()
-			<< endl << "Magic: " << GetMagic()
-			<< endl << "Luck" << GetLuck() << endl;
 	}
 	if (Level > 20)
 	{
@@ -48,18 +38,8 @@ void Priest::Init(int Level)
 		SetLevel(Level);
 		SetHealth((PriestHealth[19] * finalscale));
 		SetMaxHealth(PriestHealth[19] * finalscale);
-		SetAbilityPoints(PriestAbilityPoints[19] * finalscale);
-		SetMaxAbilityPoints(PriestAbilityPoints[19] * finalscale);
 		SetAttack(PriestAttack[19] * finalscale);
 		SetDefense(PriestDefense[19] * finalscale);
-		SetMagic(PriestMagic[19] * finalscale);
-		SetLuck(PriestLuck[19] * finalscale);
-		cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
-			<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
-			<< endl << "Attack: " << GetAttack()
-			<< endl << "Defense: " << GetDefense()
-			<< endl << "Magic: " << GetMagic()
-			<< endl << "Luck" << GetLuck() << endl;
 	}
 	//SetPosition(Position_Middle);
 	SetDamageMitigation();

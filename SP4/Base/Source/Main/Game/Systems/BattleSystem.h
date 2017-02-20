@@ -1,13 +1,13 @@
 #ifndef BATTLE_SYSTEM_H
 #define BATTLE_SYSTEM_H
 
+#include <map>
 #include "../Internal/SingletonTemplate.h"
 #include "../AI/AIBase.h"
 #include "../Objects/Characters/CharacterEntity.h"
-#include "../Objects/Characters/CharacterDatabase.h"
 #include "../Objects/Characters/Player.h"
 
-using std::vector;
+using std::map;
 
 class BattleSystem : public SingletonTemplate<BattleSystem>
 {
@@ -53,7 +53,7 @@ public:
 
 	// Damage Calculations all here
 	void DamageCalculation(CharacterEntity* Attacker, size_t target);
-	void DamageCalculation(CharacterEntity* Attacker, size_t target, Ability* AttackerSkill);
+	void DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill);
 	void ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate);
 	// Status Effect Calculations all here
 	void SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target);

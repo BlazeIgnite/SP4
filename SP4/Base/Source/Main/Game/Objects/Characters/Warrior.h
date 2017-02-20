@@ -4,22 +4,14 @@
 #include "Skill.h"
 
 
-class Warrior : public CharacterEntity
+class Warrior : protected CharacterEntity
 {
-
 public:
 	Warrior();
 	~Warrior();
-	void Init(const Vector3 Position, Vector3 Scale);
 	virtual void Init(int Level);
 	void Update(double dt);
-	virtual void Levelup();
-	Vector3 Position;
-	Vector3 Scale; 
-
-
+	virtual void LevelUp();
 };
-
-
 
 #endif

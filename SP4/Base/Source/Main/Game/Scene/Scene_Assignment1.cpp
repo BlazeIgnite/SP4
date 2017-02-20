@@ -5,7 +5,6 @@
 //#include "../Systems/ObjectManager.h"
 #include "../Systems/EventSystem.h"
 #include "../../Engine/State/StateList.h"
-#include "../Objects/Characters/CharacterDatabase.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
 #include "../Systems/BattleSystem.h"
@@ -411,8 +410,6 @@ void Scene_Assignment1::HandleUserInput()
 	static bool QButtonState = false;
 	if (!QButtonState && Application::IsKeyPressed('Q'))
 	{
-		 if (BattleSystem::Instance().GetPlayerTurn())
-		 	BattleSystem::Instance().DamageCalculation(BattleSystem::Instance().GetPlayerTroopAttacking(0), 0, BattleSystem::Instance().GetPlayerTroopAttacking(0)->Getskill());
 
 		QButtonState = true;
 	}
@@ -424,12 +421,6 @@ void Scene_Assignment1::HandleUserInput()
 	static bool EButtonState = false;
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		if (BattleSystem::Instance().GetPlayerTurn())
-		{
-
-			BattleSystem::Instance().DamageCalculation(BattleSystem::Instance().GetPlayerTroopAttacking(0), 0);
-
-		}
 		EButtonState = true;
 	}
 	else if (EButtonState && !Application::IsKeyPressed('E'))

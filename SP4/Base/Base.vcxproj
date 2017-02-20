@@ -101,7 +101,6 @@
     <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
-    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\Resource.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />

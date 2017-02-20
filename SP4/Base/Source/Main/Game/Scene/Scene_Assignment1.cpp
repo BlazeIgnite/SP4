@@ -9,6 +9,7 @@
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
 #include "../Systems/BattleSystem.h"
 #include "../Audio/Audio_Player.h"
+#include "../../Base/Source/Main/Engine/System/LuaSystem.h"
 
 static bool MessageBoardActive = false;
 
@@ -24,13 +25,10 @@ void Scene_Assignment1::Init()
 {
 	// Init Scene
 	//SceneBase::Init();
-	
-	//buttonVector.push_back(button);
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 	x, y = 0;
-	//HP = 10;
-	
+
 
 	GameStage = true;
 
@@ -55,21 +53,23 @@ void Scene_Assignment1::Init()
 	//warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
 	//mage->Init(1);
 
-	player = new Player();
-	player->Init(1);
-	Player::Instance().Init(1);
+	//player = new Player();
+	//player->Init(1);
+	Player::Instance().Init(2);
+	Player::Instance().AddGold(100);
+	LuaSystem::Instance().GameSave();
+	
 	AI = new AIDefault();
 	AI->Init();
-	inventory = new InventoryButtons();
-	inventory->Init(x, y);
+	
 	//bs = new BattleSystem();
 	//bs->Init();
-	Player::Instance().AddCharacter("Warrior", warrior);
-	player->AddCharacter("Warrior", warrior);
-	player->AddCharacter("Mage", mage);
-	BattleSystem::Instance().Init();
-	BattleSystem::Instance().SetPlayerTroops(0, player->GetCharacterEntityInClassUnit("Warrior", 0));
-	BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));
+	//Player::Instance().AddCharacter("Warrior", warrior);
+	//player->AddCharacter("Warrior", warrior);
+	//player->AddCharacter("Mage", mage);
+	//BattleSystem::Instance().Init();
+	//BattleSystem::Instance().SetPlayerTroops(0, player->GetCharacterEntityInClassUnit("Warrior", 0));
+	//BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));
 
 	//BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
 	//BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
@@ -84,6 +84,9 @@ void Scene_Assignment1::Init()
 	//warrior->Init(1);
 	//warrior->skill_1->SetTarget(warrior1);
 	
+	inventory = new InventoryButtons();
+	inventory->Init(x, y);
+
 	//AudioPlayer::Instance().PlayMusic("BGM");
 }
 
@@ -231,7 +234,7 @@ void Scene_Assignment1::Render()
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	//RenderMesh(meshList[GEO_BACKGROUND], false);
 	//Renderer->SetHUD(true);
-	//Renderer->RenderMesh("BackGround", false);
+	Renderer->RenderMesh("BackGround", false);
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
 

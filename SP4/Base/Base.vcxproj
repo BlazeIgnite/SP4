@@ -124,6 +124,10 @@
     <ClInclude Include="Source\Main\Game\Scene\SceneBase.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lua\PlayerSave1.lua" />
+    <None Include="Lua\PlayerSave2.lua" />
+    <None Include="Lua\PlayerSave3.lua" />
+    <None Include="Lua\SaveFile.lua" />
     <None Include="Shader\comg.fragmentshader" />
     <None Include="Shader\comg.vertexshader" />
     <None Include="Shader\GPass.fragmentshader" />

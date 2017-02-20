@@ -58,3 +58,15 @@ void InventoryButtons::Update(float dt)
 		(*itr2)->Update(dt);
 	}
 }
+
+void InventoryButtons::Exit()
+{
+	for (std::vector<Button*>::iterator itr = buttonVector.begin(); itr != buttonVector.end(); itr++)
+	{
+		if ((*itr) != nullptr)
+		{
+			delete (*itr);
+			(*itr) = nullptr;
+		}
+	}
+}

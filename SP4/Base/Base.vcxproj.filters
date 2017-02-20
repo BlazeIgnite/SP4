@@ -120,5 +120,9 @@
     <None Include="Shader\GPass.vertexshader" />
     <None Include="Shader\Shadow.fragmentshader" />
     <None Include="Shader\Shadow.vertexshader" />
+    <None Include="Lua\PlayerSave1.lua" />
+    <None Include="Lua\PlayerSave2.lua" />
+    <None Include="Lua\PlayerSave3.lua" />
+    <None Include="Lua\SaveFile.lua" />
   </ItemGroup>
 </Project>

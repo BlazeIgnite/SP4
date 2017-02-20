@@ -22,7 +22,7 @@ private:
 
 	double x, y;
 
-	BattleButton* Button;
+	BattleButton* button;
 
 public:
 	SceneBattles();

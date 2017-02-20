@@ -4,7 +4,6 @@
 #include "../Objects/Items/ItemEntity.h"
 #include "../Miscellaneous/Button.h"
 #include "../Miscellaneous/Description.h"
-#include "../Objects/Characters/Player.h"
 
 #include "../../Engine/Objects/SceneEntity.h"
 #include <vector>
@@ -14,7 +13,12 @@
 class MainMenu : public SceneEntity
 {
 private:
-	Button* Start;
+	//Button* StartMission;
+	//Button* Inventory;
+	//Button* ExitGame;
+
+	Button* NewGame;
+	Button* LoadGame;
 	Button* Setting;
 	Button* ExitGame;
 
@@ -30,9 +34,6 @@ public:
 	void Exit();
 
 	std::vector<Button*> buttonList;
-
-
-
 };
 
 #endif

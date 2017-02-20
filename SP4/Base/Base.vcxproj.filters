@@ -44,6 +44,9 @@
     <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBattlePlanner.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SplashScreen.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -87,7 +90,6 @@
     <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
-    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\Resource.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h" />
@@ -109,6 +111,9 @@
     <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBattlePlanner.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SplashScreen.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />
@@ -117,5 +122,9 @@
     <None Include="Shader\GPass.vertexshader" />
     <None Include="Shader\Shadow.fragmentshader" />
     <None Include="Shader\Shadow.vertexshader" />
+    <None Include="Lua\PlayerSave1.lua" />
+    <None Include="Lua\PlayerSave2.lua" />
+    <None Include="Lua\PlayerSave3.lua" />
+    <None Include="Lua\SaveFile.lua" />
   </ItemGroup>
 </Project>

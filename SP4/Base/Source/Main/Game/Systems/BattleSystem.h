@@ -1,13 +1,13 @@
 #ifndef BATTLE_SYSTEM_H
 #define BATTLE_SYSTEM_H
 
+#include <map>
 #include "../Internal/SingletonTemplate.h"
 #include "../AI/AIBase.h"
 #include "../Objects/Characters/CharacterEntity.h"
-#include "../Objects/Characters/CharacterDatabase.h"
 #include "../Objects/Characters/Player.h"
 
-using std::vector;
+using std::map;
 
 class BattleSystem : public SingletonTemplate<BattleSystem>
 {
@@ -18,6 +18,7 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 
 	size_t TurnCost;
 	bool PlayerTurn;
+	bool PlayerWon;
 public:
 	BattleSystem();
 	~BattleSystem();
@@ -28,18 +29,20 @@ public:
 	// Setters
 	void SetPlayerTroops(size_t position, CharacterEntity* Troop);
 	void SetAITroops(size_t position, CharacterEntity* Troop);
-	void SetSelectedTroop(CharacterEntity* newSelectedTroop);
-	void SetTurnCost(size_t newTurnCost);
 	void SetPlayerTurn(bool newPlayerTurn);
-
-	// Getters
-	map<size_t, CharacterEntity*>& GetPlayerTroops();
-	map<size_t, CharacterEntity*>& GetAITroops();
-	CharacterEntity* GetPlayerTroopAttacking(size_t position);
-	CharacterEntity* GetAITroopAttacking(size_t position);
-	CharacterEntity* GetSelectedTroop();
-	size_t GetTurnCost();
-	bool GetPlayerTurn();
+	inline void SetSelectedTroop(CharacterEntity* newSelectedTroop){ SelectedTroop = newSelectedTroop; };
+	inline void SetTurnCost(size_t newTurnCost) { TurnCost = newTurnCost; };
+	inline void SetPlayerWon(bool newPlayerWon) { PlayerWon = newPlayerWon; };
+	 
+	 // Getters
+	inline map<size_t, CharacterEntity*>& GetPlayerTroops() { return PlayerTroops; };
+	inline map<size_t, CharacterEntity*>& GetAITroops() { return AITroops; };
+	inline CharacterEntity* GetPlayerTroopAttacking(size_t position) { return PlayerTroops.find(position)->second; };
+	inline CharacterEntity* GetAITroopAttacking(size_t position) { return AITroops.find(position)->second; };
+	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
+	inline size_t GetTurnCost(){ return TurnCost; };
+	inline bool GetPlayerTurn(){ return PlayerTurn; };
+	inline bool GetPlayerWon(){ return PlayerWon; };
 
 	// Switching Spots
 	void SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition);
@@ -50,7 +53,7 @@ public:
 
 	// Damage Calculations all here
 	void DamageCalculation(CharacterEntity* Attacker, size_t target);
-	void DamageCalculation(CharacterEntity* Attacker, size_t target, Ability* AttackerSkill);
+	void DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill);
 	void ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate);
 	// Status Effect Calculations all here
 	void SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target);

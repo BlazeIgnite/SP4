@@ -23,24 +23,13 @@ Mage::~Mage()
 
 void Mage::Init(int Level)
 {
-	Name = "Mage";
 	if (Level > 0 && Level < 21)
 	{
 		SetLevel(Level);
 		SetHealth(MageHealth[Level - 1]);
 		SetMaxHealth(MageHealth[Level - 1]);
-		SetAbilityPoints(MageAbilityPoints[Level - 1]);
-		SetMaxAbilityPoints(MageAbilityPoints[Level - 1]);
 		SetAttack(MageAttack[Level - 1]);
 		SetDefense(MageDefense[Level - 1]);
-		SetMagic(MageMagic[Level - 1]);
-		SetLuck(MageLuck[Level - 1]);
-		cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
-			<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
-			<< endl << "Attack: " << GetAttack()
-			<< endl << "Defense: " << GetDefense()
-			<< endl << "Magic: " << GetMagic()
-			<< endl << "Luck" << GetLuck() << endl;
 	}
 	if (Level > 20)
 	{
@@ -49,18 +38,8 @@ void Mage::Init(int Level)
 		SetLevel(Level);
 		SetHealth((MageHealth[19] * finalscale));
 		SetMaxHealth(MageHealth[19] * finalscale);
-		SetAbilityPoints(MageAbilityPoints[19] * finalscale);
-		SetMaxAbilityPoints(MageAbilityPoints[19] * finalscale);
 		SetAttack(MageAttack[19] * finalscale);
 		SetDefense(MageDefense[19] * finalscale);
-		SetMagic(MageMagic[19] * finalscale);
-		SetLuck(MageLuck[19] * finalscale);
-		cout << "HP: " << GetHealth() << "/" << GetMaxHealth()
-			<< endl << "AP: " << GetAbilityPoints() << "/" << GetMaxAbilityPoints()
-			<< endl << "Attack: " << GetAttack()
-			<< endl << "Defense: " << GetDefense()
-			<< endl << "Magic: " << GetMagic()
-			<< endl << "Luck" << GetLuck() << endl;
 	}
 //	SetPosition(Position_Back);
 	SetDamageMitigation();

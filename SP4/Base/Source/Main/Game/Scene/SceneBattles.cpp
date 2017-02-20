@@ -6,6 +6,7 @@
 #include "../Audio/Audio_Player.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
+#include "../Miscellaneous/Button.h"
 
 SceneBattles::SceneBattles()
 {
@@ -19,6 +20,10 @@ SceneBattles::~SceneBattles()
 void SceneBattles::Init()
 {
 	// Init Scene
+	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
+
+	button = new BattleButton();
+	button->Init();
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
 }
@@ -57,6 +62,7 @@ bool SceneBattles::CheckCollision(BaseObject* o1, BaseObject* o2, std::string ty
 
 void SceneBattles::Update(float dt)
 {
+	button->Update(dt);
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -85,14 +91,58 @@ void SceneBattles::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack->LoadIdentity();
 
+	//RenderMesh(meshList[GEO_AXES], false);
+	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
+	for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
+	{
+		Button* obj = (Button *)*itr;
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
+
+		if (obj->type == "Character 1")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		if (obj->type == "Character 2")
+			Renderer->RenderMesh("CraftBluePotion", false);
+		if (obj->type == "Character 3")
+			Renderer->RenderMesh("CraftAttackPotion", false);
+		if (obj->type == "Red Potion")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		//if (obj->type == "Blue Potion")
+		//Renderer->RenderMesh("CraftBluePotion", false);
+		if (obj->type == "Attack Potion")
+			Renderer->RenderMesh("CraftAttackPotion", false);
+		if (obj->type == "Defence Potion")
+			Renderer->RenderMesh("CraftDefencePotion", false);
+		if (obj->type == "Bandage")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Auto Attack")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Skill 1")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Skill 2")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Skill 3")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "AI1")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		if (obj->type == "AI2")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		if (obj->type == "AI3")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		modelStack->PopMatrix();
+	}
+
 	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -1.f);
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	//RenderMesh(meshList[GEO_BACKGROUND], false);
 	//Renderer->SetHUD(true);
-	//Renderer->RenderMesh("BackGround", false);
+	Renderer->RenderMesh("BattleScene", false);
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
+
+	
 }
 
 void SceneBattles::HandleUserInput()
@@ -188,4 +238,5 @@ void SceneBattles::Exit()
 	//SceneBase::Exit();
 	//Cleanup Objects
 	ObjectManager::Instance().Exit();
+	button->Exit();
 }

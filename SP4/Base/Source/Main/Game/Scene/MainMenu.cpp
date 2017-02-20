@@ -20,9 +20,13 @@ void MainMenu::Init()
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 
-	Start = new Button();
-	Start->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f,30, 1), Vector3(5,5,5), "Start");
-	buttonList.push_back(Start);
+	NewGame = new Button();
+	NewGame->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 40, 1), Vector3(5, 5, 5), "NewGame");
+	buttonList.push_back(NewGame);
+
+	LoadGame = new Button();
+	LoadGame->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 30, 1), Vector3(5, 5, 5), "LoadGame");
+	buttonList.push_back(LoadGame);
 
 	Setting = new Button();
 	Setting->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 20, 1), Vector3(5,5,5), "Setting");
@@ -63,9 +67,13 @@ void MainMenu::Render()
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
 		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-		if (obj->type == "Start")
+		if (obj->type == "NewGame")
 		{
-			Renderer->RenderMesh("Start", false);
+			Renderer->RenderMesh("NewGame", false);
+		}
+		if (obj->type == "LoadGame")
+		{
+			Renderer->RenderMesh("LoadGame", false);
 		}
 		if (obj->type == "Setting")
 		{
@@ -77,10 +85,33 @@ void MainMenu::Render()
 		}
 		modelStack->PopMatrix();
 	}
+
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
+	modelStack->Scale(50, 25, 1);
+	Renderer->RenderMesh("ButtonBorder", false);
+	modelStack->PopMatrix();
+	
+
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
+	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
+	//RenderMesh(meshList[GEO_BACKGROUND], false);
+	//Renderer->SetHUD(true);
+	Renderer->RenderMesh("MainMenu", false);
+	//Renderer->SetHUD(false);
+	modelStack->PopMatrix();
 }
 
 void MainMenu::Exit()
 {
 	ObjectManager::Instance().Exit();
-
+	for (std::vector<Button*>::iterator it = buttonList.begin(); it != buttonList.end(); it++)
+	{
+		if ((*it) != nullptr)
+		{
+			delete (*it);
+			(*it) = nullptr;
+		}
+	}
 }

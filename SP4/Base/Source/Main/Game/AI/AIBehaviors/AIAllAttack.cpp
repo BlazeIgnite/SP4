@@ -20,14 +20,22 @@ void AIAllAttack::Update(double dt)
 	{
 		if (stateHolder->GetState(""))
 			stateHolder->SetState("Planning");
+		else if (stateHolder->GetState("Planning"))
+			Planning();
+		else if (stateHolder->GetState("Execute"))
+			Execute();
 	}
 }
 
 void AIAllAttack::Planning()
-{}
+{
+
+}
 
 void AIAllAttack::Execute()
-{}
+{
+	
+}
 
 void AIAllAttack::Exit()
 {

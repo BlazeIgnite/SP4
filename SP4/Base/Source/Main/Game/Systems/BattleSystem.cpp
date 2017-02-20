@@ -18,6 +18,7 @@ void BattleSystem::Init()
 	SelectedTroop = NULL;
 	SetTurnCost(100);
 	SetPlayerTurn(true);
+	SetPlayerWon(true);
 }
 
 // Setters Here
@@ -40,14 +41,6 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	}
 	AITroops.find(position)->second = Troop;
 }
-void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
-{
-	SelectedTroop = newSelectedTroop;
-}
-void BattleSystem::SetTurnCost(size_t newTurnCost)
-{
-	TurnCost = newTurnCost;
-}
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
 	SetTurnCost(100);
@@ -58,47 +51,13 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 		cout << "AI's Turn" << endl;
 }
 
-// Getters Here
-map<size_t, CharacterEntity*>& BattleSystem::GetPlayerTroops()
-{
-	return PlayerTroops;
-}
-map<size_t, CharacterEntity*>& BattleSystem::GetAITroops()
-{
-	return AITroops;
-}
-CharacterEntity* BattleSystem::GetPlayerTroopAttacking(size_t position)
-{
-	return PlayerTroops.find(position)->second;
-}
-CharacterEntity* BattleSystem::GetAITroopAttacking(size_t position)
-{
-	return AITroops.find(position)->second;
-}
-CharacterEntity* BattleSystem::GetSelectedTroop()
-{
-	return SelectedTroop;
-}
-size_t BattleSystem::GetTurnCost()
-{
-	return TurnCost;
-}
-bool BattleSystem::GetPlayerTurn()
-{
-	return PlayerTurn;
-}
-
 
 // Swtiching Spots in the BattleScene
 void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition)
 {
-	cout << "Troop Position " << FirstPosition << " : " << TroopMap.find(FirstPosition)->second->Name << endl;
-	cout << "Troop Position " << SecondPosition << " : " << TroopMap.find(SecondPosition)->second->Name << endl;
 	CharacterEntity* temp = TroopMap.find(FirstPosition)->second;
 	TroopMap[FirstPosition] = TroopMap[SecondPosition];
 	TroopMap[SecondPosition] = temp;
-	cout << "Troop Position " << FirstPosition << " : " << TroopMap.find(FirstPosition)->second->Name << endl;
-	cout << "Troop Position " << SecondPosition << " : " << TroopMap.find(SecondPosition)->second->Name << endl;
 }
 void BattleSystem::MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap)
 {
@@ -133,7 +92,6 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 		if (TargetTroop->GetHealth() < 0)
 		{
 			TargetTroop->SetDefeated(true);
-			cout << "AI TROOP DOWN YO!" << endl;
 
 			size_t NumberOfDefeatedTroops = 0;
 			for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
@@ -144,13 +102,9 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 			if (NumberOfDefeatedTroops >= AITroops.size())
 			{
 				// Codes to switch to end Battle screen or Win screen here
-				cout << "ALL AI TROOPS DOWN" << endl;
 				return;
 			}
 		}
-
-
-
 		SetPlayerTurn(false);
 	}
 	else
@@ -163,8 +117,6 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 
 		if (TargetTroop->GetHealth() < 0)
 		{
-			cout << "PLAYER TROOP DOWN YO!" << endl;
-
 			size_t NumberOfDefeatedTroops = 0;
 			for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
 			{
@@ -174,42 +126,17 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 			if (NumberOfDefeatedTroops >= PlayerTroops.size())
 			{
 				// Codes to switch to Lose screen here
-				cout << "ALL PLAYER TROOPS DOWN" << endl;
 				return;
 			}
 		}
 		SetPlayerTurn(true);
 	}
 }
-void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Ability* AttackerSkill)
+void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
 {
 	if (PlayerTurn)
 	{
-		//Place shift codes here
-		AttackerSkill->ApplyAbility(Attacker,GetAITroops().at(target));
-
-		cout << "---------------------------------------------" << endl;
-		cout << "Player Troops" << endl;
-		for (size_t i = 0; i < PlayerTroops.size(); i++)
-		{
-			cout << "Troop position : " << i << " HP : " << PlayerTroops.find(i)->second->GetHealth() << endl;
-		}
-		cout << "AI Troops" << endl;
-		for (size_t i = 0; i < AITroops.size(); i++)
-		{
-			cout << "Troop position : " << i << " HP : " << AITroops.find(i)->second->GetHealth() << endl;
-			if (AttackerSkill->shiftposition != 0)
-			{
-				if (AttackerSkill->shiftposition == 1)
-					MoveTroopBackByOne(AITroops);
-				else if (AttackerSkill->shiftposition == 2)
-					MoveTroopBackByTwo(AITroops);
-				else if (AttackerSkill->shiftposition == -1)
-					MoveTroopFrontByOne(AITroops);
-				else if (AttackerSkill->shiftposition == -2)
-					MoveTroopFrontByTwo(AITroops);
-			}
-		}
+		
 	}
 	else
 	{
@@ -227,7 +154,7 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, A
 void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate)
 {
 	// Logic to maybe Healing or applying friendly effect here
-	// SkillOfUser->ApplyEffect(TeamMap.find(TargettedTeammate)->second);
+
 }
 
 

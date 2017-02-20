@@ -25,21 +25,12 @@ public:
 
 	lua_State* GetLuaState(std::string);
 
-	void GameSave(int);
-	void StageSave();
+	void GameSave();
 	void LoadGame(int);
 
 	std::map<std::string, lua_State*> LuaStateList;
 
 };
-
-LuaSystem::LuaSystem()
-{
-}
-
-LuaSystem::~LuaSystem()
-{
-}
 
 
 

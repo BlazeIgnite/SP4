@@ -17,7 +17,7 @@ public:
 	__readonly string name;
 	__readonly int id, actioncost, timer, cooldown;
 	__readonly float multiplier;
-	__readonly STATUSEFFECTS statuseffect;
+	//__readonly STATUSEFFECTS statuseffect;
 	__readonly int shiftposition = 0;
 	Ability();
 	~Ability(){};
@@ -198,7 +198,7 @@ public:
 class Ars : public Ability
 {
 public:
-	__readonly STATUSEFFECTS statuseffect2;
+	//__readonly STATUSEFFECTS statuseffect2;
 	Ars();
 	~Ars(){};
 	virtual void ApplyAbility(CharacterEntity* Character, CharacterEntity* target)

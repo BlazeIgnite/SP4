@@ -3,12 +3,6 @@
 #include "../../Game/Mains/Application.h"
 
 
-<<<<<<< HEAD
-CharacterEntity::CharacterEntity() : Name(""), Level(0), Health(0)
-, MaxHealth(0), AbilityPoints(0), MaxAbilityPoints(0), Attack(0), Defense(0)
-, Magic(0), Luck(0), DamageMitigation(0), Defeated(false), ID(0)
-, stuntimer(0), bleedtimer(0), bufftimer(0), debufftimer(0), NormalAttackmultiplier(0.00f)
-=======
 CharacterEntity::CharacterEntity() 
 : Position(Vector3(0, 0, 0))
 , Scale(Vector3(1, 1, 1))
@@ -29,7 +23,6 @@ CharacterEntity::CharacterEntity()
 , Bleeding(false)
 , Buffed(false)
 , Debuffed(false)
->>>>>>> f00a5bc837d4201a0b4fc74129ca89c7bd4d5169
 {
 }
 
@@ -87,42 +80,41 @@ void CharacterEntity::Init(int Level)
 void CharacterEntity::Update(double dt)
 {
 
-<<<<<<< HEAD
 }
 
 
-void CharacterEntity::ApplyEffect(STATUSEFFECTS statuseffect, int timer)
-{
-	switch (statuseffect)
-	{
-	case Stun:
-	{
-		stunned = isStunned;
-		stuntimer = timer;
-		break;
-	}
-	case Bleed:
-	{
-		bleeding = isBleed;
-		bleedtimer = timer;
-		break;
-	}
-	case Debuff:
-	{
-		debuffed = isDebuff;
-		debufftimer = timer;
-		break;
-	}
-	case Buff:
-	{
-		buffed = isBuff;
-		bufftimer = timer;
-		break;
-	}
-	default:
-		break;
-	}
-}
+//void CharacterEntity::ApplyEffect(STATUSEFFECTS statuseffect, int timer)
+//{
+//	switch (statuseffect)
+//	{
+//	case Stun:
+//	{
+//		stunned = isStunned;
+//		stuntimer = timer;
+//		break;
+//	}
+//	case Bleed:
+//	{
+//		bleeding = isBleed;
+//		bleedtimer = timer;
+//		break;
+//	}
+//	case Debuff:
+//	{
+//		debuffed = isDebuff;
+//		debufftimer = timer;
+//		break;
+//	}
+//	case Buff:
+//	{
+//		buffed = isBuff;
+//		bufftimer = timer;
+//		break;
+//	}
+//	default:
+//		break;
+//	}
+//}
 
 void CharacterEntity::ExecuteAttack(CharacterEntity* Target)
 {
@@ -137,6 +129,4 @@ void CharacterEntity::ExecuteAttack(CharacterEntity* Target)
 		temphealth = 0;
 	}
 	Target->SetHealth(temphealth);
-=======
->>>>>>> f00a5bc837d4201a0b4fc74129ca89c7bd4d5169
 }

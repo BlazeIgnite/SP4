@@ -13,6 +13,8 @@ Player::~Player()
 void Player::Init(const unsigned int PlayerTag)
 {
 	//LuaSystem::Instance().LoadGame(PlayerTag);
+	
+
 	ConsumableList.insert(std::pair < std::string, unsigned int>("Red Potion", 0));
 	ConsumableList.insert(std::pair < std::string, unsigned int>("Blue Potion", 0));
 	ConsumableList.insert(std::pair < std::string, unsigned int>("HealthPotion", 0));

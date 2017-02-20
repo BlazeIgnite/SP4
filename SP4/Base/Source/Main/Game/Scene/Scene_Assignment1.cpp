@@ -25,13 +25,10 @@ void Scene_Assignment1::Init()
 {
 	// Init Scene
 	//SceneBase::Init();
-	
-	//buttonVector.push_back(button);
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 	x, y = 0;
-	//HP = 10;
-	
+
 
 	GameStage = true;
 
@@ -61,8 +58,7 @@ void Scene_Assignment1::Init()
 	Player::Instance().Init(1);
 	AI = new AIDefault();
 	AI->Init();
-	inventory = new InventoryButtons();
-	inventory->Init(x, y);
+	
 	//bs = new BattleSystem();
 	//bs->Init();
 	Player::Instance().AddCharacter("Warrior", warrior);
@@ -85,6 +81,9 @@ void Scene_Assignment1::Init()
 	//warrior->Init(1);
 	//warrior->skill_1->SetTarget(warrior1);
 	
+	inventory = new InventoryButtons();
+	inventory->Init(x, y);
+
 	//AudioPlayer::Instance().PlayMusic("BGM");
 }
 
@@ -232,7 +231,7 @@ void Scene_Assignment1::Render()
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	//RenderMesh(meshList[GEO_BACKGROUND], false);
 	//Renderer->SetHUD(true);
-	//Renderer->RenderMesh("BackGround", false);
+	Renderer->RenderMesh("BackGround", false);
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
 

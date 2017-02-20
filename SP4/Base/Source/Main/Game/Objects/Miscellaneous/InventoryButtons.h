@@ -30,6 +30,7 @@ public:
 	void Init(double x, double y);
 	void Update(float dt);
 	void Render();
+	void Exit();
 
 	std::vector<Button*> buttonVector;
 	std::vector<Description*> DescriptionVector;

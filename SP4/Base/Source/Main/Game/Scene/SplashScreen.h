@@ -12,8 +12,8 @@
 class SplashScreen : public SceneEntity
 {
 private:
-	Button* Start;
-	Button* Setting;
+	Button* NewGame;
+	Button* LoadGame;
 	Button* ExitGame;
 
 	Camera camera;

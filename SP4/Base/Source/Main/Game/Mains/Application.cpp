@@ -155,9 +155,9 @@ void Application::Init()
 	Renderer->Init();
 	SceneSystem::Instance().SetRenderSystem(*Renderer);
 
-	//Scene_Assignment1* temp = new Scene_Assignment1();
+	Scene_Assignment1* temp = new Scene_Assignment1();
 	//MainMenu* temp = new MainMenu();
-	SceneBattles* temp = new SceneBattles();
+	//SceneBattles* temp = new SceneBattles();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
 }

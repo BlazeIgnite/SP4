@@ -31,14 +31,13 @@ public:
 	unsigned int GetPlayerStageCount();
 
 	std::map<std::string, std::map<int, CharacterEntity*>>& GetAllUnitList();
-	std::map<int, CharacterEntity*>& GetClassUnitList(std::string&);
 	std::map<int, CharacterEntity*>& GetClassUnitList(std::string);
 	std::map<std::string, unsigned int>& GetConsumableList();
 	std::map<std::string, unsigned int>& GetMaterialList();
 
 	CharacterEntity* GetCharacterEntityInClassUnit(string ClassName, int ID);
 
-	void AddGold(int&);
+	void AddGold(int);
 	void AddCharacter(std::string, CharacterEntity*);
 	void AddConsumableItem(std::string, int);
 	void AddMaterialItem(std::string, int);

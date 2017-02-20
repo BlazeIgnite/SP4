@@ -41,14 +41,6 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	}
 	AITroops.find(position)->second = Troop;
 }
-void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
-{
-	SelectedTroop = newSelectedTroop;
-}
-void BattleSystem::SetTurnCost(size_t newTurnCost)
-{
-	TurnCost = newTurnCost;
-}
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
 	SetTurnCost(100);
@@ -57,44 +49,6 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 		cout << "Player's Turn" << endl;
 	else
 		cout << "AI's Turn" << endl;
-}
-void BattleSystem::SetPlayerWon(bool newPlayerWon)
-{
-	PlayerWon = newPlayerWon;
-}
-
-// Getters Here
-map<size_t, CharacterEntity*>& BattleSystem::GetPlayerTroops()
-{
-	return PlayerTroops;
-}
-map<size_t, CharacterEntity*>& BattleSystem::GetAITroops()
-{
-	return AITroops;
-}
-CharacterEntity* BattleSystem::GetPlayerTroopAttacking(size_t position)
-{
-	return PlayerTroops.find(position)->second;
-}
-CharacterEntity* BattleSystem::GetAITroopAttacking(size_t position)
-{
-	return AITroops.find(position)->second;
-}
-CharacterEntity* BattleSystem::GetSelectedTroop()
-{
-	return SelectedTroop;
-}
-size_t BattleSystem::GetTurnCost()
-{
-	return TurnCost;
-}
-bool BattleSystem::GetPlayerTurn()
-{
-	return PlayerTurn;
-}
-bool BattleSystem::GetPlayerWon()
-{
-	return PlayerWon;
 }
 
 

@@ -173,39 +173,39 @@ void LuaSystem::LoadGame(int SaveFile)
 	unsigned int PriestCount = GetIntValue(lua, "NumberOfPriest");
 	unsigned int WizardCount = GetIntValue(lua, "NumberOfMage");
 
-	if (WarriorCount > 0)
-	{
-		for (int Value = 1; Value <= WarriorCount; ++Value)
-		{
-			CharacterEntity* temp = new Warrior();
-			std::string VariableName = "Warrior" + std::to_string(Value);
-			unsigned int Level = GetIntValue(lua, VariableName.c_str());
-			temp->Init(Level);
-			Player::Instance().AddCharacter("Warrior", temp);
-		}
-	}
-	if (PriestCount > 0)
-	{
-		for (int Value = 1; Value <= PriestCount; ++Value)
-		{
-			CharacterEntity* temp = new Warrior();
-			std::string VariableName = "Priest" + std::to_string(Value);
-			unsigned int Level = GetIntValue(lua, VariableName.c_str());
-			temp->Init(Level);
-			Player::Instance().AddCharacter("Priest", temp);
-		}
-	}
-	if (WizardCount > 0)
-	{
-		for (int Value = 1; Value <= WizardCount; ++Value)
-		{
-			CharacterEntity* temp = new Warrior();
-			std::string VariableName = "Mage" + std::to_string(Value);
-			unsigned int Level = GetIntValue(lua, VariableName.c_str());
-			temp->Init(Level);
-			Player::Instance().AddCharacter("Mage", temp);
-		}
-	}
+	//if (WarriorCount > 0)
+	//{
+	//	for (int Value = 1; Value <= WarriorCount; ++Value)
+	//	{
+	//		CharacterEntity* temp = new Warrior();
+	//		std::string VariableName = "Warrior" + std::to_string(Value);
+	//		unsigned int Level = GetIntValue(lua, VariableName.c_str());
+	//		temp->Init(Level);
+	//		Player::Instance().AddCharacter("Warrior", temp);
+	//	}
+	//}
+	//if (PriestCount > 0)
+	//{
+	//	for (int Value = 1; Value <= PriestCount; ++Value)
+	//	{
+	//		CharacterEntity* temp = new Warrior();
+	//		std::string VariableName = "Priest" + std::to_string(Value);
+	//		unsigned int Level = GetIntValue(lua, VariableName.c_str());
+	//		temp->Init(Level);
+	//		Player::Instance().AddCharacter("Priest", temp);
+	//	}
+	//}
+	//if (WizardCount > 0)
+	//{
+	//	for (int Value = 1; Value <= WizardCount; ++Value)
+	//	{
+	//		CharacterEntity* temp = new Warrior();
+	//		std::string VariableName = "Mage" + std::to_string(Value);
+	//		unsigned int Level = GetIntValue(lua, VariableName.c_str());
+	//		temp->Init(Level);
+	//		Player::Instance().AddCharacter("Mage", temp);
+	//	}
+	//}
 	// Player Name
 	// Player Tag(1~3)
 	// Player Gold

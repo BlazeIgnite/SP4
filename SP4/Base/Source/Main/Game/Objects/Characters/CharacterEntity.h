@@ -21,6 +21,7 @@ protected:
 	size_t Health;
 	size_t MaxHealth;
 	size_t Attack;
+	size_t BattleAttack;
 	size_t Defense;
 	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
 
@@ -41,6 +42,7 @@ public:
 	size_t GetHealth() { return Health; }
 	size_t GetMaxHealth(){ return MaxHealth; }
 	size_t GetAttack(){ return Attack; }
+	size_t GetBattleAttack(){ return BattleAttack; }
 	size_t GetDefense(){ return Defense; }
 	size_t GetStunTimer(){ return StunTimer; }
 	size_t GetBleedTimer(){ return BleedTimer; }
@@ -60,6 +62,7 @@ public:
 	void SetHealth(size_t Health);
 	void SetMaxHealth(size_t MaxHealth);
 	void SetAttack(size_t Attack);
+	void SetBattleAttack(size_t BattleAttack);
 	void SetDefense(size_t Defense);
 	void SetStunTimer(size_t StunTimer);
 	void SetBleedTimer(size_t BleedTimer);

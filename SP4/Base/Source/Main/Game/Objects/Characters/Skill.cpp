@@ -25,8 +25,6 @@
 
 Skill::Skill()
 : Name("")
-, StatusEffect("")
-, StatusEffectTimer(0)
 , Damage(0)
 , Heal(0)
 , ShiftPosition(0)
@@ -34,11 +32,10 @@ Skill::Skill()
 , TurnCooldown(0)
 , MaxTurnCooldown(0)
 {
-	bool temp = false;
 	for (int i = 0; i < 3; i++)
 	{
-		RequiredPosition.push_back(temp);
-		SelectableTarget.push_back(temp);
+		RequiredPosition[i] = false;
+		SelectableTarget[i] = false;
 	}
 }
 
@@ -46,6 +43,18 @@ Skill::~Skill()
 {}
 
 // Setters
+void Skill::SetStatusEffect(size_t StatusEffectTimer, string newStatusEffect)
+{
+	std::map<size_t, vector<string>>::iterator itr = StatusEffect.find(StatusEffectTimer);
+	if (itr == StatusEffect.end())
+	{
+		vector<string> EmptyVector;
+		EmptyVector.push_back(newStatusEffect);
+		StatusEffect[StatusEffectTimer] = EmptyVector;
+	}
+	else
+		StatusEffect.find(StatusEffectTimer)->second.push_back(newStatusEffect);
+}
 void Skill::SetName(string newName)
 {
 	Name = newName;
@@ -84,6 +93,10 @@ void Skill::SetSelectableTarget(size_t position, bool newSelectableTarget)
 }
 
 // Getters
+map<size_t, vector<string>> Skill::GetStringStatusEffect()
+{
+	return StatusEffect;
+}
 string Skill::GetName()
 {
 	return Name;
@@ -114,17 +127,19 @@ size_t Skill::GetMaxTurnCooldown()
 }
 bool Skill::GetRequiredPosition(size_t position)
 {
-	for (vector<bool>::iterator it = RequiredPosition.begin(); it != RequiredPosition.end(); it++)
+	for (size_t i = 0; i < 3; i++)
 	{
-		if ((*it) == position)
-			return (*it);
+		if (i == position)
+			return RequiredPosition[i];
 	}
+	return false;
 }
 bool Skill::GetSelectableTarget(size_t position)
 {
-	for (vector<bool>::iterator it = SelectableTarget.begin(); it != SelectableTarget.end(); it++)
+	for (size_t i = 0; i < 3; i++)
 	{
-		if ((*it) == position)
-			return (*it);
+		if (i == position)
+			return SelectableTarget[i];
 	}
+	return false;
 }

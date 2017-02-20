@@ -11,6 +11,7 @@ CharacterEntity::CharacterEntity()
 , Health(0)
 , MaxHealth(0)
 , Attack(0)
+, BattleAttack(0)
 , Defense(0)
 , StunTimer(0)
 , BleedTimer(0)
@@ -52,6 +53,10 @@ void CharacterEntity::SetMaxHealth(size_t MaxHealth)
 void CharacterEntity::SetAttack(size_t Attack)
 {
 	this->Attack = Attack;
+}
+void CharacterEntity::SetBattleAttack(size_t BattleAttack)
+{
+	this->BattleAttack = BattleAttack;
 }
 void CharacterEntity::SetDefense(size_t Defense)
 {

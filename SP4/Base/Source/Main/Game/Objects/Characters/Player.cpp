@@ -109,9 +109,7 @@ void Player::AddCharacter(std::string Name, CharacterEntity* newCharacter)
 		UnitList[Name] = EmptyMap;
 	}
 	else
-	{
 		this->UnitList.find(Name)->second[UnitList.find(Name)->second.size()] = newCharacter;
-	}
 }
 void Player::AddConsumableItem(std::string Name, int Amount)
 {

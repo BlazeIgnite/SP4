@@ -2,17 +2,18 @@
 #define SKILL_H_
 
 #include <string>
+#include <map>
 #include <vector>
 
 using std::string;
+using std::map;
 using std::vector;
 
 // Revised skill codes here, will replace the Old Skill with the New Skill
 class Skill
 {
+	map<size_t, vector<string>> StatusEffect;
 	string Name;
-	string StatusEffect;
-	size_t StatusEffectTimer;
 	size_t Damage;
 	size_t Heal;
 	size_t ShiftPosition;
@@ -21,17 +22,16 @@ class Skill
 	size_t MaxTurnCooldown;
 
 
-	vector<bool> RequiredPosition;
-	vector<bool> SelectableTarget;
+	bool RequiredPosition[3];
+	bool SelectableTarget[3];
 
 public:
 	Skill();
 	~Skill();
 
 	// Setters
+	void SetStatusEffect(size_t StatusEffectTimer, string newStatusEffect);
 	void SetName(string newName);
-	void SetStatusEffect(string newStatusEffect);
-	void SetStatusEffectTimer(size_t newStatusEffectTimer);
 	void SetDamage(size_t newDamage);
 	void SetHeal(size_t newHeal);
 	void SetShiftPosition(size_t newShiftPosition);
@@ -43,8 +43,8 @@ public:
 
 
 	// Getters
+	map<size_t, vector<string>> GetStringStatusEffect();
 	string GetName();
-	string GetStatusEffect();
 	size_t GetStatusEffectTimer();
 	size_t GetDamage();
 	size_t GetHeal();

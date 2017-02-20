@@ -38,15 +38,6 @@ void Scene_Assignment1::Init()
 
 	Warrior* warrior = new Warrior();
 	Warrior* warrior1 = new Warrior();
-
-	Mage* mage = new Mage();
-
-	warrior->Init(20);
-	warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
-	warrior1->Init(20);
-	warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
-
-	mage->Init(1);
 	//warrior->Init(2);
 	//warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
 	//warrior1->Init(1);

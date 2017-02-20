@@ -13,7 +13,7 @@ float MageLuck[] = { 1, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 
 
 Mage::Mage()
 {
-
+	NormalAttackmultiplier = 0.50f;
 }
 
 Mage::~Mage()

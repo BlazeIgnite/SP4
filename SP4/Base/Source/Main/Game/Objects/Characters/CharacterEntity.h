@@ -49,6 +49,7 @@ protected:
 	Ability *skill;
 	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
 	int stuntimer, bleedtimer, debufftimer, bufftimer;
+	float NormalAttackmultiplier;
 
 public:
 	CharacterEntity();
@@ -93,7 +94,7 @@ public:
 	virtual void Init(int Level);
 	void Update(double dt);
 	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
-
+	void ExecuteAttack(CharacterEntity* Target);
 	string Name;
 //	map<string, Ability> Abilities;
 };

@@ -40,13 +40,10 @@
     <ClCompile Include="Source\Main\Game\Scene\Scene_Assignment1.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBase.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="Source\Main\Game\Miscellaneous\DescriptionText.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
-=======
     <ClCompile Include="Source\Main\Game\AI\AIBattlePlanner.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
->>>>>>> b9126e39299e3f883684de0fbb4097e9e4f896fa
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -108,13 +105,10 @@
     <ClInclude Include="Source\Main\Game\Scene\Scene_Assignment1.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBase.h" />
     <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />
-<<<<<<< HEAD
     <ClInclude Include="Source\Main\Game\Miscellaneous\DescriptionText.h" />
     <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
-=======
     <ClInclude Include="Source\Main\Game\AI\AIBattlePlanner.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
->>>>>>> b9126e39299e3f883684de0fbb4097e9e4f896fa
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

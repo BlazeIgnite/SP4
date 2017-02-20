@@ -13,6 +13,7 @@ float WarriorLuck[] = { 10, 12, 14, 15, 15, 15, 20, 20, 25, 25, 25, 25, 25, 25, 
 Warrior::Warrior()
 {
 	skill = new Bash();
+	NormalAttackmultiplier = 0.75f;
 }
 
 Warrior::~Warrior()

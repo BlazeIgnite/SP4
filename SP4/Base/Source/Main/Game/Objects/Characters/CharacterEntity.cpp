@@ -6,7 +6,7 @@
 CharacterEntity::CharacterEntity() : Name(""), Level(0), Health(0)
 , MaxHealth(0), AbilityPoints(0), MaxAbilityPoints(0), Attack(0), Defense(0)
 , Magic(0), Luck(0), DamageMitigation(0), Defeated(false), ID(0)
-, stuntimer(0), bleedtimer(0), bufftimer(0), debufftimer(0)
+, stuntimer(0), bleedtimer(0), bufftimer(0), debufftimer(0), NormalAttackmultiplier(0.00f)
 {
 }
 
@@ -76,6 +76,7 @@ void CharacterEntity::Update(double dt)
 
 }
 
+
 void CharacterEntity::ApplyEffect(STATUSEFFECTS statuseffect, int timer)
 {
 	switch (statuseffect)
@@ -107,4 +108,19 @@ void CharacterEntity::ApplyEffect(STATUSEFFECTS statuseffect, int timer)
 	default:
 		break;
 	}
+}
+
+void CharacterEntity::ExecuteAttack(CharacterEntity* Target)
+{
+	int Damage = GetAttack();
+	Damage *= NormalAttackmultiplier;
+	Damage = static_cast<int>(Damage);
+
+	int temphealth = Target->GetHealth();
+	temphealth -= Damage;
+	if (temphealth <= 0)
+	{
+		temphealth = 0;
+	}
+	Target->SetHealth(temphealth);
 }

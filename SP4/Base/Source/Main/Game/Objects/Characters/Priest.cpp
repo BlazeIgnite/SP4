@@ -13,7 +13,7 @@ float PriestLuck[] = { 1, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
 
 Priest::Priest()
 {
-
+	NormalAttackmultiplier = 0.40f;
 }
 
 Priest::~Priest()

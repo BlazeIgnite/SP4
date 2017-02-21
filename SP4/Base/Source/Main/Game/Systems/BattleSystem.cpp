@@ -182,13 +182,14 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 *	When to be called: When healing or buff to teammate is done
 *
 */
-void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate)
+void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate, Skill* SkillUsed)
 {
 	// Logic to maybe Healing or applying friendly effect here
 	for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
 	{
 		CharacterEntity* character = itr->second;
 		character->SetBuffed(true);
+		character->SetBuffTimer(SkillUsed->GetStatusEffectTimer());
 	}
 }
 
@@ -202,16 +203,31 @@ void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, C
 *	When to be called: It should be called when any troop wants to set a status effect to opponent, if its not called within the BattleSystem, either player is hacking or we are bad at coding
 *
 */
-void BattleSystem::SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target)
+void BattleSystem::SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target, Skill* SkillUsed)
 {
 	// Set the status Effect of the Character Entity Here
 	//TeamMap.find(target)->second->SetStatusEffect( stun? / poison? / burn?);
 	for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
 	{
 		CharacterEntity* character = itr->second;
-		character->SetBleeding(true);
-		character->SetStunned(true);
-		character->SetDebuffed(true);
+		for (map<size_t, vector<string>>::iterator effect = SkillUsed->GetStringStatusEffect().begin();;)
+		{
+			if (effect->second.at(0) == "Stun")
+			{
+				TeamMap.find(target)->second->SetStunned(true);
+				TeamMap.find(target)->second->SetStunTimer(SkillUsed->GetStatusEffectTimer());
+			}
+			else if (effect->second.at(0) == "Bleed")
+			{
+				TeamMap.find(target)->second->SetBleeding(true);
+				TeamMap.find(target)->second->SetBleedTimer(SkillUsed->GetStatusEffectTimer());
+			}
+			else if (effect->second.at(0) == "Debuff")
+			{
+				TeamMap.find(target)->second->SetDebuffed(true);
+				TeamMap.find(target)->second->SetDebuffTimer(SkillUsed->GetStatusEffectTimer());
+			}
+		}
 	}
 }
 

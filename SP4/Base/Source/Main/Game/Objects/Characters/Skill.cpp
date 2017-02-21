@@ -1,8 +1,4 @@
 #include "Skill.h"
-//#include "CharacterDatabase.h"
-
-
-
 
 /************************************************/
 /*               Revised Skills                 */
@@ -20,6 +16,9 @@ Skill::Skill()
 	for (int i = 0; i < 3; i++)
 	{
 		RequiredPosition[i] = false;
+	}
+	for (int i = 0; i < 4; i++)
+	{
 		SelectableTarget[i] = false;
 	}
 }
@@ -178,6 +177,20 @@ Skill::~Skill()
 //	statuseffect = Buff;
 //	timer = 3;
 //}
+
+// Setters
+void Skill::SetStatusEffect(size_t StatusEffectTimer, string newStatusEffect)
+{
+	std::map<size_t, vector<string>>::iterator itr = StatusEffect.find(StatusEffectTimer);
+	if (itr == StatusEffect.end())
+	{
+		vector<string> EmptyVector;
+		EmptyVector.push_back(newStatusEffect);
+		StatusEffect[StatusEffectTimer] = EmptyVector;
+	}
+	else
+		StatusEffect.find(StatusEffectTimer)->second.push_back(newStatusEffect);
+}
 
 void Skill::SetName(string newName)
 {

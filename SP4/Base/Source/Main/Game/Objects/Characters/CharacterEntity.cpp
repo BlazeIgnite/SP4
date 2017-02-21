@@ -28,48 +28,19 @@ CharacterEntity::CharacterEntity()
 
 CharacterEntity::~CharacterEntity()
 {
-}
-
-void CharacterEntity::SetPosition(Vector3 Position)
-{
-	this->Position = Position;
-}
-void CharacterEntity::SetScale(Vector3 Scale)
-{
-	this->Scale = Scale;
-}
-void CharacterEntity::SetLevel(size_t Level)
-{
-	this->Level = Level;
-}
-void CharacterEntity::SetHealth(size_t Health)
-{
-	this->Health = Health;
-}
-void CharacterEntity::SetMaxHealth(size_t MaxHealth)
-{ 
-	this->MaxHealth = MaxHealth;
-}
-void CharacterEntity::SetAttack(size_t Attack)
-{
-	this->Attack = Attack;
-}
-void CharacterEntity::SetBattleAttack(size_t BattleAttack)
-{
-	this->BattleAttack = BattleAttack;
-}
-void CharacterEntity::SetDefense(size_t Defense)
-{
-	this->Defense = Defense;
-}
-void CharacterEntity::SetDefeated(bool newDefeated)
-{
-	this->Defeated = newDefeated;
+	for (vector<Skill*>::iterator it = SkillList.begin(); it != SkillList.end(); it++)
+	{
+		if ((*it) != nullptr)
+		{
+			delete (*it);
+			(*it) = nullptr;
+		}
+	}
 }
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->DamageMitigation =(0.06 * Defense) / (1 + 0.06 * Defense);
+	this->DamageMitigation = (0.06 * Defense) / (1 + 0.06 * Defense);
 }
 
 void CharacterEntity::Init(int Level)
@@ -80,53 +51,4 @@ void CharacterEntity::Init(int Level)
 void CharacterEntity::Update(double dt)
 {
 
-}
-
-
-//void CharacterEntity::ApplyEffect(STATUSEFFECTS statuseffect, int timer)
-//{
-//	switch (statuseffect)
-//	{
-//	case Stun:
-//	{
-//		stunned = isStunned;
-//		stuntimer = timer;
-//		break;
-//	}
-//	case Bleed:
-//	{
-//		bleeding = isBleed;
-//		bleedtimer = timer;
-//		break;
-//	}
-//	case Debuff:
-//	{
-//		debuffed = isDebuff;
-//		debufftimer = timer;
-//		break;
-//	}
-//	case Buff:
-//	{
-//		buffed = isBuff;
-//		bufftimer = timer;
-//		break;
-//	}
-//	default:
-//		break;
-//	}
-//}
-
-void CharacterEntity::ExecuteAttack(CharacterEntity* Target)
-{
-	int Damage = GetAttack();
-	Damage *= NormalAttackmultiplier;
-	Damage = static_cast<int>(Damage);
-
-	int temphealth = Target->GetHealth();
-	temphealth -= Damage;
-	if (temphealth <= 0)
-	{
-		temphealth = 0;
-	}
-	Target->SetHealth(temphealth);
 }

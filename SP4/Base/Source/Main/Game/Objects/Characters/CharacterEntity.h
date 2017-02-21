@@ -24,8 +24,10 @@ protected:
 	size_t BattleAttack;
 	size_t Defense;
 	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
-
+	
 	//Base Stats End here
+	float ExperiencePoints;
+	float NormalAttackmultiplier;
 	int DamageMitigation;
 	bool Defeated;
 	enum CurrentEffect
@@ -48,44 +50,44 @@ public:
 	~CharacterEntity();
 
 	//Getters
-	Vector3 GetVectorPosition(){ return Position; }
-	Vector3 GetScale(){ return Scale; }
-	string GetName(){ return Name; }
-	size_t GetLevel() { return Level; }
-	size_t GetHealth() { return Health; }
-	size_t GetMaxHealth(){ return MaxHealth; }
-	size_t GetAttack(){ return Attack; }
-	size_t GetBattleAttack(){ return BattleAttack; }
-	size_t GetDefense(){ return Defense; }
-	size_t GetStunTimer(){ return StunTimer; }
-	size_t GetBleedTimer(){ return BleedTimer; }
-	size_t GetDebuffTimer(){ return DebuffTimer; }
-	size_t GetBuffTimer(){ return BuffTimer; }
-	bool GetDefeated() { return Defeated; }
-	bool GetStunned(){ return Stunned; }
-	bool GetBleeding(){ return Bleeding; }
-	bool GetBuffed(){ return Buffed; }
-	bool GetDebuffed(){ return Debuffed; }
+	inline Vector3 GetVectorPosition(){ return Position; };
+	inline Vector3 GetScale(){ return Scale; };
+	inline string GetName(){ return Name; };
+	inline size_t GetLevel() { return Level; };
+	inline size_t GetHealth() { return Health; };
+	inline size_t GetMaxHealth(){ return MaxHealth; };
+	inline size_t GetAttack(){ return Attack; };
+	inline size_t GetBattleAttack(){ return BattleAttack; };
+	inline size_t GetDefense(){ return Defense; };
+	inline size_t GetStunTimer(){ return StunTimer; };
+	inline size_t GetBleedTimer(){ return BleedTimer; };
+	inline size_t GetDebuffTimer(){ return DebuffTimer; };
+	inline size_t GetBuffTimer(){ return BuffTimer; };
+	inline bool GetDefeated(){ return Defeated; };
+	inline bool GetStunned(){ return Stunned;	};
+	inline bool GetBleeding(){ return Bleeding; };
+	inline bool GetBuffed(){ return Buffed; }
+	inline bool GetDebuffed(){ return Debuffed; };
 
 	//Setters
-	void SetPosition(Vector3 Position);
-	void SetScale(Vector3 Scale);
-	void SetName(string Name);
-	void SetLevel(size_t Level);
-	void SetHealth(size_t Health);
-	void SetMaxHealth(size_t MaxHealth);
-	void SetAttack(size_t Attack);
-	void SetBattleAttack(size_t BattleAttack);
-	void SetDefense(size_t Defense);
-	void SetStunTimer(size_t StunTimer);
-	void SetBleedTimer(size_t BleedTimer);
-	void SetDebuffTimer(size_t DebuffTimer);
-	void SetBuffTimer(size_t BuffTimer);
-	void SetDefeated(bool Defeated);
-	void SetStunned(bool Stunned);
-	void SetBleeding(bool Bleeding);
-	void SetBuffed(bool Buffed);
-	void SetDebuffed(bool Debuffed);
+	inline void SetPosition(Vector3 Position){ this->Position = Position; };
+	inline void SetScale(Vector3 Scale){ this->Scale = Scale; };
+	inline void SetName(string Name){ this->Name = Name; };
+	inline void SetLevel(size_t Level){ this->Level = Level; };
+	inline void SetHealth(size_t Health){ this->Health = Health; };
+	inline void SetMaxHealth(size_t MaxHealth){ this->MaxHealth = MaxHealth; };
+	inline void SetAttack(size_t Attack){ this->Attack = Attack; };
+	inline void SetBattleAttack(size_t BattleAttack) { this->BattleAttack = BattleAttack; };
+	inline void SetDefense(size_t Defense){	this->Defense = Defense; };
+	inline void SetStunTimer(size_t StunTimer){ this->StunTimer = StunTimer; };
+	inline void SetBleedTimer(size_t BleedTimer){ this->BleedTimer = BleedTimer; };
+	inline void SetDebuffTimer(size_t DebuffTimer){ this->DebuffTimer = DebuffTimer; };
+	inline void SetBuffTimer(size_t BuffTimer){ this->BuffTimer = BuffTimer; };
+	inline void SetDefeated(bool Defeated){ this->Defeated = Defeated; };
+	inline void SetStunned(bool Stunned){ this->Stunned = Stunned; };
+	inline void SetBleeding(bool Bleeding){ this->Bleeding = Bleeding; };
+	inline void SetBuffed(bool Buffed){ this->Buffed = Buffed; };
+	inline void SetDebuffed(bool Debuffed){ this->Debuffed = Debuffed; };
 
 	virtual void LevelUp() = 0;
 
@@ -93,7 +95,7 @@ public:
 	void SetDamageMitigation();
 	int GetDamageMitigation(){ return DamageMitigation; }
 
-	virtual void Init(int Level);
+	virtual void Init(int Level = 1);
 	void Update(double dt);
 //	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
 	void ExecuteAttack(CharacterEntity* Target);

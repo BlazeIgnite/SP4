@@ -1,9 +1,8 @@
 #ifndef MAGE_H_
 #define MAGE_H_
-#include "Skill.h"
 #include "CharacterEntity.h"
 
-class Mage : public CharacterEntity
+class Mage : protected CharacterEntity
 {
 public:
 	Mage();

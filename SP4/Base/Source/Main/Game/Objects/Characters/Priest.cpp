@@ -47,7 +47,74 @@ void Priest::Init(int Level)
 
 void Priest::Levelup()
 {
+	if (Level <= 10)
+	{
+		Skill* skill = new Skill();
+		if (Level == 10)
+		{
+			skill->SetName("Guardian Angel");
+			skill->SetActionCost(80);
+			skill->SetMaxTurnCooldown(6);
+			skill->SetStatusEffect(3, "Buff");
+			skill->SetRequiredPosition(2, true);
+			skill->SetRequiredPosition(3, true);
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetSelectableTarget(i, true);
+			}
+			SkillList.push_back(skill);
+		}
+		if (Level == 5)
+		{
+			skill->SetName("Divine Guidance");
+			skill->SetActionCost(30);
+			skill->SetMaxTurnCooldown(2);
+			skill->SetStatusEffect(3, "Buff");
+			skill->SetRequiredPosition(1, true);
+			skill->SetRequiredPosition(2, true);
+			skill->SetRequiredPosition(3, true);
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetSelectableTarget(i, true);
+			}
+			SkillList.push_back(skill);
+		}
+		if (Level == 4)
+		{
+			skill->SetName("Unholy Gift");
+			skill->SetActionCost(35);
+			skill->SetMaxTurnCooldown(1);
+			skill->SetRequiredPosition(2, true);
+			skill->SetRequiredPosition(3, true);
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetSelectableTarget(i, true);
+			}
+			SkillList.push_back(skill);
+		}
+		if (Level == 3)
+		{
+			skill->SetName("Esuna");
+			skill->SetActionCost(40);
+			skill->SetMaxTurnCooldown(2);
+			skill->SetStatusEffect(2, "Buff");
+			skill->SetRequiredPosition(1, true);
+			skill->SetRequiredPosition(2, true);
+			skill->SetRequiredPosition(3, true);
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetSelectableTarget(i, true);
+			}
+			SkillList.push_back(skill);
+		}
+	}
 
+	for (vector<Skill*>::iterator it = SkillList.begin(); it != SkillList.end(); it++)
+	{
+		Skill* SkillItr = (*it);
+		if (SkillItr->GetName() == "Unholy Gift")
+			SkillItr->SetDamage((int)(GetAttack() * 0.5));
+	}
 }
 
 void Priest::Update(double dt)

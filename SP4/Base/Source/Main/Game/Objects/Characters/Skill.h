@@ -293,7 +293,6 @@ using std::vector;
 
 class Skill
 {
-
 	map<size_t, vector<string>> StatusEffect;
 	string Name;
 	size_t Damage;
@@ -303,9 +302,12 @@ class Skill
 	size_t TurnCooldown;
 	size_t MaxTurnCooldown;
 
-
 	bool RequiredPosition[3];
-	bool SelectableTarget[3];
+	// 0 = Position 0
+	// 1 = Position 1
+	// 2 = Position 2
+	// 3 = Self
+	bool SelectableTarget[4];
 
 public:
 	Skill();

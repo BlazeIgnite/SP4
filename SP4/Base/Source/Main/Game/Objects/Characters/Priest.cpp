@@ -64,22 +64,20 @@ void Priest::Levelup()
 			}
 			SkillList.push_back(skill);
 		}
-		if (Level == 5)
+		else if (Level == 5)
 		{
 			skill->SetName("Divine Guidance");
 			skill->SetActionCost(30);
 			skill->SetMaxTurnCooldown(2);
 			skill->SetStatusEffect(3, "Buff");
-			skill->SetRequiredPosition(1, true);
-			skill->SetRequiredPosition(2, true);
-			skill->SetRequiredPosition(3, true);
 			for (int i = 0; i < 3; i++)
 			{
+				skill->SetRequiredPosition(i, true);
 				skill->SetSelectableTarget(i, true);
 			}
 			SkillList.push_back(skill);
 		}
-		if (Level == 4)
+		else if (Level == 4)
 		{
 			skill->SetName("Unholy Gift");
 			skill->SetActionCost(35);
@@ -92,20 +90,20 @@ void Priest::Levelup()
 			}
 			SkillList.push_back(skill);
 		}
-		if (Level == 3)
+		else if (Level == 3)
 		{
 			skill->SetName("Esuna");
 			skill->SetActionCost(40);
 			skill->SetMaxTurnCooldown(2);
-			skill->SetStatusEffect(2, "Buff");
-			skill->SetRequiredPosition(1, true);
-			skill->SetRequiredPosition(2, true);
-			skill->SetRequiredPosition(3, true);
 			for (int i = 0; i < 3; i++)
 			{
+				skill->SetRequiredPosition(i, true);
 				skill->SetSelectableTarget(i, true);
 			}
 			SkillList.push_back(skill);
+		}
+		else if (Level == 1)
+		{
 		}
 	}
 
@@ -114,6 +112,8 @@ void Priest::Levelup()
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Unholy Gift")
 			SkillItr->SetDamage((int)(GetAttack() * 0.5));
+		else if (SkillItr->GetName() == "Heal")
+			SkillItr->SetHeal((int)(GetAttack() * 0.45));
 	}
 }
 

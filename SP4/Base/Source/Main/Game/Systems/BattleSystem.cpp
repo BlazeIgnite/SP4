@@ -15,7 +15,7 @@ BattleSystem::~BattleSystem()
 // Initialising Here
 void BattleSystem::Init()
 {
-	SelectedTroop = NULL;
+	SelectedTroop = PlayerTroops.find(0)->second;
 	SetTurnCost(100);
 	SetPlayerTurn(true);
 	SetPlayerWon(true);
@@ -85,7 +85,8 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 	if (PlayerTurn)
 	{
 		CharacterEntity* TargetTroop = AITroops.find(target)->second;
-		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
+		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetBattleAttack() * Attacker->GetDamageMitigation()));
+		
 		// One more line of code needed, the default attack cost put here
 		// TurnCost -= AttackCost;
 
@@ -136,7 +137,6 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 {
 	if (PlayerTurn)
 	{
-		
 	}
 	else
 	{

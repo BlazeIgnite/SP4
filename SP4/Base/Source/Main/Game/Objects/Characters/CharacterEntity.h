@@ -26,22 +26,10 @@ protected:
 	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
 	
 	//Base Stats End here
-	float ExperiencePoints;
 	int DamageMitigation;
-	bool Defeated;
-	enum CurrentEffect
-	{
-		isStunned = 1,
-		isBleed,
-		isDebuff,
-		isBuff,
-		noeffect,
-	};
-protected:
-	//Skill *skill;
-	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
-	int stuntimer, bleedtimer, debufftimer, bufftimer;
+	float ExperiencePoints;
 	float NormalAttackmultiplier;
+	bool Defeated;
 	bool Stunned, Bleeding, Buffed, Debuffed;
 
 public:
@@ -96,8 +84,6 @@ public:
 
 	virtual void Init(int Level = 1);
 	void Update(double dt);
-//	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
-	void ExecuteAttack(CharacterEntity* Target);
 };
 
 #endif

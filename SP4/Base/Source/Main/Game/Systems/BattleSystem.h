@@ -39,10 +39,12 @@ public:
 	inline map<size_t, CharacterEntity*>& GetAITroops() { return AITroops; };
 	inline CharacterEntity* GetPlayerTroopAttacking(size_t position) { return PlayerTroops.find(position)->second; };
 	inline CharacterEntity* GetAITroopAttacking(size_t position) { return AITroops.find(position)->second; };
-	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
+	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };                                       
 	inline size_t GetTurnCost(){ return TurnCost; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
 	inline bool GetPlayerWon(){ return PlayerWon; };
+
+	bool CanActivateSkill();
 
 	// Switching Spots
 	void SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition);

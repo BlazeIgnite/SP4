@@ -2,7 +2,7 @@
 #define WARRIOR_H_
 #include "CharacterEntity.h"
 
-class Warrior : protected CharacterEntity
+class Warrior : public CharacterEntity
 {
 public:
 	Warrior();

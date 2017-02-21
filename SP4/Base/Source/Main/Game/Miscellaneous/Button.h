@@ -13,19 +13,21 @@ private:
 	Vector3 scale;
 
 public:
-
 	Button();
 	~Button();
 
-	void Init(Vector3 Position, Vector3 Scale, std::string type);
-	void UpdateCrafting(double dt);
-	void Update(double dt);
-
-	std::string type;
-	bool isitHover();
-
-	bool isPressed;
-
 	Vector3 GetPosition();
 	Vector3 GetScale();
+	void Init(Vector3 Position, Vector3 Scale, std::string type);
+	void UpdateCrafting(float dt);
+	void UpdateBattleScene(float dt);
+	void Update(float dt);
+
+	std::string type;
+
+	bool isitHover();
+	bool isPressed;
+	bool isSelected;
+
+	
 };

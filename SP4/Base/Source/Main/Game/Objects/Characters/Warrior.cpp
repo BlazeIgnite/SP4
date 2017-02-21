@@ -12,6 +12,7 @@ float WarriorDefense[] = { 0.f, 3.0f, 3.8f, 4.6f, 5.4f, 6.2f, 7.0f, 7.8f, 8.6f, 
 Warrior::Warrior()
 {
 	NormalAttackmultiplier = 0.75f;
+	Name = "Warrior";
 }
 
 Warrior::~Warrior()
@@ -39,6 +40,17 @@ void Warrior::Init(int Level)
 		SetDefense(WarriorDefense[20] * (1 + LevelOffset));
 		SetDamageMitigation();
 	}
+	Skill* skill = new Skill();
+	skill->SetName("Rush");
+	skill->SetActionCost(25);
+	skill->SetMaxTurnCooldown(2);
+	skill->SetRequiredPosition(0, true);
+	skill->SetRequiredPosition(1, true);
+	skill->SetRequiredPosition(2, true);
+	skill->SetSelectableTarget(0, true);
+	skill->SetSelectableTarget(1, true);
+	SkillList.push_back(skill);
+
 }
 void Warrior::Update(double dt)
 {
@@ -92,7 +104,7 @@ void Warrior::LevelUp()
 			skill->SetRequiredPosition(0, true);
 			
 			// Setting the Selectable Position to use skill on
-			skill->SetSelectableTarget(4, true);
+			skill->SetSelectableTarget(3, true);
 			
 			// Now the Warrior is allowed to use this skill
 			SkillList.push_back(skill);

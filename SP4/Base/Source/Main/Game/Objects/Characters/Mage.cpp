@@ -11,6 +11,7 @@ float MageDefense[] = { 0.f, 1.0f, 1.4f, 1.8f, 2.2f, 2.6f, 3.0f, 4.f, 4.4f, 4.8f
 Mage::Mage()
 {
 	NormalAttackmultiplier = 0.50f;
+	Name = "Mage";
 }
 
 Mage::~Mage()
@@ -49,7 +50,7 @@ void Mage::Init(int Level)
 	SetDamageMitigation();
 }
 
-void Mage::Levelup()
+void Mage::LevelUp()
 {
 	if (Level <= 10)
 	{

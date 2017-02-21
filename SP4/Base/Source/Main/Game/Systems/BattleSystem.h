@@ -57,9 +57,9 @@ public:
 
 	// Damage Calculations all here
 	void DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill);
-	void ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate);
+	void ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate, Skill* SkillUsed);
 	// Status Effect Calculations all here
-	void SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target);
+	void SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target, Skill* skillUsed);
 
 	// Checking if Skill can be activated
 	bool CanActivateSkill(CharacterEntity* Attacker, size_t Target, Skill* AttackerSkill);

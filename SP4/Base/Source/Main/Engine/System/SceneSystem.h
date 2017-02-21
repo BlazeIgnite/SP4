@@ -30,6 +30,7 @@ public:
 	virtual void AddScene(SceneEntity&);
 
 	virtual void SwitchScene(const std::string&);
+	virtual void SceneReset(const std::string&);
 	virtual bool SwitchToPreviousScene();
 
 	SceneEntity &GetCurrentScene();

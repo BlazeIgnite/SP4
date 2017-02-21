@@ -17,6 +17,7 @@ SplashScreen::~SplashScreen()
 
 void SplashScreen::Init()
 {
+	this->SetEntityID("SplashScreen_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 

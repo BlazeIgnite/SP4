@@ -196,6 +196,7 @@ void Application::Run()
 		if (hwnd == GetActiveWindow())
 		{
 			m_dElaspedTime = m_timer.getElapsedTime();
+			InputManager::Instance().UpdateMouse();
 			Update();
 			SceneSystem::Instance().GetCurrentScene().Render();
 		}

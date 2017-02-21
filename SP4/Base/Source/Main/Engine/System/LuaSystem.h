@@ -24,6 +24,7 @@ public:
 	void saveFloatValue(const char*, const float, const bool);
 
 	lua_State* GetLuaState(std::string);
+	void ReloadLuaState(std::string);
 
 	void GameSave();
 	void LoadGame(int);

@@ -63,7 +63,7 @@ const char* LuaSystem::GetString(lua_State* lua, const char* varName)
 
 void LuaSystem::saveIntValue(const char* varName, const int value, const bool bOverWrite)
 {
-	lua_State* lua = LuaSystem::Instance().LuaStateList.find("Save Score")->second;
+	lua_State* lua = LuaStateList.find("Save Score")->second;
 	lua_getglobal(lua, "SaveToLuaFile");
 	char outputString[80];
 	sprintf(outputString, "%s = %d\n", varName, value);
@@ -73,7 +73,7 @@ void LuaSystem::saveIntValue(const char* varName, const int value, const bool bO
 }
 void LuaSystem::saveFloatValue(const char* varName, const float value, const bool bOverWrite)
 {
-	lua_State* lua = LuaSystem::Instance().LuaStateList.find("Save Score")->second;
+	lua_State* lua = LuaStateList.find("Save Score")->second;
 	lua_getglobal(lua, "SaveToLuaFile");
 	char outputString[80];
 	sprintf(outputString, "%s = %6.4f\n", varName, value);
@@ -84,8 +84,8 @@ void LuaSystem::saveFloatValue(const char* varName, const float value, const boo
 
 lua_State* LuaSystem::GetLuaState(std::string FileName)
 {
-	std::map<std::string, lua_State*>::iterator lua = LuaSystem::Instance().LuaStateList.find(FileName);
-	if (lua == LuaSystem::Instance().LuaStateList.end())
+	std::map<std::string, lua_State*>::iterator lua = LuaStateList.find(FileName);
+	if (lua == LuaStateList.end())
 	{
 		lua_State* temp;
 		temp = lua_open();
@@ -97,9 +97,20 @@ lua_State* LuaSystem::GetLuaState(std::string FileName)
 	return lua->second;
 }
 
+void LuaSystem::ReloadLuaState(std::string FileName)
+{
+	lua_close(GetLuaState(FileName));
+	LuaStateList.erase(FileName);
+	lua_State* temp = lua_open();
+	luaL_openlibs(temp);
+	luaL_dofile(temp, FileName.c_str());
+	LuaStateList.insert(std::pair<std::string, lua_State*>(FileName, temp));
+}
+
 void LuaSystem::GameSave()
 {
-	lua_State* lua = LuaSystem::Instance().GetLuaState("Lua\\SaveFile.lua");
+	ReloadLuaState("Lua\\SaveFile.lua");
+	lua_State* lua = GetLuaState("Lua\\SaveFile.lua");
 	lua_getglobal(lua, "SavePlayerFile");
 	std::string Input = "";
 	int WarriorSize, MageSize, PriestSize;
@@ -151,7 +162,10 @@ void LuaSystem::GameSave()
 void LuaSystem::LoadGame(int SaveFile)
 {
 	std::string FilePath = "Lua//PlayerSave" + std::to_string(SaveFile) + ".lua";
-	lua_State* lua = LuaSystem::Instance().GetLuaState(FilePath);
+	ReloadLuaState(FilePath);
+	lua_State* lua = GetLuaState(FilePath);
+	//lua_State* lua = lua_open();
+	//luaL_dofile(lua, FilePath.c_str());
 	Player::Instance().SetPlayerName(GetString(lua, "PlayerName"));
 	Player::Instance().SetPlayerID(GetIntValue(lua, "PlayerTag"));
 	Player::Instance().SetPlayerGold(GetIntValue(lua, "PlayerGold"));
@@ -213,5 +227,4 @@ void LuaSystem::LoadGame(int SaveFile)
 	// Loop Player crafting item(add item name & count)
 	// Loop Player Consumable Item(add item name & count)
 	// Loop Player's Unit List(add Unit type & level)
-
 }

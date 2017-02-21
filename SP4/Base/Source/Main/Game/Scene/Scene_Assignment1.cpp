@@ -49,7 +49,8 @@ void Scene_Assignment1::Init()
 	//player->Init(1);
 	Player::Instance().Init(2);
 	Player::Instance().AddGold(100);
-	LuaSystem::Instance().GameSave();
+	int Gold = Player::Instance().GetPlayerGold();
+	//LuaSystem::Instance().GameSave();
 	
 	AI = new AIDefault();
 	AI->Init();
@@ -137,13 +138,15 @@ void Scene_Assignment1::Update(float dt)
 	}*/
 	if (Application::IsKeyPressed('Q'))
 	{
-		//SceneSystem::Instance().SwitchScene("MainMenu_Scene");
-		Application::ChangeWindowSize(800, 600);
+		SceneSystem::Instance().SceneReset("Test_Scene");
+		//Application::ChangeWindowSize(800, 600);
+		//LuaSystem::Instance().GameSave();
 	}
 	if (Application::IsKeyPressed('E'))
 	{
 		//SceneSystem::Instance().SwitchScene("MainMenu_Scene");
-		Application::FullScreenWindowSize();
+		//Application::FullScreenWindowSize();
+		Application::ChangeWindowSize(800, 600);
 	}
 	
 }
@@ -417,6 +420,7 @@ void Scene_Assignment1::HandleUserInput()
 	else if (QButtonState && !Application::IsKeyPressed('Q'))
 	{
 		QButtonState = false;
+		SceneSystem::Instance().SceneReset("Test_Scene");
 	}
 
 	static bool EButtonState = false;
@@ -466,7 +470,8 @@ void Scene_Assignment1::Exit()
 		inventory = nullptr;
 	}
 
-	ObjectManager::Instance().Exit();
+	LuaSystem::Instance().GameSave();
+	//ObjectManager::Instance().Exit();
 	
-	StateList::Instance().Exit();
+	//StateList::Instance().Exit();
 }

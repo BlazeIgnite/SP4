@@ -4,6 +4,7 @@
 #include "../Mains/Application.h"
 #include "../Scene/Scene_Assignment1.h"
 #include "../Systems/BattleSystem.h"
+#include "../../Base/Source/Main/Engine/System/InputManager.h"
 
 
 Button::Button()
@@ -251,28 +252,19 @@ void Button::UpdateCrafting(float dt)
 
 bool Button::isitHover()
 {
-	int w = Application::GetWindowWidth();
-	int h = Application::GetWindowHeight();
-	float worldX = (float)x * ObjectManager::Instance().WorldWidth / (float)w;
-	float worldY = ((float)h - (float)y) * ObjectManager::Instance().WorldHeight / (float)h;
+	float worldX = InputManager::Instance().GetMousePosition().x;
+	float worldY = InputManager::Instance().GetMousePosition().y;
 
-	//std::cout << minHeight << " " << maxHeight << " " << worldY << std::endl;
-	//std::cout << minWidth << " " << maxWidth << " " << worldX << std::endl;
 	if (worldY > minHeight && worldY < maxHeight)
 	{
 		if (worldX > minWidth && worldX < maxWidth)
-		{
 			return true;
-		}
 		else
-		{
 			return false;
-		}
 	}
 	else
-	{
 		return false;
-	}
+	
 }
 
 Vector3 Button::GetPosition()

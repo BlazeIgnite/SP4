@@ -42,6 +42,15 @@ void MainMenu::Init()
 
 void MainMenu::Update(float dt)
 {
+	static bool LMouse = false;
+	if (!LMouse && Application::IsKeyPressed(VK_LBUTTON))
+	{
+		LMouse = true;
+	}
+	else if (LMouse && Application::IsKeyPressed(VK_LBUTTON))
+	{
+		LMouse = false;
+	}
 }
 
 void MainMenu::Render()

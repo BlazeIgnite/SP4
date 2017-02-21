@@ -16,13 +16,10 @@ private:
 	//Button* StartMission;
 	//Button* Inventory;
 	//Button* ExitGame;
-
-	Button* NewGame;
-	Button* LoadGame;
-	Button* Setting;
-	Button* ExitGame;
-
+	Button* button;
 	Camera camera;
+
+	double x, y;
 
 public:
 	MainMenu();

@@ -21,6 +21,7 @@ SceneBattles::~SceneBattles()
 void SceneBattles::Init()
 {
 	// Init Scene
+	this->EntityID = "SceneBattle";
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	button = new BattleButton();
@@ -37,10 +38,6 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
-	BattleSystem::Instance().Init();
-	BattleSystem::Instance().SetPlayerTroops(0, new Warrior());
-	BattleSystem::Instance().SetPlayerTroops(1, new Mage());
-	BattleSystem::Instance().SetPlayerTroops(2, new Priest());
 	BattleSystem::Instance().SetAITroops(0, new Warrior());
 	BattleSystem::Instance().SetAITroops(1, new Mage());
 	BattleSystem::Instance().SetAITroops(2, new Priest());
@@ -120,15 +117,25 @@ void SceneBattles::Render()
 
 		if (obj->type == "Character 1")
 		{
-			if (!obj->isSelected)
+			if (!obj->GetisSelected())
 				Renderer->RenderMesh("CraftRedPotion", false);
 			else
 				Renderer->RenderMesh("CraftBluePotion", false);
 		}
 		if (obj->type == "Character 2")
-			Renderer->RenderMesh("CraftBluePotion", false);
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("CraftRedPotion", false);
+			else
+				Renderer->RenderMesh("CraftBluePotion", false);
+		}
 		if (obj->type == "Character 3")
-			Renderer->RenderMesh("CraftAttackPotion", false);
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("CraftRedPotion", false);
+			else
+				Renderer->RenderMesh("CraftBluePotion", false);
+		}
 		if (obj->type == "Red Potion")
 			Renderer->RenderMesh("CraftRedPotion", false);
 		//if (obj->type == "Blue Potion")
@@ -147,11 +154,11 @@ void SceneBattles::Render()
 			Renderer->RenderMesh("CraftBandagePotion", false);
 		if (obj->type == "Skill 3")
 			Renderer->RenderMesh("CraftBandagePotion", false);
-		if (obj->type == "AI1")
+		if (obj->type == "AI 1")
 			Renderer->RenderMesh("CraftRedPotion", false);
-		if (obj->type == "AI2")
+		if (obj->type == "AI 2")
 			Renderer->RenderMesh("CraftRedPotion", false);
-		if (obj->type == "AI3")
+		if (obj->type == "AI 3")
 			Renderer->RenderMesh("CraftRedPotion", false);
 		modelStack->PopMatrix();
 	}

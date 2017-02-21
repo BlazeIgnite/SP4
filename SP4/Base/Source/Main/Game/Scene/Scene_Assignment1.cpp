@@ -59,9 +59,9 @@ void Scene_Assignment1::Init()
 	//Player::Instance().AddCharacter("Warrior", warrior);
 	//player->AddCharacter("Warrior", warrior);
 	//player->AddCharacter("Mage", mage);
-	BattleSystem::Instance().Init();
+	/*BattleSystem::Instance().Init();
 	BattleSystem::Instance().SetPlayerTroops(0, player->GetCharacterEntityInClassUnit("Warrior", 0));
-	BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));
+	BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));*/
 
 	//BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
 	//BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));

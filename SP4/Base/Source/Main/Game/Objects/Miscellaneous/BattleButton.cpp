@@ -1,6 +1,8 @@
 #include "BattleButton.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
+#include "../../Mains/Application.h"
+#include "../../Game/Systems/BattleSystem.h"
 
 BattleButton::BattleButton()
 {
@@ -56,21 +58,158 @@ void BattleButton::Init()
 
 
 	temp = new Button();
-	temp->Init(Vector3(120, 22.5, 0), Vector3(10, 10, 1), "AI1");
+	temp->Init(Vector3(120, 22.5, 0), Vector3(10, 10, 1), "AI 1");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(140, 22.5, 0), Vector3(10, 10, 1), "AI2");
+	temp->Init(Vector3(140, 22.5, 0), Vector3(10, 10, 1), "AI 2");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(160, 22.5, 0), Vector3(10, 10, 1), "AI3");
+	temp->Init(Vector3(160, 22.5, 0), Vector3(10, 10, 1), "AI 3");
 	buttonList.push_back(temp);
 }
 
 void BattleButton::Update(float dt)
 {
+
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
-		(*itr)->UpdateBattleScene(dt);
+		if (BattleSystem::Instance().GetSelectedTroop() != NULL)
+		{
+			(*itr)->UpdateBattleScene(dt);
+		}
+		//Character 1 (Most Right)
+		if ((*itr)->type == "Character 1" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0))
+			{
+				if (!(*itr)->GetisPressed())
+				{
+					for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+					{
+						(*itr2)->SetisSelected(false);
+					}
+					BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
+					std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
+					(*itr)->SetisSelected(true);
+					(*itr)->SetisPressed(true);
+				}
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+					(*itr)->SetisPressed(false);
+			}
+		}
+		//Character 2 (Middle)
+		if ((*itr)->type == "Character 2" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0))
+			{
+				if (!(*itr)->GetisPressed())
+				{
+					for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+					{
+						(*itr2)->SetisSelected(false);
+					}
+					BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(1));
+					std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
+					(*itr)->SetisSelected(true);
+					(*itr)->SetisPressed(true);
+				}
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+					(*itr)->SetisPressed(false);
+			}
+		}
+		//Character 3 (Most Left)
+		if ((*itr)->type == "Character 3" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0))
+			{
+				if (!(*itr)->GetisPressed())
+				{
+					for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+					{
+						(*itr2)->SetisSelected(false);
+					}
+					BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(1));
+					std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
+					(*itr)->SetisSelected(true);
+					(*itr)->SetisPressed(true);
+				}
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+					(*itr)->SetisPressed(false);
+			}
+		}
+		//AI 1 
+		if ((*itr)->type == "AI 1" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0))
+			{
+				if (!(*itr)->GetisPressed())
+				{
+					for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+					{
+						(*itr2)->SetisTarget(false);
+					}
+					//BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
+					(*itr)->SetisTarget(true);
+					(*itr)->SetisPressed(true);
+				}
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+					(*itr)->SetisPressed(false);
+			}
+		}
+		if ((*itr)->type == "AI 2" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0))
+			{
+				if (!(*itr)->GetisPressed())
+				{
+					for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+					{
+						(*itr2)->SetisTarget(false);
+					}
+					//BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
+					(*itr)->SetisTarget(true);
+					(*itr)->SetisPressed(true);
+				}
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+					(*itr)->SetisPressed(false);
+			}
+		}
+		if ((*itr)->type == "AI 3" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0))
+			{
+				if (!(*itr)->GetisPressed())
+				{
+					for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+					{
+						(*itr2)->SetisTarget(false);
+					}
+					//BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
+					(*itr)->SetisTarget(true);
+					(*itr)->SetisPressed(true);
+				}
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+					(*itr)->SetisPressed(false);
+			}
+		}
 	}
 }
 

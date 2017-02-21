@@ -205,12 +205,12 @@ void Warrior::LevelUp()
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Rush")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.3));
+			SkillItr->SetDamage((int)(Attack * 0.3));
 		else if (SkillItr->GetName() == "Bash")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.3));
+			SkillItr->SetDamage((int)(Attack * 0.3));
 		else if (SkillItr->GetName() == "Divine Execution")
-			SkillItr->SetDamage((int)(DamageMitigation * 1.5));
+			SkillItr->SetDamage((int)(Attack * 1.5));
 		else if (SkillItr->GetName() == "Basic Attack")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.75));
+			SkillItr->SetDamage((int)(Attack * 0.75));
 	}
 }

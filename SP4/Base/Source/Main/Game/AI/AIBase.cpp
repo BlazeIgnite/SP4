@@ -8,7 +8,6 @@ AIBase::AIBase()
 
 AIBase::~AIBase()
 {
-	Exit();
 }
 
 void AIBase::Init()
@@ -19,22 +18,23 @@ void AIBase::Init()
 
 void AIBase::Exit()
 {
-	if (stateHolder)
+	if (stateHolder != nullptr)
 	{
 		delete stateHolder;
-		stateHolder = NULL;
+		stateHolder = nullptr;
 	}
-	if (BattlePlanHolder)
+	if (BattlePlanHolder != nullptr)
 	{
 		delete BattlePlanHolder;
-		BattlePlanHolder = NULL;
+		BattlePlanHolder = nullptr;
 	}
 	for (vector<CharacterEntity*>::iterator it = TroopList.begin(); it != TroopList.end(); it++)
 	{
-		if ((*it) != NULL)
+		if ((*it) != nullptr)
 		{
 			delete (*it);
-			(*it) = NULL;
+			(*it) = nullptr;
+			TroopList.pop_back();
 		}
 	}
 }

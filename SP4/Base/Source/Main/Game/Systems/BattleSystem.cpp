@@ -81,6 +81,19 @@ size_t BattleSystem::GetSelectedTroopPosition()
 	return NULL;
 }
 
+size_t BattleSystem::GetNumberOfAITroopAlive()
+{
+	size_t NumberofAliveTroops = 0;
+	for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
+	{
+		// Find Out Position of defeated troop
+		// Do push back or front to set the troop that are alive to the front
+		if (!itr->second->GetDefeated())
+			NumberofAliveTroops++;
+	}
+	return NumberofAliveTroops;
+}
+
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
 	SetTurnCost(100);
@@ -181,6 +194,9 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 			}
 		}
 	}
+
+	Debugging();
+
 	SelectedTroop = NULL;
 	SelectedEnemyTroop = NULL;
 	PlayerTurn = newPlayerTurn;
@@ -471,4 +487,22 @@ void BattleSystem::Reset()
 	SetTurnCost(100);
 	PlayerTroops.clear();
 	AITroops.clear();
+}
+
+void BattleSystem::Debugging()
+{
+	cout << "/*****************************************/" << endl;
+	for (size_t i = 0; i < PlayerTroops.size(); i++)
+	{
+		cout << "Player Troop " << i << " : " << PlayerTroops.at(i)->GetName() << endl;
+		cout << "Health : " << PlayerTroops.at(i)->GetHealth() << endl;
+	}
+
+	for (size_t i = 0; i < AITroops.size(); i++)
+	{
+		cout << "Player Troop " << i << " : " << AITroops.at(i)->GetName() << endl;
+		cout << "Health : " << AITroops.at(i)->GetHealth() << endl;
+	}
+
+	cout << "/*****************************************/" << endl;
 }

@@ -125,15 +125,15 @@ void Mage::LevelUp()
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Ars Arcanum")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.9));
+			SkillItr->SetDamage((int)(Attack * 0.9));
 		else if (SkillItr->GetName() == "Unholy Incantation")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.2));
+			SkillItr->SetDamage((int)(Attack * 0.2));
 		else if (SkillItr->GetName() == "Blinding Flash")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.15));
+			SkillItr->SetDamage((int)(Attack * 0.15));
 		else if (SkillItr->GetName() == "Magic Bolt")
-			SkillItr->SetDamage((int)(GetAttack() * 0.75));
+			SkillItr->SetDamage((int)(Attack * 0.75));
 		else if (SkillItr->GetName() == "Basic Attack")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.5));
+			SkillItr->SetDamage((int)(Attack * 0.5));
 
 	}
 }

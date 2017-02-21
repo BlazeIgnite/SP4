@@ -138,11 +138,11 @@ void Priest::LevelUp()
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Unholy Gift")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.5));
+			SkillItr->SetDamage((int)(Attack * 0.5));
 		else if (SkillItr->GetName() == "Heal")
-			SkillItr->SetHeal((int)(DamageMitigation * 0.45));
+			SkillItr->SetHeal((int)(Attack * 0.45));
 		else if (SkillItr->GetName() == "Basic Attack")
-			SkillItr->SetDamage((int)(DamageMitigation * 0.4));
+			SkillItr->SetDamage((int)(Attack * 0.4));
 	}
 }
 

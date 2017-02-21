@@ -19,6 +19,9 @@ private:
 	Button* button;
 	Camera camera;
 
+	bool OpenInventory;
+	bool isPressed;
+
 	double x, y;
 
 public:

@@ -41,6 +41,9 @@ void MainMenu::Init()
 	temp = new Button();
 	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 10, 1), Vector3(15, 5, 5), "ExitGame");
 	buttonList.push_back(temp);
+
+	OpenInventory = false;
+	isPressed = false;
 }
 
 void MainMenu::Update(float dt)
@@ -48,6 +51,20 @@ void MainMenu::Update(float dt)
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
 		(*itr)->UpdateMainMenu(dt);;
+	}
+
+	if (Application::IsKeyPressed('H'))
+	{
+		if (!isPressed)
+		{
+			OpenInventory = true;
+			isPressed = true;
+		}
+		else if (isPressed)
+		{
+			OpenInventory = false;
+			isPressed = false;
+		}
 	}
 }
 
@@ -127,6 +144,20 @@ void MainMenu::Render()
 		}
 	}
 
+	if (OpenInventory)
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 5.f);
+		modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
+		//RenderMesh(meshList[GEO_BACKGROUND], false);
+		//Renderer->SetHUD(true);
+		Renderer->RenderMesh("MainMenu", false);
+		//Renderer->SetHUD(false);
+		modelStack->PopMatrix();
+	}
+
 	//Title
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
@@ -134,11 +165,11 @@ void MainMenu::Render()
 	Renderer->RenderMesh("ButtonBorder", false);
 	modelStack->PopMatrix();
 
-	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5 , ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
-	modelStack->Scale(5, 5, 1);
-	Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
-	modelStack->PopMatrix();
+	//modelStack->PushMatrix();
+	//modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5 , ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
+	//modelStack->Scale(5, 5, 1);
+	//Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
+	//modelStack->PopMatrix();
 	
 	//Background
 	modelStack->PushMatrix();

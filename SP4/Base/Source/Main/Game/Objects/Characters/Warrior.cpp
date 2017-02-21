@@ -13,6 +13,7 @@ Warrior::Warrior()
 {
 	SetName("Warrior");
 	NormalAttackmultiplier = 0.75f;
+	Name = "Warrior";
 }
 
 Warrior::~Warrior()
@@ -35,11 +36,22 @@ void Warrior::Init(int Level)
 	{
 		SetLevel(Level);
 		float LevelOffset = (Level - 20) / 100;
-		SetHealth(WarriorHealth[19] * (1 + LevelOffset));
-		SetAttack(WarriorAttack[19] * (1 + LevelOffset));
-		SetDefense(WarriorDefense[19] * (1 + LevelOffset));
+		SetHealth(WarriorHealth[20] * (1 + LevelOffset));
+		SetAttack(WarriorAttack[20] * (1 + LevelOffset));
+		SetDefense(WarriorDefense[20] * (1 + LevelOffset));
 		SetDamageMitigation();
 	}
+	Skill* skill = new Skill();
+	skill->SetName("Rush");
+	skill->SetActionCost(25);
+	skill->SetMaxTurnCooldown(2);
+	skill->SetRequiredPosition(0, true);
+	skill->SetRequiredPosition(1, true);
+	skill->SetRequiredPosition(2, true);
+	skill->SetSelectableTarget(0, true);
+	skill->SetSelectableTarget(1, true);
+	SkillList.push_back(skill);
+
 }
 void Warrior::Update(double dt)
 {
@@ -83,6 +95,8 @@ void Warrior::LevelUp()
 
 			// Setting the cooldown time after activation
 			skill->SetMaxTurnCooldown(2);
+			//skill->SetStatusEffect(1, "Buff");
+			//skill->
 
 			// Setting of how many turns status effect affects, what status effect is it
 			skill->SetStatusEffect(1, "Buff");
@@ -91,7 +105,7 @@ void Warrior::LevelUp()
 			skill->SetRequiredPosition(0, true);
 			
 			// Setting the Selectable Position to use skill on
-			skill->SetSelectableTarget(4, true);
+			skill->SetSelectableTarget(3, true);
 			
 			// Now the Warrior is allowed to use this skill
 			SkillList.push_back(skill);

@@ -37,6 +37,13 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
+	BattleSystem::Instance().Init();
+	BattleSystem::Instance().SetPlayerTroops(0, new Warrior());
+	BattleSystem::Instance().SetPlayerTroops(1, new Mage());
+	BattleSystem::Instance().SetPlayerTroops(2, new Priest());
+	BattleSystem::Instance().SetAITroops(0, new Warrior());
+	BattleSystem::Instance().SetAITroops(1, new Mage());
+	BattleSystem::Instance().SetAITroops(2, new Priest());
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -149,6 +156,49 @@ void SceneBattles::Render()
 		modelStack->PopMatrix();
 	}
 
+	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
+	{
+		
+		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		modelStack->PushMatrix();
+		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
+		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
+		if (entity->GetName() == "Warrior")
+		{
+			Renderer->RenderMesh("PlayerWarriorMesh", false);
+		}
+		if (entity->GetName() == "Mage")
+		{
+			Renderer->RenderMesh("PlayerMageMesh", false);
+		}
+		if (entity->GetName() == "Priest")
+		{
+			Renderer->RenderMesh("PlayerPriestMesh", false);
+		}
+		modelStack->PopMatrix();
+	}
+
+	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetAITroops().begin(); itr != BattleSystem::Instance().GetAITroops().end(); itr++)
+	{
+
+		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		modelStack->PushMatrix();
+		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
+		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
+		if (entity->GetName() == "Warrior")
+		{
+			Renderer->RenderMesh("WarriorMesh", false);
+		}
+		if (entity->GetName() == "Mage")
+		{
+			Renderer->RenderMesh("MageMesh", false);
+		}
+		if (entity->GetName() == "Priest")
+		{
+			Renderer->RenderMesh("PriestMesh", false);
+		}
+		modelStack->PopMatrix();
+	}
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);

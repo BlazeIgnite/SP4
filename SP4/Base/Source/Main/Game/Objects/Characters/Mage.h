@@ -2,13 +2,13 @@
 #define MAGE_H_
 #include "CharacterEntity.h"
 
-class Mage : protected CharacterEntity
+class Mage : public CharacterEntity
 {
 public:
 	Mage();
 	~Mage();
 	virtual void Init(int Level);
-	virtual void Levelup();
+	virtual void LevelUp();
 	void Update(double dt); 
 	//OffensiveSkill* skill_1;
 };

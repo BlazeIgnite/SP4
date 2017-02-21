@@ -9,7 +9,7 @@ public:
 	Priest();
 	~Priest();
 	virtual void Init(int Level);
-	virtual void Levelup();
+	virtual void LevelUp();
 	void Update(double dt);
 //	OffensiveSkill* skill_1;
 };

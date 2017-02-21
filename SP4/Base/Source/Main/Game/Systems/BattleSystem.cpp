@@ -1,4 +1,5 @@
 #include "BattleSystem.h"
+#include "ObjectManager.h"
 #include <iostream>
 
 using std::cout;
@@ -28,9 +29,15 @@ void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 	if (itr == PlayerTroops.end())
 	{
 		PlayerTroops[position] = Troop;
+		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
 	else
+	{
 		PlayerTroops.find(position)->second = Troop;
+		//Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * 0.3f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f));
+	}
+
+		
 }
 void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 {
@@ -38,6 +45,7 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	if (itr == AITroops.end())
 	{
 		AITroops[position] = Troop;
+		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.7f + (position * 0.1)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
 	AITroops.find(position)->second = Troop;
 }
@@ -135,12 +143,55 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
 }
 void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
 {
-	if (PlayerTurn)
-	{
-	}
-	else
-	{
-	}
+	//if (PlayerTurn)
+	//{
+	//	CharacterEntity* targettroop = AITroops.find(target)->second;
+	//	if (AttackerSkill->GetRequiredPosition(itr->first) == 1 && AttackerSkill->GetSelectableTarget(target) == 1)
+	//	{
+	//		targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
+	//		if (targettroop <= 0)
+	//		{
+	//			targettroop->SetDefeated(true);
+	//			size_t NumberofDefeatedTroops = 0;
+	//			for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
+	//			{
+	//				if (itr->second->GetDefeated())
+	//				{
+	//					NumberofDefeatedTroops++;
+	//				}
+	//				if (NumberofDefeatedTroops >= AITroops.size())
+	//				{
+	//					//Go to win screen;
+	//					return;
+	//				}
+	//			}
+	//		}
+	//		SetPlayerTurn(false);
+	//	}
+	//}
+	//else
+	//{
+	//	CharacterEntity* targettroop = PlayerTroops.find(target)->second;
+	//	targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
+	//	if (targettroop <= 0)
+	//	{
+	//		targettroop->SetDefeated(true);
+	//		size_t NumberofDefeatedTroops = 0;
+	//		for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
+	//		{
+	//			if (itr->second->GetDefeated())
+	//			{
+	//				NumberofDefeatedTroops++;
+	//			}
+	//			if (NumberofDefeatedTroops >= PlayerTroops.size())
+	//			{
+	//				//Go to lose screen;
+	//				return;
+	//			}
+	//		}
+	//	}
+	//	SetPlayerTurn(true);
+	//}
 }
 
 /*
@@ -154,7 +205,6 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate)
 {
 	// Logic to maybe Healing or applying friendly effect here
-
 }
 
 

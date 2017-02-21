@@ -90,8 +90,14 @@ void MainMenu::Render()
 
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
-	modelStack->Scale(50, 25, 1);
+	modelStack->Scale(60, 25, 1);
 	Renderer->RenderMesh("ButtonBorder", false);
+	modelStack->PopMatrix();
+
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5 , ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
+	modelStack->Scale(5, 5, 1);
+	Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
 	modelStack->PopMatrix();
 	
 

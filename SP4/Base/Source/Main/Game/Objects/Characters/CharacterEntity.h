@@ -22,13 +22,14 @@ protected:
 	size_t MaxHealth;
 	size_t Attack;
 	size_t BattleAttack;
+	size_t BattleAttackCost;
 	size_t Defense;
 	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
 	
 	//Base Stats End here
-	int DamageMitigation;
 	float ExperiencePoints;
 	float NormalAttackmultiplier;
+	int DamageMitigation;
 	bool Defeated;
 	bool Stunned, Bleeding, Buffed, Debuffed;
 
@@ -45,6 +46,7 @@ public:
 	inline size_t GetMaxHealth(){ return MaxHealth; };
 	inline size_t GetAttack(){ return Attack; };
 	inline size_t GetBattleAttack(){ return BattleAttack; };
+	inline size_t GetBattleAttackCost(){ return BattleAttackCost; };
 	inline size_t GetDefense(){ return Defense; };
 	inline size_t GetStunTimer(){ return StunTimer; };
 	inline size_t GetBleedTimer(){ return BleedTimer; };
@@ -64,7 +66,8 @@ public:
 	inline void SetHealth(size_t Health){ this->Health = Health; };
 	inline void SetMaxHealth(size_t MaxHealth){ this->MaxHealth = MaxHealth; };
 	inline void SetAttack(size_t Attack){ this->Attack = Attack; };
-	inline void SetBattleAttack(size_t BattleAttack) { this->BattleAttack = BattleAttack; };
+	inline void SetBattleAttack(size_t BattleAttack){ this->BattleAttack = BattleAttack; };
+	inline void SetBattleAttackCost(size_t BattleAttackCost){ this->BattleAttackCost = BattleAttack; };
 	inline void SetDefense(size_t Defense){	this->Defense = Defense; };
 	inline void SetStunTimer(size_t StunTimer){ this->StunTimer = StunTimer; };
 	inline void SetBleedTimer(size_t BleedTimer){ this->BleedTimer = BleedTimer; };

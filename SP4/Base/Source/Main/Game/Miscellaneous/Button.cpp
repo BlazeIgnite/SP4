@@ -31,14 +31,82 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 	minHeight = position.y - scale.y / 2;
 	minWidth = position.x - scale.x / 2;
 	isPressed = false;
+	isSelected = false;
 }
 
-void Button::Update(double dt)
+void Button::Update(float dt)
 {
 
 }
 
-void Button::UpdateCrafting(double dt)
+void Button::UpdateBattleScene(float dt)
+{
+	Application::GetCursorPos(&x, &y);
+	isitHover();
+	//BattleSystem::Instance().GetSelectedTroop()->GetHealth
+
+	//std::cout << isSelected << std::endl;
+
+	if (type == "Character 1" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
+				std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
+				isSelected = true;
+				isPressed = true;
+			}
+		}
+	}
+	if (type == "Character 2" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			//isSelected = false;
+			BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(1));
+			//isSelected = true;
+
+		}
+	}
+	if (type == "Character 3" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(2));
+		}
+	}
+	if (type == "Red Potion" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				if ((Player::Instance().GetConsumableList().find("Red Potion")->second > 1) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth() ))
+				{
+					Player::Instance().AddConsumableItem("Red Potion", -1);
+					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
+					BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
+					std::cout << "Red Potion Used" << std::endl;
+					isPressed = true;
+				}
+				else
+				{
+					std::cout << "No More Red Potion" << std::endl;
+					isPressed = true;
+				}
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+}
+
+void Button::UpdateCrafting(float dt)
 {
 	Application::GetCursorPos(&x, &y);
 	isitHover();

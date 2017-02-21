@@ -3,7 +3,6 @@
 #include "SceneBase.h"
 #include "../Objects/Characters/Warrior.h"
 #include "../AI/AIBehaviors/AIDefault.h"
-#include "../Objects/Characters/Player.h"
 #include "../Systems/BattleSystem.h"
 #include "../../Engine/Objects/BaseObject.h"
 #include "../../Engine/Objects/SceneEntity.h"

@@ -58,4 +58,5 @@ CharacterEntity* AIBase::GetCharacterEntity(string Name)
 			return (*it);
 		}
 	}
+	return nullptr;
 }

@@ -44,6 +44,7 @@ Skill* CharacterEntity::GetSkillInVector(string SkillName)
 		if ((*it)->GetName() == SkillName);
 			return (*it);
 	}
+	return nullptr;
 }
 
 void CharacterEntity::SetDamageMitigation()

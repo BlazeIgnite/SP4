@@ -17,6 +17,7 @@ BattleSystem::~BattleSystem()
 void BattleSystem::Init()
 {
 	SelectedTroop = NULL;
+	SelectedEnemyTroop = NULL;
 	SetTurnCost(100);
 	SetPlayerTurn(true);
 	SetPlayerWon(true);
@@ -29,7 +30,7 @@ void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 	if (itr == PlayerTroops.end())
 	{
 		PlayerTroops[position] = Troop;
-		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
+		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
 	else
 	{
@@ -45,10 +46,11 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	if (itr == AITroops.end())
 	{
 		AITroops[position] = Troop;
-		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.7f + (position * 0.1)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
+		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.7f + (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
 	AITroops.find(position)->second = Troop;
 }
+
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
 	SetTurnCost(100);
@@ -88,104 +90,47 @@ void BattleSystem::MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap)
 
 
 // Battle Damage Calculation for basic attack and Skills here
-void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
-{
-	if (PlayerTurn)
-	{
-		CharacterEntity* TargetTroop = AITroops.find(target)->second;
-		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
-		// One more line of code needed, the default attack cost put here
-		// TurnCost -= AttackCost;
-
-		if (TargetTroop->GetHealth() < 0)
-		{
-			TargetTroop->SetDefeated(true);
-
-			size_t NumberOfDefeatedTroops = 0;
-			for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
-			{
-				if (itr->second->GetDefeated())
-					NumberOfDefeatedTroops++;
-			}
-			if (NumberOfDefeatedTroops >= AITroops.size())
-			{
-				// Codes to switch to end Battle screen or Win screen here
-				return;
-			}
-		}
-		SetPlayerTurn(false);
-	}
-	else
-	{
-		CharacterEntity* TargetTroop = PlayerTroops.find(target)->second;
-		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
-
-		// One more line of code needed, the default attack cost put here
-		// TurnCost -= AttackCost;
-
-		if (TargetTroop->GetHealth() < 0)
-		{
-			size_t NumberOfDefeatedTroops = 0;
-			for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
-			{
-				if (itr->second->GetDefeated())
-					NumberOfDefeatedTroops++;
-			}
-			if (NumberOfDefeatedTroops >= PlayerTroops.size())
-			{
-				// Codes to switch to Lose screen here
-				return;
-			}
-		}
-		SetPlayerTurn(true);
-	}
-}
 void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
 {
 	if (PlayerTurn)
 	{
-		for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
+		CharacterEntity* targettroop = AITroops.find(target)->second;
+		targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
+		TurnCost -= AttackerSkill->GetActionCost();
+		if (targettroop <= 0)
 		{
-			if (itr->second = Attacker)
+			targettroop->SetDefeated(true);
+			size_t NumberofDefeatedTroops = 0;
+			for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
 			{
-				CharacterEntity* targettroop = AITroops.find(target)->second;
-				if (AttackerSkill->GetRequiredPosition(itr->first) == 1 && AttackerSkill->GetSelectableTarget(target) == 1)
+				// Find Out Position of defeated troop
+				// Do push back or front to set the troop that are alive to the front
+				if (itr->second->GetDefeated())
 				{
-					targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
-					if (targettroop <= 0)
-					{
-						targettroop->SetDefeated(true);
-						size_t NumberofDefeatedTroops = 0;
-						for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
-						{
-							if (itr->second->GetDefeated())
-							{
-								NumberofDefeatedTroops++;
-							}
-							if (NumberofDefeatedTroops >= AITroops.size())
-							{
-								//Go to win screen;
-								return;
-							}
-						}
-					}
-					SetPlayerTurn(false);
+					NumberofDefeatedTroops++;
 				}
-
+				if (NumberofDefeatedTroops >= AITroops.size())
+				{
+					//Go to win screen;
+					return;
+				}
 			}
+		SetPlayerTurn(false);
 		}
-		
 	}
 	else
 	{
 		CharacterEntity* targettroop = PlayerTroops.find(target)->second;
 		targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
+		TurnCost -= AttackerSkill->GetActionCost();
 		if (targettroop <= 0)
 		{
 			targettroop->SetDefeated(true);
 			size_t NumberofDefeatedTroops = 0;
 			for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
 			{
+				// Find Out Position of defeated troop
+				// Do push back or front to set the troop that are alive to the front
 				if (itr->second->GetDefeated())
 				{
 					NumberofDefeatedTroops++;
@@ -198,6 +143,34 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 			}
 		}
 		SetPlayerTurn(true);
+	}
+}
+
+bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
+{
+	if (PlayerTurn)
+	{
+		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
+		{
+			if ((*it).second == Attacker)
+			{
+				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first))
+					return true;
+			}
+		}
+		return false;
+	}
+	else
+	{
+		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
+		{
+			if ((*it).second == Attacker)
+			{
+				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first))
+					return true;
+			}
+		}
+		return false;
 	}
 }
 

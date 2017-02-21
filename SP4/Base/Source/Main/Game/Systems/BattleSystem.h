@@ -15,6 +15,7 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 	map<size_t, CharacterEntity*> AITroops;
 	
 	CharacterEntity* SelectedTroop;
+	CharacterEntity* SelectedEnemyTroop;
 
 	size_t TurnCost;
 	bool PlayerTurn;
@@ -31,6 +32,7 @@ public:
 	void SetAITroops(size_t position, CharacterEntity* Troop);
 	void SetPlayerTurn(bool newPlayerTurn);
 	inline void SetSelectedTroop(CharacterEntity* newSelectedTroop){ SelectedTroop = newSelectedTroop; };
+	inline void SetSelectedEnemyTroop(CharacterEntity* newSelectedEnemyTroop){ SelectedEnemyTroop = newSelectedEnemyTroop; };
 	inline void SetTurnCost(size_t newTurnCost) { TurnCost = newTurnCost; };
 	inline void SetPlayerWon(bool newPlayerWon) { PlayerWon = newPlayerWon; };
 	 
@@ -40,9 +42,11 @@ public:
 	inline CharacterEntity* GetPlayerTroopAttacking(size_t position) { return PlayerTroops.find(position)->second; };
 	inline CharacterEntity* GetAITroopAttacking(size_t position) { return AITroops.find(position)->second; };
 	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
+	inline CharacterEntity* GetSelectedEnemyTroop() { return SelectedEnemyTroop; };
 	inline size_t GetTurnCost(){ return TurnCost; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
 	inline bool GetPlayerWon(){ return PlayerWon; };
+
 
 	// Switching Spots
 	void SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition);
@@ -52,12 +56,14 @@ public:
 	void MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap);
 
 	// Damage Calculations all here
-	void DamageCalculation(CharacterEntity* Attacker, size_t target);
 	void DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill);
 	void ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate);
 	// Status Effect Calculations all here
 	void SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target);
 
+	// Checking if Skill can be activated
+	bool CanActivateSkill(CharacterEntity* Attacker, size_t Target, Skill* AttackerSkill);
+	
 	void Reset();
 
 };

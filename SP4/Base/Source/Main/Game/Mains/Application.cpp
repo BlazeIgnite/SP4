@@ -178,10 +178,14 @@ void Application::Init()
 	//MainMenu* temp2 = new MainMenu();
 	temp2->Init();
 	SceneSystem::Instance().AddScene(*temp2);
+	//Scene_Assignment1* temp2 = new Scene_Assignment1();
+	////MainMenu* temp2 = new MainMenu();
+	//temp2->Init();
+	//SceneSystem::Instance().AddScene(*temp2);
 
 	//Scene_Assignment1* temp = new Scene_Assignment1();
-	MainMenu* temp = new MainMenu();
-	//SceneBattles* temp = new SceneBattles();
+	//MainMenu* temp = new MainMenu();
+	SceneBattles* temp = new SceneBattles();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
 }

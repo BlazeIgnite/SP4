@@ -18,6 +18,7 @@ void BattleSystem::Init()
 {
 	SelectedTroop = NULL;
 	SelectedEnemyTroop = NULL;
+	SelectedSkill = NULL;
 	SetTurnCost(100);
 	PlayerTurn = true;
 	PlayerWon = false;	
@@ -48,7 +49,36 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 		AITroops[position] = Troop;
 		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.7f + (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
-	AITroops.find(position)->second = Troop;
+	else
+		AITroops.find(position)->second = Troop;
+}
+void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition, Skill* skill)
+{
+	map<size_t, map<size_t, Skill*>>::iterator itr = PlayerTroopSkills.find(playerPosition);
+	map<size_t, Skill*>::iterator itr2 = PlayerTroopSkills.find(playerPosition)->second.begin();
+	if (itr == PlayerTroopSkills.end())
+	{
+		map<size_t, Skill*> EmptySkillMap;
+		EmptySkillMap[skillPosition] = skill;
+		PlayerTroopSkills[playerPosition] = EmptySkillMap;
+	}
+	else
+	{
+		if (itr2 == PlayerTroopSkills.find(playerPosition)->second.end())
+			PlayerTroopSkills.find(playerPosition)->second[skillPosition] = skill;
+		else
+			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = skill;
+	}
+}
+
+size_t BattleSystem::GetSelectedTroopPosition()
+{
+	for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
+	{
+		if (SelectedTroop == it->second)
+			return it->first;
+	}
+	return NULL;
 }
 
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)

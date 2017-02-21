@@ -14,8 +14,11 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 	map<size_t, CharacterEntity*> PlayerTroops;
 	map<size_t, CharacterEntity*> AITroops;
 	
+	map<size_t, map<size_t, Skill*>> PlayerTroopSkills;
+
 	CharacterEntity* SelectedTroop;
 	CharacterEntity* SelectedEnemyTroop;
+	Skill* SelectedSkill;
 
 	size_t TurnCost;
 	bool PlayerTurn;
@@ -30,19 +33,23 @@ public:
 	// Setters
 	void SetPlayerTroops(size_t position, CharacterEntity* Troop);
 	void SetAITroops(size_t position, CharacterEntity* Troop);
+	void SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition, Skill* Skill);
 	void SetPlayerTurn(bool newPlayerTurn);
 	inline void SetSelectedTroop(CharacterEntity* newSelectedTroop){ SelectedTroop = newSelectedTroop; };
 	inline void SetSelectedEnemyTroop(CharacterEntity* newSelectedEnemyTroop){ SelectedEnemyTroop = newSelectedEnemyTroop; };
+	inline void SetSelectedSkill(Skill* newSelectedskill){ SelectedSkill = newSelectedskill; };
 	inline void SetTurnCost(size_t newTurnCost) { TurnCost = newTurnCost; };
 	inline void SetPlayerWon(bool newPlayerWon) { PlayerWon = newPlayerWon; };
 	 
 	 // Getters
+	size_t GetSelectedTroopPosition();
 	inline map<size_t, CharacterEntity*>& GetPlayerTroops() { return PlayerTroops; };
 	inline map<size_t, CharacterEntity*>& GetAITroops() { return AITroops; };
 	inline CharacterEntity* GetPlayerTroopAttacking(size_t position) { return PlayerTroops.find(position)->second; };
 	inline CharacterEntity* GetAITroopAttacking(size_t position) { return AITroops.find(position)->second; };
 	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
 	inline CharacterEntity* GetSelectedEnemyTroop() { return SelectedEnemyTroop; };
+	inline Skill* GetSelectedSkill(size_t position) { return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);	};
 	inline size_t GetTurnCost(){ return TurnCost; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
 	inline bool GetPlayerWon(){ return PlayerWon; };

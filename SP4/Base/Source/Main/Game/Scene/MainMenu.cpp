@@ -5,6 +5,7 @@
 #include "../Systems/EventSystem.h"
 #include "GL\glew.h"
 #include "../Mains/Application.h"
+#include "../Objects/Characters/Player.h"
 
 MainMenu::MainMenu()
 {
@@ -24,7 +25,7 @@ void MainMenu::Init()
 	EventSystem::Instance().Init();
 
 	button = new Button();
-
+	Player::Instance().Init(1);
 	Button* temp;
 	temp = new Button();
 	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 40, 1), Vector3(15, 5, 5), "NewGame");

@@ -128,3 +128,18 @@ bool Skill::GetSelectableTarget(size_t position)
 	}
 	return false;
 }
+
+size_t Skill::GetStatusEffectTimer()
+{
+	for (map<size_t, vector<string>>::iterator it = StatusEffect.begin(); it != StatusEffect.end(); ++it)
+	{
+		for (vector<string>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			if ((*it2) == GetName())
+			{
+				return it->first;
+			}
+		}
+	}
+	return 0;
+}

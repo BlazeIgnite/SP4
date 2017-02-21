@@ -53,7 +53,7 @@ void Button::UpdateMainMenu(float dt)
 		{
 			if (!isPressed)
 			{
-				SceneSystem::Instance().SwitchScene("SceneBattle");
+				SceneSystem::Instance().SwitchScene("BattleScene");
 				isPressed = true;
 			}
 		}

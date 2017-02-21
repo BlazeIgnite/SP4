@@ -211,7 +211,7 @@ void SceneBattles::Render()
 	modelStack->Scale(BattleSystem::Instance().GetTurnCost() / 2,5,1);
 	Renderer->RenderMesh("Test",false);
 	modelStack->PopMatrix();
-	std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
+	//std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
 
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);

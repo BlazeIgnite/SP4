@@ -20,7 +20,6 @@ private:
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
 	
-	Player* player;
 	AIBase* AI;
 	//BattleSystem* bs;
 	//Warrior* warrior1;

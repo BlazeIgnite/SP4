@@ -207,6 +207,13 @@ void SceneBattles::Render()
 		modelStack->PopMatrix();
 	}
 	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
+	modelStack->Scale(BattleSystem::Instance().GetTurnCost() / 2,5,1);
+	Renderer->RenderMesh("Test",false);
+	modelStack->PopMatrix();
+	std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
+
+	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	//RenderMesh(meshList[GEO_BACKGROUND], false);

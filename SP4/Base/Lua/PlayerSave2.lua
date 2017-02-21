@@ -1,6 +1,6 @@
 PlayerName = "test2"
 PlayerTag = 2
-PlayerGold = 2500
+PlayerGold = 5300
 PlayerFurthestStage = 0
 RedHerbCount = 0
 WhiteHerbCount = 0

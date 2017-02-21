@@ -20,6 +20,7 @@ public:
 
 	void Init(Vector3 Position, Vector3 Scale, std::string type);
 	void Update(double dt);
+	void Exit();
 	std::string type;
 	
 	DescriptionText* text;

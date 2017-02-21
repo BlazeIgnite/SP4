@@ -14,6 +14,7 @@
 #include "../../Engine/System/RenderSystem.h"
 
 #include "../Scene/Scene_Assignment1.h"
+#include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
 #include "../Audio/Audio_Player.h"
 
@@ -72,6 +73,20 @@ void Application::SetWindowWidth(const int& w)
 void Application::SetWindowHeight(const int& h)
 {
 	ScreenHeight = h;
+}
+
+void Application::ChangeWindowSize(const int& w, const int& h)
+{
+	SetWindowWidth(w);
+	SetWindowHeight(h);
+	glfwSetWindowSize(m_window, ScreenWidth, ScreenHeight);
+}
+
+void Application::FullScreenWindowSize()
+{
+	SetWindowWidth(glfwGetVideoMode(glfwGetPrimaryMonitor())->width);
+	SetWindowHeight(glfwGetVideoMode(glfwGetPrimaryMonitor())->height);
+	glfwSetWindowSize(m_window, ScreenWidth, ScreenHeight);
 }
 
 Application::Application()
@@ -154,9 +169,19 @@ void Application::Init()
 	Renderer->Init();
 	SceneSystem::Instance().SetRenderSystem(*Renderer);
 
+	/*Scene_Assignment1* temp2 = new Scene_Assignment1();
+	temp2->Init();
+	SceneSystem::Instance().AddScene(*temp2);*/
+
+	MainMenu* temp3 = new MainMenu();
+	temp3->Init();
+	SceneSystem::Instance().AddScene(*temp3);
+	
 	SceneBattles* temp = new SceneBattles();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
+
+	
 }
 
 void Application::Run()
@@ -174,13 +199,10 @@ void Application::Run()
 		if (hwnd == GetActiveWindow())
 		{
 			m_dElaspedTime = m_timer.getElapsedTime();
+			InputManager::Instance().UpdateMouse();
 			Update();
 			SceneSystem::Instance().GetCurrentScene().Render();
 		}
-
-
-		//scene->Update(m_timer.getElapsedTime());
-		//scene->Render();
 		//Swap buffers
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
@@ -188,9 +210,7 @@ void Application::Run()
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 
 	} //Check if the ESC key had been pressed or if the window had been closed
-	//SceneSystem::Instance().ClearMemoryUsage();
-	//scene->Exit();
-	//delete scene;
+	SceneSystem::Instance().ClearMemoryUsage();
 }
 
 void Application::Update()
@@ -221,5 +241,5 @@ void Application::Exit()
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW
 	glfwTerminate();
-	_CrtDumpMemoryLeaks();
+	//_CrtDumpMemoryLeaks();
 }

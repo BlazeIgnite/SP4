@@ -1,105 +1,61 @@
 #ifndef SKILL_H_
 #define SKILL_H_
-#include <string>
-#include "CharacterEntity.h"
-using std::string;
 
+#include <string>
+#include <map>
+#include <vector>
+
+using std::string;
+using std::map;
+using std::vector;
 
 class Skill
 {
-protected:
-	float Multiplier;
-	float AbilityPointCost;
-	float ActionPointCost;
-	int Skill_ID;
-	string Skill_name;
-	STATUSEFFECTS effect;
-public:
+	map<size_t, vector<string>> StatusEffect;
+	string Name;
+	size_t Damage;
+	size_t Heal;
+	size_t ShiftPosition;
+	size_t ActionCost;
+	size_t TurnCooldown;
+	size_t MaxTurnCooldown;
 
-	enum ScaleFactor
-	{
-		Scale_Attack = 1,
-		Scale_Magic,
-
-	};
-
-private:
-
-	ScaleFactor scalefactor;
-	
+	bool RequiredPosition[3];
+	// 0 = Position 0
+	// 1 = Position 1
+	// 2 = Position 2
+	// 3 = Self
+	bool SelectableTarget[4];
 
 public:
-	int shiftposition;
 	Skill();
 	~Skill();
-	virtual float SkillBehavior();
-	//virtual void ApplyEffect(STATUSEFFECTS effect);
-	virtual void ApplyEffect(STATUSEFFECTS effect, int turns){};
 
-	//Sets and Gets Skill ID and name if necessary
-	void SetSkill_IDs(string Skill_name, int Skill_ID){ this->Skill_name = Skill_name; this->Skill_ID = Skill_ID; }
-	string GetSkillname(){ return Skill_name; }
-	int GetSkill_ID(){ return Skill_ID; }
+	// Setters
+	void SetStatusEffect(size_t StatusEffectTimer, string newStatusEffect);
+	void SetName(string newName);
+	void SetDamage(size_t newDamage);
+	void SetHeal(size_t newHeal);
+	void SetShiftPosition(size_t newShiftPosition);
+	void SetActionCost(size_t newActionCost);
+	void SetTurnCooldown(size_t newTurnCooldown);
+	void SetMaxTurnCooldown(size_t newMaxTurnCooldown);
+	void SetRequiredPosition(size_t position, bool newRequiredPosition);
+	void SetSelectableTarget(size_t position, bool newSelectableTarget);
 
-	//Sets and Gets AbilityPoint Cost if necessary
-	void SetAbilityCost(float AbilityPointCost){ this->AbilityPointCost = AbilityPointCost; }
-	float GetAbilityCost(){ return AbilityPointCost; }
 
-	//Sets and gets the Action Points used if necessary
-	void SetActionCost(float ActionPointcost){ this->ActionPointCost = ActionPointCost; }
-	float GetActionCost(){ return ActionPointCost; }
-
-	//Gets and Sets Multiplier of the Attack necessary
-	void SetMultiplier(float Multiplier){ this->Multiplier = Multiplier; }
-	float GetMultiplier(){ return Multiplier; }
-
-	void SetScaleFactor(ScaleFactor scalefactor){ this->scalefactor = scalefactor; }
-	ScaleFactor GetScaleFactor(){ return scalefactor; }
-
+	// Getters
+	map<size_t, vector<string>> GetStringStatusEffect();
+	string GetName();
+	size_t GetStatusEffectTimer();
+	size_t GetDamage();
+	size_t GetHeal();
+	size_t GetShiftPosition();
+	size_t GetActionCost();
+	size_t GetTurnCooldown();
+	size_t GetMaxTurnCooldown();
+	bool GetRequiredPosition(size_t position);
+	bool GetSelectableTarget(size_t position);
 };
 
-
-class OffensiveSkill : public Skill
-{
-
-private:
-	CharacterEntity* Character;
-	CharacterEntity* Thetarget;
-public:
-	OffensiveSkill();
-	~OffensiveSkill();
-	virtual float SkillBehavior();
-	virtual void ApplyEffect(STATUSEFFECTS effect, int turns);
-	inline void SetCharacter(CharacterEntity* Character){ this->Character = Character; }
-	inline void SetTarget(CharacterEntity* Target){ this->Thetarget = Target; }
-};
-
-
-
-
-
-// Revised skill codes here, will replace the Old Skill with the New Skill
-class Ability
-{
-public:
-	enum ScaleFactor
-	{
-		Scale_Attack = 1,
-		Scale_Magic,
-
-	};
-	__readonly string name;
-	__readonly int id, abilitycost, actioncost , timer;
-	__readonly float multiplier;
-	__readonly STATUSEFFECTS statuseffect;
-	__readonly ScaleFactor scalefactor;
-	Ability(string name, int id, int abilitycost, int actioncost, float multiplier, STATUSEFFECTS statuseffect, ScaleFactor scalefactor, int timer);
-	~Ability();
-	int AbilityBehavior();
-
-	
-
-private:
-
-};
 #endif

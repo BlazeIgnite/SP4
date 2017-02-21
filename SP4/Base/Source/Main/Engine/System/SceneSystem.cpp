@@ -47,6 +47,19 @@ void SceneSystem::SwitchScene(const std::string &id_)
 	}
 }
 
+void SceneSystem::SceneReset(const std::string &id_)
+{
+#ifdef _DEBUG
+	assert(Renderer != nullptr);
+#endif
+	std::map<std::string, SceneEntity*>::iterator it = StoredSceneList.find(id_);
+	if (it != StoredSceneList.end())
+	{
+		it->second->Exit();
+		it->second->Init();
+	}
+}
+
 bool SceneSystem::SwitchToPreviousScene()
 {
 	if (SceneHistory.size() > 1)

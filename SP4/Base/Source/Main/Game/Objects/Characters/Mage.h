@@ -1,17 +1,16 @@
 #ifndef MAGE_H_
 #define MAGE_H_
-#include "Skill.h"
 #include "CharacterEntity.h"
 
-class Mage : public CharacterEntity, protected OffensiveSkill
+class Mage : public CharacterEntity
 {
 public:
 	Mage();
 	~Mage();
 	virtual void Init(int Level);
-	virtual void Levelup();
+	virtual void LevelUp();
 	void Update(double dt); 
-	OffensiveSkill* skill_1;
+	//OffensiveSkill* skill_1;
 };
 
 #endif

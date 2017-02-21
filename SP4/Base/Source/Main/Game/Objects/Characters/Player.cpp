@@ -1,5 +1,5 @@
 #include "Player.h"
-//#include "../../Base/Source/Main/Engine/System/LuaSystem.h"
+#include "../../Base/Source/Main/Engine/System/LuaSystem.h"
 #include "../../Game/Mains/Application.h"
 
 Player::Player()
@@ -12,12 +12,11 @@ Player::~Player()
 
 void Player::Init(const unsigned int PlayerTag)
 {
-	//LuaSystem::Instance().LoadGame(PlayerTag);
 	ConsumableList.insert(std::pair < std::string, unsigned int>("Red Potion", 0));
 	ConsumableList.insert(std::pair < std::string, unsigned int>("Blue Potion", 0));
-	ConsumableList.insert(std::pair < std::string, unsigned int>("HealthPotion", 0));
-	ConsumableList.insert(std::pair < std::string, unsigned int>("HealthPotion", 0));
-	ConsumableList.insert(std::pair < std::string, unsigned int>("HealthPotion", 0));
+	ConsumableList.insert(std::pair < std::string, unsigned int>("Attack Potion", 0));
+	ConsumableList.insert(std::pair < std::string, unsigned int>("Defence Potion", 0));
+	ConsumableList.insert(std::pair < std::string, unsigned int>("Bandage", 0));
 
 	MaterialList.insert(std::pair < std::string, unsigned int>("Red Herb", 0));
 	MaterialList.insert(std::pair < std::string, unsigned int>("Blue Herb", 0));
@@ -25,14 +24,11 @@ void Player::Init(const unsigned int PlayerTag)
 	MaterialList.insert(std::pair < std::string, unsigned int>("Empty Bottle", 0));
 	MaterialList.insert(std::pair < std::string, unsigned int>("Cloth", 0));
 
-	item = new ItemEntity();
-	AddConsumableItem("Red Potion", 4);
+	AddConsumableItem("Red Potion", 1);
 
-	AddMaterialItem("Red Herb", 5);
-	AddMaterialItem("Blue Herb", 5);
-	AddMaterialItem("White Herb", 3);
-	AddMaterialItem("Empty Bottle", 3);
-	AddMaterialItem("Cloth", 5);
+	item = new ItemEntity();
+
+	LuaSystem::Instance().LoadGame(PlayerTag);
 }
 
 void Player::Update(double dt)
@@ -80,12 +76,10 @@ std::map<std::string, std::map<int, CharacterEntity*>>& Player::GetAllUnitList()
 {
 	return this->UnitList;
 }
-std::map<int, CharacterEntity*>& Player::GetClassUnitList(std::string& Name)
-{
-	return this->UnitList.find(Name)->second;
-}
 std::map<int, CharacterEntity*>& Player::GetClassUnitList(std::string Name)
 {
+	if (this->UnitList.find(Name) == UnitList.end())
+		UnitList[Name] = std::map < int, CharacterEntity* >();
 	return this->UnitList.find(Name)->second;
 }
 std::map<std::string, unsigned int>& Player::GetConsumableList()
@@ -103,7 +97,7 @@ CharacterEntity* Player::GetCharacterEntityInClassUnit(string ClassName, int ID)
 }
 
 //Add
-void Player::AddGold(int& AdditionalGold)
+void Player::AddGold(int AdditionalGold)
 {
 	this->PlayerGold += AdditionalGold;
 }
@@ -117,9 +111,7 @@ void Player::AddCharacter(std::string Name, CharacterEntity* newCharacter)
 		UnitList[Name] = EmptyMap;
 	}
 	else
-	{
 		this->UnitList.find(Name)->second[UnitList.find(Name)->second.size()] = newCharacter;
-	}
 }
 void Player::AddConsumableItem(std::string Name, int Amount)
 {

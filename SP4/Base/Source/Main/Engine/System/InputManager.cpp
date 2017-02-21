@@ -2,8 +2,7 @@
 #include "../../Game/Mains/Application.h"
 #include "SceneSystem.h"
 #include "SimpleCommand.h"
-// Test Build 2 
-// - Ryan
+#include "../../Base/Source/Main/Game/Systems/ObjectManager.h"
 
 InputManager::InputManager()
 {
@@ -11,6 +10,7 @@ InputManager::InputManager()
 	{
 		cIM_Keys[num] = false;
 	}
+	Mouse = std::map<MouseClick, MouseType>();
 }
 
 void InputManager::HandleUserInput()
@@ -50,25 +50,44 @@ void InputManager::SetScreenSize(float x, float y)
 	cIM_ScreenHeight = y;
 }
 
+InputManager::MouseType InputManager::GetMouseState(MouseClick Click)
+{
+	std::map<MouseClick, MouseType>::iterator it = Mouse.find(Click);
+	if (it == Mouse.end())
+	{
+		Mouse.insert(std::pair<MouseClick, MouseType>(Click, MOUSE_RELEASE));
+		return GetMouseState(Click);
+	}
+	return it->second;
+}
+
 void InputManager::UpdateMouse()
 {
-	////New Version for use with my camera version
-	//POINT mousePosition;
-	//GetCursorPos(&mousePosition);
+	double x, y;
+	Application::GetCursorPos(&x, &y);
+	int w = Application::GetWindowWidth();
+	int h = Application::GetWindowHeight();
+	float worldX = (float)x * ObjectManager::Instance().WorldWidth / (float)w;
+	float worldY = ((float)h - (float)y) * ObjectManager::Instance().WorldHeight / (float)h;
 
-	//if (!cIM_inMouseMode)
-	//{
-	//	int moveX = (int)cIM_ScreenWidth / 2;
-	//	int moveY = (int)cIM_ScreenHeight / 2;
+	SetMousePosition(Vector3(worldX, worldY - cIM_ScreenHeight, 0.f));
 
-	//	//Lock the cursor's position to the center of the screen.
-	//	SetCursorPos(moveX, moveY);
-
-	//	//Calculate the difference between the cursor coordinates between frames
-	//	cIM_CameraYaw = static_cast<float>(mousePosition.x - moveX);
-	//	cIM_CameraPitch = static_cast<float>(mousePosition.y - moveY);
-	//}
-	//SetMousePosition(Vector3((float)mousePosition.x, cIM_ScreenHeight - (float)mousePosition.y, 0.f));
+	std::map<MouseClick, MouseType>::iterator it = Mouse.begin();
+	for (it; it != Mouse.end(); ++it)
+	{
+		if (it->second == MOUSE_RELEASE && Application::IsKeyPressed(VK_LBUTTON))
+		{
+			it->second = MOUSE_CLICK;
+		}
+		else if (it->second == MOUSE_CLICK && Application::IsKeyPressed(VK_LBUTTON))
+		{
+			it->second = MOUSE_HOLD;
+		}
+		else if ((it->second == MOUSE_HOLD || it->second == MOUSE_CLICK) && !Application::IsKeyPressed(VK_LBUTTON))
+		{
+			it->second = MOUSE_RELEASE;
+		}
+	}
 }
 
 void InputManager::SetMouseToScreenCenter()

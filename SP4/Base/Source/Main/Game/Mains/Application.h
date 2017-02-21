@@ -25,6 +25,8 @@ public:
 	static void SetWindowWidth(const int&);
 	static void SetWindowHeight(const int&);
 
+	static void ChangeWindowSize(const int& width, const int& height);
+	static void FullScreenWindowSize();
 private:
 	Application();
 	~Application();

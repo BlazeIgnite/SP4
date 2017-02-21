@@ -9,7 +9,7 @@
 #include "../AI/AIBehaviors/AIDefault.h"
 #include "../Objects/Characters/Player.h"
 #include "../Systems/BattleSystem.h"
-#include "../Systems/InventorySystem.h"
+#include "../Objects/Miscellaneous/InventoryButtons.h"
 
 class Scene_Assignment1 : public SceneEntity
 {
@@ -20,12 +20,11 @@ private:
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
 	
-	Player* player;
 	AIBase* AI;
 	//BattleSystem* bs;
 	//Warrior* warrior1;
 	//Warrior* warrior2;
-	InventorySystem* inventory;
+	InventoryButtons* inventory;
 	double x, y;
 
 public:

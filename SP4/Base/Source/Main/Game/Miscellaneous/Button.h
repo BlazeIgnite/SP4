@@ -1,5 +1,4 @@
 #pragma once
-#include "../Objects/Characters/Player.h"
 
 #include "Vector3.h"
 #include <iostream>
@@ -12,22 +11,31 @@ private:
 	float maxHeight, maxWidth, minHeight, minWidth;
 	Vector3 position;
 	Vector3 scale;
+	bool isPressed;
+	bool isSelected;
+	bool isTarget;
 
 public:
-
 	Button();
 	~Button();
 
-	void Init(Vector3 Position, Vector3 Scale, std::string type, Player* player);
-	void UpdateCrafting(double dt);
-	void Update(double dt);
-
-	Player* player;
-	std::string type;
-	bool isitHover();
-
-	bool isPressed;
-
 	Vector3 GetPosition();
 	Vector3 GetScale();
+	void Init(Vector3 Position, Vector3 Scale, std::string type);
+	void UpdateCrafting(float dt);
+	void UpdateBattleScene(float dt);
+	void UpdateMainMenu(float dt);
+	void Update(float dt);
+
+	std::string type;
+
+	bool isitHover();
+	bool GetisPressed();
+	bool GetisSelected();
+	bool GetisTarget();
+	void SetisPressed(bool);
+	void SetisSelected(bool);
+	void SetisTarget(bool);
+
+	
 };

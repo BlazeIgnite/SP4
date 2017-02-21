@@ -29,33 +29,33 @@ void AIBase::Exit()
 		delete BattlePlanHolder;
 		BattlePlanHolder = NULL;
 	}
-}
-
-void AIBase::AddTroop(string Name, CharacterEntity* Troop)
-{
-	std::map<string, std::vector<CharacterEntity*>>::iterator itr = TroopList.find(Name);
-	if (itr == TroopList.end())
+	for (vector<CharacterEntity*>::iterator it = TroopList.begin(); it != TroopList.end(); it++)
 	{
-		std::vector < CharacterEntity* > emptyCharacterEntity;
-		emptyCharacterEntity.push_back(Troop);
-		TroopList[Name] = emptyCharacterEntity;
-		//UnitList[Name].push_back(newCharacter);
-		//UnitList.insert(std::pair <string, std::vector<CharacterEntity*>>(Name, newCharacter));
+		if ((*it) != NULL)
+		{
+			delete (*it);
+			(*it) = NULL;
+		}
 	}
-	else
-	TroopList.find(Name)->second.push_back(Troop);
 }
 
-map<string, vector<CharacterEntity*>> AIBase::GetAllAIList()
+void AIBase::AddTroop(CharacterEntity* Troop)
+{
+	TroopList.push_back(Troop);
+}
+
+vector<CharacterEntity*> AIBase::GetAIList()
 {
 	return TroopList;
 }
 
-vector<CharacterEntity*> AIBase::GetClassAIList(string& Name)
+CharacterEntity* AIBase::GetCharacterEntity(string Name)
 {
-	return TroopList.find(Name)->second;
-}
-vector<CharacterEntity*> AIBase::GetClassAIList(string Name)
-{
-	return TroopList.find(Name)->second;
+	for (vector<CharacterEntity*>::iterator it = TroopList.begin(); it != TroopList.end(); it++)
+	{
+		if ((*it)->GetName() == Name)
+		{
+			return (*it);
+		}
+	}
 }

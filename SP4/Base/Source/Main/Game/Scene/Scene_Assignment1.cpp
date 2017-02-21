@@ -5,13 +5,13 @@
 //#include "../Systems/ObjectManager.h"
 #include "../Systems/EventSystem.h"
 #include "../../Engine/State/StateList.h"
-#include "../Objects/Characters/CharacterDatabase.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
 #include "../Systems/BattleSystem.h"
 #include "../Audio/Audio_Player.h"
+#include "../../Base/Source/Main/Engine/System/LuaSystem.h"
 
-static bool MessageBoardActive = false;
+
 
 Scene_Assignment1::Scene_Assignment1()
 {
@@ -25,13 +25,11 @@ void Scene_Assignment1::Init()
 {
 	// Init Scene
 	//SceneBase::Init();
-	
-	//buttonVector.push_back(button);
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 	x, y = 0;
-	//HP = 10;
-	
+
+	this->EntityID = "Test_Scene";
 
 	GameStage = true;
 
@@ -39,40 +37,32 @@ void Scene_Assignment1::Init()
 	TimeMultiplier = 1.f;
 	Math::InitRNG();
 
-	Warrior* warrior = new Warrior();
-	Warrior* warrior1 = new Warrior();
-
-	Mage* mage = new Mage();
-
-	warrior->Init(20);
-	warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
-	warrior1->Init(20);
-	warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
-
-	mage->Init(1);
+	//Warrior* warrior = new Warrior();
+	//Warrior* warrior1 = new Warrior();
 	//warrior->Init(2);
 	//warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
 	//warrior1->Init(1);
 	//warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
 	//mage->Init(1);
 
-	player = new Player();
-	player->Init(1);
-	Player::Instance().Init(1);
+	//player = new Player();
+	//player->Init(1);
+	Player::Instance().Init(2);
+	Player::Instance().AddGold(100);
+	int Gold = Player::Instance().GetPlayerGold();
+	//LuaSystem::Instance().GameSave();
+	
 	AI = new AIDefault();
 	AI->Init();
-	inventory = new InventorySystem();
-	inventory->Init(player, x, y);
+	
 	//bs = new BattleSystem();
 	//bs->Init();
-	Player::Instance().AddCharacter("Warrior", warrior);
-	player->AddCharacter("Warrior", warrior);
-	player->AddCharacter("Mage", mage);
-	AI->AddTroop("Warrior", warrior1);
-	BattleSystem::Instance().Init();
+	//Player::Instance().AddCharacter("Warrior", warrior);
+	//player->AddCharacter("Warrior", warrior);
+	//player->AddCharacter("Mage", mage);
+	/*BattleSystem::Instance().Init();
 	BattleSystem::Instance().SetPlayerTroops(0, player->GetCharacterEntityInClassUnit("Warrior", 0));
-	BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));
-	BattleSystem::Instance().SetAITroops(0, *(AI->GetClassAIList("Warrior").begin()));
+	BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));*/
 
 	//BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
 	//BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
@@ -87,7 +77,10 @@ void Scene_Assignment1::Init()
 	//warrior->Init(1);
 	//warrior->skill_1->SetTarget(warrior1);
 	
-	AudioPlayer::Instance().PlayMusic("BGM");
+	inventory = new InventoryButtons();
+	inventory->Init(x, y);
+
+	//AudioPlayer::Instance().PlayMusic("BGM");
 }
 
 void Scene_Assignment1::UpdateCharacterLogic(double dt)
@@ -131,7 +124,6 @@ void Scene_Assignment1::Update(float dt)
 	UpdateCharacterLogic(dt);
 	UpdateInternals(dt);
 	HandleUserInput();
-	player->Update(dt);
 	Player::Instance().Update(dt);
 	AI->Update(dt);
 	inventory->Update(dt);
@@ -146,7 +138,18 @@ void Scene_Assignment1::Update(float dt)
 		warrior1->Levelup();
 		warrior1->Update(dt);
 	}*/
-
+	if (Application::IsKeyPressed('Q'))
+	{
+		SceneSystem::Instance().SceneReset("Test_Scene");
+		//Application::ChangeWindowSize(800, 600);
+		//LuaSystem::Instance().GameSave();
+	}
+	if (Application::IsKeyPressed('E'))
+	{
+		//SceneSystem::Instance().SwitchScene("MainMenu_Scene");
+		//Application::FullScreenWindowSize();
+		Application::ChangeWindowSize(800, 600);
+	}
 	
 }
 
@@ -234,7 +237,7 @@ void Scene_Assignment1::Render()
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	//RenderMesh(meshList[GEO_BACKGROUND], false);
 	//Renderer->SetHUD(true);
-	//Renderer->RenderMesh("BackGround", false);
+	Renderer->RenderMesh("BackGround", false);
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
 
@@ -270,6 +273,7 @@ void Scene_Assignment1::RenderCraftingButtons()
 	{
 		Button *obj = (Button *)*itr;
 
+		//Buttons
 		modelStack->PushMatrix();
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
 		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
@@ -295,47 +299,63 @@ void Scene_Assignment1::RenderCraftingButtons()
 			Renderer->RenderMesh("CraftBandagePotion", false);
 		}
 		modelStack->PopMatrix();
+
+		//Description
 		for (std::vector<Description*>::iterator itr2 = inventory->DescriptionVector.begin(); itr2 != inventory->DescriptionVector.end(); itr2++)
 		{
 			Description* obj2 = (Description*)*itr2;
 			modelStack->PushMatrix();
-			modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/10);
-			modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+			modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/5);
+			
 			if (obj->isitHover() && obj->type == "Red Potion" && obj2->type == "Red Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripRedPotion", false);
+				modelStack->PopMatrix();
+				//if (obj2->text->GetType() == "Red Potion")
+				//{
+				//	modelStack->PushMatrix();
+				//	std::cout << "out" << std::endl;
+				//	modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+				//	modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+				//	Renderer->RenderText("text", "x2", Color(1, 1, 1));
+				//	modelStack->PopMatrix();
+				//	
+				//}
 			}
 			if (obj->isitHover() && obj->type == "Blue Potion" && obj2->type == "Blue Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripBluePotion", false);
+				modelStack->PopMatrix();
 			}
 			if (obj->isitHover() && obj->type == "Attack Potion" && obj2->type == "Attack Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripAttackPotion", false);
+				modelStack->PopMatrix();
 			}
 			if (obj->isitHover() && obj->type == "Defense Potion" && obj2->type == "Defense Potion")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripDefencePotion", false);
+				modelStack->PopMatrix();
 			}
 			if (obj->isitHover() && obj->type == "Bandage" && obj2->type == "Bandage")
 			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
 				Renderer->RenderMesh("DescripBandagePotion", false);
+				modelStack->PopMatrix();
 			}
 			modelStack->PopMatrix();
 		}
 	}
-	//	//For AI rendering
-	//	int tempnum = 0;
-	//	/*for (map<size_t, CharacterEntity*>::iterator it2 = BattleSystem::Instance().GetAITroops().begin(); it2 != BattleSystem::Instance().GetAITroops().end(); it2++,tempnum++)
-	//	{
-	//		
-	//	}*/
-	//	//On screen text
-	//	std::stringstream ss;
-	//	ss.str("");
-	//	
 }
-
 
 void Scene_Assignment1::HandleUserInput()
 {
@@ -396,25 +416,18 @@ void Scene_Assignment1::HandleUserInput()
 	static bool QButtonState = false;
 	if (!QButtonState && Application::IsKeyPressed('Q'))
 	{
-		 if (BattleSystem::Instance().GetPlayerTurn())
-		 	BattleSystem::Instance().DamageCalculation(BattleSystem::Instance().GetPlayerTroopAttacking(0), 0, BattleSystem::Instance().GetPlayerTroopAttacking(0)->Getskill());
 
 		QButtonState = true;
 	}
 	else if (QButtonState && !Application::IsKeyPressed('Q'))
 	{
 		QButtonState = false;
+		SceneSystem::Instance().SceneReset("Test_Scene");
 	}
 
 	static bool EButtonState = false;
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		if (BattleSystem::Instance().GetPlayerTurn())
-		{
-
-			BattleSystem::Instance().DamageCalculation(BattleSystem::Instance().GetPlayerTroopAttacking(0), 0);
-
-		}
 		EButtonState = true;
 	}
 	else if (EButtonState && !Application::IsKeyPressed('E'))
@@ -440,7 +453,27 @@ void Scene_Assignment1::Exit()
 {
 	//SceneBase::Exit();
 	//Cleanup Objects
-	ObjectManager::Instance().Exit();
+	if (AI)
+	{
+		AI->Exit();
+		delete AI;
+		AI = nullptr;
+	}
+	for (std::vector<Description*>::iterator itr2 = inventory->DescriptionVector.begin(); itr2 != inventory->DescriptionVector.end();)
+	{
+		(*itr2)->Exit();
+		delete (*itr2);
+		itr2 = inventory->DescriptionVector.erase(itr2);
+	}
+	if (inventory)
+	{
+		inventory->Exit();
+		delete inventory;
+		inventory = nullptr;
+	}
+
+	LuaSystem::Instance().GameSave();
+	//ObjectManager::Instance().Exit();
 	
-	StateList::Instance().Exit();
+	//StateList::Instance().Exit();
 }

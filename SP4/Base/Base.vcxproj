@@ -29,6 +29,7 @@
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
+    <ClCompile Include="Source\Main\Game\Miscellaneous\DescriptionText.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp" />
@@ -37,14 +38,17 @@
     <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Items\Resource.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\Projection.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SplashScreen.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
-    <ClCompile Include="Source\Main\Game\Systems\InventorySystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\ObjectManager.cpp" />
     <ClCompile Include="Source\Main\Game\Mains\Application.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\Camera.cpp" />
@@ -88,6 +92,7 @@
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIDefault.h" />
     <ClInclude Include="Source\Main\Game\AI\AIStateManager.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h" />
+    <ClInclude Include="Source\Main\Game\Miscellaneous\DescriptionText.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h" />
@@ -96,16 +101,18 @@
     <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
-    <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterDatabase.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\Resource.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Boundary2D.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\Projection.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
+    <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SplashScreen.h" />
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />
-    <ClInclude Include="Source\Main\Game\Systems\InventorySystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\ObjectManager.h" />
     <ClInclude Include="Main\Engine\System\Objects\BaseObject.h" />
     <ClInclude Include="Main\Engine\System\Objects\CharacterEntity.h" />
@@ -117,6 +124,10 @@
     <ClInclude Include="Source\Main\Game\Scene\SceneBase.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lua\PlayerSave1.lua" />
+    <None Include="Lua\PlayerSave2.lua" />
+    <None Include="Lua\PlayerSave3.lua" />
+    <None Include="Lua\SaveFile.lua" />
     <None Include="Shader\comg.fragmentshader" />
     <None Include="Shader\comg.vertexshader" />
     <None Include="Shader\GPass.fragmentshader" />

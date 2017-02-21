@@ -24,22 +24,14 @@ public:
 	void saveFloatValue(const char*, const float, const bool);
 
 	lua_State* GetLuaState(std::string);
+	void ReloadLuaState(std::string);
 
-	void GameSave(int);
-	void StageSave();
+	void GameSave();
 	void LoadGame(int);
 
 	std::map<std::string, lua_State*> LuaStateList;
 
 };
-
-LuaSystem::LuaSystem()
-{
-}
-
-LuaSystem::~LuaSystem()
-{
-}
 
 
 

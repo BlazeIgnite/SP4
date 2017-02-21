@@ -14,10 +14,6 @@ void ItemEntity::Use(std::string Item, CharacterEntity* Character)
 	{
 		Character->SetHealth(consumables->UseHealthPot(Character->GetHealth()));
 	}
-	else if (Item == "Blue Potion")
-	{
-		Character->SetAbilityPoints(consumables->UseManaPot(Character->GetAbilityPoints()));
-	}
 	else if (Item == "Attack Potion")
 	{
 		Character->SetAttack(consumables->UseAtkBuffPot(Character->GetAttack()));

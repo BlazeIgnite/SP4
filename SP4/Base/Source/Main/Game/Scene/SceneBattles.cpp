@@ -1,11 +1,13 @@
 #include "SceneBattles.h"
 
-
 #include "../Mains/Application.h"
 #include "../Systems/EventSystem.h"
 #include "../Audio/Audio_Player.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
+#include "../Miscellaneous/Button.h"
+#include "../Objects/Characters/Warrior.h"
+#include "../Objects/Characters/Mage.h"
 
 SceneBattles::SceneBattles()
 {
@@ -19,8 +21,26 @@ SceneBattles::~SceneBattles()
 void SceneBattles::Init()
 {
 	// Init Scene
+	this->SetEntityID("BattleScene");
+	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
+
+	button = new BattleButton();
+	button->Init();
+
+	Warrior* warrior = new Warrior();
+	warrior->Init(1);
+	Mage* mage = new Mage();
+	mage->Init(1);
+	Player::Instance().AddCharacter("Warrior", warrior);
+	Player::Instance().AddCharacter("Mage", mage);
+	BattleSystem::Instance().Init();
+	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
+	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
+	BattleSystem::Instance().SetAITroops(0, new Warrior());
+	BattleSystem::Instance().SetAITroops(1, new Mage());
+	BattleSystem::Instance().SetAITroops(2, new Priest());
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -57,6 +77,7 @@ bool SceneBattles::CheckCollision(BaseObject* o1, BaseObject* o2, std::string ty
 
 void SceneBattles::Update(float dt)
 {
+	button->Update(dt);
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -85,14 +106,123 @@ void SceneBattles::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack->LoadIdentity();
 
+	//RenderMesh(meshList[GEO_AXES], false);
+	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
+	for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
+	{
+		Button* obj = (Button *)*itr;
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
+
+		if (obj->type == "Character 1")
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("CraftRedPotion", false);
+			else
+				Renderer->RenderMesh("CraftBluePotion", false);
+		}
+		if (obj->type == "Character 2")
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("CraftRedPotion", false);
+			else
+				Renderer->RenderMesh("CraftBluePotion", false);
+		}
+		if (obj->type == "Character 3")
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("CraftRedPotion", false);
+			else
+				Renderer->RenderMesh("CraftBluePotion", false);
+		}
+		if (obj->type == "Red Potion")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		//if (obj->type == "Blue Potion")
+		//Renderer->RenderMesh("CraftBluePotion", false);
+		if (obj->type == "Attack Potion")
+			Renderer->RenderMesh("CraftAttackPotion", false);
+		if (obj->type == "Defence Potion")
+			Renderer->RenderMesh("CraftDefencePotion", false);
+		if (obj->type == "Bandage")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Auto Attack")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Skill 1")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Skill 2")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "Skill 3")
+			Renderer->RenderMesh("CraftBandagePotion", false);
+		if (obj->type == "AI 1")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		if (obj->type == "AI 2")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		if (obj->type == "AI 3")
+			Renderer->RenderMesh("CraftRedPotion", false);
+		modelStack->PopMatrix();
+	}
+
+	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
+	{
+		
+		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		modelStack->PushMatrix();
+		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
+		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
+		if (entity->GetName() == "Warrior")
+		{
+			Renderer->RenderMesh("PlayerWarriorMesh", false);
+		}
+		if (entity->GetName() == "Mage")
+		{
+			Renderer->RenderMesh("PlayerMageMesh", false);
+		}
+		if (entity->GetName() == "Priest")
+		{
+			Renderer->RenderMesh("PlayerPriestMesh", false);
+		}
+		modelStack->PopMatrix();
+	}
+
+	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetAITroops().begin(); itr != BattleSystem::Instance().GetAITroops().end(); itr++)
+	{
+
+		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		modelStack->PushMatrix();
+		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
+		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
+		if (entity->GetName() == "Warrior")
+		{
+			Renderer->RenderMesh("WarriorMesh", false);
+		}
+		if (entity->GetName() == "Mage")
+		{
+			Renderer->RenderMesh("MageMesh", false);
+		}
+		if (entity->GetName() == "Priest")
+		{
+			Renderer->RenderMesh("PriestMesh", false);
+		}
+		modelStack->PopMatrix();
+	}
 	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -1.f);
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
+	modelStack->Scale(BattleSystem::Instance().GetTurnCost() / 2,5,1);
+	Renderer->RenderMesh("Test",false);
+	modelStack->PopMatrix();
+	//std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
+
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
 	//RenderMesh(meshList[GEO_BACKGROUND], false);
 	//Renderer->SetHUD(true);
-	//Renderer->RenderMesh("BackGround", false);
+	Renderer->RenderMesh("BattleScene", false);
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
+
+	
 }
 
 void SceneBattles::HandleUserInput()
@@ -188,4 +318,5 @@ void SceneBattles::Exit()
 	//SceneBase::Exit();
 	//Cleanup Objects
 	ObjectManager::Instance().Exit();
+	button->Exit();
 }

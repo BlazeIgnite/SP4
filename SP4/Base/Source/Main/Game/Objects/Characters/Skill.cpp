@@ -1,106 +1,145 @@
 #include "Skill.h"
-//#include "CharacterDatabase.h"
-
-/************************************************/
-/*                   Skills                     */
-Skill::Skill() : shiftposition(0)
-{
-
-}
-
-Skill::~Skill()
-{
-
-}
-
-float Skill::SkillBehavior()
-{
-	return 0;
-}
-
-/************************************************/
-/*              Offensive skills                */
-
-OffensiveSkill::OffensiveSkill()
-{
-
-}
-
-OffensiveSkill::~OffensiveSkill() 
-{
-
-}
-
-float OffensiveSkill::SkillBehavior()
-{
-	if (Character == nullptr || Thetarget == nullptr)
-	{
-		return 0.f;
-	}
-	else
-	{
-		float FinalDamagevalue;
-		if (GetScaleFactor() == Scale_Attack)
-		{
-			FinalDamagevalue = Character->GetAttack();
-		}
-		else if (GetScaleFactor() == Scale_Magic)
-		{
-			FinalDamagevalue = Character->GetMagic();
-		}
-
-		FinalDamagevalue = FinalDamagevalue * this->GetMultiplier();
-		FinalDamagevalue * Thetarget->GetDamageMitigation();
-		return FinalDamagevalue;
-	}
-	return 0.f;
-}
-
-void OffensiveSkill::ApplyEffect(STATUSEFFECTS effect, int turns)
-{
-
-}
 
 /************************************************/
 /*               Revised Skills                 */
+/************************************************/
 
-Ability::Ability(string name,int id, int abilitycost,int actioncost, float multiplier, STATUSEFFECTS statuseffect, ScaleFactor scalefactor, int timer)
+Skill::Skill()
+: Name("")
+, Damage(0)
+, Heal(0)
+, ShiftPosition(0)
+, ActionCost(0)
+, TurnCooldown(0)
+, MaxTurnCooldown(0)
 {
-	this->name = name;
-	this->id = id;
-	this->abilitycost = abilitycost;
-	this->actioncost = actioncost;
-	this->multiplier = multiplier;
-	this->statuseffect = statuseffect;
-	this->scalefactor = scalefactor;
-	this->timer = timer;
+	for (int i = 0; i < 3; i++)
+	{
+		RequiredPosition[i] = false;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		SelectableTarget[i] = false;
+	}
 }
 
-int Ability::AbilityBehavior()
+Skill::~Skill()
+{}
+
+// Setters
+void Skill::SetStatusEffect(size_t StatusEffectTimer, string newStatusEffect)
 {
-	/*if (character == nullptr || target == nullptr)
+	std::map<size_t, vector<string>>::iterator itr = StatusEffect.find(StatusEffectTimer);
+	if (itr == StatusEffect.end())
 	{
-		return 0;
+		vector<string> EmptyVector;
+		EmptyVector.push_back(newStatusEffect);
+		StatusEffect[StatusEffectTimer] = EmptyVector;
 	}
-	else if (character->GetAbilityPoints() >= abilitycost)
+	else
+		StatusEffect.find(StatusEffectTimer)->second.push_back(newStatusEffect);
+}
+
+void Skill::SetName(string newName)
+{
+	Name = newName;
+}
+void Skill::SetDamage(size_t newDamage)
+{
+	Damage = newDamage;
+}
+void Skill::SetHeal(size_t newHeal)
+{
+	Heal = newHeal;
+}
+void Skill::SetShiftPosition(size_t newShiftPosition)
+{
+	ShiftPosition = newShiftPosition;
+}
+void Skill::SetActionCost(size_t newActionCost)
+{
+	ActionCost = newActionCost;
+}
+void Skill::SetTurnCooldown(size_t newTurnCooldown)
+{
+	TurnCooldown = newTurnCooldown;
+}
+void Skill::SetMaxTurnCooldown(size_t newMaxTurnCooldown)
+{
+	MaxTurnCooldown = newMaxTurnCooldown;
+}
+void Skill::SetRequiredPosition(size_t position, bool newRequiredPosition)
+{
+	RequiredPosition[position] = newRequiredPosition;
+}
+void Skill::SetSelectableTarget(size_t position, bool newSelectableTarget)
+{
+	SelectableTarget[position] = newSelectableTarget;
+}
+
+// Getters
+map<size_t, vector<string>> Skill::GetStringStatusEffect()
+{
+	return StatusEffect;
+}
+string Skill::GetName()
+{
+	return Name;
+}
+size_t Skill::GetDamage()
+{
+	return Damage;
+}
+size_t Skill::GetHeal()
+{
+	return Heal;
+}
+size_t Skill::GetShiftPosition()
+{
+	return ShiftPosition;
+}
+size_t Skill::GetActionCost()
+{
+	return ActionCost;
+}
+size_t Skill::GetTurnCooldown()
+{
+	return TurnCooldown;
+}
+size_t Skill::GetMaxTurnCooldown()
+{
+	return MaxTurnCooldown;
+}
+bool Skill::GetRequiredPosition(size_t position)
+{
+	for (size_t i = 0; i < 3; i++)
 	{
-		float Finaldamage;
-		if (scalefactor == Scale_Attack)
-		{
-			Finaldamage = character->GetAttack();
-		}
-		else if (scalefactor == Scale_Magic)
-		{
-			Finaldamage = character->GetMagic();
-		}
-		Finaldamage *= multiplier;
-		Finaldamage *= target->GetDamageMitigation();
-		if (statuseffect != No_Effect)
-		{
-			character->ApplyEffect(statuseffect, timer);
-		}
-		return Finaldamage;
+		if (i == position)
+			return RequiredPosition[i];
 	}
-	*/
+	return false;
+}
+bool Skill::GetSelectableTarget(size_t position)
+{
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (i == position)
+			return SelectableTarget[i];
+	}
+	return false;
+}
+
+size_t Skill::GetStatusEffectTimer()
+{
+	for (map<size_t, vector<string>>::iterator it = StatusEffect.begin(); it != StatusEffect.end(); ++it)
+	{
+		for (vector<string>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			if ((*it2) == GetName())
+			{
+				return it->first;
+			}
+		}
+	}
 	return 0;
 }

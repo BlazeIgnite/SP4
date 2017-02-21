@@ -27,7 +27,6 @@ protected:
 	
 	//Base Stats End here
 	float ExperiencePoints;
-	float NormalAttackmultiplier;
 	int DamageMitigation;
 	bool Defeated;
 	enum CurrentEffect

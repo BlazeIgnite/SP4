@@ -51,23 +51,6 @@ void Mage::Init(int Level)
 
 void Mage::Levelup()
 {
-	if (Level == 1)
-	{
-		// Magic Bolt
-		Skill* skill = new Skill();
-		skill->SetName("Magic Bolt");
-		skill->SetActionCost(30);
-		skill->SetMaxTurnCooldown(1);
-		skill->SetRequiredPosition(0, 1);
-		SkillList.push_back(skill);
-
-		Skill* skill2 = new Skill();
-		skill2 ->SetName("Blinding Flash");
-		skill2->SetActionCost(35);
-		skill2->SetMaxTurnCooldown(1);
-		skill2->SetRequiredPosition(0, 1);
-		SkillList.push_back(skill2);
-	}
 	if (Level <= 10)
 	{
 		Skill* skill = new Skill();
@@ -111,6 +94,23 @@ void Mage::Levelup()
 			skill->SetSelectableTarget(1, true);
 
 			SkillList.push_back(skill);
+		}
+		else if (Level == 1)
+		{
+			// Magic Bolt
+			Skill* skill = new Skill();
+			skill->SetName("Magic Bolt");
+			skill->SetActionCost(30);
+			skill->SetMaxTurnCooldown(1);
+			skill->SetRequiredPosition(0, 1);
+			SkillList.push_back(skill);
+
+			Skill* skill2 = new Skill();
+			skill2->SetName("Blinding Flash");
+			skill2->SetActionCost(35);
+			skill2->SetMaxTurnCooldown(1);
+			skill2->SetRequiredPosition(0, 1);
+			SkillList.push_back(skill2);
 		}
 		else
 		{

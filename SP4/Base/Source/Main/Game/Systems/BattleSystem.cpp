@@ -212,7 +212,11 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate)
 {
 	// Logic to maybe Healing or applying friendly effect here
-
+	for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
+	{
+		CharacterEntity* character = itr->second;
+		character->SetBuffed(true);
+	}
 }
 
 
@@ -229,6 +233,13 @@ void BattleSystem::SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_
 {
 	// Set the status Effect of the Character Entity Here
 	//TeamMap.find(target)->second->SetStatusEffect( stun? / poison? / burn?);
+	for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
+	{
+		CharacterEntity* character = itr->second;
+		character->SetBleeding(true);
+		character->SetStunned(true);
+		character->SetDebuffed(true);
+	}
 }
 
 /*

@@ -169,6 +169,11 @@ void Application::Init()
 	Renderer->Init();
 	SceneSystem::Instance().SetRenderSystem(*Renderer);
 
+	SceneBattles* temp3 = new SceneBattles();
+	//MainMenu* temp2 = new MainMenu();
+	temp3->Init();
+	SceneSystem::Instance().AddScene(*temp3);
+
 	Scene_Assignment1* temp2 = new Scene_Assignment1();
 	//MainMenu* temp2 = new MainMenu();
 	temp2->Init();

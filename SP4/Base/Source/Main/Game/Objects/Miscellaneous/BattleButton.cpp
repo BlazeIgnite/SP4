@@ -15,13 +15,13 @@ void BattleButton::Init()
 {
 	Button* temp;
 	temp = new Button();
-	temp->Init(Vector3(15, 22.5, 0), Vector3(10, 10, 1), "Character 1");
+	temp->Init(Vector3(55, 22.5, 0), Vector3(10, 10, 1), "Character 1");
 	buttonList.push_back(temp);
 	temp = new Button();
 	temp->Init(Vector3(35, 22.5, 0), Vector3(10, 10, 1), "Character 2");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(55, 22.5, 0), Vector3(10, 10, 1), "Character 3");
+	temp->Init(Vector3(15, 22.5, 0), Vector3(10, 10, 1), "Character 3");
 	buttonList.push_back(temp);
 
 	temp = new Button();
@@ -70,7 +70,7 @@ void BattleButton::Update(float dt)
 {
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
-		(*itr)->Update(dt);
+		(*itr)->UpdateBattleScene(dt);
 	}
 }
 

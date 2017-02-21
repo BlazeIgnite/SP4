@@ -1,12 +1,13 @@
 #include "SceneBattles.h"
 
-
 #include "../Mains/Application.h"
 #include "../Systems/EventSystem.h"
 #include "../Audio/Audio_Player.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
 #include "../Miscellaneous/Button.h"
+#include "../Objects/Characters/Warrior.h"
+#include "../Objects/Characters/Mage.h"
 
 SceneBattles::SceneBattles()
 {
@@ -24,6 +25,16 @@ void SceneBattles::Init()
 
 	button = new BattleButton();
 	button->Init();
+
+	Warrior* warrior = new Warrior();
+	warrior->Init(1);
+	Mage* mage = new Mage();
+	mage->Init(1);
+	Player::Instance().AddCharacter("Warrior", warrior);
+	Player::Instance().AddCharacter("Mage", mage);
+	BattleSystem::Instance().Init();
+	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
+	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
 }
@@ -101,7 +112,12 @@ void SceneBattles::Render()
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
 
 		if (obj->type == "Character 1")
-			Renderer->RenderMesh("CraftRedPotion", false);
+		{
+			if (!obj->isSelected)
+				Renderer->RenderMesh("CraftRedPotion", false);
+			else
+				Renderer->RenderMesh("CraftBluePotion", false);
+		}
 		if (obj->type == "Character 2")
 			Renderer->RenderMesh("CraftBluePotion", false);
 		if (obj->type == "Character 3")

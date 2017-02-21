@@ -55,7 +55,7 @@ void Mage::Init(int Level)
 	skill_1->shiftposition = 0;*/
 }
 
-void Mage::Levelup()
+void Mage::LevelUp()
 {
 	if (Level <= 10)
 	{

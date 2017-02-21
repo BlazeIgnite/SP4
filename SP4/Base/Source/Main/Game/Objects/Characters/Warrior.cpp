@@ -34,9 +34,9 @@ void Warrior::Init(int Level)
 	{
 		SetLevel(Level);
 		float LevelOffset = (Level - 20) / 100;
-		SetHealth(WarriorHealth[19] * (1 + LevelOffset));
-		SetAttack(WarriorAttack[19] * (1 + LevelOffset));
-		SetDefense(WarriorDefense[19] * (1 + LevelOffset));
+		SetHealth(WarriorHealth[20] * (1 + LevelOffset));
+		SetAttack(WarriorAttack[20] * (1 + LevelOffset));
+		SetDefense(WarriorDefense[20] * (1 + LevelOffset));
 		SetDamageMitigation();
 	}
 }
@@ -82,6 +82,8 @@ void Warrior::LevelUp()
 
 			// Setting the cooldown time after activation
 			skill->SetMaxTurnCooldown(2);
+			//skill->SetStatusEffect(1, "Buff");
+			//skill->
 
 			// Setting of how many turns status effect affects, what status effect is it
 			skill->SetStatusEffect(1, "Buff");

@@ -27,9 +27,21 @@ protected:
 	
 	//Base Stats End here
 	float ExperiencePoints;
-	float NormalAttackmultiplier;
 	int DamageMitigation;
 	bool Defeated;
+	enum CurrentEffect
+	{
+		isStunned = 1,
+		isBleed,
+		isDebuff,
+		isBuff,
+		noeffect,
+	};
+protected:
+	//Skill *skill;
+	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
+	int stuntimer, bleedtimer, debufftimer, bufftimer;
+	float NormalAttackmultiplier;
 	bool Stunned, Bleeding, Buffed, Debuffed;
 
 public:
@@ -84,8 +96,8 @@ public:
 
 	virtual void Init(int Level = 1);
 	void Update(double dt);
+//	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
 	void ExecuteAttack(CharacterEntity* Target);
-//	map<string, Ability> Abilities;
 };
 
 #endif

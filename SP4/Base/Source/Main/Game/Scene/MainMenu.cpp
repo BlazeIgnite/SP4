@@ -13,6 +13,7 @@ MainMenu::MainMenu()
 
 MainMenu::~MainMenu()
 {
+
 }
 
 void MainMenu::Init()
@@ -116,4 +117,24 @@ void MainMenu::Exit()
 			(*it) = nullptr;
 		}
 	}
+	//if (NewGame != nullptr)
+	//{
+	//	delete NewGame;
+	//	NewGame = nullptr;
+	//}
+	//if (LoadGame)
+	//{
+	//	delete LoadGame;
+	//	LoadGame = nullptr;
+	//}
+	//if (Setting)
+	//{
+	//	delete Setting;
+	//	Setting = nullptr;
+	//}
+	//if (ExitGame)
+	//{
+	//	delete ExitGame;
+	//	ExitGame = nullptr;
+	//}
 }

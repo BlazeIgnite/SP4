@@ -44,6 +44,15 @@ void Description::Update(double dt)
 	position = Vector3(worldX + scale.x * 0.5, worldY - scale.y * 0.5, 2);
 }
 
+void Description::Exit()
+{
+	if (text)
+	{
+		delete text;
+		text = nullptr;
+	}
+}
+
 Vector3 Description::GetPosition()
 {
 	return position;

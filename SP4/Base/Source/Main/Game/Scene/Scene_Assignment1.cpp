@@ -37,8 +37,8 @@ void Scene_Assignment1::Init()
 	TimeMultiplier = 1.f;
 	Math::InitRNG();
 
-	Warrior* warrior = new Warrior();
-	Warrior* warrior1 = new Warrior();
+	//Warrior* warrior = new Warrior();
+	//Warrior* warrior1 = new Warrior();
 	//warrior->Init(2);
 	//warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
 	//warrior1->Init(1);
@@ -123,7 +123,6 @@ void Scene_Assignment1::Update(float dt)
 	UpdateCharacterLogic(dt);
 	UpdateInternals(dt);
 	HandleUserInput();
-	player->Update(dt);
 	Player::Instance().Update(dt);
 	AI->Update(dt);
 	inventory->Update(dt);
@@ -140,7 +139,13 @@ void Scene_Assignment1::Update(float dt)
 	}*/
 	if (Application::IsKeyPressed('Q'))
 	{
-		SceneSystem::Instance().SwitchScene("MainMenu_Scene");
+		//SceneSystem::Instance().SwitchScene("MainMenu_Scene");
+		Application::ChangeWindowSize(800, 600);
+	}
+	if (Application::IsKeyPressed('E'))
+	{
+		//SceneSystem::Instance().SwitchScene("MainMenu_Scene");
+		Application::FullScreenWindowSize();
 	}
 	
 }
@@ -444,6 +449,25 @@ void Scene_Assignment1::Exit()
 {
 	//SceneBase::Exit();
 	//Cleanup Objects
+	if (AI)
+	{
+		AI->Exit();
+		delete AI;
+		AI = nullptr;
+	}
+	for (std::vector<Description*>::iterator itr2 = inventory->DescriptionVector.begin(); itr2 != inventory->DescriptionVector.end();)
+	{
+		(*itr2)->Exit();
+		delete (*itr2);
+		itr2 = inventory->DescriptionVector.erase(itr2);
+	}
+	if (inventory)
+	{
+		inventory->Exit();
+		delete inventory;
+		inventory = nullptr;
+	}
+
 	ObjectManager::Instance().Exit();
 	
 	StateList::Instance().Exit();

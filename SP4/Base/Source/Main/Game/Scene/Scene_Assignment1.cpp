@@ -11,7 +11,7 @@
 #include "../Audio/Audio_Player.h"
 #include "../../Base/Source/Main/Engine/System/LuaSystem.h"
 
-static bool MessageBoardActive = false;
+
 
 Scene_Assignment1::Scene_Assignment1()
 {
@@ -29,6 +29,7 @@ void Scene_Assignment1::Init()
 	EventSystem::Instance().Init();
 	x, y = 0;
 
+	this->EntityID = "Test_Scene";
 
 	GameStage = true;
 
@@ -137,7 +138,10 @@ void Scene_Assignment1::Update(float dt)
 		warrior1->Levelup();
 		warrior1->Update(dt);
 	}*/
-
+	if (Application::IsKeyPressed('Q'))
+	{
+		SceneSystem::Instance().SwitchScene("MainMenu_Scene");
+	}
 	
 }
 

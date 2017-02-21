@@ -75,6 +75,20 @@ void Application::SetWindowHeight(const int& h)
 	ScreenHeight = h;
 }
 
+void Application::ChangeWindowSize(const int& w, const int& h)
+{
+	SetWindowWidth(w);
+	SetWindowHeight(h);
+	glfwSetWindowSize(m_window, ScreenWidth, ScreenHeight);
+}
+
+void Application::FullScreenWindowSize()
+{
+	SetWindowWidth(glfwGetVideoMode(glfwGetPrimaryMonitor())->width);
+	SetWindowHeight(glfwGetVideoMode(glfwGetPrimaryMonitor())->height);
+	glfwSetWindowSize(m_window, ScreenWidth, ScreenHeight);
+}
+
 Application::Application()
 {
 }
@@ -185,10 +199,6 @@ void Application::Run()
 			Update();
 			SceneSystem::Instance().GetCurrentScene().Render();
 		}
-
-
-		//scene->Update(m_timer.getElapsedTime());
-		//scene->Render();
 		//Swap buffers
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
@@ -196,9 +206,7 @@ void Application::Run()
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 
 	} //Check if the ESC key had been pressed or if the window had been closed
-	//SceneSystem::Instance().ClearMemoryUsage();
-	//scene->Exit();
-	//delete scene;
+	SceneSystem::Instance().ClearMemoryUsage();
 }
 
 void Application::Update()
@@ -229,5 +237,5 @@ void Application::Exit()
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW
 	glfwTerminate();
-	_CrtDumpMemoryLeaks();
+	//_CrtDumpMemoryLeaks();
 }

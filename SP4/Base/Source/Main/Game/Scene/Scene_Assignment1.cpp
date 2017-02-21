@@ -11,7 +11,7 @@
 #include "../Audio/Audio_Player.h"
 #include "../../Base/Source/Main/Engine/System/LuaSystem.h"
 
-static bool MessageBoardActive = false;
+
 
 Scene_Assignment1::Scene_Assignment1()
 {
@@ -29,6 +29,7 @@ void Scene_Assignment1::Init()
 	EventSystem::Instance().Init();
 	x, y = 0;
 
+	this->EntityID = "Test_Scene";
 
 	GameStage = true;
 
@@ -58,9 +59,9 @@ void Scene_Assignment1::Init()
 	//Player::Instance().AddCharacter("Warrior", warrior);
 	//player->AddCharacter("Warrior", warrior);
 	//player->AddCharacter("Mage", mage);
-	//BattleSystem::Instance().Init();
-	//BattleSystem::Instance().SetPlayerTroops(0, player->GetCharacterEntityInClassUnit("Warrior", 0));
-	//BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));
+	BattleSystem::Instance().Init();
+	BattleSystem::Instance().SetPlayerTroops(0, player->GetCharacterEntityInClassUnit("Warrior", 0));
+	BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));
 
 	//BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
 	//BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
@@ -137,7 +138,10 @@ void Scene_Assignment1::Update(float dt)
 		warrior1->Levelup();
 		warrior1->Update(dt);
 	}*/
-
+	if (Application::IsKeyPressed('Q'))
+	{
+		SceneSystem::Instance().SwitchScene("MainMenu_Scene");
+	}
 	
 }
 

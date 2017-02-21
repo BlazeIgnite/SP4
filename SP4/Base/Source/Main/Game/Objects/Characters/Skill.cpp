@@ -112,7 +112,7 @@ size_t Skill::GetMaxTurnCooldown()
 }
 bool Skill::GetRequiredPosition(size_t position)
 {
-	for (size_t i = 0; i < 3; i++)
+	for (size_t i = 0; i < 2; i++)
 	{
 		if (i == position)
 			return RequiredPosition[i];

@@ -9,6 +9,7 @@ using std::string;
 using std::map;
 using std::vector;
 
+
 class Skill
 {
 	map<size_t, vector<string>> StatusEffect;

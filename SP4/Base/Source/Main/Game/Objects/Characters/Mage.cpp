@@ -3,12 +3,9 @@
 using std::cout;
 using std::endl;
 
-float MageHealth[] = { 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
-float MageAbilityPoints[] = { 15, 15, 15, 20, 24, 27, 31, 32, 34, 37, 38, 39, 41, 43, 46, 50, 51, 53, 55, 60 };
-float MageAttack[] = { 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
-float MageDefense[] = { 15, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float MageMagic[] = { 2, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float MageLuck[] = { 1, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+size_t MageHealth[] = { 0, 15, 17, 20, 24, 28, 30, 31, 33, 35, 37, 42, 47, 55, 60, 65, 71, 80, 81, 82, 85 };
+size_t MageAttack[] = { 0, 15, 17, 19, 21, 25, 29, 34, 37, 40, 44, 50, 56, 64, 66, 70, 75, 80, 83, 84, 89 };
+float MageDefense[] = { 0.f, 1.0f, 1.4f, 1.8f, 2.2f, 2.6f, 3.0f, 4.f, 4.4f, 4.8f, 5.2f, 5.6f, 6.0f, 7.0f, 7.6f, 8.2f, 8.8f, 9.4f, 10.f, 10.f, 10.f };
 
 
 Mage::Mage()
@@ -18,7 +15,14 @@ Mage::Mage()
 
 Mage::~Mage()
 {
-
+	for (vector<Skill*>::iterator it = SkillList.begin(); it != SkillList.end(); it++)
+	{
+		if ((*it) != nullptr)
+		{
+			delete (*it);
+			(*it) = nullptr;
+		}
+	}
 }
 
 void Mage::Init(int Level)
@@ -36,28 +40,48 @@ void Mage::Init(int Level)
 		float Levelscale = Level - 20;
 		float finalscale = 1 + (Levelscale * 0.01f);
 		SetLevel(Level);
-		SetHealth((MageHealth[19] * finalscale));
-		SetMaxHealth(MageHealth[19] * finalscale);
-		SetAttack(MageAttack[19] * finalscale);
-		SetDefense(MageDefense[19] * finalscale);
+		SetHealth((MageHealth[20] * finalscale));
+		SetMaxHealth(MageHealth[20] * finalscale);
+		SetAttack(MageAttack[20] * finalscale);
+		SetDefense(MageDefense[20] * finalscale);
 	}
 //	SetPosition(Position_Back);
 	SetDamageMitigation();
-
-/*
-
-	skill_1 = new OffensiveSkill();
-	skill_1->SetSkill_IDs("Magic Bolt", 1);
-	skill_1->SetAbilityCost(5);
-	skill_1->SetMultiplier(0.65f);
-	skill_1->SetActionCost(20.f);
-	skill_1->SetScaleFactor(Skill::Scale_Magic);
-	skill_1->shiftposition = 0;*/
 }
 
 void Mage::Levelup()
 {
+	if (Level == 1)
+	{
+		// Magic Bolt
+		Skill* skill = new Skill();
+		skill->SetName("Magic Bolt");
+		skill->SetActionCost(30);
+		skill->SetMaxTurnCooldown(1);
+		skill->SetRequiredPosition(0, 1);
+		SkillList.push_back(skill);
 
+		Skill* skill2 = new Skill();
+		skill2 ->SetName("Blinding Flash");
+		skill2->SetActionCost(35);
+		skill2->SetMaxTurnCooldown(1);
+		skill2->SetRequiredPosition(0, 1);
+		SkillList.push_back(skill2);
+	}
+	if (Level == 4)
+	{
+		Skill* skill3 = new Skill();
+		skill3->SetName("Unholy Incantation");
+		skill3->SetActionCost(40);
+		skill3->SetMaxTurnCooldown(2);
+		skill3->SetRequiredPosition(1, 1);
+		skill3->SetRequiredPosition(2, 1);;
+		SkillList.push_back(skill3);
+	}
+	if (Level == 5)
+	{
+		Skill* skill = new Skill();
+	}
 }
 
 void Mage::Update(double dt)

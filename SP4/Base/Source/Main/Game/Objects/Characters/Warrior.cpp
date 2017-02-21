@@ -11,7 +11,7 @@ float WarriorDefense[] = { 0.f, 3.0f, 3.8f, 4.6f, 5.4f, 6.2f, 7.0f, 7.8f, 8.6f, 
 
 Warrior::Warrior()
 {
-	skill = new Bash();
+	//skill = new Bash();
 	NormalAttackmultiplier = 0.75f;
 }
 
@@ -43,9 +43,9 @@ void Warrior::Init(int Level)
 	{
 		SetLevel(Level);
 		float LevelOffset = (Level - 20) / 100;
-		SetHealth(WarriorHealth[19] * (1 + LevelOffset));
-		SetAttack(WarriorAttack[19] * (1 + LevelOffset));
-		SetDefense(WarriorDefense[19] * (1 + LevelOffset));
+		SetHealth(WarriorHealth[20] * (1 + LevelOffset));
+		SetAttack(WarriorAttack[20] * (1 + LevelOffset));
+		SetDefense(WarriorDefense[20] * (1 + LevelOffset));
 		SetDamageMitigation();
 	}
 }
@@ -75,7 +75,7 @@ void Warrior::LevelUp()
 			skill->SetName("Taunt");
 			skill->SetActionCost(35);
 			skill->SetMaxTurnCooldown(2);
-			skill->SetStatusEffect(1, "Buff");
+			//skill->SetStatusEffect(1, "Buff");
 			//skill->
 
 			// 

@@ -21,8 +21,6 @@ protected:
 	size_t Health;
 	size_t MaxHealth;
 	size_t Attack;
-	size_t BattleAttack;
-	size_t BattleAttackCost;
 	size_t Defense;
 	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
 	
@@ -38,6 +36,8 @@ public:
 	~CharacterEntity();
 
 	//Getters
+	Skill* GetSkillInVector(string SkillName);
+
 	inline Vector3 GetVectorPosition(){ return Position; };
 	inline Vector3 GetScale(){ return Scale; };
 	inline string GetName(){ return Name; };
@@ -45,15 +45,13 @@ public:
 	inline size_t GetHealth() { return Health; };
 	inline size_t GetMaxHealth(){ return MaxHealth; };
 	inline size_t GetAttack(){ return Attack; };
-	inline size_t GetBattleAttack(){ return BattleAttack; };
-	inline size_t GetBattleAttackCost(){ return BattleAttackCost; };
 	inline size_t GetDefense(){ return Defense; };
 	inline size_t GetStunTimer(){ return StunTimer; };
 	inline size_t GetBleedTimer(){ return BleedTimer; };
 	inline size_t GetDebuffTimer(){ return DebuffTimer; };
 	inline size_t GetBuffTimer(){ return BuffTimer; };
 	inline bool GetDefeated(){ return Defeated; };
-	inline bool GetStunned(){ return Stunned;	};
+	inline bool GetStunned(){ return Stunned; };
 	inline bool GetBleeding(){ return Bleeding; };
 	inline bool GetBuffed(){ return Buffed; }
 	inline bool GetDebuffed(){ return Debuffed; };
@@ -66,8 +64,6 @@ public:
 	inline void SetHealth(size_t Health){ this->Health = Health; };
 	inline void SetMaxHealth(size_t MaxHealth){ this->MaxHealth = MaxHealth; };
 	inline void SetAttack(size_t Attack){ this->Attack = Attack; };
-	inline void SetBattleAttack(size_t BattleAttack){ this->BattleAttack = BattleAttack; };
-	inline void SetBattleAttackCost(size_t BattleAttackCost){ this->BattleAttackCost = BattleAttack; };
 	inline void SetDefense(size_t Defense){	this->Defense = Defense; };
 	inline void SetStunTimer(size_t StunTimer){ this->StunTimer = StunTimer; };
 	inline void SetBleedTimer(size_t BleedTimer){ this->BleedTimer = BleedTimer; };

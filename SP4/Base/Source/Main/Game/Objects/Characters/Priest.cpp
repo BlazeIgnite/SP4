@@ -3,12 +3,9 @@
 using std::cout;
 using std::endl;
 
-float PriestHealth[] = { 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
-float PriestAbilityPoints[] = { 15, 15, 15, 20, 24, 27, 31, 32, 34, 37, 38, 39, 41, 43, 46, 50, 51, 53, 55, 60 };
-float PriestAttack[] = { 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
+size_t PriestHealth[] = { 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
+size_t PriestAttack[] = { 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
 float PriestDefense[] = { 15, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float PriestMagic[] = { 2, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
-float PriestLuck[] = { 1, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
 
 
 Priest::Priest()
@@ -48,6 +45,11 @@ void Priest::Init(int Level)
 
 void Priest::LevelUp()
 {
+	Level++;
+	SetHealth(PriestHealth[Level]);
+	SetAttack(PriestAttack[Level]);
+	SetDefense(PriestDefense[Level]);
+
 	if (Level <= 10)
 	{
 		Skill* skill = new Skill();
@@ -105,6 +107,27 @@ void Priest::LevelUp()
 		}
 		else if (Level == 1)
 		{
+			skill->SetName("Basic Attack");
+			skill->SetActionCost(15);
+
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetRequiredPosition(i, true);
+				skill->SetSelectableTarget(i, true);
+			}
+
+			SkillList.push_back(skill);
+
+			skill = new Skill();
+			skill->SetName("Heal");
+			skill->SetActionCost(25);
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetRequiredPosition(i, true);
+				skill->SetSelectableTarget(i, true);
+			}
+
+			SkillList.push_back(skill);
 		}
 	}
 
@@ -115,6 +138,8 @@ void Priest::LevelUp()
 			SkillItr->SetDamage((int)(GetAttack() * 0.5));
 		else if (SkillItr->GetName() == "Heal")
 			SkillItr->SetHeal((int)(GetAttack() * 0.45));
+		else if (SkillItr->GetName() == "Basic Attack")
+			SkillItr->SetDamage((int)(GetAttack() * 0.4));
 	}
 }
 

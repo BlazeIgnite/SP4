@@ -28,31 +28,21 @@ Mage::~Mage()
 
 void Mage::Init(int Level)
 {
-	if (Level > 0 && Level < 21)
+	for (int i = 0; i < Level; i++)
 	{
-		SetLevel(Level);
-		SetHealth(MageHealth[Level - 1]);
-		SetMaxHealth(MageHealth[Level - 1]);
-		SetAttack(MageAttack[Level - 1]);
-		SetDefense(MageDefense[Level - 1]);
+		LevelUp();
 	}
-	if (Level > 20)
-	{
-		float Levelscale = Level - 20;
-		float finalscale = 1 + (Levelscale * 0.01f);
-		SetLevel(Level);
-		SetHealth((MageHealth[20] * finalscale));
-		SetMaxHealth(MageHealth[20] * finalscale);
-		SetAttack(MageAttack[20] * finalscale);
-		SetDefense(MageDefense[20] * finalscale);
-	}
-//	SetPosition(Position_Back);
 	SetDamageMitigation();
 }
 
 void Mage::LevelUp()
 {
 	Level++;
+
+	SetHealth(MageHealth[Level]);
+	SetAttack(MageAttack[Level]);
+	SetDefense(MageDefense[Level]);
+
 	if (Level <= 10)
 	{
 		Skill* skill = new Skill();
@@ -99,20 +89,30 @@ void Mage::LevelUp()
 		}
 		else if (Level == 1)
 		{
+			skill->SetName("Basic Attack");
+			skill->SetActionCost(20);
+			for (size_t i = 0; i < 3; i++)
+			{
+				skill->SetRequiredPosition(i, true);
+			}
+			skill->SetSelectableTarget(0, true);
+			skill->SetSelectableTarget(1, true);
+			SkillList.push_back(skill);
+
 			// Magic Bolt
-			Skill* skill = new Skill();
+			skill = new Skill();
 			skill->SetName("Magic Bolt");
 			skill->SetActionCost(30);
 			skill->SetMaxTurnCooldown(1);
 			skill->SetRequiredPosition(0, 1);
 			SkillList.push_back(skill);
 
-			Skill* skill2 = new Skill();
-			skill2->SetName("Blinding Flash");
-			skill2->SetActionCost(35);
-			skill2->SetMaxTurnCooldown(1);
-			skill2->SetRequiredPosition(0, 1);
-			SkillList.push_back(skill2);
+			skill = new Skill();
+			skill->SetName("Blinding Flash");
+			skill->SetActionCost(35);
+			skill->SetMaxTurnCooldown(1);
+			skill->SetRequiredPosition(0, true);
+			SkillList.push_back(skill);
 		}
 		else
 		{
@@ -132,6 +132,8 @@ void Mage::LevelUp()
 			SkillItr->SetDamage((int)(GetAttack() * 0.15));
 		else if (SkillItr->GetName() == "Magic Bolt")
 			SkillItr->SetDamage((int)(GetAttack() * 0.75));
+		else if (SkillItr->GetName() == "Basic Attack")
+			SkillItr->SetDamage((int)(GetAttack() * 0.5));
 
 	}
 }

@@ -21,27 +21,14 @@ protected:
 	size_t Health;
 	size_t MaxHealth;
 	size_t Attack;
-	size_t BattleAttack;
 	size_t Defense;
 	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
 	
 	//Base Stats End here
 	float ExperiencePoints;
+	float NormalAttackmultiplier;
 	int DamageMitigation;
 	bool Defeated;
-	enum CurrentEffect
-	{
-		isStunned = 1,
-		isBleed,
-		isDebuff,
-		isBuff,
-		noeffect,
-	};
-protected:
-	//Skill *skill;
-	CurrentEffect stunned = noeffect, bleeding = noeffect, buffed = noeffect, debuffed = noeffect;
-	int stuntimer, bleedtimer, debufftimer, bufftimer;
-	float NormalAttackmultiplier;
 	bool Stunned, Bleeding, Buffed, Debuffed;
 
 public:
@@ -49,6 +36,8 @@ public:
 	~CharacterEntity();
 
 	//Getters
+	Skill* GetSkillInVector(string SkillName);
+
 	inline Vector3 GetVectorPosition(){ return Position; };
 	inline Vector3 GetScale(){ return Scale; };
 	inline string GetName(){ return Name; };
@@ -56,14 +45,13 @@ public:
 	inline size_t GetHealth() { return Health; };
 	inline size_t GetMaxHealth(){ return MaxHealth; };
 	inline size_t GetAttack(){ return Attack; };
-	inline size_t GetBattleAttack(){ return BattleAttack; };
 	inline size_t GetDefense(){ return Defense; };
 	inline size_t GetStunTimer(){ return StunTimer; };
 	inline size_t GetBleedTimer(){ return BleedTimer; };
 	inline size_t GetDebuffTimer(){ return DebuffTimer; };
 	inline size_t GetBuffTimer(){ return BuffTimer; };
 	inline bool GetDefeated(){ return Defeated; };
-	inline bool GetStunned(){ return Stunned;	};
+	inline bool GetStunned(){ return Stunned; };
 	inline bool GetBleeding(){ return Bleeding; };
 	inline bool GetBuffed(){ return Buffed; }
 	inline bool GetDebuffed(){ return Debuffed; };
@@ -76,7 +64,6 @@ public:
 	inline void SetHealth(size_t Health){ this->Health = Health; };
 	inline void SetMaxHealth(size_t MaxHealth){ this->MaxHealth = MaxHealth; };
 	inline void SetAttack(size_t Attack){ this->Attack = Attack; };
-	inline void SetBattleAttack(size_t BattleAttack) { this->BattleAttack = BattleAttack; };
 	inline void SetDefense(size_t Defense){	this->Defense = Defense; };
 	inline void SetStunTimer(size_t StunTimer){ this->StunTimer = StunTimer; };
 	inline void SetBleedTimer(size_t BleedTimer){ this->BleedTimer = BleedTimer; };
@@ -96,8 +83,6 @@ public:
 
 	virtual void Init(int Level = 1);
 	void Update(double dt);
-//	void ApplyEffect(STATUSEFFECTS statuseffect, int timer);
-	void ExecuteAttack(CharacterEntity* Target);
 };
 
 #endif

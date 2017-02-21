@@ -17,6 +17,7 @@ BattleSystem::~BattleSystem()
 void BattleSystem::Init()
 {
 	SelectedTroop = NULL;
+	SelectedEnemyTroop = NULL;
 	SetTurnCost(100);
 	SetPlayerTurn(true);
 	SetPlayerWon(true);
@@ -29,7 +30,7 @@ void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 	if (itr == PlayerTroops.end())
 	{
 		PlayerTroops[position] = Troop;
-		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
+		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
 	else
 	{
@@ -45,10 +46,11 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	if (itr == AITroops.end())
 	{
 		AITroops[position] = Troop;
-		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.7f + (position * 0.1)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
+		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.7f + (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
 	AITroops.find(position)->second = Troop;
 }
+
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
 	SetTurnCost(100);
@@ -88,104 +90,47 @@ void BattleSystem::MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap)
 
 
 // Battle Damage Calculation for basic attack and Skills here
-void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target)
-{
-	if (PlayerTurn)
-	{
-		CharacterEntity* TargetTroop = AITroops.find(target)->second;
-		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
-		// One more line of code needed, the default attack cost put here
-		// TurnCost -= AttackCost;
-
-		if (TargetTroop->GetHealth() < 0)
-		{
-			TargetTroop->SetDefeated(true);
-
-			size_t NumberOfDefeatedTroops = 0;
-			for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
-			{
-				if (itr->second->GetDefeated())
-					NumberOfDefeatedTroops++;
-			}
-			if (NumberOfDefeatedTroops >= AITroops.size())
-			{
-				// Codes to switch to end Battle screen or Win screen here
-				return;
-			}
-		}
-		SetPlayerTurn(false);
-	}
-	else
-	{
-		CharacterEntity* TargetTroop = PlayerTroops.find(target)->second;
-		TargetTroop->SetHealth(TargetTroop->GetHealth() - (Attacker->GetAttack() * TargetTroop->GetDamageMitigation()));
-
-		// One more line of code needed, the default attack cost put here
-		// TurnCost -= AttackCost;
-
-		if (TargetTroop->GetHealth() < 0)
-		{
-			size_t NumberOfDefeatedTroops = 0;
-			for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
-			{
-				if (itr->second->GetDefeated())
-					NumberOfDefeatedTroops++;
-			}
-			if (NumberOfDefeatedTroops >= PlayerTroops.size())
-			{
-				// Codes to switch to Lose screen here
-				return;
-			}
-		}
-		SetPlayerTurn(true);
-	}
-}
 void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
 {
 	if (PlayerTurn)
 	{
-		for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
+		CharacterEntity* targettroop = AITroops.find(target)->second;
+		targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
+		TurnCost -= AttackerSkill->GetActionCost();
+		if (targettroop <= 0)
 		{
-			if (itr->second = Attacker)
+			targettroop->SetDefeated(true);
+			size_t NumberofDefeatedTroops = 0;
+			for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
 			{
-				CharacterEntity* targettroop = AITroops.find(target)->second;
-				if (AttackerSkill->GetRequiredPosition(itr->first) == 1 && AttackerSkill->GetSelectableTarget(target) == 1)
+				// Find Out Position of defeated troop
+				// Do push back or front to set the troop that are alive to the front
+				if (itr->second->GetDefeated())
 				{
-					targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
-					if (targettroop <= 0)
-					{
-						targettroop->SetDefeated(true);
-						size_t NumberofDefeatedTroops = 0;
-						for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
-						{
-							if (itr->second->GetDefeated())
-							{
-								NumberofDefeatedTroops++;
-							}
-							if (NumberofDefeatedTroops >= AITroops.size())
-							{
-								//Go to win screen;
-								return;
-							}
-						}
-					}
-					SetPlayerTurn(false);
+					NumberofDefeatedTroops++;
 				}
-
+				if (NumberofDefeatedTroops >= AITroops.size())
+				{
+					//Go to win screen;
+					return;
+				}
 			}
+		SetPlayerTurn(false);
 		}
-		
 	}
 	else
 	{
 		CharacterEntity* targettroop = PlayerTroops.find(target)->second;
 		targettroop->SetHealth(targettroop->GetHealth() - (AttackerSkill->GetDamage() * targettroop->GetDamageMitigation()));
+		TurnCost -= AttackerSkill->GetActionCost();
 		if (targettroop <= 0)
 		{
 			targettroop->SetDefeated(true);
 			size_t NumberofDefeatedTroops = 0;
 			for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
 			{
+				// Find Out Position of defeated troop
+				// Do push back or front to set the troop that are alive to the front
 				if (itr->second->GetDefeated())
 				{
 					NumberofDefeatedTroops++;
@@ -201,6 +146,34 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 	}
 }
 
+bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
+{
+	if (PlayerTurn)
+	{
+		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
+		{
+			if ((*it).second == Attacker)
+			{
+				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first))
+					return true;
+			}
+		}
+		return false;
+	}
+	else
+	{
+		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
+		{
+			if ((*it).second == Attacker)
+			{
+				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first))
+					return true;
+			}
+		}
+		return false;
+	}
+}
+
 /*
 *
 *	Function: ApplyFriendlyEffect
@@ -209,10 +182,15 @@ void BattleSystem::DamageCalculation(CharacterEntity* Attacker, size_t target, S
 *	When to be called: When healing or buff to teammate is done
 *
 */
-void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate)
+void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, CharacterEntity* User, size_t TargettedTeammate, Skill* SkillUsed)
 {
 	// Logic to maybe Healing or applying friendly effect here
-
+	for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
+	{
+		CharacterEntity* character = itr->second;
+		character->SetBuffed(true);
+		character->SetBuffTimer(SkillUsed->GetStatusEffectTimer());
+	}
 }
 
 
@@ -225,10 +203,32 @@ void BattleSystem::ApplyFriendlyEffect(map<size_t, CharacterEntity*>& TeamMap, C
 *	When to be called: It should be called when any troop wants to set a status effect to opponent, if its not called within the BattleSystem, either player is hacking or we are bad at coding
 *
 */
-void BattleSystem::SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target)
+void BattleSystem::SetStatusEffect(map<size_t, CharacterEntity*>& TeamMap, size_t target, Skill* SkillUsed)
 {
 	// Set the status Effect of the Character Entity Here
 	//TeamMap.find(target)->second->SetStatusEffect( stun? / poison? / burn?);
+	for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
+	{
+		CharacterEntity* character = itr->second;
+		for (map<size_t, vector<string>>::iterator effect = SkillUsed->GetStringStatusEffect().begin();;)
+		{
+			if (effect->second.at(0) == "Stun")
+			{
+				TeamMap.find(target)->second->SetStunned(true);
+				TeamMap.find(target)->second->SetStunTimer(SkillUsed->GetStatusEffectTimer());
+			}
+			else if (effect->second.at(0) == "Bleed")
+			{
+				TeamMap.find(target)->second->SetBleeding(true);
+				TeamMap.find(target)->second->SetBleedTimer(SkillUsed->GetStatusEffectTimer());
+			}
+			else if (effect->second.at(0) == "Debuff")
+			{
+				TeamMap.find(target)->second->SetDebuffed(true);
+				TeamMap.find(target)->second->SetDebuffTimer(SkillUsed->GetStatusEffectTimer());
+			}
+		}
+	}
 }
 
 /*

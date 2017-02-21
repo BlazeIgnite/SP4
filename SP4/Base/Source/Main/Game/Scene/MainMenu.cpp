@@ -23,21 +23,27 @@ void MainMenu::Init()
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 
-	NewGame = new Button();
-	NewGame->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 40, 1), Vector3(5, 5, 5), "NewGame");
-	buttonList.push_back(NewGame);
+	button = new Button();
 
-	LoadGame = new Button();
-	LoadGame->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 30, 1), Vector3(5, 5, 5), "LoadGame");
-	buttonList.push_back(LoadGame);
+	Button* temp;
+	temp = new Button();
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 40, 1), Vector3(15, 5, 5), "NewGame");
+	buttonList.push_back(temp);
 
-	Setting = new Button();
-	Setting->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 20, 1), Vector3(5,5,5), "Setting");
-	buttonList.push_back(Setting);
+	temp = new Button();
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 30, 1), Vector3(15, 5, 5), "LoadGame");
+	buttonList.push_back(temp);
 
-	ExitGame = new Button();
-	ExitGame->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 10, 1), Vector3(5,5,5), "ExitGame");
-	buttonList.push_back(ExitGame);
+	temp = new Button();
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 20, 1), Vector3(15, 5, 5), "Setting");
+	buttonList.push_back(temp);
+
+	temp = new Button();
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 10, 1), Vector3(15, 5, 5), "ExitGame");
+	buttonList.push_back(temp);
+
+	OpenInventory = false;
+	isPressed = false;
 }
 
 void MainMenu::Update(float dt)
@@ -50,6 +56,24 @@ void MainMenu::Update(float dt)
 	else if (LMouse && Application::IsKeyPressed(VK_LBUTTON))
 	{
 		LMouse = false;
+	}
+	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
+	{
+		(*itr)->UpdateMainMenu(dt);;
+	}
+
+	if (Application::IsKeyPressed('H'))
+	{
+		if (!isPressed)
+		{
+			OpenInventory = true;
+			isPressed = true;
+		}
+		else if (isPressed)
+		{
+			OpenInventory = false;
+			isPressed = false;
+		}
 	}
 }
 
@@ -82,35 +106,81 @@ void MainMenu::Render()
 		if (obj->type == "NewGame")
 		{
 			Renderer->RenderMesh("NewGame", false);
+			modelStack->PopMatrix();
+
+			//Text on Box
+			modelStack->PushMatrix();
+			modelStack->Translate(obj->GetPosition().x - 4.7, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack->Scale(2, 2, 1);
+			Renderer->RenderText("text", "New Game", Color(1, 1, 1));
+			modelStack->PopMatrix();
 		}
 		if (obj->type == "LoadGame")
 		{
 			Renderer->RenderMesh("LoadGame", false);
+			modelStack->PopMatrix();
+
+			//Text on Box
+			modelStack->PushMatrix();
+			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack->Scale(2, 2, 1);
+			Renderer->RenderText("text", "Load Game", Color(1, 1, 1));
+			modelStack->PopMatrix();
 		}
 		if (obj->type == "Setting")
 		{
 			Renderer->RenderMesh("Setting", false);
+			modelStack->PopMatrix();
+
+			//Text on Box
+			modelStack->PushMatrix();
+			modelStack->Translate(obj->GetPosition().x - 4, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack->Scale(2, 2, 1);
+			Renderer->RenderText("text", "Setting", Color(1, 1, 1));
+			modelStack->PopMatrix();
 		}
 		if (obj->type == "ExitGame")
 		{
 			Renderer->RenderMesh("ExitGame", false);
+			modelStack->PopMatrix();
+
+			//Text on Box
+			modelStack->PushMatrix();
+			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack->Scale(2, 2, 1);
+			Renderer->RenderText("text", "Exit Game", Color(1, 1, 1));
+			modelStack->PopMatrix();
 		}
+	}
+
+	if (OpenInventory)
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 5.f);
+		modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
+		//RenderMesh(meshList[GEO_BACKGROUND], false);
+		//Renderer->SetHUD(true);
+		Renderer->RenderMesh("MainMenu", false);
+		//Renderer->SetHUD(false);
 		modelStack->PopMatrix();
 	}
 
+	//Title
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
 	modelStack->Scale(60, 25, 1);
 	Renderer->RenderMesh("ButtonBorder", false);
 	modelStack->PopMatrix();
 
-	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5 , ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
-	modelStack->Scale(5, 5, 1);
-	Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
-	modelStack->PopMatrix();
+	//modelStack->PushMatrix();
+	//modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5 , ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
+	//modelStack->Scale(5, 5, 1);
+	//Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
+	//modelStack->PopMatrix();
 	
-
+	//Background
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
@@ -124,6 +194,7 @@ void MainMenu::Render()
 void MainMenu::Exit()
 {
 	ObjectManager::Instance().Exit();
+
 	for (std::vector<Button*>::iterator it = buttonList.begin(); it != buttonList.end(); it++)
 	{
 		if ((*it) != nullptr)

@@ -11,7 +11,6 @@ float WarriorDefense[] = { 0.f, 3.0f, 3.8f, 4.6f, 5.4f, 6.2f, 7.0f, 7.8f, 8.6f, 
 
 Warrior::Warrior()
 {
-	SetName("Warrior");
 	NormalAttackmultiplier = 0.75f;
 	Name = "Warrior";
 }
@@ -41,16 +40,6 @@ void Warrior::Init(int Level)
 		SetDefense(WarriorDefense[20] * (1 + LevelOffset));
 		SetDamageMitigation();
 	}
-	Skill* skill = new Skill();
-	skill->SetName("Rush");
-	skill->SetActionCost(25);
-	skill->SetMaxTurnCooldown(2);
-	skill->SetRequiredPosition(0, true);
-	skill->SetRequiredPosition(1, true);
-	skill->SetRequiredPosition(2, true);
-	skill->SetSelectableTarget(0, true);
-	skill->SetSelectableTarget(1, true);
-	SkillList.push_back(skill);
 
 }
 void Warrior::Update(double dt)
@@ -60,6 +49,12 @@ void Warrior::Update(double dt)
 
 void Warrior::LevelUp()
 {
+	Level++;
+
+	SetHealth(WarriorHealth[Level]);
+	SetAttack(WarriorAttack[Level]);
+	SetDefense(WarriorDefense[Level]);
+
 	if (Level <= 10)
 	{
 		Skill* skill = new Skill();
@@ -161,6 +156,40 @@ void Warrior::LevelUp()
 			// Now the Warrior is allowed to use this skill
 			SkillList.push_back(skill);
 		}
+		else if (Level == 1)
+		{
+			// Basic Attack
+			skill->SetName("Basic Attack");
+
+			skill->SetActionCost(25);
+
+			for (size_t i = 0; i < 2; i++)
+			{
+				skill->SetRequiredPosition(i, true);
+				skill->SetSelectableTarget(i, true);
+			}
+
+			SkillList.push_back(skill);
+
+
+			skill = new Skill();
+			skill->SetName("Rush");
+
+			skill->SetActionCost(25);
+
+			skill->SetShiftPosition(1);
+
+			skill->SetMaxTurnCooldown(2);
+
+			for (int i = 0; i < 3; i++)
+			{
+				skill->SetRequiredPosition(i, true);
+			}
+			skill->SetSelectableTarget(0, true);
+			skill->SetSelectableTarget(1, true);
+			SkillList.push_back(skill);
+
+		}
 		else
 		{
 			delete skill;
@@ -178,5 +207,7 @@ void Warrior::LevelUp()
 			SkillItr->SetDamage((int)(GetAttack() * 0.3));
 		else if (SkillItr->GetName() == "Divine Execution")
 			SkillItr->SetDamage((int)(GetAttack() * 1.5));
+		else if (SkillItr->GetName() == "Basic Attack")
+			SkillItr->SetDamage((int)(GetAttack() * 0.75));
 	}
 }

@@ -11,6 +11,9 @@ private:
 	float maxHeight, maxWidth, minHeight, minWidth;
 	Vector3 position;
 	Vector3 scale;
+	bool isPressed;
+	bool isSelected;
+	bool isTarget;
 
 public:
 	Button();
@@ -21,13 +24,18 @@ public:
 	void Init(Vector3 Position, Vector3 Scale, std::string type);
 	void UpdateCrafting(float dt);
 	void UpdateBattleScene(float dt);
+	void UpdateMainMenu(float dt);
 	void Update(float dt);
 
 	std::string type;
 
 	bool isitHover();
-	bool isPressed;
-	bool isSelected;
+	bool GetisPressed();
+	bool GetisSelected();
+	bool GetisTarget();
+	void SetisPressed(bool);
+	void SetisSelected(bool);
+	void SetisTarget(bool);
 
 	
 };

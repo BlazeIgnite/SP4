@@ -5,6 +5,7 @@
 #include "../Scene/Scene_Assignment1.h"
 #include "../Systems/BattleSystem.h"
 #include "../../Base/Source/Main/Engine/System/InputManager.h"
+#include "../../Engine/System/SceneSystem.h"
 
 
 Button::Button()
@@ -33,11 +34,82 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 	minWidth = position.x - scale.x / 2;
 	isPressed = false;
 	isSelected = false;
+	isTarget = false;
 }
 
 void Button::Update(float dt)
 {
 
+}
+
+void Button::UpdateMainMenu(float dt)
+{
+	Application::GetCursorPos(&x, &y);
+	isitHover();
+
+	if (type == "NewGame" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				SceneSystem::Instance().SwitchScene("SceneBattle");
+				isPressed = true;
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+	if (type == "LoadGame" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				isPressed = true;
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}	
+	}
+	if (type == "Setting" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				isPressed = true;
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+	if (type == "ExitGame" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				isPressed = true;
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+
+	}
+	
 }
 
 void Button::UpdateBattleScene(float dt)
@@ -48,43 +120,14 @@ void Button::UpdateBattleScene(float dt)
 
 	//std::cout << isSelected << std::endl;
 
-	if (type == "Character 1" && isitHover())
-	{
-		if (Application::IsMousePressed(0))
-		{
-			if (!isPressed)
-			{
-				BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
-				std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
-				isSelected = true;
-				isPressed = true;
-			}
-		}
-	}
-	if (type == "Character 2" && isitHover())
-	{
-		if (Application::IsMousePressed(0))
-		{
-			//isSelected = false;
-			BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(1));
-			//isSelected = true;
-
-		}
-	}
-	if (type == "Character 3" && isitHover())
-	{
-		if (Application::IsMousePressed(0))
-		{
-			BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(2));
-		}
-	}
+	
 	if (type == "Red Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
 			if (!isPressed)
 			{
-				if ((Player::Instance().GetConsumableList().find("Red Potion")->second > 1) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth() ))
+				if ((Player::Instance().GetConsumableList().find("Red Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth() ))
 				{
 					Player::Instance().AddConsumableItem("Red Potion", -1);
 					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
@@ -95,6 +138,116 @@ void Button::UpdateBattleScene(float dt)
 				else
 				{
 					std::cout << "No More Red Potion" << std::endl;
+					isPressed = true;
+				}
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+	if (type == "Attack Potion" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				if ((Player::Instance().GetConsumableList().find("Attack Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
+				{
+					Player::Instance().AddConsumableItem("Attack Potion", -1);
+					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
+					BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
+					std::cout << "Attack Potion Used" << std::endl;
+					isPressed = true;
+				}
+				else
+				{
+					std::cout << "No More Attack Potion" << std::endl;
+					isPressed = true;
+				}
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+
+	if (type == "Defence Potion" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				if ((Player::Instance().GetConsumableList().find("Defence Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
+				{
+					Player::Instance().AddConsumableItem("Defence Potion", -1);
+					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
+					BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
+					std::cout << "Defence Potion Used" << std::endl;
+					isPressed = true;
+				}
+				else
+				{
+					std::cout << "No More Defence Potion" << std::endl;
+					isPressed = true;
+				}
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+
+	if (type == "Bandage" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				if ((Player::Instance().GetConsumableList().find("Bandage")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
+				{
+					Player::Instance().AddConsumableItem("Bandage", -1);
+					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
+					BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
+					std::cout << "Bandage Used" << std::endl;
+					isPressed = true;
+				}
+				else
+				{
+					std::cout << "No More Bandage" << std::endl;
+					isPressed = true;
+				}
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+	if (type == "Defence Potion" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+				if ((Player::Instance().GetConsumableList().find("Defence Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
+				{
+					Player::Instance().AddConsumableItem("Defence Potion", -1);
+					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
+					BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
+					std::cout << "Defence Potion Used" << std::endl;
+					isPressed = true;
+				}
+				else
+				{
+					std::cout << "No More Defence Potion" << std::endl;
 					isPressed = true;
 				}
 			}
@@ -267,6 +420,21 @@ bool Button::isitHover()
 	
 }
 
+bool Button::GetisPressed()
+{
+	return isPressed;
+}
+
+bool Button::GetisSelected()
+{
+	return isSelected;
+}
+
+bool Button::GetisTarget()
+{
+	return isTarget;
+}
+
 Vector3 Button::GetPosition()
 {
 	return position;
@@ -275,4 +443,19 @@ Vector3 Button::GetPosition()
 Vector3 Button::GetScale()
 {
 	return scale;
+}
+
+void Button::SetisPressed(bool pressed)
+{
+	this->isPressed = pressed;
+}
+
+void Button::SetisSelected(bool select)
+{
+	this->isSelected = select;
+}
+
+void Button::SetisTarget(bool target)
+{
+	this->isTarget = target;
 }

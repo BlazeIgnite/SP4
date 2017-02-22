@@ -94,6 +94,19 @@ size_t BattleSystem::GetNumberOfAITroopAlive()
 	return NumberofAliveTroops;
 }
 
+size_t BattleSystem::GetNumberOfPlayerTroopAlive()
+{
+	size_t NumberofAliveTroops = 0;
+	for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
+	{
+		// Find Out Position of defeated troop
+		// Do push back or front to set the troop that are alive to the front
+		if (!itr->second->GetDefeated())
+			NumberofAliveTroops++;
+	}
+	return NumberofAliveTroops;
+}
+
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
 	SetTurnCost(100);

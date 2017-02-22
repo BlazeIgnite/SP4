@@ -20,6 +20,51 @@ void AIStatusEffect::Init()
 			SetPlayerTroopStatusE(BattleSystem::Instance().GetPlayerTroops().find(i)->first, j, false);
 		}
 	}
+
+	//for (auto it = BattleSystem::Instance().GetAITroops().begin(); it != BattleSystem::Instance().GetAITroops().end();)
+	//{
+	//	for (auto it2 = it->second->GetSkillList().begin(); it2 != it->second->GetSkillList().end();)
+	//	{
+	//		for (auto it3 = (*it2)->GetStatusEffectMap().begin(); it3 != (*it2)->GetStatusEffectMap().end();)
+	//		{
+	//			if ((*it2)->GetStatusEffectMap().size() >= 0)
+	//			{
+	//				for (auto it4 = it3->second.begin(); it4 != it3->second.end();)
+	//				{
+	//					if ((*it4) == "Stun" || (*it4) == "Bleed")
+	//					{
+	//						m_SkillAvailable.push_back((*it).second->GetSkillInVector((*it2)GetName()));
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
+
+
+	for (map<size_t, CharacterEntity*>::iterator it = BattleSystem::Instance().GetAITroops().begin(); it != BattleSystem::Instance().GetAITroops().end(); it++)
+	{
+		vector<Skill*>::iterator it2 = it->second->GetSkillList().begin();
+		vector<Skill*>::iterator it2End = it->second->GetSkillList().end();
+		for (; it2 != it2End; it2++)
+		{
+			if ((*it2)->GetStatusEffectMap().size() > 0)
+			{
+				map<size_t, vector<string>>::iterator it3 = (*it2)->GetStatusEffectMap().begin();
+				map<size_t, vector<string>>::iterator it3End = (*it2)->GetStatusEffectMap().end();
+				for (; it3 != it3End; it3++)
+				{
+					vector<string>::iterator it4 = it3->second.begin();
+					vector<string>::iterator it4End = it3->second.end();
+					for (; it4 != it4End; it4++)
+					{
+						if ((*it4) == "Stun" || (*it4) == "Bleed")
+							m_SkillAvailable.push_back((*it).second->GetSkillInVector((*it2)->GetName()));
+					}
+				}
+			}
+		}
+	}
 } 
 
 void AIStatusEffect::Update(double dt)
@@ -37,11 +82,31 @@ void AIStatusEffect::Update(double dt)
 
 void AIStatusEffect::Planning()
 {
-	
+
+	if (BattleSystem::Instance().GetNumberOfAITroopAlive() == BattleSystem::Instance().GetAITroops().size())
+	{
+
+	}
+	else
+	{
+		BattlePlanHolder->SetBattlePlan("All Basic Attack");
+	}
+
+	if (!BattlePlanHolder->GetBattlePlan(""))
+		stateHolder->SetState("Execute");
 }
 
 void AIStatusEffect::Execute()
-{}
+{
+	if (BattlePlanHolder->GetBattlePlan("All Basic Attack"))
+	{
+		/*for ()
+		{
+		}*/
+	}
+		//do this attack type;
+
+}
 
 void AIStatusEffect::Exit()
 {

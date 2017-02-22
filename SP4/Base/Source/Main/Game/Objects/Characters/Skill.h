@@ -45,7 +45,7 @@ public:
 
 
 	// Getters
-	map<size_t, vector<string>> GetStatusEffectMap();
+	map<size_t, vector<string>>& GetStatusEffectMap();
 	string GetName();
 	size_t GetStatusEffectTimer(string StatusEffectName);
 	size_t GetDamage();

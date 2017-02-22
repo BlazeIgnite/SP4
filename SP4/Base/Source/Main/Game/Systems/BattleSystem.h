@@ -44,6 +44,7 @@ public:
 	 // Getters
 	size_t GetSelectedTroopPosition();
 	size_t GetNumberOfAITroopAlive();
+	size_t GetNumberOfPlayerTroopAlive();
 	inline map<size_t, CharacterEntity*>& GetPlayerTroops() { return PlayerTroops; };
 	inline map<size_t, CharacterEntity*>& GetAITroops() { return AITroops; };
 	inline CharacterEntity* GetPlayerTroopAttacking(size_t position) { return PlayerTroops.find(position)->second; };

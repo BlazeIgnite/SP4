@@ -13,6 +13,7 @@ CharacterEntity::CharacterEntity()
 , Attack(0)
 , Defense(0)
 , DamageMitigation(0)
+, Defeated(false)
 {
 	for (size_t i = 0; i < 4; i++)
 	{

@@ -11,6 +11,9 @@ class AIStatusEffect :
 {
 	map<size_t, map<size_t, bool>> m_PlayerTroopStatusE;
 
+	vector<Skill*> m_SkillAvailable;
+	vector<Skill*> m_SkillToUse;
+
 public:
 	AIStatusEffect();
 	~AIStatusEffect();

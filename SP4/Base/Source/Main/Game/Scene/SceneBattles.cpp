@@ -36,11 +36,11 @@ void SceneBattles::Init()
 	priest->Init(2);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(1);
+	warrior2->Init(10);
 	Mage* mage2 = new Mage();
-	mage2->Init(1);
+	mage2->Init(10);
 	Priest* priest2 = new Priest();
-	priest2->Init(1);
+	priest2->Init(10);
 
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);

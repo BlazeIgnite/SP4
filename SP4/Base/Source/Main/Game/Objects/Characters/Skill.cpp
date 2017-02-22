@@ -78,7 +78,7 @@ void Skill::SetSelectableTarget(size_t position, bool newSelectableTarget)
 }
 
 // Getters
-map<size_t, vector<string>> Skill::GetStatusEffectMap()
+map<size_t, vector<string>>& Skill::GetStatusEffectMap()
 {
 	return StatusEffect;
 }

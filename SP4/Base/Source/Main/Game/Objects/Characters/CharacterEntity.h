@@ -78,6 +78,12 @@ public:
 
 	virtual void LevelUp() = 0;
 
+	//Possible Functions for debuffs
+	void BleedEffect();
+	void WhileinDebuff();
+	void WhileinBuff();
+	void ResetStats();
+
 	//This sets the Damage Mitigation for every level
 	void SetDamageMitigation();
 	int GetDamageMitigation(){ return DamageMitigation; }

@@ -61,3 +61,29 @@ void CharacterEntity::Update(double dt)
 {
 
 }
+
+void CharacterEntity::BleedEffect()
+{
+	int tempHealth = this->GetHealth();
+	tempHealth = tempHealth - (Math::RandIntMinMax(5, 8));
+	if (tempHealth <= 1)
+	{
+		tempHealth = 1;
+	}
+	this->SetHealth(tempHealth);
+}
+
+void CharacterEntity::WhileinBuff()
+{
+
+}
+
+void CharacterEntity::WhileinDebuff()
+{
+
+}
+
+void CharacterEntity::ResetStats()
+{
+
+}

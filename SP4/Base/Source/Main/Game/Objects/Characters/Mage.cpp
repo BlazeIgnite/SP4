@@ -40,6 +40,7 @@ void Mage::LevelUp()
 	Level++;
 
 	SetHealth(MageHealth[Level]);
+	SetMaxHealth(MageHealth[Level]);
 	SetAttack(MageAttack[Level]);
 	SetDefense(MageDefense[Level]);
 	SetDamageMitigation();

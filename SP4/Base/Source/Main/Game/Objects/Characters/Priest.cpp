@@ -49,6 +49,7 @@ void Priest::LevelUp()
 {
 	Level++;
 	SetHealth(PriestHealth[Level]);
+	SetMaxHealth(PriestHealth[Level]);
 	SetAttack(PriestAttack[Level]);
 	SetDefense(PriestDefense[Level]);
 	SetDamageMitigation();

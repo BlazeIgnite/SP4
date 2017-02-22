@@ -13,7 +13,6 @@ public:
 
 	void Init();
 	//void Update(double dt);
-	void CraftRedPotion(std::string name, int Amount);
 };
 
 #endif

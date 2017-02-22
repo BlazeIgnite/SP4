@@ -43,11 +43,6 @@ void MainMenu::Init()
 	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 10, 1), Vector3(15, 5, 5), "ExitGame");
 	buttonList.push_back(temp);
 
-	temp = new Button();
-	temp->Init(Vector3(150, 40, 1), Vector3(40, 40, 5), "Inventory");
-	buttonList.push_back(temp);
-
-	OpenInventory = false;
 	isPressed = false;
 }
 
@@ -65,28 +60,6 @@ void MainMenu::Update(float dt)
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
 		(*itr)->UpdateMainMenu(dt);
-		if ((*itr)->type == "Inventory" && (*itr)->isitHover())
-		{
-			if (Application::IsMousePressed(0) && !OpenInventory && !(*itr)->GetisPressed())
-			{
-					OpenInventory = true;
-					std::cout << "Open" << std::endl;
-					(*itr)->SetisPressed(true);
-			}
-			else if (Application::IsMousePressed(0) && OpenInventory && !(*itr)->GetisPressed())
-			{
-				OpenInventory = false;
-				std::cout << "Close" << std::endl;
-				(*itr)->SetisPressed(true);
-			}
-			else
-			{
-				if ((*itr)->GetisPressed())
-				{
-					(*itr)->SetisPressed(false);
-				}
-			}
-		}
 	}
 
 }
@@ -110,13 +83,36 @@ void MainMenu::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack->LoadIdentity();
 
+	//Background
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
+	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
+	//Renderer->SetHUD(true);
+	Renderer->RenderMesh("MainMenu", false);
+	//Renderer->SetHUD(false);
+	modelStack->PopMatrix();
+	
+	//Title
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.7f, -4.f);
+	modelStack->Scale(60, 25, 1);
+	Renderer->RenderMesh("ButtonBorder", false);
+	modelStack->PopMatrix();
+	
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5, ObjectManager::Instance().WorldHeight * 0.7f, -4.f);
+	modelStack->Scale(5, 5, 1);
+	Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
+	modelStack->PopMatrix();
+
 	for (std::vector<Button*>::iterator it = buttonList.begin(); it != buttonList.end(); it++)
 	{
 		Button *obj = (Button *)*it;
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
 		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
-		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);		
+
 		if (obj->type == "NewGame")
 		{
 			Renderer->RenderMesh("NewGame", false);
@@ -124,7 +120,7 @@ void MainMenu::Render()
 
 			//Text on Box
 			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 4.7, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack->Translate(obj->GetPosition().x - 4.7, obj->GetPosition().y, 0.5);
 			modelStack->Scale(2, 2, 1);
 			Renderer->RenderText("text", "New Game", Color(1, 1, 1));
 			modelStack->PopMatrix();
@@ -165,53 +161,7 @@ void MainMenu::Render()
 			Renderer->RenderText("text", "Exit Game", Color(1, 1, 1));
 			modelStack->PopMatrix();
 		}
-		if (obj->type == "Inventory")
-		{
-			Renderer->RenderMesh("Inventory", false);
-			modelStack->PopMatrix();
-
-			//Text on Box
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack->Scale(2, 2, 1);
-			Renderer->RenderText("text", "Inventory", Color(1, 1, 1));
-			modelStack->PopMatrix();
-		}
 	}
-
-	if (OpenInventory)
-	{
-		modelStack->PushMatrix();
-		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 5.f);
-		modelStack->Scale(25, 25, 1);
-		////Renderer->SetHUD(true);
-		Renderer->RenderMesh("Inventory", false);
-		////Renderer->SetHUD(false);
-		modelStack->PopMatrix();
-	}
-
-	//Title
-	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
-	modelStack->Scale(60, 25, 1);
-	Renderer->RenderMesh("ButtonBorder", false);
-	modelStack->PopMatrix();
-
-	//modelStack->PushMatrix();
-	//modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5 , ObjectManager::Instance().WorldHeight * 0.7f, -5.f);
-	//modelStack->Scale(5, 5, 1);
-	//Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
-	//modelStack->PopMatrix();
-	
-	//Background
-	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
-	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
-	//RenderMesh(meshList[GEO_BACKGROUND], false);
-	//Renderer->SetHUD(true);
-	Renderer->RenderMesh("MainMenu", false);
-	//Renderer->SetHUD(false);
-	modelStack->PopMatrix();
 }
 
 void MainMenu::Exit()
@@ -226,24 +176,4 @@ void MainMenu::Exit()
 			(*it) = nullptr;
 		}
 	}
-	//if (NewGame != nullptr)
-	//{
-	//	delete NewGame;
-	//	NewGame = nullptr;
-	//}
-	//if (LoadGame)
-	//{
-	//	delete LoadGame;
-	//	LoadGame = nullptr;
-	//}
-	//if (Setting)
-	//{
-	//	delete Setting;
-	//	Setting = nullptr;
-	//}
-	//if (ExitGame)
-	//{
-	//	delete ExitGame;
-	//	ExitGame = nullptr;
-	//}
 }

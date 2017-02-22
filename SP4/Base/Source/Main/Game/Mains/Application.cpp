@@ -16,6 +16,7 @@
 #include "../Scene/Scene_Assignment1.h"
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
+#include "../Scene/Town.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -176,12 +177,14 @@ void Application::Init()
 	MainMenu* temp3 = new MainMenu();
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
+
+	Town* temp4 = new Town();
+	temp4->Init();
+	SceneSystem::Instance().AddScene(*temp4);
 	
 	SceneBattles* temp = new SceneBattles();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
-
-	
 }
 
 void Application::Run()

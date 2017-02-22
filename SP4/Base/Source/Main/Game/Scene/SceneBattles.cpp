@@ -130,48 +130,48 @@ void SceneBattles::Render()
 		if (obj->type == "Character 1")
 		{
 			if (!obj->GetisSelected())
-				Renderer->RenderMesh("CraftRedPotion", false);
+				Renderer->RenderMesh("RedPotion", false);
 			else
-				Renderer->RenderMesh("CraftBluePotion", false);
+				Renderer->RenderMesh("BluePotion", false);
 		}
 		if (obj->type == "Character 2")
 		{
 			if (!obj->GetisSelected())
-				Renderer->RenderMesh("CraftRedPotion", false);
+				Renderer->RenderMesh("RedPotion", false);
 			else
-				Renderer->RenderMesh("CraftBluePotion", false);
+				Renderer->RenderMesh("BluePotion", false);
 		}
 		if (obj->type == "Character 3")
 		{
 			if (!obj->GetisSelected())
-				Renderer->RenderMesh("CraftRedPotion", false);
+				Renderer->RenderMesh("RedPotion", false);
 			else
-				Renderer->RenderMesh("CraftBluePotion", false);
+				Renderer->RenderMesh("BluePotion", false);
 		}
 		if (obj->type == "Red Potion")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		//if (obj->type == "Blue Potion")
-		//Renderer->RenderMesh("CraftBluePotion", false);
+		//Renderer->RenderMesh("BluePotion", false);
 		if (obj->type == "Attack Potion")
-			Renderer->RenderMesh("CraftAttackPotion", false);
+			Renderer->RenderMesh("AttackPotion", false);
 		if (obj->type == "Defence Potion")
-			Renderer->RenderMesh("CraftDefencePotion", false);
+			Renderer->RenderMesh("DefencePotion", false);
 		if (obj->type == "Bandage")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Auto Attack")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 1")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 2")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 3")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "AI 1")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "AI 2")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "AI 3")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		modelStack->PopMatrix();
 	}
 

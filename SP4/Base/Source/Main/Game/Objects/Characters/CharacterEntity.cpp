@@ -11,7 +11,7 @@ CharacterEntity::CharacterEntity()
 , Health(0)
 , MaxHealth(0)
 , Attack(0)
-, Defense(0)
+, Defence(0)
 , StunTimer(0)
 , BleedTimer(0)
 , DebuffTimer(0)
@@ -49,7 +49,7 @@ Skill* CharacterEntity::GetSkillInVector(string SkillName)
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->DamageMitigation = (0.06 * Defense) / (1 + 0.06 * Defense);
+	this->DamageMitigation = (0.06 * Defence) / (1 + 0.06 * Defence);
 }
 
 void CharacterEntity::Init(int Level)

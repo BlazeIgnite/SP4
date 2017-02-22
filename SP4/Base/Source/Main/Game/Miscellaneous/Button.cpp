@@ -35,11 +35,7 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 	isPressed = false;
 	isSelected = false;
 	isTarget = false;
-}
-
-void Button::Update(float dt)
-{
-
+	isOpened = false;
 }
 
 void Button::UpdateMainMenu(float dt)
@@ -49,11 +45,11 @@ void Button::UpdateMainMenu(float dt)
 
 	if (type == "NewGame" && isitHover())
 	{
-		if (Application::IsMousePressed(0))
+		if (Application::IsMousePressed(0))                                                                                   
 		{
 			if (!isPressed)
 			{
-				SceneSystem::Instance().SwitchScene("BattleScene");
+				SceneSystem::Instance().SwitchScene("Town_Scene");
 				isPressed = true;
 			}
 		}
@@ -296,6 +292,31 @@ void Button::UpdateCrafting(float dt)
 	isitHover();
 
 	//Put into Crafting Page
+	//if (!isOpened)
+	//{
+	//	if (type == "Close Button" && isitHover())
+	//	{
+	//		if (Application::IsMousePressed(0))
+	//		{
+	//			if (!GetisPressed())
+	//			{
+	//				isOpened = true;
+	//				std::cout << "Closed" << std::endl;
+	//				SetisPressed(true);
+	//			}
+	//		}
+	//		else
+	//		{
+	//			if (GetisPressed())
+	//			{
+	//				//isOpened = false;
+	//				SetisPressed(false);
+	//			}
+	//		}
+	//	}
+	//}
+	
+
 	if (type == "Red Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
@@ -323,7 +344,7 @@ void Button::UpdateCrafting(float dt)
 		}
 	}
 
-	if (type == "Blue Potion" && isitHover())
+	/*if (type == "Blue Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
@@ -348,7 +369,7 @@ void Button::UpdateCrafting(float dt)
 		{
 			isPressed = false;
 		}
-	}
+	}*/
 
 	if (type == "Attack Potion" && isitHover())
 	{
@@ -378,7 +399,7 @@ void Button::UpdateCrafting(float dt)
 		}
 	}
 
-	if (type == "Defense Potion" && isitHover())
+	if (type == "Defence Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
@@ -389,8 +410,8 @@ void Button::UpdateCrafting(float dt)
 					Player::Instance().AddMaterialItem("White Herb", -1);
 					Player::Instance().AddMaterialItem("Blue Herb", -3);
 					Player::Instance().AddMaterialItem("Empty Bottle", -1);
-					Player::Instance().AddConsumableItem("Defense Potion", 1);
-					std::cout << "Defense Potion Crafted" << std::endl;
+					Player::Instance().AddConsumableItem("Defence Potion", 1);
+					std::cout << "Defence Potion Crafted" << std::endl;
 					isPressed = true;
 				}
 				else
@@ -489,3 +510,4 @@ void Button::SetisTarget(bool target)
 {
 	this->isTarget = target;
 }
+

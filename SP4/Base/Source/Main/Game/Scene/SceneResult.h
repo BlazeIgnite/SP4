@@ -4,8 +4,6 @@
 #include "../../Engine/Objects/SceneEntity.h"
 #include "../Objects/Miscellaneous/BattleButton.h"
 
-
-
 class SceneResult :public SceneEntity
 {
 public:

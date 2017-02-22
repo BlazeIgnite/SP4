@@ -279,25 +279,15 @@ void Scene_Assignment1::RenderCraftingButtons()
 		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 		if (obj->type == "Red Potion")
-		{
-			Renderer->RenderMesh("CraftRedPotion", false);
-		}
+			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "Blue Potion")
-		{
-			Renderer->RenderMesh("CraftBluePotion", false);
-		}
+			Renderer->RenderMesh("BluePotion", false);
 		if (obj->type == "Attack Potion")
-		{
-			Renderer->RenderMesh("CraftAttackPotion", false);
-		}
-		if (obj->type == "Defense Potion")
-		{
-			Renderer->RenderMesh("CraftDefencePotion", false);
-		}
+			Renderer->RenderMesh("AttackPotion", false);
+		if (obj->type == "Defence Potion")
+			Renderer->RenderMesh("DefencePotion", false);
 		if (obj->type == "Bandage")
-		{
-			Renderer->RenderMesh("CraftBandagePotion", false);
-		}
+			Renderer->RenderMesh("Bandage", false);
 		modelStack->PopMatrix();
 
 		//Description
@@ -338,7 +328,7 @@ void Scene_Assignment1::RenderCraftingButtons()
 				Renderer->RenderMesh("DescripAttackPotion", false);
 				modelStack->PopMatrix();
 			}
-			if (obj->isitHover() && obj->type == "Defense Potion" && obj2->type == "Defense Potion")
+			if (obj->isitHover() && obj->type == "Defence Potion" && obj2->type == "Defence Potion")
 			{
 				modelStack->PushMatrix();
 				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
@@ -349,7 +339,7 @@ void Scene_Assignment1::RenderCraftingButtons()
 			{
 				modelStack->PushMatrix();
 				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
-				Renderer->RenderMesh("DescripBandagePotion", false);
+				Renderer->RenderMesh("DescripBandage", false);
 				modelStack->PopMatrix();
 			}
 			modelStack->PopMatrix();
@@ -444,9 +434,6 @@ void Scene_Assignment1::HandleUserInput()
 	{
 		LMouse = false;
 	}
-	//if (Application::IsKeyPressed(VK_RBUTTON))
-	//{
-	//}
 }
 
 void Scene_Assignment1::Exit()

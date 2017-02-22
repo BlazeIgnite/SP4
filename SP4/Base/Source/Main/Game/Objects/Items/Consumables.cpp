@@ -36,8 +36,8 @@ float Consumables::UseAtkBuffPot(int Attack)
 	return Attack;
 }
 
-float Consumables::UseDefBuffPot(int Defense)
+float Consumables::UseDefBuffPot(int Defence)
 {
-	Defense *= 1.25f;
-	return Defense;
+	Defence *= 1.25f;
+	return Defence;
 }

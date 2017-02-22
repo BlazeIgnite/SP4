@@ -1,5 +1,4 @@
-#ifndef MAINMENU_H
-#define MAINMENU_H
+#pragma once
 
 #include "../Objects/Items/ItemEntity.h"
 #include "../Miscellaneous/Button.h"
@@ -11,27 +10,35 @@
 #include "SceneBase.h"
 #include "../../Engine/Objects/BaseObject.h"
 
-class MainMenu : public SceneEntity
+class Town : public SceneEntity
 {
 private:
 	Button* button;
-	Camera camera;
-
-	bool OpenInventory;
-	bool isPressed;
-
-	double x, y;
 	InventoryButtons* inventory;
-public:
-	MainMenu();
-	~MainMenu();
+	double x, y;
+	bool OpenInventory;
+	bool OpenConsumableTab;
+	bool OpenMaterialTab;
+	bool OpenCraftingTab;
+	bool isSelected;
+	bool OpenSetting;
+
+	bool OpenMission;
+	Camera camera;
+public: 
+	Town();
+	~Town();
 
 	void Init();
 	void Update(float dt);
+	void UpdateInventory(float dt);
 	void Render();
+	void RenderConsumableList();
+	void RenderMaterialList();
+	void RenderInventoryButtons();
+	void RenderCraftingButtons();
 	void Exit();
 
 	std::vector<Button*> buttonList;
 };
 
-#endif

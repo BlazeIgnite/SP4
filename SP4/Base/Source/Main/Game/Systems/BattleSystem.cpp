@@ -136,8 +136,11 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				if (it->second->GetBleedTimer() > 0)
 				{
 					it->second->SetBleedTimer(it->second->GetBleedTimer() - 1);
+					it->second->BleedEffect();
 					if (it->second->GetBleedTimer() == 0)
+					{
 						it->second->SetBleeding(false);
+					}
 				}
 			}
 			if (it->second->GetBuffed())
@@ -177,7 +180,9 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				{
 					it->second->SetStunTimer(it->second->GetStunTimer() - 1);
 					if (it->second->GetStunTimer() == 0)
+					{
 						it->second->SetStunned(false);
+					}
 				}
 			}
 			if (it->second->GetBleeding())
@@ -185,8 +190,11 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				if (it->second->GetBleedTimer() > 0)
 				{
 					it->second->SetBleedTimer(it->second->GetBleedTimer() - 1);
+					it->second->BleedEffect();
 					if (it->second->GetBleedTimer() == 0)
+					{
 						it->second->SetBleeding(false);
+					}
 				}
 			}
 			if (it->second->GetBuffed())
@@ -195,7 +203,10 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				{
 					it->second->SetBuffTimer(it->second->GetBuffTimer() - 1);
 					if (it->second->GetBuffTimer() == 0)
+					{
 						it->second->SetBuffed(false);
+						it->second->ResetStats();
+					}
 				}
 			}
 			if (it->second->GetDebuffed())
@@ -204,7 +215,10 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				{
 					it->second->SetDebuffTimer(it->second->GetDebuffed() - 1);
 					if (it->second->GetDebuffed() == 0)
+					{
 						it->second->SetDebuffed(false);
+						it->second->ResetStats();
+					}
 				}
 			}
 		}
@@ -426,48 +440,7 @@ void BattleSystem::SetStatusEffect(size_t target, Skill* SkillUsed)
 {
 	// Set the status Effect of the Character Entity Here
 	//TeamMap.find(target)->second->SetStatusEffect( stun? / poison? / burn?);
-	/*for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
-	{
-		CharacterEntity* character = itr->second;
-		for (map<size_t, vector<string>>::iterator effect = SkillUsed->GetStringStatusEffect().begin();;)
-		{
-			if (effect->second.at(0) == "Stun")
-			{
-				TeamMap.find(target)->second->SetStunned(true);
-				TeamMap.find(target)->second->SetStunTimer(SkillUsed->GetStatusEffectTimer());
-			}
-			else if (effect->second.at(0) == "Bleed")
-			{
-				TeamMap.find(target)->second->SetBleeding(true);
-				TeamMap.find(target)->second->SetBleedTimer(SkillUsed->GetStatusEffectTimer());
-			}
-			else if (effect->second.at(0) == "Debuff")
-			{
-				TeamMap.find(target)->second->SetDebuffed(true);
-				TeamMap.find(target)->second->SetDebuffTimer(SkillUsed->GetStatusEffectTimer());
-			}
-		}
-	}*/
-
-	/*for (map<size_t, vector<string>>::iterator effect = SkillUsed->GetStatusEffectMap().begin();;)
-	{
-		if (effect->second.at(0) == "Stun")
-		{
-			TeamMap.find(target)->second->SetStunned(true);
-			TeamMap.find(target)->second->SetStunTimer(SkillUsed->GetStatusEffectTimer());
-		}
-		else if (effect->second.at(0) == "Bleed")
-		{
-			TeamMap.find(target)->second->SetBleeding(true);
-			TeamMap.find(target)->second->SetBleedTimer(SkillUsed->GetStatusEffectTimer());
-		}
-		else if (effect->second.at(0) == "Debuff")
-		{
-			TeamMap.find(target)->second->SetDebuffed(true);
-			TeamMap.find(target)->second->SetDebuffTimer(SkillUsed->GetStatusEffectTimer());
-		}
-	}*/
-
+	
 	if (PlayerTurn)
 	{
 		if (SkillUsed->StatusEffectExistence("Debuff"))

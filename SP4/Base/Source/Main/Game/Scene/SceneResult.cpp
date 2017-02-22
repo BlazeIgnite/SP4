@@ -55,7 +55,7 @@ void SceneResult::Render()
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
 	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("CraftRedPotion", false);
+	Renderer->RenderMesh("RedPotion", false);
 	modelStack->PopMatrix();
 }
 

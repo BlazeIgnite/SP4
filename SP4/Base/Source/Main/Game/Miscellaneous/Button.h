@@ -14,6 +14,7 @@ private:
 	bool isPressed;
 	bool isSelected;
 	bool isTarget;
+	bool isOpened;
 
 public:
 	Button();
@@ -36,6 +37,4 @@ public:
 	void SetisPressed(bool);
 	void SetisSelected(bool);
 	void SetisTarget(bool);
-
-	
 };

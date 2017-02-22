@@ -11,7 +11,11 @@ CharacterEntity::CharacterEntity()
 , Health(0)
 , MaxHealth(0)
 , Attack(0)
-, Defense(0)
+, Defence(0)
+, StunTimer(0)
+, BleedTimer(0)
+, DebuffTimer(0)
+, BuffTimer(0)
 , DamageMitigation(0)
 , Defeated(false)
 {
@@ -46,7 +50,7 @@ Skill* CharacterEntity::GetSkillInVector(string SkillName)
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->DamageMitigation = (0.06 * Defense) / (1 + 0.06 * Defense);
+	this->DamageMitigation = (0.06 * Defence) / (1 + 0.06 * Defence);
 }
 
 void CharacterEntity::Init(int Level)
@@ -55,6 +59,32 @@ void CharacterEntity::Init(int Level)
 }
 
 void CharacterEntity::Update(double dt)
+{
+
+}
+
+void CharacterEntity::BleedEffect()
+{
+	int tempHealth = this->GetHealth();
+	tempHealth = tempHealth - (Math::RandIntMinMax(5, 8));
+	if (tempHealth <= 1)
+	{
+		tempHealth = 1;
+	}
+	this->SetHealth(tempHealth);
+}
+
+void CharacterEntity::WhileinBuff()
+{
+
+}
+
+void CharacterEntity::WhileinDebuff()
+{
+
+}
+
+void CharacterEntity::ResetStats()
 {
 
 }

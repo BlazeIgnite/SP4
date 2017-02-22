@@ -29,7 +29,7 @@ void SceneBattles::Init()
 	button->Init();
 
 	Warrior* warrior = new Warrior();
-	warrior->Init(2);
+	warrior->Init(20);
 	Mage* mage = new Mage();
 	mage->Init(2);
 	Priest* priest = new Priest();
@@ -96,7 +96,7 @@ void SceneBattles::Update(float dt)
 	HandleUserInput();
 	button->Update(dt);
 	AI->Update(dt);
-	std::cout << BattleSystem::Instance().GetPlayerTroops().at(0)->GetStunTimer() << std::endl;
+	std::cout << BattleSystem::Instance().GetPlayerTroops().at(1)->GetBleedTimer() << std::endl;
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -137,48 +137,48 @@ void SceneBattles::Render()
 		if (obj->type == "Character 1")
 		{
 			if (!obj->GetisSelected())
-				Renderer->RenderMesh("CraftRedPotion", false);
+				Renderer->RenderMesh("RedPotion", false);
 			else
-				Renderer->RenderMesh("CraftBluePotion", false);
+				Renderer->RenderMesh("BluePotion", false);
 		}
 		if (obj->type == "Character 2")
 		{
 			if (!obj->GetisSelected())
-				Renderer->RenderMesh("CraftRedPotion", false);
+				Renderer->RenderMesh("RedPotion", false);
 			else
-				Renderer->RenderMesh("CraftBluePotion", false);
+				Renderer->RenderMesh("BluePotion", false);
 		}
 		if (obj->type == "Character 3")
 		{
 			if (!obj->GetisSelected())
-				Renderer->RenderMesh("CraftRedPotion", false);
+				Renderer->RenderMesh("RedPotion", false);
 			else
-				Renderer->RenderMesh("CraftBluePotion", false);
+				Renderer->RenderMesh("BluePotion", false);
 		}
 		if (obj->type == "Red Potion")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		//if (obj->type == "Blue Potion")
-		//Renderer->RenderMesh("CraftBluePotion", false);
+		//Renderer->RenderMesh("BluePotion", false);
 		if (obj->type == "Attack Potion")
-			Renderer->RenderMesh("CraftAttackPotion", false);
+			Renderer->RenderMesh("AttackPotion", false);
 		if (obj->type == "Defence Potion")
-			Renderer->RenderMesh("CraftDefencePotion", false);
+			Renderer->RenderMesh("DefencePotion", false);
 		if (obj->type == "Bandage")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Auto Attack")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 1")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 2")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 3")
-			Renderer->RenderMesh("CraftBandagePotion", false);
+			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "AI 1")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "AI 2")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "AI 3")
-			Renderer->RenderMesh("CraftRedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);
 		modelStack->PopMatrix();
 	}
 
@@ -186,20 +186,54 @@ void SceneBattles::Render()
 	{
 		
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
 		modelStack->PushMatrix();
 		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
 		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
 		if (entity->GetName() == "Warrior")
 		{
-			Renderer->RenderMesh("PlayerWarriorMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PlayerWarriorDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PlayerWarriorDying",false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PlayerWarriorMesh", false);
+			}
 		}
 		if (entity->GetName() == "Mage")
 		{
-			Renderer->RenderMesh("PlayerMageMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PlayerMageDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PlayerMageDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PlayerMageMesh", false);
+			}
 		}
 		if (entity->GetName() == "Priest")
 		{
-			Renderer->RenderMesh("PlayerPriestMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PlayerPriestDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PlayerPriestDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PlayerPriestMesh", false);
+			}
 		}
 		modelStack->PopMatrix();
 	}
@@ -213,7 +247,12 @@ void SceneBattles::Render()
 		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
 		if (entity->GetName() == "Warrior")
 		{
-			Renderer->RenderMesh("WarriorMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("WarriorDead", false);
+			}
+			else
+				Renderer->RenderMesh("WarriorMesh", false);
 		}
 		if (entity->GetName() == "Mage")
 		{
@@ -260,7 +299,7 @@ void SceneBattles::HandleUserInput()
 	float Radius = 1;
 	if (!SButtonState && Application::IsKeyPressed('S'))
 	{
-		SceneSystem::Instance().SwitchScene("ResultScene");
+	//	SceneSystem::Instance().SwitchScene("ResultScene");
 		SButtonState = true;
 	}
 	else if (SButtonState && !Application::IsKeyPressed('S'))
@@ -271,8 +310,8 @@ void SceneBattles::HandleUserInput()
 	static bool DButtonState = false;
 	if (!DButtonState && Application::IsKeyPressed('D'))
 	{
-		BattleSystem::Instance().GetPlayerTroops().at(0)->SetStunned(true);
-		BattleSystem::Instance().GetPlayerTroops().at(0)->SetStunTimer(1);
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleeding(true);
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleedTimer(3);
 		DButtonState = true;
 	}
 	else if (DButtonState && !Application::IsKeyPressed('D'))

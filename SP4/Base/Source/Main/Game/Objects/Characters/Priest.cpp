@@ -5,7 +5,7 @@ using std::endl;
 
 size_t PriestHealth[] = { 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
 size_t PriestAttack[] = { 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
-float PriestDefense[] = { 15, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+float PriestDefence[] = { 15, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
 
 Priest::Priest()
 {
@@ -26,7 +26,7 @@ void Priest::Init(int Level)
 	//	SetHealth(PriestHealth[Level - 1]);
 	//	SetMaxHealth(PriestHealth[Level - 1]);
 	//	SetAttack(PriestAttack[Level - 1]);
-	//	SetDefense(PriestDefense[Level - 1]);
+	//	SetDefence(PriestDefence[Level - 1]);
 	//}
 	//if (Level > 20)
 	//{
@@ -36,7 +36,7 @@ void Priest::Init(int Level)
 	//	SetHealth((PriestHealth[19] * finalscale));
 	//	SetMaxHealth(PriestHealth[19] * finalscale);
 	//	SetAttack(PriestAttack[19] * finalscale);
-	//	SetDefense(PriestDefense[19] * finalscale);
+	//	SetDefence(PriestDefence[19] * finalscale);
 	//}
 	////SetPosition(Position_Middle);
 	for (int i = 0; i < Level; i++)
@@ -49,8 +49,9 @@ void Priest::LevelUp()
 {
 	Level++;
 	SetHealth(PriestHealth[Level]);
+	SetMaxHealth(PriestHealth[Level]);
 	SetAttack(PriestAttack[Level]);
-	SetDefense(PriestDefense[Level]);
+	SetDefence(PriestDefence[Level]);
 	SetDamageMitigation();
 
 	if (Level <= 10)

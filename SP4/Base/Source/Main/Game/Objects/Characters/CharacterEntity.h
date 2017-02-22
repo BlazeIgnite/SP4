@@ -21,7 +21,8 @@ protected:
 	size_t Health;
 	size_t MaxHealth;
 	size_t Attack;
-	size_t Defense;
+	size_t Defence;
+	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
 	size_t StatusEffectTimer[4];
 	
 	//Base Stats End here
@@ -46,7 +47,7 @@ public:
 	inline size_t GetHealth() { return Health; };
 	inline size_t GetMaxHealth(){ return MaxHealth; };
 	inline size_t GetAttack(){ return Attack; };
-	inline size_t GetDefense(){ return Defense; };
+	inline size_t GetDefence(){ return Defence; };
 	inline size_t GetStunTimer(){ return StatusEffectTimer[0]; };
 	inline size_t GetBleedTimer(){ return StatusEffectTimer[1]; };
 	inline size_t GetDebuffTimer(){ return StatusEffectTimer[2]; };
@@ -65,7 +66,7 @@ public:
 	inline void SetHealth(size_t Health){ this->Health = Health; };
 	inline void SetMaxHealth(size_t MaxHealth){ this->MaxHealth = MaxHealth; };
 	inline void SetAttack(size_t Attack){ this->Attack = Attack; };
-	inline void SetDefense(size_t Defense){	this->Defense = Defense; };
+	inline void SetDefence(size_t Defence){	this->Defence = Defence; };
 	inline void SetStunTimer(size_t StunTimer){ StatusEffectTimer[0] = StunTimer; };
 	inline void SetBleedTimer(size_t BleedTimer){ StatusEffectTimer[1] = BleedTimer; };
 	inline void SetDebuffTimer(size_t DebuffTimer){ StatusEffectTimer[2] = DebuffTimer; };
@@ -77,6 +78,12 @@ public:
 	inline void SetDebuffed(bool Debuffed){ StatusEffect[3] = Debuffed; };
 
 	virtual void LevelUp() = 0;
+
+	//Possible Functions for debuffs
+	void BleedEffect();
+	void WhileinDebuff();
+	void WhileinBuff();
+	void ResetStats();
 
 	//This sets the Damage Mitigation for every level
 	void SetDamageMitigation();

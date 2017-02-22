@@ -55,7 +55,6 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition, Skill* skill)
 {
 	map<size_t, map<size_t, Skill*>>::iterator itr = PlayerTroopSkills.find(playerPosition);
-	map<size_t, Skill*>::iterator itr2 = PlayerTroopSkills.find(playerPosition)->second.begin();
 	if (itr == PlayerTroopSkills.end())
 	{
 		map<size_t, Skill*> EmptySkillMap;
@@ -64,7 +63,8 @@ void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosit
 	}
 	else
 	{
-		if (itr2 == PlayerTroopSkills.find(playerPosition)->second.end())
+		map<size_t, Skill*>::iterator itr2 = itr->second.find(skillPosition);
+		if (itr2 == itr->second.end())
 			PlayerTroopSkills.find(playerPosition)->second[skillPosition] = skill;
 		else
 			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = skill;
@@ -228,16 +228,17 @@ void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t F
 	TroopMap[FirstPosition] = TroopMap[SecondPosition];
 	TroopMap[SecondPosition]->SetPosition(tempPos);
 	TroopMap[SecondPosition] = temp;
-
 }
 void BattleSystem::MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap)
 {
 	SwitchSpots(TroopMap, 0, 1);
-	SwitchSpots(TroopMap, 0, 2);
+	if (TroopMap.size() > 2)
+		SwitchSpots(TroopMap, 0, 2);
 }
 void BattleSystem::MoveTroopBackByTwo(map<size_t, CharacterEntity*>& TroopMap)
 {
-	SwitchSpots(TroopMap, 0, 2);
+	if (TroopMap.size() > 2)
+		SwitchSpots(TroopMap, 0, 2);
 	SwitchSpots(TroopMap, 0, 1);
 }
 void BattleSystem::MoveTroopFrontByOne(map<size_t, CharacterEntity*>& TroopMap)
@@ -273,6 +274,11 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 				if (itr->second->GetDefeated())
 					NumberofDefeatedTroops++;
 			}
+			if (NumberofDefeatedTroops >= AITroops.size())
+			{
+				//Go to win screen;
+				return;
+			}
 			if (NumberofDefeatedTroops == 1)
 			{
 				if (AITroops.find(target)->first == 0)
@@ -284,11 +290,6 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 			{
 				if (AITroops.find(target)->first == 0)
 					MoveTroopFrontByOne(AITroops);
-			}
-			else if (NumberofDefeatedTroops >= AITroops.size())
-			{
-				//Go to win screen;
-				return;
 			}
 		}
 	}
@@ -315,6 +316,11 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 					NumberofDefeatedTroops++;
 				}
 			}
+			if (NumberofDefeatedTroops >= PlayerTroops.size())
+			{
+				//Go to lose screen;
+				return;
+			}
 			if (NumberofDefeatedTroops == 1)
 			{
 				if (PlayerTroops.find(target)->first == 0)
@@ -326,11 +332,6 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 			{
 				if (PlayerTroops.find(target)->first == 0)
 					MoveTroopFrontByOne(PlayerTroops);
-			}
-			else if (NumberofDefeatedTroops >= PlayerTroops.size())
-			{
-				//Go to lose screen;
-				return;
 			}
 		}
 	}
@@ -344,8 +345,13 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 		{
 			if ((*it).second == Attacker)
 			{
-				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
-					return true;
+				if (!Attacker->GetStunned())
+				{
+					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
+						return true;
+				}
+				else
+					return false;
 			}
 		}
 		return false;
@@ -356,8 +362,13 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 		{
 			if ((*it).second == Attacker)
 			{
-				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
-					return true;
+				if (!Attacker->GetStunned())
+				{
+					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
+						return true;
+				}
+				else
+					return false;
 			}
 		}
 		return false;

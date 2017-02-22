@@ -22,14 +22,14 @@ protected:
 	size_t MaxHealth;
 	size_t Attack;
 	size_t Defense;
-	size_t StunTimer, BleedTimer, DebuffTimer, BuffTimer;
+	size_t StatusEffectTimer[4];
 	
 	//Base Stats End here
 	float ExperiencePoints;
 	float NormalAttackmultiplier;
 	int DamageMitigation;
 	bool Defeated;
-	bool Stunned, Bleeding, Buffed, Debuffed;
+	bool StatusEffect[4];
 
 public:
 	CharacterEntity();
@@ -47,15 +47,15 @@ public:
 	inline size_t GetMaxHealth(){ return MaxHealth; };
 	inline size_t GetAttack(){ return Attack; };
 	inline size_t GetDefense(){ return Defense; };
-	inline size_t GetStunTimer(){ return StunTimer; };
-	inline size_t GetBleedTimer(){ return BleedTimer; };
-	inline size_t GetDebuffTimer(){ return DebuffTimer; };
-	inline size_t GetBuffTimer(){ return BuffTimer; };
+	inline size_t GetStunTimer(){ return StatusEffectTimer[0]; };
+	inline size_t GetBleedTimer(){ return StatusEffectTimer[1]; };
+	inline size_t GetDebuffTimer(){ return StatusEffectTimer[2]; };
+	inline size_t GetBuffTimer(){ return StatusEffectTimer[3]; };
 	inline bool GetDefeated(){ return Defeated; };
-	inline bool GetStunned(){ return Stunned; };
-	inline bool GetBleeding(){ return Bleeding; };
-	inline bool GetBuffed(){ return Buffed; }
-	inline bool GetDebuffed(){ return Debuffed; };
+	inline bool GetStunned(){ return StatusEffect[0]; };
+	inline bool GetBleeding(){ return StatusEffect[1]; };
+	inline bool GetBuffed(){ return StatusEffect[2]; }
+	inline bool GetDebuffed(){ return StatusEffect[3]; };
 
 	//Setters
 	inline void SetPosition(Vector3 Position){ this->Position = Position; };
@@ -66,15 +66,15 @@ public:
 	inline void SetMaxHealth(size_t MaxHealth){ this->MaxHealth = MaxHealth; };
 	inline void SetAttack(size_t Attack){ this->Attack = Attack; };
 	inline void SetDefense(size_t Defense){	this->Defense = Defense; };
-	inline void SetStunTimer(size_t StunTimer){ this->StunTimer = StunTimer; };
-	inline void SetBleedTimer(size_t BleedTimer){ this->BleedTimer = BleedTimer; };
-	inline void SetDebuffTimer(size_t DebuffTimer){ this->DebuffTimer = DebuffTimer; };
-	inline void SetBuffTimer(size_t BuffTimer){ this->BuffTimer = BuffTimer; };
+	inline void SetStunTimer(size_t StunTimer){ StatusEffectTimer[0] = StunTimer; };
+	inline void SetBleedTimer(size_t BleedTimer){ StatusEffectTimer[1] = BleedTimer; };
+	inline void SetDebuffTimer(size_t DebuffTimer){ StatusEffectTimer[2] = DebuffTimer; };
+	inline void SetBuffTimer(size_t BuffTimer){ StatusEffectTimer[3] = BuffTimer; };
 	inline void SetDefeated(bool Defeated){ this->Defeated = Defeated; };
-	inline void SetStunned(bool Stunned){ this->Stunned = Stunned; };
-	inline void SetBleeding(bool Bleeding){ this->Bleeding = Bleeding; };
-	inline void SetBuffed(bool Buffed){ this->Buffed = Buffed; };
-	inline void SetDebuffed(bool Debuffed){ this->Debuffed = Debuffed; };
+	inline void SetStunned(bool Stunned){ StatusEffect[0] = Stunned; };
+	inline void SetBleeding(bool Bleeding){ StatusEffect[1] = Bleeding; };
+	inline void SetBuffed(bool Buffed){ StatusEffect[2] = Buffed; };
+	inline void SetDebuffed(bool Debuffed){ StatusEffect[3] = Debuffed; };
 
 	virtual void LevelUp() = 0;
 

@@ -36,14 +36,12 @@ void SceneBattles::Init()
 	priest->Init(2);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(2);
+	warrior2->Init(1);
 	Mage* mage2 = new Mage();
-	mage2->Init(2);
+	mage2->Init(1);
 	Priest* priest2 = new Priest();
-	priest2->Init(2);
+	priest2->Init(1);
 
-	AI = new AIAllAttack();
-	AI->Init();
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
 	Player::Instance().AddCharacter("Priest", priest);
@@ -56,6 +54,9 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(0, warrior2);
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, priest2);
+
+	AI = new AIStatusEffect();
+	BattleSystem::Instance().Debugging();
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)

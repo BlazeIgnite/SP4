@@ -11,7 +11,6 @@ AIAllAttack::~AIAllAttack()
 
 void AIAllAttack::Init()
 {
-	AIBase::Init();
 }
 
 void AIAllAttack::Update(double dt)
@@ -49,5 +48,4 @@ void AIAllAttack::Execute()
 
 void AIAllAttack::Exit()
 {
-	AIBase::Exit();
 }

@@ -12,17 +12,13 @@ CharacterEntity::CharacterEntity()
 , MaxHealth(0)
 , Attack(0)
 , Defense(0)
-, StunTimer(0)
-, BleedTimer(0)
-, DebuffTimer(0)
-, BuffTimer(0)
 , DamageMitigation(0)
-, Defeated(false)
-, Stunned(false)
-, Bleeding(false)
-, Buffed(false)
-, Debuffed(false)
 {
+	for (size_t i = 0; i < 4; i++)
+	{
+		StatusEffectTimer[i] = 0;
+		StatusEffect[i] = false;
+	}
 }
 
 CharacterEntity::~CharacterEntity()

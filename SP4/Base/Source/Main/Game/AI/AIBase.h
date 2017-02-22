@@ -12,7 +12,6 @@ class AIBase
 {
 protected:
 	// The troops that the AI will have 
-	vector<CharacterEntity*> TroopList;
 	AIStateManager* stateHolder;
 	AIBattlePlanner* BattlePlanHolder;
 public:
@@ -24,10 +23,6 @@ public:
 	virtual void Planning() = 0;
 	virtual void Execute() = 0;
 	virtual void Exit();
-
-	virtual	void AddTroop(CharacterEntity* Troop);
-	virtual vector<CharacterEntity*> GetAIList();
-	virtual CharacterEntity* GetCharacterEntity(string Name);
 };
 
 #endif

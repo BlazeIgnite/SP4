@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 #include "../Objects/Characters/Warrior.h"
 #include "../AI/AIBehaviors/AIAllAttack.h"
+#include "../AI/AIBehaviors/AIStatusEffect.h"
 #include "../Systems/BattleSystem.h"
 #include "../../Engine/Objects/BaseObject.h"
 #include "../../Engine/Objects/SceneEntity.h"
@@ -23,7 +24,7 @@ private:
 
 	BattleButton* button;
 
-	AIAllAttack* AI;
+	AIBase* AI;
 
 public:
 	SceneBattles();

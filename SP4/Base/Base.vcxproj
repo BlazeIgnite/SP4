@@ -46,6 +46,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SplashScreen.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\EventSystem.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
     <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneResult.h" />
     <ClInclude Include="Source\Main\Game\Scene\SplashScreen.h" />
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />
     <ClInclude Include="Source\Main\Game\Systems\EventSystem.h" />

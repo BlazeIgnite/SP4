@@ -55,7 +55,6 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition, Skill* skill)
 {
 	map<size_t, map<size_t, Skill*>>::iterator itr = PlayerTroopSkills.find(playerPosition);
-	map<size_t, Skill*>::iterator itr2 = PlayerTroopSkills.find(playerPosition)->second.begin();
 	if (itr == PlayerTroopSkills.end())
 	{
 		map<size_t, Skill*> EmptySkillMap;
@@ -64,7 +63,8 @@ void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosit
 	}
 	else
 	{
-		if (itr2 == PlayerTroopSkills.find(playerPosition)->second.end())
+		map<size_t, Skill*>::iterator itr2 = itr->second.find(skillPosition);
+		if (itr2 == itr->second.end())
 			PlayerTroopSkills.find(playerPosition)->second[skillPosition] = skill;
 		else
 			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = skill;
@@ -123,8 +123,11 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				if (it->second->GetBleedTimer() > 0)
 				{
 					it->second->SetBleedTimer(it->second->GetBleedTimer() - 1);
+					it->second->BleedEffect();
 					if (it->second->GetBleedTimer() == 0)
+					{
 						it->second->SetBleeding(false);
+					}
 				}
 			}
 			if (it->second->GetBuffed())
@@ -164,7 +167,9 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				{
 					it->second->SetStunTimer(it->second->GetStunTimer() - 1);
 					if (it->second->GetStunTimer() == 0)
+					{
 						it->second->SetStunned(false);
+					}
 				}
 			}
 			if (it->second->GetBleeding())
@@ -172,8 +177,11 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				if (it->second->GetBleedTimer() > 0)
 				{
 					it->second->SetBleedTimer(it->second->GetBleedTimer() - 1);
+					it->second->BleedEffect();
 					if (it->second->GetBleedTimer() == 0)
+					{
 						it->second->SetBleeding(false);
+					}
 				}
 			}
 			if (it->second->GetBuffed())
@@ -182,7 +190,10 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				{
 					it->second->SetBuffTimer(it->second->GetBuffTimer() - 1);
 					if (it->second->GetBuffTimer() == 0)
+					{
 						it->second->SetBuffed(false);
+						it->second->ResetStats();
+					}
 				}
 			}
 			if (it->second->GetDebuffed())
@@ -191,7 +202,10 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				{
 					it->second->SetDebuffTimer(it->second->GetDebuffed() - 1);
 					if (it->second->GetDebuffed() == 0)
+					{
 						it->second->SetDebuffed(false);
+						it->second->ResetStats();
+					}
 				}
 			}
 		}
@@ -214,16 +228,17 @@ void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t F
 	TroopMap[FirstPosition] = TroopMap[SecondPosition];
 	TroopMap[SecondPosition]->SetPosition(tempPos);
 	TroopMap[SecondPosition] = temp;
-
 }
 void BattleSystem::MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap)
 {
 	SwitchSpots(TroopMap, 0, 1);
-	SwitchSpots(TroopMap, 0, 2);
+	if (TroopMap.size() > 2)
+		SwitchSpots(TroopMap, 0, 2);
 }
 void BattleSystem::MoveTroopBackByTwo(map<size_t, CharacterEntity*>& TroopMap)
 {
-	SwitchSpots(TroopMap, 0, 2);
+	if (TroopMap.size() > 2)
+		SwitchSpots(TroopMap, 0, 2);
 	SwitchSpots(TroopMap, 0, 1);
 }
 void BattleSystem::MoveTroopFrontByOne(map<size_t, CharacterEntity*>& TroopMap)
@@ -259,6 +274,11 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 				if (itr->second->GetDefeated())
 					NumberofDefeatedTroops++;
 			}
+			if (NumberofDefeatedTroops >= AITroops.size())
+			{
+				//Go to win screen;
+				return;
+			}
 			if (NumberofDefeatedTroops == 1)
 			{
 				if (AITroops.find(target)->first == 0)
@@ -270,11 +290,6 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 			{
 				if (AITroops.find(target)->first == 0)
 					MoveTroopFrontByOne(AITroops);
-			}
-			else if (NumberofDefeatedTroops >= AITroops.size())
-			{
-				//Go to win screen;
-				return;
 			}
 		}
 	}
@@ -301,6 +316,11 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 					NumberofDefeatedTroops++;
 				}
 			}
+			if (NumberofDefeatedTroops >= PlayerTroops.size())
+			{
+				//Go to lose screen;
+				return;
+			}
 			if (NumberofDefeatedTroops == 1)
 			{
 				if (PlayerTroops.find(target)->first == 0)
@@ -312,11 +332,6 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 			{
 				if (PlayerTroops.find(target)->first == 0)
 					MoveTroopFrontByOne(PlayerTroops);
-			}
-			else if (NumberofDefeatedTroops >= PlayerTroops.size())
-			{
-				//Go to lose screen;
-				return;
 			}
 		}
 	}
@@ -330,8 +345,13 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 		{
 			if ((*it).second == Attacker)
 			{
-				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
-					return true;
+				if (!Attacker->GetStunned())
+				{
+					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
+						return true;
+				}
+				else
+					return false;
 			}
 		}
 		return false;
@@ -342,8 +362,13 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 		{
 			if ((*it).second == Attacker)
 			{
-				if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
-					return true;
+				if (!Attacker->GetStunned())
+				{
+					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
+						return true;
+				}
+				else
+					return false;
 			}
 		}
 		return false;
@@ -402,48 +427,7 @@ void BattleSystem::SetStatusEffect(size_t target, Skill* SkillUsed)
 {
 	// Set the status Effect of the Character Entity Here
 	//TeamMap.find(target)->second->SetStatusEffect( stun? / poison? / burn?);
-	/*for (map<size_t, CharacterEntity*>::iterator itr = TeamMap.begin(); itr != TeamMap.end(); itr++)
-	{
-		CharacterEntity* character = itr->second;
-		for (map<size_t, vector<string>>::iterator effect = SkillUsed->GetStringStatusEffect().begin();;)
-		{
-			if (effect->second.at(0) == "Stun")
-			{
-				TeamMap.find(target)->second->SetStunned(true);
-				TeamMap.find(target)->second->SetStunTimer(SkillUsed->GetStatusEffectTimer());
-			}
-			else if (effect->second.at(0) == "Bleed")
-			{
-				TeamMap.find(target)->second->SetBleeding(true);
-				TeamMap.find(target)->second->SetBleedTimer(SkillUsed->GetStatusEffectTimer());
-			}
-			else if (effect->second.at(0) == "Debuff")
-			{
-				TeamMap.find(target)->second->SetDebuffed(true);
-				TeamMap.find(target)->second->SetDebuffTimer(SkillUsed->GetStatusEffectTimer());
-			}
-		}
-	}*/
-
-	/*for (map<size_t, vector<string>>::iterator effect = SkillUsed->GetStatusEffectMap().begin();;)
-	{
-		if (effect->second.at(0) == "Stun")
-		{
-			TeamMap.find(target)->second->SetStunned(true);
-			TeamMap.find(target)->second->SetStunTimer(SkillUsed->GetStatusEffectTimer());
-		}
-		else if (effect->second.at(0) == "Bleed")
-		{
-			TeamMap.find(target)->second->SetBleeding(true);
-			TeamMap.find(target)->second->SetBleedTimer(SkillUsed->GetStatusEffectTimer());
-		}
-		else if (effect->second.at(0) == "Debuff")
-		{
-			TeamMap.find(target)->second->SetDebuffed(true);
-			TeamMap.find(target)->second->SetDebuffTimer(SkillUsed->GetStatusEffectTimer());
-		}
-	}*/
-
+	
 	if (PlayerTurn)
 	{
 		if (SkillUsed->StatusEffectExistence("Debuff"))

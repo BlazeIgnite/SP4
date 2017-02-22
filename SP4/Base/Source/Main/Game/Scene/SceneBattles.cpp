@@ -90,6 +90,7 @@ void SceneBattles::Update(float dt)
 	HandleUserInput();
 	button->Update(dt);
 	AI->Update(dt);
+	std::cout << BattleSystem::Instance().GetPlayerTroops().at(0)->GetStunTimer() << std::endl;
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -253,6 +254,7 @@ void SceneBattles::HandleUserInput()
 	float Radius = 1;
 	if (!SButtonState && Application::IsKeyPressed('S'))
 	{
+		SceneSystem::Instance().SwitchScene("ResultScene");
 		SButtonState = true;
 	}
 	else if (SButtonState && !Application::IsKeyPressed('S'))
@@ -263,6 +265,8 @@ void SceneBattles::HandleUserInput()
 	static bool DButtonState = false;
 	if (!DButtonState && Application::IsKeyPressed('D'))
 	{
+		BattleSystem::Instance().GetPlayerTroops().at(0)->SetStunned(true);
+		BattleSystem::Instance().GetPlayerTroops().at(0)->SetStunTimer(1);
 		DButtonState = true;
 	}
 	else if (DButtonState && !Application::IsKeyPressed('D'))

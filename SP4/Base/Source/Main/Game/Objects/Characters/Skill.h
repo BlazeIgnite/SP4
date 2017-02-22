@@ -45,9 +45,9 @@ public:
 
 
 	// Getters
-	map<size_t, vector<string>> GetStringStatusEffect();
+	map<size_t, vector<string>>& GetStatusEffectMap();
 	string GetName();
-	size_t GetStatusEffectTimer();
+	size_t GetStatusEffectTimer(string StatusEffectName);
 	size_t GetDamage();
 	size_t GetHeal();
 	size_t GetShiftPosition();
@@ -56,6 +56,8 @@ public:
 	size_t GetMaxTurnCooldown();
 	bool GetRequiredPosition(size_t position);
 	bool GetSelectableTarget(size_t position);
+
+	bool StatusEffectExistence(string StatusEffectName);
 };
 
 #endif

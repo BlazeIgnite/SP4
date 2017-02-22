@@ -18,9 +18,9 @@ void ItemEntity::Use(std::string Item, CharacterEntity* Character)
 	{
 		Character->SetAttack(consumables->UseAtkBuffPot(Character->GetAttack()));
 	}
-	else if (Item == "Defense Potion")
+	else if (Item == "Defence Potion")
 	{
-		Character->SetDefense(consumables->UseDefBuffPot(Character->GetDefense()));
+		Character->SetDefence(consumables->UseDefBuffPot(Character->GetDefence()));
 	}
 	else if (Item == "Bandage")
 	{

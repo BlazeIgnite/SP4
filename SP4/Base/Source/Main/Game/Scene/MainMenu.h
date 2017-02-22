@@ -4,6 +4,7 @@
 #include "../Objects/Items/ItemEntity.h"
 #include "../Miscellaneous/Button.h"
 #include "../Miscellaneous/Description.h"
+#include "../Objects/Miscellaneous/InventoryButtons.h"
 
 #include "../../Engine/Objects/SceneEntity.h"
 #include <vector>
@@ -13,9 +14,6 @@
 class MainMenu : public SceneEntity
 {
 private:
-	//Button* StartMission;
-	//Button* Inventory;
-	//Button* ExitGame;
 	Button* button;
 	Camera camera;
 
@@ -23,7 +21,7 @@ private:
 	bool isPressed;
 
 	double x, y;
-
+	InventoryButtons* inventory;
 public:
 	MainMenu();
 	~MainMenu();

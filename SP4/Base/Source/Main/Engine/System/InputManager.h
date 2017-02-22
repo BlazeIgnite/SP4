@@ -19,11 +19,12 @@ Defines the Input Manager that handles all forms of input
 class InputManager : public SingletonTemplate<InputManager>
 {
 public:
-	enum MouseType
+	enum Type
 	{
-		MOUSE_CLICK,
-		MOUSE_HOLD,
-		MOUSE_RELEASE,
+		CLICK,
+		HOLD,
+		RELEASE,
+		UNTOUCHED,
 		MOUSETYPE_NUM
 	};
 	enum MouseClick
@@ -41,17 +42,24 @@ public:
 	void SetMouseToScreenCenter();
 	void UpdateMouse();
 
+	void Update();
+
 	void SetScreenSize(float, float);
-	MouseType GetMouseState(MouseClick);
 
 	float cIM_ScreenWidth, cIM_ScreenHeight;
 	float cIM_CameraYaw = 0, cIM_CameraPitch = 0;
 	bool cIM_inMouseMode = false;
 
+	Type GetMouseState(MouseClick);
+
+	void KeyboardInput();
+	char GetKeyPressed();
+	void KeyPressedUpdate();
+	Type CheckKeyPressed(char);
+
 private:
-	//MouseClick* MouseClick;
-	//MouseType* MouseType;
-	std::map<MouseClick, MouseType> Mouse;
+	std::map<MouseClick, Type> Mouse;
+	std::map<char, Type> KeyInput;
 	Vector3 MousePosition;
 	bool cIM_Keys[256];
 };

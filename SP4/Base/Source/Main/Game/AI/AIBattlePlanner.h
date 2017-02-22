@@ -15,6 +15,10 @@ public:
 
 	void SetBattlePlan(string newBattlePlan);
 	string GetBattlePlan();
+
+	bool GetBattlePlan(string Battleplan);
+
+	void UseBattlePlan();
 };
 
 #endif

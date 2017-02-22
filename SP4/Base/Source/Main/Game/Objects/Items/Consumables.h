@@ -15,6 +15,6 @@ public:
 	int UseManaPot(int Mana);
 	//int UseBandage()
 	float UseAtkBuffPot(int Attack);
-	float UseDefBuffPot(int Defense);
+	float UseDefBuffPot(int Defence);
 };
 

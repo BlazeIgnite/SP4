@@ -16,6 +16,8 @@
 #include "../Scene/Scene_Assignment1.h"
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
+#include "../Scene/Town.h"
+#include "../Scene/SceneResult.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -176,21 +178,22 @@ void Application::Init()
 	MainMenu* temp3 = new MainMenu();
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
+
+	Town* temp4 = new Town();
+	temp4->Init();
+	SceneSystem::Instance().AddScene(*temp4);
 	
 	SceneBattles* temp = new SceneBattles();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
 
-	
+	SceneResult* temp2 = new SceneResult();
+	temp2->Init();
+	SceneSystem::Instance().AddScene(*temp2);
 }
 
 void Application::Run()
 {
-	//Main Loop
-	//Scene *scene = new Scene_Assignment1();
-	//scene->Init();
-
-
 	HWND hwnd = GetActiveWindow();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
@@ -199,9 +202,16 @@ void Application::Run()
 		if (hwnd == GetActiveWindow())
 		{
 			m_dElaspedTime = m_timer.getElapsedTime();
-			InputManager::Instance().UpdateMouse();
 			Update();
 			SceneSystem::Instance().GetCurrentScene().Render();
+			if (InputManager::Instance().GetKeyPressed() == VK_BACK)
+			{
+				string test = "";
+				test += "asd\b \b";
+				test += "???";
+				std::cout << test << std::endl;
+
+			}
 		}
 		//Swap buffers
 		glfwSwapBuffers(m_window);
@@ -223,6 +233,7 @@ void Application::Update()
 		SceneSystem::Instance().cSS_InputManager->HandleUserInput();
 		//SceneSystem::Instance().cSS_PlayerUIManager->Update((float)m_dElaspedTime);
 		SceneSystem::Instance().GetCurrentScene().Update((float)m_dElaspedTime);
+		InputManager::Instance().Update();
 		m_dAccumulatedTime_ThreadOne = 0.0;
 	}
 	m_dAccumulatedTime_ThreadTwo += m_dElaspedTime;

@@ -162,8 +162,8 @@ void SceneBase::Init()
 	meshList[GEO_CRAFT_BLUEPOT]->textureID = LoadTGA("Image//Buttons//Blue Potion.tga");
 	meshList[GEO_CRAFT_ATKPOT] = MeshBuilder::GenerateQuad("Attack Potion", Color(0.f, 0.f, 0.f), 1);
 	meshList[GEO_CRAFT_ATKPOT]->textureID = LoadTGA("Image//Buttons//Attack Potion.tga");
-	meshList[GEO_CRAFT_DEFPOT] = MeshBuilder::GenerateQuad("Defense Potion", Color(0.f, 0.f, 0.f), 1);
-	meshList[GEO_CRAFT_DEFPOT]->textureID = LoadTGA("Image//Buttons//Defense Potion.tga");
+	meshList[GEO_CRAFT_DEFPOT] = MeshBuilder::GenerateQuad("Defence Potion", Color(0.f, 0.f, 0.f), 1);
+	meshList[GEO_CRAFT_DEFPOT]->textureID = LoadTGA("Image//Buttons//Defence Potion.tga");
 	meshList[GEO_CRAFT_BANDAGE] = MeshBuilder::GenerateQuad("Bandage", Color(0.f, 0.f, 0.f), 1);
 	meshList[GEO_CRAFT_BANDAGE]->textureID = LoadTGA("Image//Buttons//Bandage.tga");
 
@@ -183,7 +183,7 @@ void SceneBase::Init()
 	meshList[GEO_DES_CRAFT_BLUEPOT]->textureID = LoadTGA("Image//Descriptions//BluePotDescription.tga");
 	meshList[GEO_DES_CRAFT_ATKPOT] = MeshBuilder::GenerateQuad("Attack Potion Des", Color(1.f, 0.f, 0.f), 1);
 	meshList[GEO_DES_CRAFT_ATKPOT]->textureID = LoadTGA("Image//Descriptions//AtkPotDescription.tga");
-	meshList[GEO_DES_CRAFT_DEFPOT] = MeshBuilder::GenerateQuad("Defense Potion Des", Color(1.f, 0.f, 0.f), 1);
+	meshList[GEO_DES_CRAFT_DEFPOT] = MeshBuilder::GenerateQuad("Defence Potion Des", Color(1.f, 0.f, 0.f), 1);
 	meshList[GEO_DES_CRAFT_DEFPOT]->textureID = LoadTGA("Image//Descriptions//DefPotDescription.tga");
 	meshList[GEO_DES_CRAFT_BANDAGE] = MeshBuilder::GenerateQuad("Bandage Des", Color(1.f, 0.f, 0.f), 1);
 	meshList[GEO_DES_CRAFT_BANDAGE]->textureID = LoadTGA("Image//Descriptions//BandageDescription.tga");

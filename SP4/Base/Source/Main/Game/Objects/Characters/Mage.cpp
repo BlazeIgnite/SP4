@@ -5,7 +5,7 @@ using std::endl;
 
 size_t MageHealth[] = { 0, 15, 17, 20, 24, 28, 30, 31, 33, 35, 37, 42, 47, 55, 60, 65, 71, 80, 81, 82, 85 };
 size_t MageAttack[] = { 0, 15, 17, 19, 21, 25, 29, 34, 37, 40, 44, 50, 56, 64, 66, 70, 75, 80, 83, 84, 89 }; 
-float MageDefense[] = { 0.f, 1.0f, 1.4f, 1.8f, 2.2f, 2.6f, 3.0f, 4.f, 4.4f, 4.8f, 5.2f, 5.6f, 6.0f, 7.0f, 7.6f, 8.2f, 8.8f, 9.4f, 10.f, 10.f, 10.f };
+float MageDefence[] = { 0.f, 1.0f, 1.4f, 1.8f, 2.2f, 2.6f, 3.0f, 4.f, 4.4f, 4.8f, 5.2f, 5.6f, 6.0f, 7.0f, 7.6f, 8.2f, 8.8f, 9.4f, 10.f, 10.f, 10.f };
 
 
 Mage::Mage()
@@ -32,7 +32,7 @@ void Mage::Init(int Level)
 	{
 		LevelUp();
 	}
-	SetDamageMitigation();
+
 }
 
 void Mage::LevelUp()
@@ -40,9 +40,10 @@ void Mage::LevelUp()
 	Level++;
 
 	SetHealth(MageHealth[Level]);
+	SetMaxHealth(MageHealth[Level]);
 	SetAttack(MageAttack[Level]);
-	SetDefense(MageDefense[Level]);
-
+	SetDefence(MageDefence[Level]);
+	SetDamageMitigation();
 	if (Level <= 10)
 	{
 		Skill* skill = new Skill();
@@ -125,15 +126,15 @@ void Mage::LevelUp()
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Ars Arcanum")
-			SkillItr->SetDamage((int)(GetAttack() * 0.9));
+			SkillItr->SetDamage((int)(Attack * 0.9));
 		else if (SkillItr->GetName() == "Unholy Incantation")
-			SkillItr->SetDamage((int)(GetAttack() * 0.2));
+			SkillItr->SetDamage((int)(Attack * 0.2));
 		else if (SkillItr->GetName() == "Blinding Flash")
-			SkillItr->SetDamage((int)(GetAttack() * 0.15));
+			SkillItr->SetDamage((int)(Attack * 0.15));
 		else if (SkillItr->GetName() == "Magic Bolt")
-			SkillItr->SetDamage((int)(GetAttack() * 0.75));
+			SkillItr->SetDamage((int)(Attack * 0.75));
 		else if (SkillItr->GetName() == "Basic Attack")
-			SkillItr->SetDamage((int)(GetAttack() * 0.5));
+			SkillItr->SetDamage((int)(Attack * 0.5));
 
 	}
 }

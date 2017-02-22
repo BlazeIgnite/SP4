@@ -9,19 +9,8 @@
 class InventoryButtons
 {
 private:
-	Button* CraftRedPot;
-	Button* CraftBluePot;
-	Button* CraftAtkPot;
-	Button* CraftDefPot;
-	Button* CraftBandage;
 
-	Description* CraftRedPotDes;
-	Description* CraftBluePotDes;
-	Description* CraftAtkPotDes;
-	Description* CraftDefPotDes;
-	Description* CraftBandageDes;
-
-
+	bool isOpened;
 
 public:
 	InventoryButtons();
@@ -32,8 +21,13 @@ public:
 	void Render();
 	void Exit();
 
+	Button* button;
+
 	std::vector<Button*> buttonVector;
 	std::vector<Description*> DescriptionVector;
+
+	void SetisOpened(bool);
+	bool GetisOpened();
 };
 
 #endif

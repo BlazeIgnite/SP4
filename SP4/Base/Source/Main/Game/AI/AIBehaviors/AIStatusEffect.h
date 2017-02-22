@@ -2,10 +2,18 @@
 #define AI_STATUS_EFFECT_H
 
 #include "../AIBase.h"
+#include <map>
+
+using std::map;
 
 class AIStatusEffect :
 	public AIBase
 {
+	map<size_t, map<size_t, bool>> m_PlayerTroopStatusE;
+
+	vector<Skill*> m_SkillAvailable;
+	vector<Skill*> m_SkillToUse;
+
 public:
 	AIStatusEffect();
 	~AIStatusEffect();
@@ -15,6 +23,10 @@ public:
 	virtual void Planning();
 	virtual void Execute();
 	virtual void Exit();
+
+	void SetPlayerTroopStatusE(size_t troopPosition, size_t statusID, bool newStatusE);
+	bool GetPlayerTroopStatusE(size_t troopPosition, size_t statusID);
+
 };
 
 #endif

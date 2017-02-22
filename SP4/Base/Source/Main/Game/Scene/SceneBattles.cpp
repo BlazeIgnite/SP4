@@ -56,6 +56,7 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(0, warrior2);
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, priest2);
+	BattleSystem::Instance().Debugging();
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -256,7 +257,7 @@ void SceneBattles::HandleUserInput()
 	// Characters
 	static bool SButtonState = false;
 	float Radius = 1;
-	if (!SButtonState && Application::IsKeyPressed('S'))
+	if (!SButtonState && InputManager::Instance().GetKeyPressed() == 'S')
 	{
 		SButtonState = true;
 	}

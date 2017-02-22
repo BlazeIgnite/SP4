@@ -186,11 +186,6 @@ void Application::Init()
 
 void Application::Run()
 {
-	//Main Loop
-	//Scene *scene = new Scene_Assignment1();
-	//scene->Init();
-
-
 	HWND hwnd = GetActiveWindow();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
@@ -199,9 +194,16 @@ void Application::Run()
 		if (hwnd == GetActiveWindow())
 		{
 			m_dElaspedTime = m_timer.getElapsedTime();
-			InputManager::Instance().UpdateMouse();
 			Update();
 			SceneSystem::Instance().GetCurrentScene().Render();
+			if (InputManager::Instance().GetKeyPressed() == VK_BACK)
+			{
+				string test = "";
+				test += "asd\b \b";
+				test += "???";
+				std::cout << test << std::endl;
+
+			}
 		}
 		//Swap buffers
 		glfwSwapBuffers(m_window);
@@ -223,6 +225,7 @@ void Application::Update()
 		SceneSystem::Instance().cSS_InputManager->HandleUserInput();
 		//SceneSystem::Instance().cSS_PlayerUIManager->Update((float)m_dElaspedTime);
 		SceneSystem::Instance().GetCurrentScene().Update((float)m_dElaspedTime);
+		InputManager::Instance().Update();
 		m_dAccumulatedTime_ThreadOne = 0.0;
 	}
 	m_dAccumulatedTime_ThreadTwo += m_dElaspedTime;

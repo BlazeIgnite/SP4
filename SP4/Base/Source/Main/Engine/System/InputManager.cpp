@@ -3,6 +3,7 @@
 #include "SceneSystem.h"
 #include "SimpleCommand.h"
 #include "../../Base/Source/Main/Game/Systems/ObjectManager.h"
+#include <locale>
 
 InputManager::InputManager()
 {
@@ -10,7 +11,7 @@ InputManager::InputManager()
 	{
 		cIM_Keys[num] = false;
 	}
-	Mouse = std::map<MouseClick, MouseType>();
+	Mouse = std::map<MouseClick, Type>();
 }
 
 void InputManager::HandleUserInput()
@@ -50,12 +51,12 @@ void InputManager::SetScreenSize(float x, float y)
 	cIM_ScreenHeight = y;
 }
 
-InputManager::MouseType InputManager::GetMouseState(MouseClick Click)
+InputManager::Type InputManager::GetMouseState(MouseClick Click)
 {
-	std::map<MouseClick, MouseType>::iterator it = Mouse.find(Click);
+	std::map<MouseClick, Type>::iterator it = Mouse.find(Click);
 	if (it == Mouse.end())
 	{
-		Mouse.insert(std::pair<MouseClick, MouseType>(Click, MOUSE_RELEASE));
+		Mouse.insert(std::pair<MouseClick, Type>(Click, RELEASE));
 		return GetMouseState(Click);
 	}
 	return it->second;
@@ -72,20 +73,30 @@ void InputManager::UpdateMouse()
 
 	SetMousePosition(Vector3(worldX, worldY - cIM_ScreenHeight, 0.f));
 
-	std::map<MouseClick, MouseType>::iterator it = Mouse.begin();
+	std::map<MouseClick, Type>::iterator it = Mouse.begin();
 	for (it; it != Mouse.end(); ++it)
 	{
-		if (it->second == MOUSE_RELEASE && Application::IsKeyPressed(VK_LBUTTON))
+		if (it->first == MOUSE_L)
 		{
-			it->second = MOUSE_CLICK;
+			if ((it->second == RELEASE || it->second == UNTOUCHED) && Application::IsKeyPressed(VK_LBUTTON))
+				it->second = CLICK;
+			else if (it->second == CLICK && Application::IsKeyPressed(VK_LBUTTON))
+				it->second = HOLD;
+			else if ((it->second == HOLD || it->second == CLICK) && !Application::IsKeyPressed(VK_LBUTTON))
+				it->second = RELEASE;
+			else if (it->second == RELEASE && !Application::IsKeyPressed(VK_LBUTTON))
+				it->second = UNTOUCHED;
 		}
-		else if (it->second == MOUSE_CLICK && Application::IsKeyPressed(VK_LBUTTON))
+		if (it->first == MOUSE_R)
 		{
-			it->second = MOUSE_HOLD;
-		}
-		else if ((it->second == MOUSE_HOLD || it->second == MOUSE_CLICK) && !Application::IsKeyPressed(VK_LBUTTON))
-		{
-			it->second = MOUSE_RELEASE;
+			if ((it->second == RELEASE || it->second == UNTOUCHED) && Application::IsKeyPressed(VK_RBUTTON))
+				it->second = CLICK;
+			else if (it->second == CLICK && Application::IsKeyPressed(VK_RBUTTON))
+				it->second = HOLD;
+			else if ((it->second == HOLD || it->second == CLICK) && !Application::IsKeyPressed(VK_RBUTTON))
+				it->second = RELEASE;
+			else if (it->second == RELEASE && !Application::IsKeyPressed(VK_RBUTTON))
+				it->second = UNTOUCHED;
 		}
 	}
 }
@@ -93,4 +104,62 @@ void InputManager::UpdateMouse()
 void InputManager::SetMouseToScreenCenter()
 {
 	SetCursorPos((int)cIM_ScreenWidth / 2, (int)cIM_ScreenHeight / 2);
+}
+
+void InputManager::KeyboardInput()
+{
+	int NumberOffset = 48;
+	int AlphabetOffset = 65;
+	int CapsValue;
+	for (int Number = 0; Number <= 10; ++Number)
+		if (Application::IsKeyPressed(Number + NumberOffset))
+			CheckKeyPressed(Number + NumberOffset);
+	for (int Alphabet = 0; Alphabet <= 25; ++Alphabet)
+		if (Application::IsKeyPressed(Alphabet + AlphabetOffset))
+			CheckKeyPressed(Alphabet + AlphabetOffset);
+	if (Application::IsKeyPressed(VK_SPACE))
+		CheckKeyPressed(VK_SPACE);
+	if (Application::IsKeyPressed(VK_BACK))
+		CheckKeyPressed(VK_BACK);
+}
+
+char InputManager::GetKeyPressed()
+{
+	for (std::map<char, InputManager::Type>::iterator Keyit = KeyInput.begin(); Keyit != KeyInput.end(); ++Keyit)
+		if (Keyit->second == CLICK)
+			return Keyit->first;
+	return NULL;
+}
+
+void InputManager::KeyPressedUpdate()
+{
+	for (std::map<char, InputManager::Type>::iterator Keyit = KeyInput.begin(); Keyit != KeyInput.end(); ++Keyit)
+	{
+		if ((Keyit->second == RELEASE || Keyit->second == UNTOUCHED) && Application::IsKeyPressed(toupper(Keyit->first)))
+			Keyit->second = CLICK;
+		else if (Keyit->second == CLICK && Application::IsKeyPressed(toupper(Keyit->first)))
+			Keyit->second = HOLD;
+		else if ((Keyit->second == CLICK || Keyit->second == HOLD) && !Application::IsKeyPressed(toupper(Keyit->first)))
+			Keyit->second = RELEASE;
+		else if (Keyit->second == RELEASE && !Application::IsKeyPressed(toupper(Keyit->first)))
+			Keyit->second = UNTOUCHED;
+	}
+	KeyboardInput();
+}
+
+InputManager::Type InputManager::CheckKeyPressed(char key)
+{
+	std::map<char, InputManager::Type>::iterator Keyit = KeyInput.find(key);
+	if (Keyit == KeyInput.end())
+	{
+		KeyInput.insert(std::pair<char, InputManager::Type>(key, CLICK));
+		return CLICK;
+	}
+	return Keyit->second;
+}
+
+void InputManager::Update()
+{
+	UpdateMouse();
+	KeyPressedUpdate();
 }

@@ -32,6 +32,8 @@ void SceneBattles::Init()
 	warrior->Init(2);
 	Mage* mage = new Mage();
 	mage->Init(2);
+	Priest* priest = new Priest();
+	priest->Init(2);
 
 	Warrior* warrior2 = new Warrior();
 	warrior2->Init(2);
@@ -41,11 +43,14 @@ void SceneBattles::Init()
 	priest2->Init(2);
 
 	AI = new AIAllAttack();
+	AI->Init();
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
+	Player::Instance().AddCharacter("Priest", priest);
 	BattleSystem::Instance().Init();
 	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
 	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
+	BattleSystem::Instance().SetPlayerTroops(2, Player::Instance().GetCharacterEntityInClassUnit("Priest", 0));
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
 	BattleSystem::Instance().SetAITroops(0, warrior2);
@@ -308,7 +313,7 @@ void SceneBattles::HandleUserInput()
 	static bool EButtonState = false;
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		//BattleSystem::Instance().SetPlayerTurn(false);
+		BattleSystem::Instance().SetPlayerTurn(false);
 		EButtonState = true;
 	}
 	else if (EButtonState && !Application::IsKeyPressed('E'))

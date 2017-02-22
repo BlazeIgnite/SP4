@@ -43,6 +43,10 @@ void MainMenu::Init()
 	temp->Init(Vector3(ObjectManager::Instance().WorldWidth* 0.5f, 10, 1), Vector3(15, 5, 5), "ExitGame");
 	buttonList.push_back(temp);
 
+	temp = new Button();
+	temp->Init(Vector3(150, 40, 1), Vector3(40, 40, 5), "Inventory");
+	buttonList.push_back(temp);
+
 	OpenInventory = false;
 	isPressed = false;
 }
@@ -56,26 +60,35 @@ void MainMenu::Update(float dt)
 	}
 	else if (LMouse && Application::IsKeyPressed(VK_LBUTTON))
 	{
-		LMouse = false;
+		LMouse = false; 
 	}
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
-		(*itr)->UpdateMainMenu(dt);;
+		(*itr)->UpdateMainMenu(dt);
+		if ((*itr)->type == "Inventory" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0) && !OpenInventory && !(*itr)->GetisPressed())
+			{
+					OpenInventory = true;
+					std::cout << "Open" << std::endl;
+					(*itr)->SetisPressed(true);
+			}
+			else if (Application::IsMousePressed(0) && OpenInventory && !(*itr)->GetisPressed())
+			{
+				OpenInventory = false;
+				std::cout << "Close" << std::endl;
+				(*itr)->SetisPressed(true);
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+				{
+					(*itr)->SetisPressed(false);
+				}
+			}
+		}
 	}
 
-	if (Application::IsKeyPressed('H'))
-	{
-		if (!isPressed)
-		{
-			OpenInventory = true;
-			isPressed = true;
-		}
-		else if (isPressed)
-		{
-			OpenInventory = false;
-			isPressed = false;
-		}
-	}
 }
 
 void MainMenu::Render()
@@ -152,19 +165,28 @@ void MainMenu::Render()
 			Renderer->RenderText("text", "Exit Game", Color(1, 1, 1));
 			modelStack->PopMatrix();
 		}
+		if (obj->type == "Inventory")
+		{
+			Renderer->RenderMesh("Inventory", false);
+			modelStack->PopMatrix();
+
+			//Text on Box
+			modelStack->PushMatrix();
+			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, obj->GetPosition().z);
+			modelStack->Scale(2, 2, 1);
+			Renderer->RenderText("text", "Inventory", Color(1, 1, 1));
+			modelStack->PopMatrix();
+		}
 	}
 
 	if (OpenInventory)
 	{
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		modelStack->PushMatrix();
 		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 5.f);
-		modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
-		//RenderMesh(meshList[GEO_BACKGROUND], false);
-		//Renderer->SetHUD(true);
-		Renderer->RenderMesh("MainMenu", false);
-		//Renderer->SetHUD(false);
+		modelStack->Scale(25, 25, 1);
+		////Renderer->SetHUD(true);
+		Renderer->RenderMesh("Inventory", false);
+		////Renderer->SetHUD(false);
 		modelStack->PopMatrix();
 	}
 

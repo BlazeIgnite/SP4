@@ -107,7 +107,6 @@ void Button::UpdateMainMenu(float dt)
 			if (isPressed)
 				isPressed = false;
 		}
-
 	}
 	
 }
@@ -116,11 +115,7 @@ void Button::UpdateBattleScene(float dt)
 {
 	Application::GetCursorPos(&x, &y);
 	isitHover();
-	//BattleSystem::Instance().GetSelectedTroop()->GetHealth
-
-	//std::cout << isSelected << std::endl;
-
-	
+	//Consumables
 	if (type == "Red Potion" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
@@ -231,25 +226,14 @@ void Button::UpdateBattleScene(float dt)
 				isPressed = false;
 		}
 	}
-	if (type == "Defence Potion" && isitHover())
+	//Skills and Auto Attack
+
+	if (type == "Auto Attack" && isitHover())
 	{
 		if (Application::IsMousePressed(0))
 		{
 			if (!isPressed)
 			{
-				if ((Player::Instance().GetConsumableList().find("Defence Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
-				{
-					Player::Instance().AddConsumableItem("Defence Potion", -1);
-					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
-					BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
-					std::cout << "Defence Potion Used" << std::endl;
-					isPressed = true;
-				}
-				else
-				{
-					std::cout << "No More Defence Potion" << std::endl;
-					isPressed = true;
-				}
 			}
 		}
 		else
@@ -258,6 +242,52 @@ void Button::UpdateBattleScene(float dt)
 				isPressed = false;
 		}
 	}
+
+	if (type == "Skill 1" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+
+	if (type == "Skill 2" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+
+	if (type == "Skill 3" && isitHover())
+	{
+		if (Application::IsMousePressed(0))
+		{
+			if (!isPressed)
+			{
+			}
+		}
+		else
+		{
+			if (isPressed)
+				isPressed = false;
+		}
+	}
+
 }
 
 void Button::UpdateCrafting(float dt)

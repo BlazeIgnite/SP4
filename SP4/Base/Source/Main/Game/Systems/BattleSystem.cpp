@@ -102,7 +102,8 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 	{
 		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
 		{
-			for (vector<Skill*>::iterator it2 = it->second->GetSkillList().begin(); it2 != it->second->GetSkillList().end(); it2++)
+			vector<Skill*> SkillList = it->second->GetSkillList();
+			for (vector<Skill*>::iterator it2 = SkillList.begin(); it2 != SkillList.end(); it2++)
 			{
 				if ((*it2)->GetTurnCooldown() > 0)
 					(*it2)->SetTurnCooldown((*it2)->GetTurnCooldown() - 1);
@@ -150,7 +151,8 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 	{
 		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
 		{
-			for (vector<Skill*>::iterator it2 = it->second->GetSkillList().begin(); it2 != it->second->GetSkillList().end(); it2++)
+			vector<Skill*> SkillList = it->second->GetSkillList();
+			for (vector<Skill*>::iterator it2 = SkillList.begin(); it2 != SkillList.end(); it2++)
 			{
 				if ((*it2)->GetTurnCooldown() > 0)
 					(*it2)->SetTurnCooldown((*it2)->GetTurnCooldown() - 1);
@@ -207,8 +209,12 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition)
 {
 	CharacterEntity* temp = TroopMap.find(FirstPosition)->second;
+	Vector3 tempPos = TroopMap.find(FirstPosition)->second->GetVectorPosition();
+	TroopMap[FirstPosition]->SetPosition(TroopMap[SecondPosition]->GetVectorPosition());
 	TroopMap[FirstPosition] = TroopMap[SecondPosition];
+	TroopMap[SecondPosition]->SetPosition(tempPos);
 	TroopMap[SecondPosition] = temp;
+
 }
 void BattleSystem::MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap)
 {
@@ -236,10 +242,13 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 	if (PlayerTurn)
 	{
 		CharacterEntity* targettroop = AITroops.find(target)->second;
-		targettroop->SetHealth(targettroop->GetHealth() - AttackerSkill->GetDamage());
+		int tempHealth = targettroop->GetHealth() - AttackerSkill->GetDamage();
+		if (tempHealth <= 0)
+			tempHealth = 0;
+		targettroop->SetHealth(tempHealth);
 		SetStatusEffect(target, AttackerSkill);
 		TurnCost -= AttackerSkill->GetActionCost();
-		if (targettroop->GetHealth() < 0)
+		if (targettroop->GetHealth() < 1)
 		{
 			targettroop->SetDefeated(true);
 			size_t NumberofDefeatedTroops = 0;
@@ -249,34 +258,36 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 				// Do push back or front to set the troop that are alive to the front
 				if (itr->second->GetDefeated())
 					NumberofDefeatedTroops++;
-
-				if (NumberofDefeatedTroops == 1)
-				{
-					if (AITroops.find(target)->first == 0)
-						MoveTroopFrontByOne(AITroops);
-					else if (AITroops.find(target)->first == 1)
-						SwitchSpots(AITroops, AITroops.find(target)->first, AITroops.find(target + 1)->first);
-				}
-				else if (NumberofDefeatedTroops == 2)
-				{
-					if (AITroops.find(target)->first == 0)
-						MoveTroopFrontByOne(AITroops);
-				}
-				else if (NumberofDefeatedTroops >= AITroops.size())
-				{
-					//Go to win screen;
-					return;
-				}
+			}
+			if (NumberofDefeatedTroops == 1)
+			{
+				if (AITroops.find(target)->first == 0)
+					MoveTroopFrontByOne(AITroops);
+				else if (AITroops.find(target)->first == 1)
+					SwitchSpots(AITroops, AITroops.find(target)->first, AITroops.find(target + 1)->first);
+			}
+			else if (NumberofDefeatedTroops == 2)
+			{
+				if (AITroops.find(target)->first == 0)
+					MoveTroopFrontByOne(AITroops);
+			}
+			else if (NumberofDefeatedTroops >= AITroops.size())
+			{
+				//Go to win screen;
+				return;
 			}
 		}
 	}
 	else
 	{
-		CharacterEntity* targettroop = PlayerTroops.find(target)->second;
-		targettroop->SetHealth(targettroop->GetHealth() - AttackerSkill->GetDamage());
+		CharacterEntity* targettroop = PlayerTroops.find(target)->second; 
+		int tempHealth = targettroop->GetHealth() - AttackerSkill->GetDamage();
+		if (tempHealth <= 0)
+			tempHealth = 0;
+		targettroop->SetHealth(tempHealth);
 		SetStatusEffect(target, AttackerSkill);
 		TurnCost -= AttackerSkill->GetActionCost();
-		if (targettroop->GetHealth() < 0)
+		if (targettroop->GetHealth() < 1)
 		{
 			targettroop->SetDefeated(true);
 			
@@ -289,23 +300,23 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 				{
 					NumberofDefeatedTroops++;
 				}
-				if (NumberofDefeatedTroops == 1)
-				{
-					if (PlayerTroops.find(target)->first == 0)
-						MoveTroopFrontByOne(PlayerTroops);
-					else if (PlayerTroops.find(target)->first == 1)
-						SwitchSpots(PlayerTroops, PlayerTroops.find(target)->first, PlayerTroops.find(target + 1)->first);
-				}
-				else if (NumberofDefeatedTroops == 2)
-				{
-					if (PlayerTroops.find(target)->first == 0)
-						MoveTroopFrontByOne(PlayerTroops);
-				}
-				else if (NumberofDefeatedTroops >= PlayerTroops.size())
-				{
-					//Go to lose screen;
-					return;
-				}
+			}
+			if (NumberofDefeatedTroops == 1)
+			{
+				if (PlayerTroops.find(target)->first == 0)
+					MoveTroopFrontByOne(PlayerTroops);
+				else if (PlayerTroops.find(target)->first == 1)
+					SwitchSpots(PlayerTroops, PlayerTroops.find(target)->first, PlayerTroops.find(target + 1)->first);
+			}
+			else if (NumberofDefeatedTroops == 2)
+			{
+				if (PlayerTroops.find(target)->first == 0)
+					MoveTroopFrontByOne(PlayerTroops);
+			}
+			else if (NumberofDefeatedTroops >= PlayerTroops.size())
+			{
+				//Go to lose screen;
+				return;
 			}
 		}
 	}
@@ -502,6 +513,7 @@ void BattleSystem::Debugging()
 	{
 		cout << "Player Troop " << i << " : " << AITroops.at(i)->GetName() << endl;
 		cout << "Health : " << AITroops.at(i)->GetHealth() << endl;
+		cout << "Damage : " << AITroops.at(i)->GetSkillInVector("Basic Attack")->GetDamage() << endl;
 	}
 
 	cout << "/*****************************************/" << endl;

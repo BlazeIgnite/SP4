@@ -55,6 +55,7 @@ void Warrior::LevelUp()
 	Level++;
 
 	SetHealth(WarriorHealth[Level]);
+	SetMaxHealth(WarriorHealth[Level]);
 	SetAttack(WarriorAttack[Level]);
 	SetDefence(WarriorDefence[Level]);
 	SetDamageMitigation();

@@ -17,6 +17,7 @@
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
 #include "../Scene/Town.h"
+#include "../Scene/SceneResult.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -185,6 +186,10 @@ void Application::Init()
 	SceneBattles* temp = new SceneBattles();
 	temp->Init();
 	SceneSystem::Instance().AddScene(*temp);
+
+	SceneResult* temp2 = new SceneResult();
+	temp2->Init();
+	SceneSystem::Instance().AddScene(*temp2);
 }
 
 void Application::Run()

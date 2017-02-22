@@ -29,28 +29,34 @@ void SceneBattles::Init()
 	button->Init();
 
 	Warrior* warrior = new Warrior();
-	warrior->Init(2);
+	warrior->Init(20);
 	Mage* mage = new Mage();
 	mage->Init(2);
+	Priest* priest = new Priest();
+	priest->Init(2);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(2);
+	warrior2->Init(1);
 	Mage* mage2 = new Mage();
-	mage2->Init(2);
+	mage2->Init(1);
 	Priest* priest2 = new Priest();
-	priest2->Init(2);
+	priest2->Init(1);
 
-	AI = new AIAllAttack();
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
+	Player::Instance().AddCharacter("Priest", priest);
 	BattleSystem::Instance().Init();
 	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
 	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
+	BattleSystem::Instance().SetPlayerTroops(2, Player::Instance().GetCharacterEntityInClassUnit("Priest", 0));
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
 	BattleSystem::Instance().SetAITroops(0, warrior2);
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, priest2);
+
+	AI = new AIStatusEffect();
+	BattleSystem::Instance().Debugging();
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -90,6 +96,7 @@ void SceneBattles::Update(float dt)
 	HandleUserInput();
 	button->Update(dt);
 	AI->Update(dt);
+	std::cout << BattleSystem::Instance().GetPlayerTroops().at(1)->GetBleedTimer() << std::endl;
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -179,20 +186,54 @@ void SceneBattles::Render()
 	{
 		
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
 		modelStack->PushMatrix();
 		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
 		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
 		if (entity->GetName() == "Warrior")
 		{
-			Renderer->RenderMesh("PlayerWarriorMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PlayerWarriorDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PlayerWarriorDying",false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PlayerWarriorMesh", false);
+			}
 		}
 		if (entity->GetName() == "Mage")
 		{
-			Renderer->RenderMesh("PlayerMageMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PlayerMageDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PlayerMageDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PlayerMageMesh", false);
+			}
 		}
 		if (entity->GetName() == "Priest")
 		{
-			Renderer->RenderMesh("PlayerPriestMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PlayerPriestDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PlayerPriestDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PlayerPriestMesh", false);
+			}
 		}
 		modelStack->PopMatrix();
 	}
@@ -206,7 +247,12 @@ void SceneBattles::Render()
 		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
 		if (entity->GetName() == "Warrior")
 		{
-			Renderer->RenderMesh("WarriorMesh", false);
+			if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("WarriorDead", false);
+			}
+			else
+				Renderer->RenderMesh("WarriorMesh", false);
 		}
 		if (entity->GetName() == "Mage")
 		{
@@ -253,6 +299,7 @@ void SceneBattles::HandleUserInput()
 	float Radius = 1;
 	if (!SButtonState && Application::IsKeyPressed('S'))
 	{
+	//	SceneSystem::Instance().SwitchScene("ResultScene");
 		SButtonState = true;
 	}
 	else if (SButtonState && !Application::IsKeyPressed('S'))
@@ -263,6 +310,8 @@ void SceneBattles::HandleUserInput()
 	static bool DButtonState = false;
 	if (!DButtonState && Application::IsKeyPressed('D'))
 	{
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleeding(true);
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleedTimer(3);
 		DButtonState = true;
 	}
 	else if (DButtonState && !Application::IsKeyPressed('D'))
@@ -304,7 +353,7 @@ void SceneBattles::HandleUserInput()
 	static bool EButtonState = false;
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		//BattleSystem::Instance().SetPlayerTurn(false);
+		BattleSystem::Instance().SetPlayerTurn(false);
 		EButtonState = true;
 	}
 	else if (EButtonState && !Application::IsKeyPressed('E'))

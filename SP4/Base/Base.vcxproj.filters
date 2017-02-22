@@ -47,6 +47,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\Town.cpp" />
+	  <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.h" />
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.h" />
     <ClInclude Include="Source\Main\Game\Scene\Town.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneResult.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

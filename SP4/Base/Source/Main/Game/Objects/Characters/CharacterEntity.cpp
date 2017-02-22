@@ -17,12 +17,12 @@ CharacterEntity::CharacterEntity()
 , DebuffTimer(0)
 , BuffTimer(0)
 , DamageMitigation(0)
-, Defeated(false)
-, Stunned(false)
-, Bleeding(false)
-, Buffed(false)
-, Debuffed(false)
 {
+	for (size_t i = 0; i < 4; i++)
+	{
+		StatusEffectTimer[i] = 0;
+		StatusEffect[i] = false;
+	}
 }
 
 CharacterEntity::~CharacterEntity()
@@ -58,6 +58,32 @@ void CharacterEntity::Init(int Level)
 }
 
 void CharacterEntity::Update(double dt)
+{
+
+}
+
+void CharacterEntity::BleedEffect()
+{
+	int tempHealth = this->GetHealth();
+	tempHealth = tempHealth - (Math::RandIntMinMax(5, 8));
+	if (tempHealth <= 1)
+	{
+		tempHealth = 1;
+	}
+	this->SetHealth(tempHealth);
+}
+
+void CharacterEntity::WhileinBuff()
+{
+
+}
+
+void CharacterEntity::WhileinDebuff()
+{
+
+}
+
+void CharacterEntity::ResetStats()
 {
 
 }

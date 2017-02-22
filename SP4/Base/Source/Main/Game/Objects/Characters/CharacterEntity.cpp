@@ -41,9 +41,10 @@ Skill* CharacterEntity::GetSkillInVector(string SkillName)
 {
 	for (vector<Skill*>::iterator it = SkillList.begin(); it != SkillList.end(); it++)
 	{
-		if ((*it)->GetName() == SkillName);
+		if ((*it)->GetName() == SkillName)
 			return (*it);
 	}
+	return nullptr;
 }
 
 void CharacterEntity::SetDamageMitigation()

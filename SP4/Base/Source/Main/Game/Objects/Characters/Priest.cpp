@@ -20,26 +20,29 @@ Priest::~Priest()
 
 void Priest::Init(int Level)
 {
-	if (Level > 0 && Level < 21)
+	//if (Level > 0 && Level < 21)
+	//{
+	//	SetLevel(Level);
+	//	SetHealth(PriestHealth[Level - 1]);
+	//	SetMaxHealth(PriestHealth[Level - 1]);
+	//	SetAttack(PriestAttack[Level - 1]);
+	//	SetDefense(PriestDefense[Level - 1]);
+	//}
+	//if (Level > 20)
+	//{
+	//	float Levelscale = Level - 20;
+	//	float finalscale = 1 + (Levelscale * 0.01f);
+	//	SetLevel(Level);
+	//	SetHealth((PriestHealth[19] * finalscale));
+	//	SetMaxHealth(PriestHealth[19] * finalscale);
+	//	SetAttack(PriestAttack[19] * finalscale);
+	//	SetDefense(PriestDefense[19] * finalscale);
+	//}
+	////SetPosition(Position_Middle);
+	for (int i = 0; i < Level; i++)
 	{
-		SetLevel(Level);
-		SetHealth(PriestHealth[Level - 1]);
-		SetMaxHealth(PriestHealth[Level - 1]);
-		SetAttack(PriestAttack[Level - 1]);
-		SetDefense(PriestDefense[Level - 1]);
+		LevelUp();
 	}
-	if (Level > 20)
-	{
-		float Levelscale = Level - 20;
-		float finalscale = 1 + (Levelscale * 0.01f);
-		SetLevel(Level);
-		SetHealth((PriestHealth[19] * finalscale));
-		SetMaxHealth(PriestHealth[19] * finalscale);
-		SetAttack(PriestAttack[19] * finalscale);
-		SetDefense(PriestDefense[19] * finalscale);
-	}
-	//SetPosition(Position_Middle);
-	SetDamageMitigation();
 }
 
 void Priest::LevelUp()
@@ -48,6 +51,7 @@ void Priest::LevelUp()
 	SetHealth(PriestHealth[Level]);
 	SetAttack(PriestAttack[Level]);
 	SetDefense(PriestDefense[Level]);
+	SetDamageMitigation();
 
 	if (Level <= 10)
 	{
@@ -134,11 +138,11 @@ void Priest::LevelUp()
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Unholy Gift")
-			SkillItr->SetDamage((int)(GetAttack() * 0.5));
+			SkillItr->SetDamage((int)(Attack * 0.5));
 		else if (SkillItr->GetName() == "Heal")
-			SkillItr->SetHeal((int)(GetAttack() * 0.45));
+			SkillItr->SetHeal((int)(Attack * 0.45));
 		else if (SkillItr->GetName() == "Basic Attack")
-			SkillItr->SetDamage((int)(GetAttack() * 0.4));
+			SkillItr->SetDamage((int)(Attack * 0.4));
 	}
 }
 

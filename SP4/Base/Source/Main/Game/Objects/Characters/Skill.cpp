@@ -78,7 +78,7 @@ void Skill::SetSelectableTarget(size_t position, bool newSelectableTarget)
 }
 
 // Getters
-map<size_t, vector<string>> Skill::GetStringStatusEffect()
+map<size_t, vector<string>> Skill::GetStatusEffectMap()
 {
 	return StatusEffect;
 }
@@ -129,17 +129,32 @@ bool Skill::GetSelectableTarget(size_t position)
 	return false;
 }
 
-size_t Skill::GetStatusEffectTimer()
+size_t Skill::GetStatusEffectTimer(string StatusEffectName)
 {
 	for (map<size_t, vector<string>>::iterator it = StatusEffect.begin(); it != StatusEffect.end(); ++it)
 	{
 		for (vector<string>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
-			if ((*it2) == GetName())
+			if ((*it2) == StatusEffectName)
 			{
 				return it->first;
 			}
 		}
 	}
 	return 0;
+}
+
+bool Skill::StatusEffectExistence(string StatusEffectName)
+{
+	for (map<size_t, vector<string>>::iterator it = StatusEffect.begin(); it != StatusEffect.end(); ++it)
+	{
+		for (vector<string>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			if ((*it2) == StatusEffectName)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }

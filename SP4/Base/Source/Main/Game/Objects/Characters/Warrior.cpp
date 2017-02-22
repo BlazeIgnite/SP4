@@ -21,26 +21,29 @@ Warrior::~Warrior()
 
 void Warrior::Init(int Level)
 {
-	if (Level > 0 && Level < 21)
+	//if (Level > 0 && Level < 21)
+	//{
+	//	SetLevel(Level);
+	//	SetHealth(WarriorHealth[Level]);
+	//	SetAttack(WarriorAttack[Level]);
+	//	SetDefense(WarriorDefense[Level]);
+	//	SetDamageMitigation();
+	//}
+	//
+	////This Section is so that AI levels that Exceed Level 20 will be Scaled;
+	//if (Level > 20)
+	//{
+	//	SetLevel(Level);
+	//	float LevelOffset = (Level - 20) / 100;
+	//	SetHealth(WarriorHealth[20] * (1 + LevelOffset));
+	//	SetAttack(WarriorAttack[20] * (1 + LevelOffset));
+	//	SetDefense(WarriorDefense[20] * (1 + LevelOffset));
+	//	SetDamageMitigation();
+	//}
+	for (int i = 0; i < Level; i++)
 	{
-		SetLevel(Level);
-		SetHealth(WarriorHealth[Level]);
-		SetAttack(WarriorAttack[Level]);
-		SetDefense(WarriorDefense[Level]);
-		SetDamageMitigation();
+		LevelUp();
 	}
-	
-	//This Section is so that AI levels that Exceed Level 20 will be Scaled;
-	if (Level > 20)
-	{
-		SetLevel(Level);
-		float LevelOffset = (Level - 20) / 100;
-		SetHealth(WarriorHealth[20] * (1 + LevelOffset));
-		SetAttack(WarriorAttack[20] * (1 + LevelOffset));
-		SetDefense(WarriorDefense[20] * (1 + LevelOffset));
-		SetDamageMitigation();
-	}
-
 }
 void Warrior::Update(double dt)
 {
@@ -54,7 +57,7 @@ void Warrior::LevelUp()
 	SetHealth(WarriorHealth[Level]);
 	SetAttack(WarriorAttack[Level]);
 	SetDefense(WarriorDefense[Level]);
-
+	SetDamageMitigation();
 	if (Level <= 10)
 	{
 		Skill* skill = new Skill();
@@ -202,12 +205,12 @@ void Warrior::LevelUp()
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Rush")
-			SkillItr->SetDamage((int)(GetAttack() * 0.3));
+			SkillItr->SetDamage((int)(Attack * 0.3));
 		else if (SkillItr->GetName() == "Bash")
-			SkillItr->SetDamage((int)(GetAttack() * 0.3));
+			SkillItr->SetDamage((int)(Attack * 0.3));
 		else if (SkillItr->GetName() == "Divine Execution")
-			SkillItr->SetDamage((int)(GetAttack() * 1.5));
+			SkillItr->SetDamage((int)(Attack * 1.5));
 		else if (SkillItr->GetName() == "Basic Attack")
-			SkillItr->SetDamage((int)(GetAttack() * 0.75));
+			SkillItr->SetDamage((int)(Attack * 0.75));
 	}
 }

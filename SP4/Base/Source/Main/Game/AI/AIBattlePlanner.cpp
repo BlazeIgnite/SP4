@@ -19,3 +19,15 @@ string AIBattlePlanner::GetBattlePlan()
 {
 	return BattlePlan;
 }
+
+bool AIBattlePlanner::GetBattlePlan(string BattlePlan)
+{
+	if (this->BattlePlan == BattlePlan)
+		return true;
+	return false;
+}
+
+void AIBattlePlanner::UseBattlePlan()
+{
+
+}

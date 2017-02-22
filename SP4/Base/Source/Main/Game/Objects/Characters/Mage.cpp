@@ -32,7 +32,7 @@ void Mage::Init(int Level)
 	{
 		LevelUp();
 	}
-	SetDamageMitigation();
+
 }
 
 void Mage::LevelUp()
@@ -42,7 +42,7 @@ void Mage::LevelUp()
 	SetHealth(MageHealth[Level]);
 	SetAttack(MageAttack[Level]);
 	SetDefense(MageDefense[Level]);
-
+	SetDamageMitigation();
 	if (Level <= 10)
 	{
 		Skill* skill = new Skill();
@@ -125,15 +125,15 @@ void Mage::LevelUp()
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Ars Arcanum")
-			SkillItr->SetDamage((int)(GetAttack() * 0.9));
+			SkillItr->SetDamage((int)(Attack * 0.9));
 		else if (SkillItr->GetName() == "Unholy Incantation")
-			SkillItr->SetDamage((int)(GetAttack() * 0.2));
+			SkillItr->SetDamage((int)(Attack * 0.2));
 		else if (SkillItr->GetName() == "Blinding Flash")
-			SkillItr->SetDamage((int)(GetAttack() * 0.15));
+			SkillItr->SetDamage((int)(Attack * 0.15));
 		else if (SkillItr->GetName() == "Magic Bolt")
-			SkillItr->SetDamage((int)(GetAttack() * 0.75));
+			SkillItr->SetDamage((int)(Attack * 0.75));
 		else if (SkillItr->GetName() == "Basic Attack")
-			SkillItr->SetDamage((int)(GetAttack() * 0.5));
+			SkillItr->SetDamage((int)(Attack * 0.5));
 
 	}
 }

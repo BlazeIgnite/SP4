@@ -40,6 +40,7 @@ public:
 
 	inline Vector3 GetVectorPosition(){ return Position; };
 	inline Vector3 GetScale(){ return Scale; };
+	inline vector<Skill*> GetSkillList() { return SkillList; };
 	inline string GetName(){ return Name; };
 	inline size_t GetLevel() { return Level; };
 	inline size_t GetHealth() { return Health; };

@@ -16,6 +16,7 @@ SceneBattles::SceneBattles()
 
 SceneBattles::~SceneBattles()
 {
+	delete AI;
 }
 
 void SceneBattles::Init()
@@ -28,9 +29,18 @@ void SceneBattles::Init()
 	button->Init();
 
 	Warrior* warrior = new Warrior();
-	warrior->Init(1);
+	warrior->Init(2);
 	Mage* mage = new Mage();
-	mage->Init(1);
+	mage->Init(2);
+
+	Warrior* warrior2 = new Warrior();
+	warrior2->Init(2);
+	Mage* mage2 = new Mage();
+	mage2->Init(2);
+	Priest* priest2 = new Priest();
+	priest2->Init(2);
+
+	AI = new AIAllAttack();
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
 	BattleSystem::Instance().Init();
@@ -38,9 +48,9 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
-	BattleSystem::Instance().SetAITroops(0, new Warrior());
-	BattleSystem::Instance().SetAITroops(1, new Mage());
-	BattleSystem::Instance().SetAITroops(2, new Priest());
+	BattleSystem::Instance().SetAITroops(0, warrior2);
+	BattleSystem::Instance().SetAITroops(1, mage2);
+	BattleSystem::Instance().SetAITroops(2, priest2);
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -77,7 +87,9 @@ bool SceneBattles::CheckCollision(BaseObject* o1, BaseObject* o2, std::string ty
 
 void SceneBattles::Update(float dt)
 {
+	HandleUserInput();
 	button->Update(dt);
+	AI->Update(dt);
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -292,6 +304,7 @@ void SceneBattles::HandleUserInput()
 	static bool EButtonState = false;
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
+		//BattleSystem::Instance().SetPlayerTurn(false);
 		EButtonState = true;
 	}
 	else if (EButtonState && !Application::IsKeyPressed('E'))

@@ -2,7 +2,7 @@
 #include <vector>
 #include "SceneBase.h"
 #include "../Objects/Characters/Warrior.h"
-#include "../AI/AIBehaviors/AIDefault.h"
+#include "../AI/AIBehaviors/AIAllAttack.h"
 #include "../Systems/BattleSystem.h"
 #include "../../Engine/Objects/BaseObject.h"
 #include "../../Engine/Objects/SceneEntity.h"
@@ -22,6 +22,8 @@ private:
 	double x, y;
 
 	BattleButton* button;
+
+	AIAllAttack* AI;
 
 public:
 	SceneBattles();

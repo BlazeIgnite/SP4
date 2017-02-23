@@ -31,16 +31,16 @@ void SceneBattles::Init()
 	Warrior* warrior = new Warrior();
 	warrior->Init(20);
 	Mage* mage = new Mage();
-	mage->Init(2);
+	mage->Init(20);
 	Priest* priest = new Priest();
-	priest->Init(2);
+	priest->Init(20);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(10);
+	warrior2->Init(5);
 	Mage* mage2 = new Mage();
-	mage2->Init(10);
+	mage2->Init(5);
 	Priest* priest2 = new Priest();
-	priest2->Init(10);
+	priest2->Init(5);
 
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
@@ -96,7 +96,6 @@ void SceneBattles::Update(float dt)
 	HandleUserInput();
 	button->Update(dt);
 	AI->Update(dt);
-	std::cout << BattleSystem::Instance().GetPlayerTroops().at(1)->GetBleedTimer() << std::endl;
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)

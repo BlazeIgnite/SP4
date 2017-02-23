@@ -52,7 +52,7 @@ public:
 	size_t GetHeal();
 	size_t GetShiftPosition();
 	size_t GetActionCost();
-	size_t GetTurnCooldown();
+	size_t& GetTurnCooldown();
 	size_t GetMaxTurnCooldown();
 	bool GetRequiredPosition(size_t position);
 	bool GetSelectableTarget(size_t position);

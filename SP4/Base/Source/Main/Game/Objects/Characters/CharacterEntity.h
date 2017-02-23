@@ -32,6 +32,9 @@ protected:
 	bool Defeated;
 	bool StatusEffect[4];
 
+	bool isPressed;
+	bool isSelected;
+
 public:
 	CharacterEntity();
 	~CharacterEntity();
@@ -91,6 +94,11 @@ public:
 
 	virtual void Init(int Level = 1);
 	void Update(double dt);
+	bool isitHover();
+	bool GetisPressed();
+	bool GetisSelected();
+	void SetisPressed(bool);
+	void SetisSelected(bool);
 };
 
 #endif

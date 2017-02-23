@@ -1,11 +1,11 @@
 #include "CharacterEntity.h"
 #include "Skill.h"
 #include "../../Game/Mains/Application.h"
-
+#include "../../Base/Source/Main/Engine/System/InputManager.h"
 
 CharacterEntity::CharacterEntity() 
 : Position(Vector3(0, 0, 0))
-, Scale(Vector3(1, 1, 1))
+, Scale(Vector3(10, 10, 1))
 , Name("")
 , Level(0)
 , Health(0)
@@ -60,7 +60,7 @@ void CharacterEntity::Init(int Level)
 
 void CharacterEntity::Update(double dt)
 {
-
+	isitHover();
 }
 
 void CharacterEntity::BleedEffect()
@@ -87,4 +87,40 @@ void CharacterEntity::WhileinDebuff()
 void CharacterEntity::ResetStats()
 {
 
+}
+
+bool CharacterEntity::isitHover()
+{
+	float worldX = InputManager::Instance().GetMousePosition().x;
+	float worldY = InputManager::Instance().GetMousePosition().y;
+
+	if (worldY > (GetVectorPosition().y - GetScale().y * 0.5) && worldY < (GetVectorPosition().y + GetScale().y * 0.5))
+	{
+		if (worldX >(GetVectorPosition().x - GetScale().x * 0.5) && worldX < (GetVectorPosition().x + GetScale().x * 0.5))
+			return true;
+		else
+			return false;
+	}
+	else
+		return false;
+}
+
+bool CharacterEntity::GetisPressed()
+{
+	return isPressed;
+}
+
+bool CharacterEntity::GetisSelected()
+{
+	return isSelected;
+}
+
+void CharacterEntity::SetisPressed(bool pressed)
+{
+	this->isPressed = pressed;
+}
+
+void CharacterEntity::SetisSelected(bool select)
+{
+	this->isSelected = select;
 }

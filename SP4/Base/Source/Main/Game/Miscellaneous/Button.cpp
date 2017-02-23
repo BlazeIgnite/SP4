@@ -45,7 +45,7 @@ void Button::UpdateMainMenu(float dt)
 
 	if (type == "NewGame" && isitHover())
 	{
-		if (Application::IsMousePressed(0))                                                                                   
+		if (Application::IsMousePressed(0))                                     
 		{
 			if (!isPressed)
 			{
@@ -291,31 +291,7 @@ void Button::UpdateCrafting(float dt)
 	Application::GetCursorPos(&x, &y);
 	isitHover();
 
-	//Put into Crafting Page
-	//if (!isOpened)
-	//{
-	//	if (type == "Close Button" && isitHover())
-	//	{
-	//		if (Application::IsMousePressed(0))
-	//		{
-	//			if (!GetisPressed())
-	//			{
-	//				isOpened = true;
-	//				std::cout << "Closed" << std::endl;
-	//				SetisPressed(true);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if (GetisPressed())
-	//			{
-	//				//isOpened = false;
-	//				SetisPressed(false);
-	//			}
-	//		}
-	//	}
-	//}
-	
+	//Put into Crafting Page	
 
 	if (type == "Red Potion" && isitHover())
 	{

@@ -519,6 +519,8 @@ void Town::RenderInventoryButtons()
 
 void Town::Exit()
 {
+	ObjectManager::Instance().Exit();
+
 	for (std::vector<Button*>::iterator it = buttonList.begin(); it != buttonList.end(); it++)
 	{
 		if ((*it) != nullptr)

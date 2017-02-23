@@ -8,6 +8,7 @@
 #include "../../Engine/Objects/BaseObject.h"
 #include "../../Engine/Objects/SceneEntity.h"
 #include "../Objects/Miscellaneous/BattleButton.h"
+#include "../Objects/Characters/CharacterEntity.h"
 
 
 class SceneBattles : public SceneEntity
@@ -23,7 +24,7 @@ private:
 	double x, y;
 
 	BattleButton* button;
-
+	CharacterEntity* character;
 	AIBase* AI;
 
 public:

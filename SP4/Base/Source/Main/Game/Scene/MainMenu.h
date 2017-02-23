@@ -22,6 +22,7 @@ private:
 
 	double x, y;
 	InventoryButtons* inventory;
+	std::string NewName;
 public:
 	MainMenu();
 	~MainMenu();
@@ -31,7 +32,15 @@ public:
 	void Render();
 	void Exit();
 
+	void InitButtons();
+	void RenderButtons();
+	void RenderNameInput();
+
 	std::vector<Button*> buttonList;
+
+	bool LoadFile;
+	bool NewGame;
+	bool NameInput;
 };
 
 #endif

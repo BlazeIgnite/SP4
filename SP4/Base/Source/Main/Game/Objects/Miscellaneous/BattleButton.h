@@ -19,6 +19,8 @@ public:
 	void Render();
 	void Exit();
 
+	Vector3 tempscale;
+
 	std::vector<Button*>* GetList();
 
 };

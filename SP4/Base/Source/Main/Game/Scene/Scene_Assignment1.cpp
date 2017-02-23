@@ -4,7 +4,7 @@
 #include <sstream>
 //#include "../Systems/ObjectManager.h"
 #include "../Systems/EventSystem.h"
-#include "../../Engine/State/StateList.h"
+//#include "../../Engine/State/StateList.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
 #include "../Systems/BattleSystem.h"
@@ -37,45 +37,11 @@ void Scene_Assignment1::Init()
 	TimeMultiplier = 1.f;
 	Math::InitRNG();
 
-	//Warrior* warrior = new Warrior();
-	//Warrior* warrior1 = new Warrior();
-	//warrior->Init(2);
-	//warrior->Init(Vector3(150, 50, 0), Vector3(5, 5, 1));
-	//warrior1->Init(1);
-	//warrior1->Init(Vector3(125, 50, 0), Vector3(10, 10, 1));
-	//mage->Init(1);
-
-	//player = new Player();
-	//player->Init(1);
 	Player::Instance().Init(2);
-	Player::Instance().AddGold(100);
 	int Gold = Player::Instance().GetPlayerGold();
-	//LuaSystem::Instance().GameSave();
 	
 	AI = new AIDefault();
 	AI->Init();
-	
-	//bs = new BattleSystem();
-	//bs->Init();
-	//Player::Instance().AddCharacter("Warrior", warrior);
-	//player->AddCharacter("Warrior", warrior);
-	//player->AddCharacter("Mage", mage);
-	/*BattleSystem::Instance().Init();
-	BattleSystem::Instance().SetPlayerTroops(0, player->GetCharacterEntityInClassUnit("Warrior", 0));
-	BattleSystem::Instance().SetPlayerTroops(1, player->GetCharacterEntityInClassUnit("Mage", 0));*/
-
-	//BattleSystem::Instance().SetPlayerTroops(1, *(player->GetClassUnitList("Warrior").begin()));
-	//BattleSystem::Instance().SetAITroops(1, *(AI->GetClassAIList("Warrior").begin()));
-
-	//warrior1 = new Warrior();
-
-	//player = new Player();
-	//player->Init(1);
-	//warrior1->Init(112);
-
-	//warrior = new Warrior();
-	//warrior->Init(1);
-	//warrior->skill_1->SetTarget(warrior1);
 	
 	inventory = new InventoryButtons();
 	inventory->Init(x, y);
@@ -459,7 +425,7 @@ void Scene_Assignment1::Exit()
 		inventory = nullptr;
 	}
 
-	LuaSystem::Instance().GameSave();
+	//LuaSystem::Instance().GameSave();
 	//ObjectManager::Instance().Exit();
 	
 	//StateList::Instance().Exit();

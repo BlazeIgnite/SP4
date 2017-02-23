@@ -1,12 +1,12 @@
 PlayerName = "test2"
 PlayerTag = 2
-PlayerGold = 10400
+PlayerGold = 0
 PlayerFurthestStage = 0
-RedHerbCount = 0
+RedHerbCount = 18
 WhiteHerbCount = 0
 EmptyBottleCount = 0
 ClothCount = 0
-RedPotionCount =8
+RedPotionCount =14
 AttackPotionCount = 0
 DefencePotionCount = 0
 AttackPotionCount = 0

@@ -14,6 +14,7 @@
 #include "../../Engine/System/RenderSystem.h"
 #include "../../Engine/System/LuaSystem.h"
 
+#include "../Scene/SceneLevelSelection.h"
 #include "../Scene/Scene_Assignment1.h"
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
@@ -180,6 +181,10 @@ void Application::Init()
 	MainMenu* temp3 = new MainMenu();
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
+
+	SceneLevelSelection* temp5 = new SceneLevelSelection();
+	temp5->SetEntityID("LevelSelection_Scene");
+	SceneSystem::Instance().AddScene(*temp5);
 
 	Town* temp4 = new Town();
 	temp4->SetEntityID("Town_Scene");

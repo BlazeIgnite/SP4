@@ -1,12 +1,12 @@
-PlayerName = "TEST"
+PlayerName = "ASDA"
 PlayerTag = 1
 PlayerGold = 0
 PlayerFurthestStage = 0
-RedHerbCount = 560
+RedHerbCount = 588
 WhiteHerbCount = 0
 EmptyBottleCount = 0
 ClothCount = 0
-RedPotionCount =167
+RedPotionCount =181
 AttackPotionCount = 0
 DefencePotionCount = 0
 AttackPotionCount = 0

@@ -117,6 +117,7 @@ bool Skill::GetRequiredPosition(size_t position)
 		if (i == position)
 			return RequiredPosition[i];
 	}
+	return false;
 }
 bool Skill::GetSelectableTarget(size_t position)
 {
@@ -125,6 +126,7 @@ bool Skill::GetSelectableTarget(size_t position)
 		if (i == position)
 			return SelectableTarget[i];
 	}
+	return false;
 }
 
 size_t Skill::GetStatusEffectTimer(string StatusEffectName)

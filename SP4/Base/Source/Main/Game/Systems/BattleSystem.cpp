@@ -38,8 +38,6 @@ void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 		PlayerTroops.find(position)->second = Troop;
 		//Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * 0.3f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f));
 	}
-
-		
 }
 void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 {
@@ -68,6 +66,15 @@ void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosit
 			PlayerTroopSkills.find(playerPosition)->second[skillPosition] = skill;
 		else
 			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = skill;
+	}
+}
+void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
+{
+	SelectedTroop = newSelectedTroop;
+	for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
+	{
+		if (SelectedTroop == it->second)
+			DisplaySkillNum = it->first;
 	}
 }
 

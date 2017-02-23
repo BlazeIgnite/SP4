@@ -194,7 +194,7 @@ void Town::UpdateInventory(float dt)
 			{
 				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
-					SceneSystem::Instance().SwitchScene("Battle_Scene");
+					SceneSystem::Instance().SwitchScene("LevelSelection_Scene");
 					OpenMission = true;
 				}
 			}
@@ -264,7 +264,7 @@ void Town::Render()
 
 			//Text on Box
 			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, 0.5);
+			modelStack->Translate(obj->GetPosition().x - 5.5f, obj->GetPosition().y, 0.5f);
 			modelStack->Scale(2, 2, 1);
 			Renderer->RenderText("text", "Inventory", Color(1, 1, 1));
 			modelStack->PopMatrix();

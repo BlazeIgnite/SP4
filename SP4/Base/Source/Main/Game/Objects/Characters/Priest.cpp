@@ -20,6 +20,8 @@ Priest::~Priest()
 
 void Priest::Init(int Level)
 {
+	SetisPressed(false);
+	SetisSelected(false);
 	//if (Level > 0 && Level < 21)
 	//{
 	//	SetLevel(Level);

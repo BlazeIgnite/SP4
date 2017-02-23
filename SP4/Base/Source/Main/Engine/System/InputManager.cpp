@@ -11,7 +11,7 @@ InputManager::InputManager()
 	{
 		cIM_Keys[num] = false;
 	}
-	Mouse = std::map<MouseClick, Type>();
+	Mouse = std::map<MOUSE, STATE>();
 }
 
 void InputManager::HandleUserInput()
@@ -51,12 +51,12 @@ void InputManager::SetScreenSize(float x, float y)
 	cIM_ScreenHeight = y;
 }
 
-InputManager::Type InputManager::GetMouseState(MouseClick Click)
+STATE InputManager::GetMouseState(MOUSE Click)
 {
-	std::map<MouseClick, Type>::iterator it = Mouse.find(Click);
+	std::map<MOUSE, STATE>::iterator it = Mouse.find(Click);
 	if (it == Mouse.end())
 	{
-		Mouse.insert(std::pair<MouseClick, Type>(Click, RELEASE));
+		Mouse.insert(std::pair<MOUSE, STATE>(Click, RELEASE));
 		return GetMouseState(Click);
 	}
 	return it->second;
@@ -73,7 +73,7 @@ void InputManager::UpdateMouse()
 
 	SetMousePosition(Vector3(worldX, worldY - cIM_ScreenHeight, 0.f));
 
-	std::map<MouseClick, Type>::iterator it = Mouse.begin();
+	std::map<MOUSE, STATE>::iterator it = Mouse.begin();
 	for (it; it != Mouse.end(); ++it)
 	{
 		if (it->first == MOUSE_L)
@@ -110,7 +110,6 @@ void InputManager::KeyboardInput()
 {
 	int NumberOffset = 48;
 	int AlphabetOffset = 65;
-	int CapsValue;
 	for (int Number = 0; Number <= 10; ++Number)
 		if (Application::IsKeyPressed(Number + NumberOffset))
 			CheckKeyPressed(Number + NumberOffset);
@@ -125,7 +124,7 @@ void InputManager::KeyboardInput()
 
 char InputManager::GetKeyPressed()
 {
-	for (std::map<char, InputManager::Type>::iterator Keyit = KeyInput.begin(); Keyit != KeyInput.end(); ++Keyit)
+	for (std::map<char, STATE>::iterator Keyit = KeyInput.begin(); Keyit != KeyInput.end(); ++Keyit)
 		if (Keyit->second == CLICK)
 			return Keyit->first;
 	return NULL;
@@ -133,7 +132,7 @@ char InputManager::GetKeyPressed()
 
 void InputManager::KeyPressedUpdate()
 {
-	for (std::map<char, InputManager::Type>::iterator Keyit = KeyInput.begin(); Keyit != KeyInput.end(); ++Keyit)
+	for (std::map<char, STATE>::iterator Keyit = KeyInput.begin(); Keyit != KeyInput.end(); ++Keyit)
 	{
 		if ((Keyit->second == RELEASE || Keyit->second == UNTOUCHED) && Application::IsKeyPressed(toupper(Keyit->first)))
 			Keyit->second = CLICK;
@@ -147,13 +146,13 @@ void InputManager::KeyPressedUpdate()
 	KeyboardInput();
 }
 
-InputManager::Type InputManager::CheckKeyPressed(char key)
+STATE InputManager::CheckKeyPressed(char key)
 {
-	std::map<char, InputManager::Type>::iterator Keyit = KeyInput.find(key);
+	std::map<char, STATE>::iterator Keyit = KeyInput.find(key);
 	if (Keyit == KeyInput.end())
 	{
-		KeyInput.insert(std::pair<char, InputManager::Type>(key, CLICK));
-		return CLICK;
+		KeyInput.insert(std::pair<char, STATE>(key, UNTOUCHED));
+		return UNTOUCHED;
 	}
 	return Keyit->second;
 }

@@ -27,12 +27,16 @@ public:
 
 	static void ChangeWindowSize(const int& width, const int& height);
 	static void FullScreenWindowSize();
+
+	void QuitGame();
 private:
 	Application();
 	~Application();
 
 	static int ScreenHeight;
 	static int ScreenWidth;
+
+	bool Quit;
 
 	//Declare a window object
 	StopWatch m_timer;

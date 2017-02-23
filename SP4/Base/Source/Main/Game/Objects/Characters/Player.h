@@ -42,7 +42,7 @@ public:
 	void AddConsumableItem(std::string, int);
 	void AddMaterialItem(std::string, int);
 
-
+	void LoadPlayer(int);
 private:
 	std::string PlayerName;
 	unsigned int PlayerID;

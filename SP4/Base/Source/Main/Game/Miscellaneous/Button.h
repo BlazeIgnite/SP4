@@ -2,6 +2,7 @@
 
 #include "Vector3.h"
 #include <iostream>
+#include "State.h"
 
 class Button
 {
@@ -22,13 +23,15 @@ public:
 
 	Vector3 GetPosition();
 	Vector3 GetScale();
+	void SetScale(Vector3 scale) { this->scale = scale; }
 	void Init(Vector3 Position, Vector3 Scale, std::string type);
 	void UpdateCrafting(float dt);
 	void UpdateBattleScene(float dt);
 	void UpdateMainMenu(float dt);
-	void Update(float dt);
+	void Update();
 
 	std::string type;
+	STATE CurrentState;
 
 	bool isitHover();
 	bool GetisPressed();
@@ -37,4 +40,5 @@ public:
 	void SetisPressed(bool);
 	void SetisSelected(bool);
 	void SetisTarget(bool);
+	STATE GetCurrentState();
 };

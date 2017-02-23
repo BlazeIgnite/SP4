@@ -27,8 +27,7 @@ void Player::Init(const unsigned int PlayerTag)
 	AddConsumableItem("Red Potion", 1);
 	AddMaterialItem("Red Herb", 2);
 	item = new ItemEntity();
-
-	LuaSystem::Instance().LoadGame(PlayerTag);
+	LuaSystem::Instance().LoadGame(0);
 }
 
 void Player::Update(double dt)
@@ -130,4 +129,9 @@ void Player::AddMaterialItem(std::string Name, int Amount)
 		MaterialList[Name] = Amount;
 	}
 	this->MaterialList.find(Name)->second += Amount;
+}
+
+void Player::LoadPlayer(int PlayerTag)
+{
+	LuaSystem::Instance().LoadGame(PlayerTag);
 }

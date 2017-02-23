@@ -59,7 +59,7 @@ void Town::UpdateInventory(float dt)
 	{
 		if ((*itr)->type == "Consumable Tab" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -82,7 +82,7 @@ void Town::UpdateInventory(float dt)
 		}
 		if ((*itr)->type == "Material Tab" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				OpenConsumableTab = false;
 				OpenCraftingTab = false;
@@ -105,7 +105,7 @@ void Town::UpdateInventory(float dt)
 		}
 		if ((*itr)->type == "Crafting Tab" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -131,7 +131,7 @@ void Town::UpdateInventory(float dt)
 		{
 			if ((*itr)->type == "Close Button" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
 					if (!(*itr)->GetisPressed())
 					{
@@ -161,7 +161,7 @@ void Town::UpdateInventory(float dt)
 			inventory->SetisOpened(false);
 			if ((*itr)->type == "Inventory" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
 					if (!(*itr)->GetisPressed())
 					{
@@ -192,9 +192,9 @@ void Town::UpdateInventory(float dt)
 		{
 			if ((*itr)->type == "Mission" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
-					SceneSystem::Instance().SwitchScene("BattleScene");
+					SceneSystem::Instance().SwitchScene("Battle_Scene");
 					OpenMission = true;
 				}
 			}
@@ -203,7 +203,7 @@ void Town::UpdateInventory(float dt)
 		{
 			if ((*itr)->type == "Mission" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
 					OpenMission = false;
 				}
@@ -519,6 +519,8 @@ void Town::RenderInventoryButtons()
 
 void Town::Exit()
 {
+	ObjectManager::Instance().Exit();
+
 	for (std::vector<Button*>::iterator it = buttonList.begin(); it != buttonList.end(); it++)
 	{
 		if ((*it) != nullptr)

@@ -21,7 +21,7 @@ SceneResult::~SceneResult()
 
 void SceneResult::Init()
 {
-	this->SetEntityID("ResultScene");
+	this->SetEntityID("Result_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 }

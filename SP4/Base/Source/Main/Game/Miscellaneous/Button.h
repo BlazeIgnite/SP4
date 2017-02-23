@@ -23,6 +23,7 @@ public:
 
 	Vector3 GetPosition();
 	Vector3 GetScale();
+	void SetScale(Vector3 scale) { this->scale = scale; }
 	void Init(Vector3 Position, Vector3 Scale, std::string type);
 	void UpdateCrafting(float dt);
 	void UpdateBattleScene(float dt);

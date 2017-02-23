@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 ﻿Build started 2/23/2017 6:01:15 PM.
+=======
+﻿Build started 2/23/2017 4:16:42 PM.
+     1>Project "C:\Users\151131H\Desktop\SP4.1\SP4\Common\Common.vcxproj" on node 2 (Clean target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\151131h\desktop\sp4.1\sp4\common\debug\shader.obj' because it is being used by another process.
+     1>Done Building Project "C:\Users\151131H\Desktop\SP4.1\SP4\Common\Common.vcxproj" (Clean target(s)).
+>>>>>>> da6b2454821e305ac89386a73cf077b39ccb36aa
 
 Build succeeded.
 

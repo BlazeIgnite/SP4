@@ -50,6 +50,7 @@ void SceneBattles::Init()
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
 	Player::Instance().AddCharacter("Priest", priest);
+
 	BattleSystem::Instance().Init();
 	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
 	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
@@ -60,8 +61,9 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, priest2);
 
-	AI = new AIStatusEffect();
+	AI = new AIAllAttack();
 	BattleSystem::Instance().Debugging();
+
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -101,7 +103,7 @@ void SceneBattles::Update(float dt)
 	HandleUserInput();
 	button->Update(dt);
 	AI->Update(dt);
-	std::cout << BattleSystem::Instance().GetPlayerTroops().at(1)->GetBleedTimer() << std::endl;
+	//std::cout << BattleSystem::Instance().GetPlayerTroops().at(1)->GetBleedTimer() << std::endl;
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -132,34 +134,43 @@ void SceneBattles::Render()
 
 	//RenderMesh(meshList[GEO_AXES], false);
 	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
+	/*for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
+	{
+		Button* obj = (Button *)*itr;
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
+		modelStack->Scale(obj->GetScale().x , obj->GetScale().y , 1);
+
+		if (obj->type == "Character 1")
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("PlayerWarriorMesh", false);
+			else
+				Renderer->RenderMesh("PlayerWarriorMesh", false);
+		}
+		if (obj->type == "Character 2")
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("PlayerMageMesh", false);
+			else
+				Renderer->RenderMesh("PlayerMageMesh", false);
+		}
+		if (obj->type == "Character 3")
+		{
+			if (!obj->GetisSelected())
+				Renderer->RenderMesh("PlayerPriestMesh", false);
+			else
+				Renderer->RenderMesh("PlayerPriestMesh", false);
+		}
+		modelStack->PopMatrix();
+	}*/
+
 	for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
 	{
 		Button* obj = (Button *)*itr;
 		modelStack->PushMatrix();
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
-
-		if (obj->type == "Character 1")
-		{
-			if (!obj->GetisSelected())
-				Renderer->RenderMesh("RedPotion", false);
-			else
-				Renderer->RenderMesh("BluePotion", false);
-		}
-		if (obj->type == "Character 2")
-		{
-			if (!obj->GetisSelected())
-				Renderer->RenderMesh("RedPotion", false);
-			else
-				Renderer->RenderMesh("BluePotion", false);
-		}
-		if (obj->type == "Character 3")
-		{
-			if (!obj->GetisSelected())
-				Renderer->RenderMesh("RedPotion", false);
-			else
-				Renderer->RenderMesh("BluePotion", false);
-		}
 		if (obj->type == "Red Potion")
 			Renderer->RenderMesh("RedPotion", false);
 		//if (obj->type == "Blue Potion")
@@ -178,12 +189,12 @@ void SceneBattles::Render()
 			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 3")
 			Renderer->RenderMesh("Bandage", false);
-		if (obj->type == "AI 1")
+		/*if (obj->type == "AI 1")
 			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "AI 2")
 			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "AI 3")
-			Renderer->RenderMesh("RedPotion", false);
+			Renderer->RenderMesh("RedPotion", false);*/
 		modelStack->PopMatrix();
 	}
 
@@ -194,7 +205,7 @@ void SceneBattles::Render()
 		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
 		modelStack->PushMatrix();
 		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
-		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
+		modelStack->Scale(entity->GetScale().x, entity->GetScale().y, 1);
 		if (entity->GetName() == "Warrior")
 		{
 			if (entity->GetDefeated())
@@ -249,7 +260,7 @@ void SceneBattles::Render()
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
 		modelStack->PushMatrix();
 		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
-		modelStack->Scale(entity->GetScale().x * 10, entity->GetScale().y * 10, 1);
+		modelStack->Scale(entity->GetScale().x , entity->GetScale().y , 1);
 		if (entity->GetName() == "Warrior")
 		{
 			if (entity->GetDefeated())

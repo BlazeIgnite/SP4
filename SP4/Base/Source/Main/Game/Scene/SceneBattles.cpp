@@ -16,13 +16,18 @@ SceneBattles::SceneBattles()
 
 SceneBattles::~SceneBattles()
 {
-	delete AI;
+	if (AI != nullptr)
+	{
+		AI->Exit();
+		delete AI;
+	}
+	AI = nullptr;
 }
 
 void SceneBattles::Init()
 {
 	// Init Scene
-	this->SetEntityID("BattleScene");
+	this->SetEntityID("Battle_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	button = new BattleButton();
@@ -380,5 +385,5 @@ void SceneBattles::Exit()
 	//SceneBase::Exit();
 	//Cleanup Objects
 	ObjectManager::Instance().Exit();
-	button->Exit();
+	//button->Exit();
 }

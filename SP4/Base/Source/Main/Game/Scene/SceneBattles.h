@@ -24,7 +24,7 @@ private:
 
 	BattleButton* button;
 
-	AIBase* AI;
+	AIBase* AI = nullptr;
 
 public:
 	SceneBattles();

@@ -80,7 +80,7 @@ void BattleButton::Update(float dt)
 		//Character 1 (Most Right)
 		if ((*itr)->type == "Character 1" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -103,7 +103,7 @@ void BattleButton::Update(float dt)
 		//Character 2 (Middle)
 		if ((*itr)->type == "Character 2" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -126,7 +126,7 @@ void BattleButton::Update(float dt)
 		//Character 3 (Most Left)
 		if ((*itr)->type == "Character 3" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -149,7 +149,7 @@ void BattleButton::Update(float dt)
 		//AI 1 
 		if ((*itr)->type == "AI 1" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -170,7 +170,7 @@ void BattleButton::Update(float dt)
 		}
 		if ((*itr)->type == "AI 2" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -191,7 +191,7 @@ void BattleButton::Update(float dt)
 		}
 		if ((*itr)->type == "AI 3" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{

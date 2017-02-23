@@ -2,6 +2,7 @@
 
 #include "Vector3.h"
 #include <iostream>
+#include "State.h"
 
 class Button
 {
@@ -26,9 +27,10 @@ public:
 	void UpdateCrafting(float dt);
 	void UpdateBattleScene(float dt);
 	void UpdateMainMenu(float dt);
-	void Update(float dt);
+	void Update();
 
 	std::string type;
+	STATE CurrentState;
 
 	bool isitHover();
 	bool GetisPressed();
@@ -37,4 +39,5 @@ public:
 	void SetisPressed(bool);
 	void SetisSelected(bool);
 	void SetisTarget(bool);
+	STATE GetCurrentState();
 };

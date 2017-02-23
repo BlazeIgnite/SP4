@@ -1,12 +1,12 @@
-PlayerName = "test2"
-PlayerTag = 2
+PlayerName = "NewPlayer"
+PlayerTag = 0
 PlayerGold = 0
 PlayerFurthestStage = 0
-RedHerbCount = 16
+RedHerbCount = 0
 WhiteHerbCount = 0
 EmptyBottleCount = 0
 ClothCount = 0
-RedPotionCount =13
+RedPotionCount =0
 AttackPotionCount = 0
 DefencePotionCount = 0
 AttackPotionCount = 0

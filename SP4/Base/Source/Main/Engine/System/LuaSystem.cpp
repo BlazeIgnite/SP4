@@ -124,7 +124,7 @@ void LuaSystem::GameSave()
 	Input += ("\nEmptyBottleCount = " + std::to_string(Player::Instance().GetMaterialList().find("Empty Bottle")->second));
 	Input += ("\nClothCount = " + std::to_string(Player::Instance().GetMaterialList().find("Cloth")->second));
 			 
-	Input += ("\nRedPotionCount =" + std::to_string(Player::Instance().GetConsumableList().find("Red Potion")->second));
+	Input += ("\nRedPotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Red Potion")->second));
 	Input += ("\nAttackPotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Attack Potion")->second));
 	Input += ("\nDefencePotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Defence Potion")->second));
 	Input += ("\nAttackPotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Bandage")->second));
@@ -182,43 +182,43 @@ void LuaSystem::LoadGame(int SaveFile)
 	Player::Instance().AddConsumableItem("Defence Potion", GetIntValue(lua, "DefencePotionCount"));
 	Player::Instance().AddConsumableItem("Bandage", GetIntValue(lua, "BandageCount"));
 
-	unsigned int WarriorCount = GetIntValue(lua, "NumberOfWarrior");
-	unsigned int PriestCount = GetIntValue(lua, "NumberOfPriest");
-	unsigned int WizardCount = GetIntValue(lua, "NumberOfMage");
+	unsigned int WarriorCount = GetIntValue(lua, "WarriorCount");
+	unsigned int PriestCount = GetIntValue(lua, "PriestCount");
+	unsigned int WizardCount = GetIntValue(lua, "MageCount");
 
-	//if (WarriorCount > 0)
-	//{
-	//	for (int Value = 1; Value <= WarriorCount; ++Value)
-	//	{
-	//		CharacterEntity* temp = new Warrior();
-	//		std::string VariableName = "Warrior" + std::to_string(Value);
-	//		unsigned int Level = GetIntValue(lua, VariableName.c_str());
-	//		temp->Init(Level);
-	//		Player::Instance().AddCharacter("Warrior", temp);
-	//	}
-	//}
-	//if (PriestCount > 0)
-	//{
-	//	for (int Value = 1; Value <= PriestCount; ++Value)
-	//	{
-	//		CharacterEntity* temp = new Warrior();
-	//		std::string VariableName = "Priest" + std::to_string(Value);
-	//		unsigned int Level = GetIntValue(lua, VariableName.c_str());
-	//		temp->Init(Level);
-	//		Player::Instance().AddCharacter("Priest", temp);
-	//	}
-	//}
-	//if (WizardCount > 0)
-	//{
-	//	for (int Value = 1; Value <= WizardCount; ++Value)
-	//	{
-	//		CharacterEntity* temp = new Warrior();
-	//		std::string VariableName = "Mage" + std::to_string(Value);
-	//		unsigned int Level = GetIntValue(lua, VariableName.c_str());
-	//		temp->Init(Level);
-	//		Player::Instance().AddCharacter("Mage", temp);
-	//	}
-	//}
+	if (WarriorCount > 0)
+	{
+		for (int Value = 1; Value <= WarriorCount; ++Value)
+		{
+			CharacterEntity* temp = new Warrior();
+			std::string VariableName = "Warrior" + std::to_string(Value);
+			unsigned int Level = GetIntValue(lua, VariableName.c_str());
+			temp->Init(Level);
+			Player::Instance().AddCharacter("Warrior", temp);
+		}
+	}
+	if (PriestCount > 0)
+	{
+		for (int Value = 1; Value <= PriestCount; ++Value)
+		{
+			CharacterEntity* temp = new Warrior();
+			std::string VariableName = "Priest" + std::to_string(Value);
+			unsigned int Level = GetIntValue(lua, VariableName.c_str());
+			temp->Init(Level);
+			Player::Instance().AddCharacter("Priest", temp);
+		}
+	}
+	if (WizardCount > 0)
+	{
+		for (int Value = 1; Value <= WizardCount; ++Value)
+		{
+			CharacterEntity* temp = new Warrior();
+			std::string VariableName = "Mage" + std::to_string(Value);
+			unsigned int Level = GetIntValue(lua, VariableName.c_str());
+			temp->Init(Level);
+			Player::Instance().AddCharacter("Mage", temp);
+		}
+	}
 	// Player Name
 	// Player Tag(1~3)
 	// Player Gold

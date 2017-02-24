@@ -8,6 +8,7 @@
 #include "../Miscellaneous/Button.h"
 #include "../Objects/Characters/Warrior.h"
 #include "../Objects/Characters/Mage.h"
+#include "../Systems/BattleSystem.h"
 
 SceneBattles::SceneBattles()
 {
@@ -72,6 +73,7 @@ void SceneBattles::Init()
 	AI = new AIAllAttack();
 	BattleSystem::Instance().Debugging();
 
+	tempHolder = "";
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -148,6 +150,52 @@ void SceneBattles::Render()
 		modelStack->PushMatrix();
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
+
+		if (BattleSystem::Instance().GetSelectedTroop() != nullptr)
+		{
+			if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Warrior")
+			{
+				if (obj->type == "Default Attack")
+					Renderer->RenderMesh("Bandage", false);
+				if (obj->type == "Skill 1")
+					Renderer->RenderMesh("Bandage", false);
+				if (obj->type == "Skill 2")
+					Renderer->RenderMesh("Bandage", false);
+				if (obj->type == "Skill 3")
+					Renderer->RenderMesh("Bandage", false);
+			}
+			else if (tempHolder == "Mage")
+			{
+				if (obj->type == "Default Attack")
+					Renderer->RenderMesh("RedPotion", false);
+				if (obj->type == "Skill 1")
+					Renderer->RenderMesh("RedPotion", false);
+				if (obj->type == "Skill 2")
+					Renderer->RenderMesh("RedPotion", false);
+				if (obj->type == "Skill 3")
+					Renderer->RenderMesh("RedPotion", false);
+			}
+			else if (tempHolder == "Priest")
+			{
+				if (obj->type == "Default Attack")
+					Renderer->RenderMesh("BluePotion", false);
+				if (obj->type == "Skill 1")
+					Renderer->RenderMesh("BluePotion", false);
+				if (obj->type == "Skill 2")
+					Renderer->RenderMesh("BluePotion", false);
+				if (obj->type == "Skill 3")
+					Renderer->RenderMesh("BluePotion", false);
+			}
+		}
+			modelStack->PopMatrix();
+	}
+
+	for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
+	{
+		Button* obj = (Button *)*itr;
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
 		if (obj->type == "Red Potion")
 			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "Attack Potion")
@@ -156,22 +204,8 @@ void SceneBattles::Render()
 			Renderer->RenderMesh("DefencePotion", false);
 		if (obj->type == "Bandage")
 			Renderer->RenderMesh("Bandage", false);
-		if (obj->type == "Default Attack")
-			Renderer->RenderMesh("Bandage", false);
-		if (obj->type == "Skill 1")
-			Renderer->RenderMesh("Bandage", false);
-		if (obj->type == "Skill 2")
-			Renderer->RenderMesh("Bandage", false);
-		if (obj->type == "Skill 3")
-			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Attack Button")
 			Renderer->RenderMesh("RedPotion", false);
-		/*if (obj->type == "AI 1")
-			Renderer->RenderMesh("RedPotion", false);
-		if (obj->type == "AI 2")
-			Renderer->RenderMesh("RedPotion", false);
-		if (obj->type == "AI 3")
-			Renderer->RenderMesh("RedPotion", false);*/
 		modelStack->PopMatrix();
 	}
 

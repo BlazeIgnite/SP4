@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-﻿Build started 2/24/2017 5:50:56 PM.
-=======
-﻿Build started 2/24/2017 3:15:34 PM.
->>>>>>> 645b20d8d0a1474cffc4b71cac806649ee221dda
+﻿Build started 25/2/2017 12:20:12 AM.
+     1>Project "C:\Users\Terence\Downloads\SP4.1\SP4\Base\Base.vcxproj" on node 2 (Clean target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\terence\downloads\sp4.1\sp4\base\debug\base.tlog\cl.read.1.tlog' because it is being used by another process.
+     1>Done Building Project "C:\Users\Terence\Downloads\SP4.1\SP4\Base\Base.vcxproj" (Clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.04
+Time Elapsed 00:00:00.25

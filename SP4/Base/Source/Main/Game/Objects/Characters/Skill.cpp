@@ -102,7 +102,7 @@ size_t Skill::GetActionCost()
 {
 	return ActionCost;
 }
-size_t Skill::GetTurnCooldown()
+size_t& Skill::GetTurnCooldown()
 {
 	return TurnCooldown;
 }

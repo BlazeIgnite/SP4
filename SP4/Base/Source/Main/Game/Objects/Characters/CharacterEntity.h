@@ -51,10 +51,10 @@ public:
 	inline size_t GetMaxHealth(){ return MaxHealth; };
 	inline size_t GetAttack(){ return Attack; };
 	inline size_t GetDefence(){ return Defence; };
-	inline size_t GetStunTimer(){ return StatusEffectTimer[0]; };
-	inline size_t GetBleedTimer(){ return StatusEffectTimer[1]; };
-	inline size_t GetDebuffTimer(){ return StatusEffectTimer[2]; };
-	inline size_t GetBuffTimer(){ return StatusEffectTimer[3]; };
+	inline size_t& GetStunTimer(){ return StatusEffectTimer[0]; };
+	inline size_t& GetBleedTimer(){ return StatusEffectTimer[1]; };
+	inline size_t& GetDebuffTimer(){ return StatusEffectTimer[2]; };
+	inline size_t& GetBuffTimer(){ return StatusEffectTimer[3]; };
 	inline bool GetDefeated(){ return Defeated; };
 	inline bool GetStunned(){ return StatusEffect[0]; };
 	inline bool GetBleeding(){ return StatusEffect[1]; };

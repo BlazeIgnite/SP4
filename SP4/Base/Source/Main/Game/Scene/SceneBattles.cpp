@@ -1,5 +1,5 @@
 #include "SceneBattles.h"
-
+#include <time.h>
 #include "../Mains/Application.h"
 #include "../Systems/EventSystem.h"
 #include "../Audio/Audio_Player.h"
@@ -36,16 +36,16 @@ void SceneBattles::Init()
 	Warrior* warrior = new Warrior();
 	warrior->Init(20);
 	Mage* mage = new Mage();
-	mage->Init(2);
+	mage->Init(20);
 	Priest* priest = new Priest();
-	priest->Init(2);
+	priest->Init(20);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(10);
+	warrior2->Init(5);
 	Mage* mage2 = new Mage();
-	mage2->Init(10);
+	mage2->Init(5);
 	Priest* priest2 = new Priest();
-	priest2->Init(10);
+	priest2->Init(5);
 
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
@@ -103,7 +103,6 @@ void SceneBattles::Update(float dt)
 	HandleUserInput();
 	button->Update(dt);
 	AI->Update(dt);
-	//std::cout << BattleSystem::Instance().GetPlayerTroops().at(1)->GetBleedTimer() << std::endl;
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -258,25 +257,72 @@ void SceneBattles::Render()
 	{
 
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
 		modelStack->PushMatrix();
 		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
 		modelStack->Scale(entity->GetScale().x , entity->GetScale().y , 1);
 		if (entity->GetName() == "Warrior")
 		{
-			if (entity->GetDefeated())
+			if (BattleSystem::Instance().GetPlayerTurn() == false)
+			{
+				Sleep(300); //Now Left to check when a Skill is used, will add into the condition
+				Renderer->RenderMesh("WarriorAttackMesh", false);
+				
+			}
+			else if (entity->GetDefeated())
 			{
 				Renderer->RenderMesh("WarriorDead", false);
 			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("WarriorDying", false);
+			}
 			else
+			{
 				Renderer->RenderMesh("WarriorMesh", false);
+			}
 		}
 		if (entity->GetName() == "Mage")
 		{
-			Renderer->RenderMesh("MageMesh", false);
+			if (BattleSystem::Instance().GetPlayerTurn() == false)
+			{
+				Sleep(300);
+				Renderer->RenderMesh("MageAttack", false);
+
+			}
+			else if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("MageDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("MageDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("MageMesh", false);
+			}
 		}
 		if (entity->GetName() == "Priest")
 		{
-			Renderer->RenderMesh("PriestMesh", false);
+			if (BattleSystem::Instance().GetPlayerTurn() == false)
+			{
+				Sleep(300);
+				Renderer->RenderMesh("PriestAttack", false);
+
+			}
+			else if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PriestDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PriestDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PriestMesh", false);
+			}
 		}
 		modelStack->PopMatrix();
 	}

@@ -20,6 +20,7 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 	CharacterEntity* SelectedEnemyTroop;
 	Skill* SelectedSkill;
 
+	size_t DisplaySkillNum;
 	size_t TurnCost;
 	bool PlayerTurn;
 	bool PlayerWon;
@@ -35,9 +36,10 @@ public:
 	void SetAITroops(size_t position, CharacterEntity* Troop);
 	void SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition, Skill* Skill);
 	void SetPlayerTurn(bool newPlayerTurn);
-	inline void SetSelectedTroop(CharacterEntity* newSelectedTroop){ SelectedTroop = newSelectedTroop; };
+	void SetSelectedTroop(CharacterEntity* newSelectedTroop);
 	inline void SetSelectedEnemyTroop(CharacterEntity* newSelectedEnemyTroop){ SelectedEnemyTroop = newSelectedEnemyTroop; };
 	inline void SetSelectedSkill(Skill* newSelectedskill){ SelectedSkill = newSelectedskill; };
+	inline void SetDisplaySkillNum(size_t newDisplaySkillNum){ DisplaySkillNum = newDisplaySkillNum; };
 	inline void SetTurnCost(size_t newTurnCost) { TurnCost = newTurnCost; };
 	inline void SetPlayerWon(bool newPlayerWon) { PlayerWon = newPlayerWon; };
 	 
@@ -52,6 +54,7 @@ public:
 	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
 	inline CharacterEntity* GetSelectedEnemyTroop() { return SelectedEnemyTroop; };
 	inline Skill* GetSelectedSkill(size_t position) { return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);	};
+	inline size_t GetDisplaySkillNum(){ return DisplaySkillNum; };
 	inline size_t GetTurnCost(){ return TurnCost; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
 	inline bool GetPlayerWon(){ return PlayerWon; };

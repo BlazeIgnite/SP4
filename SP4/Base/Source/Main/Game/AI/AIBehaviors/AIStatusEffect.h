@@ -9,11 +9,15 @@ using std::map;
 class AIStatusEffect :
 	public AIBase
 {
-	map<size_t, map<size_t, bool>> m_PlayerTroopStatusE;
+	map<CharacterEntity*, vector<Skill*>> m_SkillAvailable;
 
-	vector<Skill*> m_SkillAvailable;
-	vector<Skill*> m_SkillToUse;
+	// Iterators
+	map<CharacterEntity*, vector<Skill*>>::iterator m_SkillAvailableIterator;
+	vector<Skill*>::iterator m_SkillIterator;
 
+
+	size_t m_target;
+	size_t m_Turns;
 public:
 	AIStatusEffect();
 	~AIStatusEffect();
@@ -23,9 +27,6 @@ public:
 	virtual void Planning();
 	virtual void Execute();
 	virtual void Exit();
-
-	void SetPlayerTroopStatusE(size_t troopPosition, size_t statusID, bool newStatusE);
-	bool GetPlayerTroopStatusE(size_t troopPosition, size_t statusID);
 
 };
 

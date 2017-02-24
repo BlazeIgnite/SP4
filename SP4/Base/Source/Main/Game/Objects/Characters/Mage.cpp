@@ -107,14 +107,24 @@ void Mage::LevelUp()
 			skill->SetName("Magic Bolt");
 			skill->SetActionCost(30);
 			skill->SetMaxTurnCooldown(1);
-			skill->SetRequiredPosition(0, 1);
+			skill->SetRequiredPosition(1, true);
+			skill->SetRequiredPosition(2, true);
+			for (size_t i = 0; i < 3; i++)
+			{
+				skill->SetSelectableTarget(i, true);
+			}
 			SkillList.push_back(skill);
 
 			skill = new Skill();
 			skill->SetName("Blinding Flash");
 			skill->SetActionCost(35);
+			skill->SetStatusEffect(1, "Stun");
 			skill->SetMaxTurnCooldown(1);
-			skill->SetRequiredPosition(0, true);
+			for (size_t i = 0; i < 3; i++)
+			{
+				skill->SetRequiredPosition(i, true);
+				skill->SetSelectableTarget(i, true);
+			}
 			SkillList.push_back(skill);
 		}
 		else

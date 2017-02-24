@@ -110,16 +110,7 @@ void BattleButton::Update(float dt)
 					entity->SetisPressed(false);
 			}
 		}
-		//	else
-		//	{
-		//		if ((*itr)->GetisPressed())
-		//			(*itr)->SetisPressed(false);
-		//	}
-		//}
-		////Character 2 (Middle)
-		//if ((*itr)->type == "Character 2" && (*itr)->isitHover())
-		//{
-		//	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+
 
 		if (entity->GetName() == "Mage" && entity->isitHover())
 		{
@@ -302,7 +293,7 @@ void BattleButton::Update(float dt)
 		}
 
 		//skill
-		if ((*itr)->type == "Default Attack" && (*itr)->isitHover())
+		if (((*itr)->type == "Default Attack" || (*itr)->type == "Skill 1" || (*itr)->type == "Skill 2" || (*itr)->type == "Skill 3") && (*itr)->isitHover())
 		{
 			if (Application::IsMousePressed(0))
 			{
@@ -313,8 +304,14 @@ void BattleButton::Update(float dt)
 						CharacterEntity* entity = (CharacterEntity*)itr2->second;
 						if (entity == BattleSystem::Instance().GetSelectedTroop())
 						{
-							//BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(itr2->first));
-							BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
+							if ((*itr)->type == "Default Attack")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
+							else if ((*itr)->type == "Skill 1")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
+							else if ((*itr)->type == "Skill 2")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(2));
+							else if ((*itr)->type == "Skill 3")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
 						}
 					}
 					(*itr)->SetisPressed(true);

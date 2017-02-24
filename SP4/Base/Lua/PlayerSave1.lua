@@ -1,12 +1,12 @@
-PlayerName = "ASDAD"
+PlayerName = "123123"
 PlayerTag = 1
 PlayerGold = 0
 PlayerFurthestStage = 0
-RedHerbCount = 716
+RedHerbCount = 876
 WhiteHerbCount = 0
 EmptyBottleCount = 0
 ClothCount = 0
-RedPotionCount =244
+RedPotionCount =324
 AttackPotionCount = 0
 DefencePotionCount = 0
 AttackPotionCount = 0

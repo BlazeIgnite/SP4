@@ -88,9 +88,7 @@ void BattleButton::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Mage")
-								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -123,9 +121,7 @@ void BattleButton::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior")
-								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -157,9 +153,7 @@ void BattleButton::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior")
-								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Mage")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -194,6 +188,8 @@ void BattleButton::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem::Instance().GetAITroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
+							if (entity2->GetName() == "Warrior")
+								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Priest")
@@ -230,6 +226,8 @@ void BattleButton::Update(float dt)
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
 							if (entity2->GetName() == "Warrior")
 								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Mage")
+								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
@@ -264,6 +262,8 @@ void BattleButton::Update(float dt)
 							if (entity2->GetName() == "Warrior")
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
+								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}

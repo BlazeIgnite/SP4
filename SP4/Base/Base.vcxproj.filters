@@ -47,6 +47,7 @@
     <ClCompile Include="Source\Main\Game\Scene\Town.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevelSelection.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneCharacterSelection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="Source\Main\Game\Scene\Town.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneResult.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneLevelSelection.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneCharacterSelection.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

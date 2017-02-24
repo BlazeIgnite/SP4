@@ -1,5 +1,6 @@
 #include "BattleSystem.h"
 #include "ObjectManager.h"
+#include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include <iostream>
 
 using std::cout;
@@ -21,7 +22,7 @@ void BattleSystem::Init()
 	SelectedSkill = NULL;
 	SetTurnCost(100);
 	PlayerTurn = true;
-	PlayerWon = false;	
+	PlayerWon = false;
 }
 
 // Setters Here
@@ -33,11 +34,6 @@ void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 		PlayerTroops[position] = Troop;
 		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
-	else
-	{
-		PlayerTroops.find(position)->second = Troop;
-		//Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * 0.3f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f));
-	}
 }
 void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 {
@@ -47,8 +43,6 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 		AITroops[position] = Troop;
 		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.7f + (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
 	}
-	else
-		AITroops.find(position)->second = Troop;
 }
 void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition)
 {
@@ -305,6 +299,16 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 			if (NumberofDefeatedTroops >= AITroops.size())
 			{
 				//Go to win screen;
+				SceneSystem::Instance().SwitchScene("Town_Scene");
+				for (map<size_t, CharacterEntity*>::iterator i = AITroops.begin(); i != AITroops.end(); i++)
+				{
+					if (i->second != nullptr)
+					{
+						delete i->second;
+						i->second = NULL;
+					}
+				}
+				Reset();
 				return;
 			}
 			if (NumberofDefeatedTroops == 1)
@@ -347,6 +351,8 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 			if (NumberofDefeatedTroops >= PlayerTroops.size())
 			{
 				//Go to lose screen;
+				SceneSystem::Instance().SwitchScene("Town_Scene");
+
 				return;
 			}
 			if (NumberofDefeatedTroops == 1)
@@ -507,9 +513,12 @@ void BattleSystem::Reset()
 {
 	SelectedTroop = NULL;
 	SelectedEnemyTroop = NULL;
+	SelectedSkill = NULL;
 	SetTurnCost(100);
 	PlayerTroops.clear();
 	AITroops.clear();
+	PlayerTurn = true;
+	PlayerWon = false;
 }
 
 void BattleSystem::Debugging()

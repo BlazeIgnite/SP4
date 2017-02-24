@@ -20,6 +20,7 @@
 #include "../Scene/SceneBattles.h"
 #include "../Scene/Town.h"
 #include "../Scene/SceneResult.h"
+#include "../Scene/SceneCharacterSelection.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -197,6 +198,10 @@ void Application::Init()
 	SceneResult* temp2 = new SceneResult();
 	temp2->SetEntityID("Result_Scene");
 	SceneSystem::Instance().AddScene(*temp2);
+
+	SceneCharacterSelection* temp6 = new SceneCharacterSelection();
+	temp6->SetEntityID("CharacterSelection_Scene");
+	SceneSystem::Instance().AddScene(*temp6);
 }
 
 void Application::Run()

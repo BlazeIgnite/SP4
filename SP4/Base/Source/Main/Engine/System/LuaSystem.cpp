@@ -43,21 +43,18 @@ int LuaSystem::GetIntValue(lua_State* lua, const char* varName)
 {
 	lua_getglobal(lua, varName);
 	int result = lua_tointeger(lua, -1);
-	lua_pop(lua, 0);
 	return result;
 }
 float LuaSystem::GetFloatValue(lua_State* lua, const char* varName)
 {
 	lua_getglobal(lua, varName);
 	float result = lua_tointeger(lua, -1);
-	lua_pop(lua, 0);
 	return result;
 }
 const char* LuaSystem::GetString(lua_State* lua, const char* varName)
 {
 	lua_getglobal(lua, varName);
 	const char* result = lua_tostring(lua, -1);
-	lua_pop(lua, 0);
 	return result;
 }
 

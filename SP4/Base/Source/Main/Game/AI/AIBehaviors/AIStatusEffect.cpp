@@ -44,8 +44,8 @@ void AIStatusEffect::Init()
 
 	for (map<size_t, CharacterEntity*>::iterator it = BattleSystem::Instance().GetAITroops().begin(); it != BattleSystem::Instance().GetAITroops().end(); it++)
 	{
-		vector<Skill*>::iterator it2 = it->second->GetSkillList().begin();
-		vector<Skill*>::iterator it2End = it->second->GetSkillList().end();
+		vector<Skill*>::iterator it2 = it->second->GetSkillList()->begin();
+		vector<Skill*>::iterator it2End = it->second->GetSkillList()->end();
 		for (; it2 != it2End; it2++)
 		{
 			if ((*it2)->GetStatusEffectMap().size() > 0)

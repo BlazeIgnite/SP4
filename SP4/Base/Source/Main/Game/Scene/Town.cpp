@@ -433,18 +433,18 @@ void Town::RenderCraftingButtons()
 			{
 				modelStack->PushMatrix();
 				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
-				Renderer->RenderMesh("DescripRedPotion", false);
+				//Renderer->RenderMesh("DescripRedPotion", false);
 				modelStack->PopMatrix();
-				//if (obj2->text->GetType() == "Red Potion")
-				//{
-				//	modelStack->PushMatrix();
-				//	std::cout << "out" << std::endl;
-				//	modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
-				//	modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
-				//	Renderer->RenderText("text", "x2", Color(1, 1, 1));
-				//	modelStack->PopMatrix();
-				//	
-				//}
+				if (obj2->text->GetType() == "Red Potion")
+				{
+					modelStack->PushMatrix();
+					std::cout << "out" << std::endl;
+					modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+					modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+					Renderer->RenderText("text", "IUASENSAHB", Color(1, 1, 1));
+					modelStack->PopMatrix();
+					
+				}
 			}
 			if (obj->isitHover() && obj->type == "Blue Potion" && obj2->type == "Blue Potion")
 			{

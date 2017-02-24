@@ -13,8 +13,6 @@
   <ItemGroup>
     <ClCompile Include="Source\Main\Engine\Audio\Audio_Player.cpp" />
     <ClCompile Include="Source\Main\Engine\Objects\BaseObject.cpp" />
-    <ClCompile Include="Source\Main\Engine\State\StateList.cpp" />
-    <ClCompile Include="Source\Main\Engine\State\StateManager.cpp" />
     <ClCompile Include="Source\Main\Engine\System\InputManager.cpp" />
     <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
@@ -46,6 +44,7 @@
     <ClCompile Include="Source\Main\Game\Objects\Characters\Warrior.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneLevelSelection.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SplashScreen.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\Town.cpp" />
@@ -71,9 +70,6 @@
     <ClInclude Include="Source\Main\Engine\Lua\lualib.h" />
     <ClInclude Include="Source\Main\Engine\Objects\BaseObject.h" />
     <ClInclude Include="Source\Main\Engine\Objects\SceneEntity.h" />
-    <ClInclude Include="Source\Main\Engine\State\State.h" />
-    <ClInclude Include="Source\Main\Engine\State\StateList.h" />
-    <ClInclude Include="Source\Main\Engine\State\StateManager.h" />
     <ClInclude Include="Main\Engine\System\Internal\Entity.h" />
     <ClInclude Include="Main\Engine\System\Internal\SingletonTemplate.h" />
     <ClInclude Include="Main\Engine\System\Internal\System.h" />
@@ -112,6 +108,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Characters\Warrior.h" />
     <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLevelSelection.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneResult.h" />
     <ClInclude Include="Source\Main\Game\Scene\SplashScreen.h" />
     <ClInclude Include="Source\Main\Game\Scene\Town.h" />

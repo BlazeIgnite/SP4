@@ -1,8 +1,15 @@
 #include "AIStatusEffect.h"
 #include "../../Systems/BattleSystem.h"
 
+#include <iostream>
 
-AIStatusEffect::AIStatusEffect()
+using std::cout;
+using std::endl;
+
+
+AIStatusEffect::AIStatusEffect() 
+: m_Turns(0)
+, m_target(0)
 {
 	Init();
 }
@@ -13,14 +20,6 @@ AIStatusEffect::~AIStatusEffect()
 
 void AIStatusEffect::Init()
 {
-	for (size_t i = 0; i < BattleSystem::Instance().GetPlayerTroops().size(); i++)
-	{
-		for (size_t j = 0; j < 4; j++)
-		{
-			SetPlayerTroopStatusE(BattleSystem::Instance().GetPlayerTroops().find(i)->first, j, false);
-		}
-	}
-
 	//for (auto it = BattleSystem::Instance().GetAITroops().begin(); it != BattleSystem::Instance().GetAITroops().end();)
 	//{
 	//	for (auto it2 = it->second->GetSkillList().begin(); it2 != it->second->GetSkillList().end();)
@@ -51,20 +50,22 @@ void AIStatusEffect::Init()
 			if ((*it2)->GetStatusEffectMap().size() > 0)
 			{
 				map<size_t, vector<string>>::iterator it3 = (*it2)->GetStatusEffectMap().begin();
-				map<size_t, vector<string>>::iterator it3End = (*it2)->GetStatusEffectMap().end();
-				for (; it3 != it3End; it3++)
+				for (; it3 != (*it2)->GetStatusEffectMap().end(); it3++)
 				{
 					vector<string>::iterator it4 = it3->second.begin();
-					vector<string>::iterator it4End = it3->second.end();
-					for (; it4 != it4End; it4++)
+					for (; it4 != it3->second.end(); it4++)
 					{
-						if ((*it4) == "Stun" || (*it4) == "Bleed")
-							m_SkillAvailable.push_back((*it).second->GetSkillInVector((*it2)->GetName()));
+						if (((*it4) == "Stun" || (*it4) == "Bleed") && ((*it2)->GetName() != "Ars Arcanum"))
+						{
+							m_SkillAvailable[it->second].push_back((*it).second->GetSkillInVector((*it2)->GetName()));
+						}
 					}
 				}
 			}
 		}
 	}
+	m_SkillAvailableIterator = m_SkillAvailable.begin();
+	m_SkillIterator = m_SkillAvailableIterator->second.begin();
 } 
 
 void AIStatusEffect::Update(double dt)
@@ -82,15 +83,55 @@ void AIStatusEffect::Update(double dt)
 
 void AIStatusEffect::Planning()
 {
-
-	if (BattleSystem::Instance().GetNumberOfAITroopAlive() == BattleSystem::Instance().GetAITroops().size())
-	{
-
-	}
+	if (m_Turns > 0)
+		BattlePlanHolder->SetBattlePlan("All Basic Attack");
 	else
 	{
-		BattlePlanHolder->SetBattlePlan("All Basic Attack");
+		m_target = 0;
+		for (map<size_t, CharacterEntity*>::iterator it = BattleSystem::Instance().GetPlayerTroops().begin(); it != BattleSystem::Instance().GetPlayerTroops().end(); it++)
+		{
+			if (BattleSystem::Instance().CanActivateSkill(m_SkillAvailableIterator->first, it->first, (*m_SkillIterator)))
+			{
+				/*if (!(*it).second->GetDefeated() && (*m_StatusEffectEIterator) == "Stun")
+				{
+					BattlePlanHolder->SetBattlePlan("Use Stun");
+					break;
+				}
+				else if (!(*it).second->GetDefeated() && (*m_StatusEffectEIterator) == "Bleed")
+				{
+					BattlePlanHolder->SetBattlePlan("Use Bleed");
+					break;
+				}*/
+				if (!(*it).second->GetDefeated())
+				{
+					BattlePlanHolder->SetBattlePlan("Use Status Skill");
+					break;
+				}
+			}
+			m_target++;
+		}
 	}
+
+		/*int temp = Math::RandIntMinMax(0, 1);
+		for (vector<Skill*>::iterator iterate = m_SkillAvailable.begin(); iterate != m_SkillAvailable.end(); iterate++)
+		{
+			for (map<size_t, vector<string>>::iterator iterate2 = (*iterate)->GetStatusEffectMap().begin; iterate2 != (*iterate)->GetStatusEffectMap().begin; iterate2++)
+			{
+				for (vector<string>::iterator iterate3 = iterate2->second.begin(); iterate3 != iterate2->second.end(); iterate3++)
+				{
+					if ((*iterate3) == "Stun" && temp == 0)
+					{
+						BattlePlanHolder->SetBattlePlan("Stun Time");
+						stateHolder->SetState("Execute");
+					}
+				}
+			}
+		}
+		if (temp == 0)
+			BattlePlanHolder->SetBattlePlan("Stun Time");
+		else
+			BattlePlanHolder->SetBattlePlan("Bleed Time");
+			*/
 
 	if (!BattlePlanHolder->GetBattlePlan(""))
 		stateHolder->SetState("Execute");
@@ -100,39 +141,39 @@ void AIStatusEffect::Execute()
 {
 	if (BattlePlanHolder->GetBattlePlan("All Basic Attack"))
 	{
-		/*for ()
+		for (size_t i = 0; i < BattleSystem::Instance().GetNumberOfAITroopAlive(); i++)
 		{
-		}*/
+			if (BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetAITroopAttacking(i), 0, BattleSystem::Instance().GetAITroopAttacking(i)->GetSkillInVector("Basic Attack")))
+			BattleSystem::Instance().DamageCalculation(0, BattleSystem::Instance().GetAITroopAttacking(i)->GetSkillInVector("Basic Attack"));
+		}
+		cout << "Enemy Used : " << BattlePlanHolder->GetBattlePlan() << endl;
+		int temp = (int)m_Turns;
+		if ((temp - 1) >= 0)
+			m_Turns--;
 	}
-		//do this attack type;
+	else
+	{
+		m_Turns = 1;
+		BattleSystem::Instance().DamageCalculation(m_target, (*m_SkillIterator));
+		m_SkillIterator++;
+		if (m_SkillIterator == m_SkillAvailableIterator->second.end())
+		{
+			m_SkillAvailableIterator++;
+			if (m_SkillAvailableIterator == m_SkillAvailable.end())
+				m_SkillAvailableIterator = m_SkillAvailable.begin();
+			m_SkillIterator = m_SkillAvailableIterator->second.begin();
+		}
+		cout << "Enemy Used : " << BattlePlanHolder->GetBattlePlan() << endl;
+	}
+	
+	cout << "m_Turns : " << m_Turns << endl;
 
+	BattleSystem::Instance().SetPlayerTurn(true);
+	stateHolder->SetState("");
+	BattlePlanHolder->SetBattlePlan("");
 }
 
 void AIStatusEffect::Exit()
 {
 	AIBase::Exit();
-}
-
-void AIStatusEffect::SetPlayerTroopStatusE(size_t troopPosition, size_t statusID, bool newStatusE)
-{
-	map<size_t, map<size_t, bool>>::iterator it = m_PlayerTroopStatusE.find(troopPosition);
-	if (it == m_PlayerTroopStatusE.end())
-	{
-		map<size_t, bool> EmptyMap;
-		EmptyMap[statusID] = newStatusE;
-		m_PlayerTroopStatusE[troopPosition] = EmptyMap;
-	}
-	else
-	{
-		map<size_t, bool>::iterator it2 = it->second.find(statusID);
-		if (it2 == it->second.end())
-			m_PlayerTroopStatusE.find(troopPosition)->second[statusID] = newStatusE;
-		else
-			m_PlayerTroopStatusE.find(troopPosition)->second.at(statusID) = newStatusE;
-	}
-}
-
-bool AIStatusEffect::GetPlayerTroopStatusE(size_t troopPosition, size_t statusID)
-{
-	return m_PlayerTroopStatusE.find(troopPosition)->second.find(statusID)->second;
 }

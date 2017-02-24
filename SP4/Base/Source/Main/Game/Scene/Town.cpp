@@ -59,7 +59,7 @@ void Town::UpdateInventory(float dt)
 	{
 		if ((*itr)->type == "Consumable Tab" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -82,7 +82,7 @@ void Town::UpdateInventory(float dt)
 		}
 		if ((*itr)->type == "Material Tab" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				OpenConsumableTab = false;
 				OpenCraftingTab = false;
@@ -105,7 +105,7 @@ void Town::UpdateInventory(float dt)
 		}
 		if ((*itr)->type == "Crafting Tab" && (*itr)->isitHover())
 		{
-			if (Application::IsMousePressed(0))
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			{
 				if (!(*itr)->GetisPressed())
 				{
@@ -131,7 +131,7 @@ void Town::UpdateInventory(float dt)
 		{
 			if ((*itr)->type == "Close Button" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
 					if (!(*itr)->GetisPressed())
 					{
@@ -161,7 +161,7 @@ void Town::UpdateInventory(float dt)
 			inventory->SetisOpened(false);
 			if ((*itr)->type == "Inventory" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
 					if (!(*itr)->GetisPressed())
 					{
@@ -192,9 +192,9 @@ void Town::UpdateInventory(float dt)
 		{
 			if ((*itr)->type == "Mission" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
-					SceneSystem::Instance().SwitchScene("BattleScene");
+					SceneSystem::Instance().SwitchScene("Battle_Scene");
 					OpenMission = true;
 				}
 			}
@@ -203,7 +203,7 @@ void Town::UpdateInventory(float dt)
 		{
 			if ((*itr)->type == "Mission" && (*itr)->isitHover())
 			{
-				if (Application::IsMousePressed(0))
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
 					OpenMission = false;
 				}
@@ -264,7 +264,7 @@ void Town::Render()
 
 			//Text on Box
 			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, 0.5);
+			modelStack->Translate(obj->GetPosition().x - 5.5f, obj->GetPosition().y, 0.5f);
 			modelStack->Scale(2, 2, 1);
 			Renderer->RenderText("text", "Inventory", Color(1, 1, 1));
 			modelStack->PopMatrix();

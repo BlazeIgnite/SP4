@@ -9,7 +9,7 @@ AIBase::AIBase()
 
 AIBase::~AIBase()
 {
-	Exit();
+	//Exit();
 }
 
 void AIBase::Init()

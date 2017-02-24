@@ -3,8 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Source\Main\Engine\Audio\Audio_Player.cpp" />
     <ClCompile Include="Source\Main\Engine\Objects\BaseObject.cpp" />
-    <ClCompile Include="Source\Main\Engine\State\StateList.cpp" />
-    <ClCompile Include="Source\Main\Engine\State\StateManager.cpp" />
     <ClCompile Include="Source\Main\Engine\System\InputManager.cpp" />
     <ClCompile Include="Source\Main\Engine\System\LuaSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
@@ -47,7 +45,8 @@
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\BattleButton.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\Town.cpp" />
-	  <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneLevelSelection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -61,9 +60,6 @@
     <ClInclude Include="Source\Main\Engine\Lua\lualib.h" />
     <ClInclude Include="Source\Main\Engine\Objects\BaseObject.h" />
     <ClInclude Include="Source\Main\Engine\Objects\SceneEntity.h" />
-    <ClInclude Include="Source\Main\Engine\State\State.h" />
-    <ClInclude Include="Source\Main\Engine\State\StateList.h" />
-    <ClInclude Include="Source\Main\Engine\State\StateManager.h" />
     <ClInclude Include="Main\Engine\System\Internal\Entity.h" />
     <ClInclude Include="Main\Engine\System\Internal\SingletonTemplate.h" />
     <ClInclude Include="Main\Engine\System\Internal\System.h" />
@@ -116,6 +112,7 @@
     <ClInclude Include="Source\Main\Game\Objects\Miscellaneous\InventoryButtons.h" />
     <ClInclude Include="Source\Main\Game\Scene\Town.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneResult.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLevelSelection.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

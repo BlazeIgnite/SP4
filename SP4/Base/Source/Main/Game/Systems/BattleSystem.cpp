@@ -38,8 +38,6 @@ void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 		PlayerTroops.find(position)->second = Troop;
 		//Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * 0.3f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f));
 	}
-
-		
 }
 void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 {
@@ -81,6 +79,15 @@ void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosit
 			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = (*SkillIt);
 	}
 }
+void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
+{
+	SelectedTroop = newSelectedTroop;
+	for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
+	{
+		if (SelectedTroop == it->second)
+			DisplaySkillNum = it->first;
+	}
+}
 
 size_t BattleSystem::GetSelectedTroopPosition()
 {
@@ -120,7 +127,10 @@ size_t BattleSystem::GetNumberOfPlayerTroopAlive()
 
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
-	SetTurnCost(100);
+	TurnCost = 100;
+	SelectedTroop = NULL;
+	SelectedEnemyTroop = NULL;
+	SelectedSkill = NULL;
 
 	if (PlayerTurn)
 	{
@@ -144,14 +154,13 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 			}
 			if (it->second->GetBleeding())
 			{
+				it->second->SetHealth(it->second->GetLevel() + 2);
 				if (it->second->GetBleedTimer() > 0)
 				{
 					it->second->SetBleedTimer(it->second->GetBleedTimer() - 1);
 					it->second->BleedEffect();
 					if (it->second->GetBleedTimer() == 0)
-					{
 						it->second->SetBleeding(false);
-					}
 				}
 			}
 			if (it->second->GetBuffed())
@@ -165,10 +174,10 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 			}
 			if (it->second->GetDebuffed())
 			{
-				if (it->second->GetStunTimer() > 0)
+				if (it->second->GetDebuffTimer() > 0)
 				{
 					it->second->SetDebuffTimer(it->second->GetDebuffed() - 1);
-					if (it->second->GetDebuffed() == 0)
+					if (it->second->GetDebuffTimer() == 0)
 						it->second->SetDebuffed(false);
 				}
 			}
@@ -191,21 +200,18 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				{
 					it->second->SetStunTimer(it->second->GetStunTimer() - 1);
 					if (it->second->GetStunTimer() == 0)
-					{
 						it->second->SetStunned(false);
-					}
 				}
 			}
 			if (it->second->GetBleeding())
 			{
+				it->second->SetHealth(it->second->GetLevel() + 2);
 				if (it->second->GetBleedTimer() > 0)
 				{
 					it->second->SetBleedTimer(it->second->GetBleedTimer() - 1);
 					it->second->BleedEffect();
 					if (it->second->GetBleedTimer() == 0)
-					{
 						it->second->SetBleeding(false);
-					}
 				}
 			}
 			if (it->second->GetBuffed())
@@ -235,11 +241,9 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 		}
 	}
 
-	Debugging();
 
-	SelectedTroop = NULL;
-	SelectedEnemyTroop = NULL;
 	PlayerTurn = newPlayerTurn;
+	Debugging();
 }
 
 
@@ -365,11 +369,11 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 {
 	if (PlayerTurn)
 	{
-		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
+		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
 		{
 			if ((*it).second == Attacker)
 			{
-				if (!Attacker->GetStunned())
+				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
 					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
 						return true;
@@ -382,11 +386,11 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 	}
 	else
 	{
-		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
+		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
 		{
 			if ((*it).second == Attacker)
 			{
-				if (!Attacker->GetStunned())
+				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
 					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
 						return true;
@@ -394,7 +398,7 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 				else
 					return false;
 			}
-		}
+ 		}
 		return false;
 	}
 }
@@ -456,8 +460,8 @@ void BattleSystem::SetStatusEffect(size_t target, Skill* SkillUsed)
 	{
 		if (SkillUsed->StatusEffectExistence("Debuff"))
 		{
-			AITroops.at(target)->SetBuffed(true);
-			AITroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Debuff"));
+			AITroops.at(target)->SetDebuffed(true);
+			AITroops.at(target)->SetDebuffTimer(SkillUsed->GetStatusEffectTimer("Debuff"));
 		}
 		if (SkillUsed->StatusEffectExistence("Stun"))
 		{
@@ -515,13 +519,15 @@ void BattleSystem::Debugging()
 	{
 		cout << "Player Troop " << i << " : " << PlayerTroops.at(i)->GetName() << endl;
 		cout << "Health : " << PlayerTroops.at(i)->GetHealth() << endl;
+		cout << "Stunned : " << PlayerTroops.at(i)->GetStunned() << endl;
+		cout << "Bleed : " << PlayerTroops.at(i)->GetBleeding() << endl;
+		//cout << ""
 	}
 
 	for (size_t i = 0; i < AITroops.size(); i++)
 	{
-		cout << "Player Troop " << i << " : " << AITroops.at(i)->GetName() << endl;
+		cout << "Enemy Troop " << i << " : " << AITroops.at(i)->GetName() << endl;
 		cout << "Health : " << AITroops.at(i)->GetHealth() << endl;
-		cout << "Damage : " << AITroops.at(i)->GetSkillInVector("Basic Attack")->GetDamage() << endl;
 	}
 
 	cout << "/*****************************************/" << endl;

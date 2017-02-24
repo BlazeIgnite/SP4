@@ -14,25 +14,12 @@ Defines the Input Manager that handles all forms of input
 
 #include "Vector3.h"
 #include "../../Base/Source/Main/Engine/Internal/SingletonTemplate.h"
+#include "State.h"
 #include <map>
 
 class InputManager : public SingletonTemplate<InputManager>
 {
 public:
-	enum Type
-	{
-		CLICK,
-		HOLD,
-		RELEASE,
-		UNTOUCHED,
-		MOUSETYPE_NUM
-	};
-	enum MouseClick
-	{
-		MOUSE_L,
-		MOUSE_R,
-		MOUSE_NUM,
-	};
 
 	InputManager();
 	void HandleUserInput();
@@ -50,16 +37,16 @@ public:
 	float cIM_CameraYaw = 0, cIM_CameraPitch = 0;
 	bool cIM_inMouseMode = false;
 
-	Type GetMouseState(MouseClick);
+	STATE GetMouseState(MOUSE);
 
 	void KeyboardInput();
 	char GetKeyPressed();
 	void KeyPressedUpdate();
-	Type CheckKeyPressed(char);
+	STATE CheckKeyPressed(char);
 
 private:
-	std::map<MouseClick, Type> Mouse;
-	std::map<char, Type> KeyInput;
+	std::map<MOUSE, STATE> Mouse;
+	std::map<char, STATE> KeyInput;
 	Vector3 MousePosition;
 	bool cIM_Keys[256];
 };

@@ -1,6 +1,53 @@
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\vc120.pdb
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\vc120.idb
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\boundary.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\boundary2d.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\inventorybuttons.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\projection.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\warrior.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\mainmenu.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\scenebattles.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\scenelevelselection.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\sceneresult.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\splashscreen.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\town.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\battlesystem.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\eventsystem.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\objectmanager.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\application.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\camera.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\main.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\meshbuilder.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\scene_assignment1.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\scenebase.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aibattleplanner.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\button.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\description.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aiallattack.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aibase.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aibuffdebuff.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aicombined.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aidefault.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aistatemanager.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\aistatuseffect.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\descriptiontext.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\characterentity.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\mage.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\player.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\priest.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\consumables.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\itementity.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\skill.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\resource.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\battlebutton.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\audio_player.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\baseobject.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\inputmanager.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\luasystem.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\rendersystem.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\base\debug\scenesystem.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\vc120.pdb
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\vc120.idb
-c:\users\151131h\desktop\sp4.1\sp4\base\debug\battlebutton.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\boundary.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\boundary2d.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\inventorybuttons.obj
@@ -8,6 +55,7 @@ c:\users\151131h\desktop\sp4.1\sp4\base\debug\projection.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\warrior.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\mainmenu.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\scenebattles.obj
+c:\users\151131h\desktop\sp4.1\sp4\base\debug\scenelevelselection.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\sceneresult.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\splashscreen.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\town.obj
@@ -20,7 +68,6 @@ c:\users\151131h\desktop\sp4.1\sp4\base\debug\main.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\meshbuilder.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\scene_assignment1.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\scenebase.obj
-c:\users\151131h\desktop\sp4.1\sp4\base\debug\scenesystem.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\aibattleplanner.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\button.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\description.obj
@@ -42,11 +89,13 @@ c:\users\151131h\desktop\sp4.1\sp4\base\debug\skill.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\resource.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\audio_player.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\baseobject.obj
-c:\users\151131h\desktop\sp4.1\sp4\base\debug\statelist.obj
-c:\users\151131h\desktop\sp4.1\sp4\base\debug\statemanager.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\inputmanager.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\luasystem.obj
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\rendersystem.obj
+c:\users\151131h\desktop\sp4.1\sp4\base\debug\scenesystem.obj
+c:\users\151131h\desktop\sp4.1\sp4\base\debug\battlebutton.obj
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\debug\base.exe
+d:\school stuff\2016s2\dm2295\solution_folder\sp4\debug\base.pdb
 c:\users\151131h\desktop\sp4.1\sp4\debug\base.exe
 c:\users\151131h\desktop\sp4.1\sp4\debug\base.pdb
 c:\users\151131h\desktop\sp4.1\sp4\base\debug\base.tlog\cl.command.1.tlog

@@ -12,7 +12,9 @@
 
 #include "../../Engine/System/SceneSystem.h"
 #include "../../Engine/System/RenderSystem.h"
+#include "../../Engine/System/LuaSystem.h"
 
+#include "../Scene/SceneLevelSelection.h"
 #include "../Scene/Scene_Assignment1.h"
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
@@ -106,7 +108,8 @@ void Application::Init()
 
 	// Init the Scene System
 	SceneSystem::Instance().Init();
-
+	Player::Instance().LoadPlayer(0);
+	Quit = false;
 	//Initialize GLFW
 	if (!glfwInit())
 	{
@@ -179,16 +182,20 @@ void Application::Init()
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
 
+	SceneLevelSelection* temp5 = new SceneLevelSelection();
+	temp5->SetEntityID("LevelSelection_Scene");
+	SceneSystem::Instance().AddScene(*temp5);
+
 	Town* temp4 = new Town();
-	temp4->Init();
+	temp4->SetEntityID("Town_Scene");
 	SceneSystem::Instance().AddScene(*temp4);
 	
 	SceneBattles* temp = new SceneBattles();
-	temp->Init();
+	temp->SetEntityID("Battle_Scene");
 	SceneSystem::Instance().AddScene(*temp);
 
 	SceneResult* temp2 = new SceneResult();
-	temp2->Init();
+	temp2->SetEntityID("Result_Scene");
 	SceneSystem::Instance().AddScene(*temp2);
 }
 
@@ -197,30 +204,20 @@ void Application::Run()
 	HWND hwnd = GetActiveWindow();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
+	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE) && !Quit)
 	{
+		m_dElaspedTime = m_timer.getElapsedTime();
 		if (hwnd == GetActiveWindow())
 		{
-			m_dElaspedTime = m_timer.getElapsedTime();
 			Update();
 			SceneSystem::Instance().GetCurrentScene().Render();
-			if (InputManager::Instance().GetKeyPressed() == VK_BACK)
-			{
-				string test = "";
-				test += "asd\b \b";
-				test += "???";
-				std::cout << test << std::endl;
-
-			}
 		}
 		//Swap buffers
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
 		glfwPollEvents();
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
-
-	} //Check if the ESC key had been pressed or if the window had been closed
-	SceneSystem::Instance().ClearMemoryUsage();
+	} 
 }
 
 void Application::Update()
@@ -234,6 +231,7 @@ void Application::Update()
 		//SceneSystem::Instance().cSS_PlayerUIManager->Update((float)m_dElaspedTime);
 		SceneSystem::Instance().GetCurrentScene().Update((float)m_dElaspedTime);
 		InputManager::Instance().Update();
+		
 		m_dAccumulatedTime_ThreadOne = 0.0;
 	}
 	m_dAccumulatedTime_ThreadTwo += m_dElaspedTime;
@@ -247,10 +245,18 @@ void Application::Update()
 
 void Application::Exit()
 {
+	//Check if the ESC key had been pressed or if the window had been closed
+	LuaSystem::Instance().GameSave();
+	SceneSystem::Instance().ClearMemoryUsage();
 	AudioPlayer::Instance().Exit();
 	//Close OpenGL window and terminate GLFW
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW
 	glfwTerminate();
-	//_CrtDumpMemoryLeaks();
+	_CrtDumpMemoryLeaks();
+}
+
+void Application::QuitGame()
+{
+	Quit = true;
 }

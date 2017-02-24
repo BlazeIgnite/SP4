@@ -34,7 +34,7 @@ public:
 	// Setters
 	void SetPlayerTroops(size_t position, CharacterEntity* Troop);
 	void SetAITroops(size_t position, CharacterEntity* Troop);
-	void SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition, Skill* Skill);
+	void SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition);
 	void SetPlayerTurn(bool newPlayerTurn);
 	void SetSelectedTroop(CharacterEntity* newSelectedTroop);
 	inline void SetSelectedEnemyTroop(CharacterEntity* newSelectedEnemyTroop){ SelectedEnemyTroop = newSelectedEnemyTroop; };
@@ -54,6 +54,7 @@ public:
 	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
 	inline CharacterEntity* GetSelectedEnemyTroop() { return SelectedEnemyTroop; };
 	inline Skill* GetSelectedSkill(size_t position) { return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);	};
+	inline Skill* GetSelectedSkill() { return SelectedSkill; };
 	inline size_t GetDisplaySkillNum(){ return DisplaySkillNum; };
 	inline size_t GetTurnCost(){ return TurnCost; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };

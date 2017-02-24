@@ -44,7 +44,7 @@ void BattleButton::Init()
 
 
 	temp = new Button();
-	temp->Init(Vector3(70, 15, 0), Vector3(7, 7, 1), "Auto Attack");
+	temp->Init(Vector3(70, 15, 0), Vector3(7, 7, 1), "Default Attack");
 	buttonList.push_back(temp);
 	temp = new Button();
 	temp->Init(Vector3(80, 15, 0), Vector3(7, 7, 1), "Skill 1");
@@ -55,7 +55,9 @@ void BattleButton::Init()
 	temp = new Button();
 	temp->Init(Vector3(100, 15, 0), Vector3(7, 7, 1), "Skill 3");
 	buttonList.push_back(temp);
-
+	temp = new Button();
+	temp->Init(Vector3(150, 15, 0), Vector3(15, 15, 1), "Attack Button");
+	buttonList.push_back(temp);
 
 	temp = new Button();
 	temp->Init(Vector3(120, 22.5, 0), Vector3(10, 10, 1), "AI 1");
@@ -72,362 +74,289 @@ void BattleButton::Init()
 
 void BattleButton::Update(float dt)
 {
-	if (Application::IsKeyPressed('A'))
-	{
-
-		std::cout << BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetName()<< std::endl;
-		std::cout << BattleSystem::Instance().GetPlayerTroopAttacking(1)->GetName() << std::endl;
-		std::cout << BattleSystem::Instance().GetPlayerTroopAttacking(2)->GetName() << std::endl;
-	}
-
 	for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 	{
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
-		for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+		if (entity->GetName() == "Warrior" && entity->isitHover())
 		{
-			//if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			if (entity->GetName() == "Warrior" && entity->isitHover())
+			if (!entity->GetisPressed() && !entity->GetisSelected())
 			{
-				if (!entity->GetisPressed() && !entity->GetisSelected())
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
-					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+					//if (!entity->GetisSelected())
 					{
-						//if (!entity->GetisSelected())
+						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
-							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
-							{
-								CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-								if (entity2->GetName() == "Mage")
-									entity2->SetScale(Vector3(10, 10, 1));
-								if (entity2->GetName() == "Priest")
-									entity2->SetScale(Vector3(10, 10, 1));
-								entity2->SetisSelected(false);
-							}
-
-							entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
-
-							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
-							entity->SetisSelected(true);
-							entity->SetisPressed(true);
+							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
+							if (entity2->GetName() == "Mage")
+								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Priest")
+								entity2->SetScale(Vector3(10, 10, 1));
+							entity2->SetisSelected(false);
 						}
+
+						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+
+						BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
+						std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
+						entity->SetisSelected(true);
+						entity->SetisPressed(true);
 					}
-				}
-				else
-				{
-					if (entity->GetisPressed())
-						entity->SetisPressed(false);
 				}
 			}
-		//	else
-		//	{
-		//		if ((*itr)->GetisPressed())
-		//			(*itr)->SetisPressed(false);
-		//	}
-		//}
-		////Character 2 (Middle)
-		//if ((*itr)->type == "Character 2" && (*itr)->isitHover())
-		//{
-		//	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-
-			if (entity->GetName() == "Mage" && entity->isitHover())
+			else
 			{
-				if (!entity->GetisPressed() && !entity->GetisSelected())
-				{
-					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-					{
-						//if (!entity->GetisSelected())
-						{
-							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
-							{
-								CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-								if (entity2->GetName() == "Warrior")
-									entity2->SetScale(Vector3(10, 10, 1));
-								if (entity2->GetName() == "Priest")
-									entity2->SetScale(Vector3(10, 10, 1));
-								entity2->SetisSelected(false);
-							}
-						
-							entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+				if (entity->GetisPressed())
+					entity->SetisPressed(false);
+			}
+		}
 
-							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
-							entity->SetisSelected(true);
-							entity->SetisPressed(true);
-						}
-					}
-				}
-				else
+
+		if (entity->GetName() == "Mage" && entity->isitHover())
+		{
+			if (!entity->GetisPressed() && !entity->GetisSelected())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
-					if (entity->GetisPressed())
-						entity->SetisPressed(false);
+					//if (!entity->GetisSelected())
+					{
+						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
+						{
+							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
+							if (entity2->GetName() == "Warrior")
+								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Priest")
+								entity2->SetScale(Vector3(10, 10, 1));
+							entity2->SetisSelected(false);
+						}
+
+						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+
+						BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
+						std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
+						entity->SetisSelected(true);
+						entity->SetisPressed(true);
+					}
 				}
 			}
-		//	else
-		//	{
-		//		if ((*itr)->GetisPressed())
-		//			(*itr)->SetisPressed(false);
-		//	}
-		//}
-		////Character 3 (Most Left)
-		//if ((*itr)->type == "Character 3" && (*itr)->isitHover())
-		//{
-		//	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-
-			if (entity->GetName() == "Priest" && entity->isitHover())
+			else
 			{
-				if (!entity->GetisPressed() && !entity->GetisSelected() )
-				{
-					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-					{
-						//if (entity->GetisSelected())
-						{
-							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
-							{
-								CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-								if (entity2->GetName() == "Warrior")
-									entity2->SetScale(Vector3(10, 10, 1));
-								if (entity2->GetName() == "Mage")
-									entity2->SetScale(Vector3(10, 10, 1));
-								entity2->SetisSelected(false);
-							}
+				if (entity->GetisPressed())
+					entity->SetisPressed(false);
+			}
+		}
 
-							entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
-							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
-							entity->SetisSelected(true);
-							entity->SetisPressed(true);
+		if (entity->GetName() == "Priest" && entity->isitHover())
+		{
+			if (!entity->GetisPressed() && !entity->GetisSelected())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					//if (entity->GetisSelected())
+					{
+						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
+						{
+							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
+							if (entity2->GetName() == "Warrior")
+								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Mage")
+								entity2->SetScale(Vector3(10, 10, 1));
+							entity2->SetisSelected(false);
 						}
+
+						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+						BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
+						std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
+						entity->SetisSelected(true);
+						entity->SetisPressed(true);
 					}
 				}
-				else
-				{
-					if (entity->GetisPressed())
-						entity->SetisPressed(false);
-				}
+			}
+			else
+			{
+				if (entity->GetisPressed())
+					entity->SetisPressed(false);
 			}
 		}
 	}
-	if (buttonList.size() > 0)
-		int test = 151346;
+
+	for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetAITroops().begin(); itr != BattleSystem::Instance().GetAITroops().end(); itr++)
+	{
+		CharacterEntity* entity = (CharacterEntity*)itr->second;
+		if (entity->GetName() == "Warrior" && entity->isitHover())
+		{
+			if (!entity->GetisPressed() && !entity->GetisSelected())
+			{
+				if (Application::IsMousePressed(0))
+				{
+					//if (!entity->GetisSelected())
+					{
+						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem::Instance().GetAITroops().end(); itr2++)
+						{
+							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
+							if (entity2->GetName() == "Mage")
+								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Priest")
+								entity2->SetScale(Vector3(10, 10, 1));
+							entity2->SetisSelected(false);
+						}
+
+						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+
+						BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
+						std::cout << BattleSystem::Instance().GetSelectedEnemyTroop()->GetName() << std::endl;
+						entity->SetisSelected(true);
+						entity->SetisPressed(true);
+					}
+				}
+			}
+			else
+			{
+				if (entity->GetisPressed())
+					entity->SetisPressed(false);
+			}
+		}
+
+		if (entity->GetName() == "Mage" && entity->isitHover())
+		{
+			if (!entity->GetisPressed() && !entity->GetisSelected())
+			{
+				if (Application::IsMousePressed(0))
+				{
+					//if (!entity->GetisSelected())
+					{
+						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem::Instance().GetAITroops().end(); itr2++)
+						{
+							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
+							if (entity2->GetName() == "Warrior")
+								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Priest")
+								entity2->SetScale(Vector3(10, 10, 1));
+							entity2->SetisSelected(false);
+						}
+
+						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+
+						BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
+						std::cout << BattleSystem::Instance().GetSelectedEnemyTroop()->GetName() << std::endl;
+						entity->SetisSelected(true);
+						entity->SetisPressed(true);
+					}
+				}
+			}
+			else
+			{
+				if (entity->GetisPressed())
+					entity->SetisPressed(false);
+			}
+		}
+		if (entity->GetName() == "Priest" && entity->isitHover())
+		{
+			if (!entity->GetisPressed() && !entity->GetisSelected())
+			{
+				if (Application::IsMousePressed(0))
+				{
+					//if (!entity->GetisSelected())
+					{
+						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem::Instance().GetAITroops().end(); itr2++)
+						{
+							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
+							if (entity2->GetName() == "Warrior")
+								entity2->SetScale(Vector3(10, 10, 1));
+							if (entity2->GetName() == "Mage")
+								entity2->SetScale(Vector3(10, 10, 1));
+							entity2->SetisSelected(false);
+						}
+
+						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+
+						BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
+						std::cout << BattleSystem::Instance().GetSelectedEnemyTroop()->GetName() << std::endl;
+						entity->SetisSelected(true);
+						entity->SetisPressed(true);
+					}
+				}
+			}
+			else
+			{
+				if (entity->GetisPressed())
+					entity->SetisPressed(false);
+			}
+		}
+	}
+
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
 		if (BattleSystem::Instance().GetSelectedTroop() != NULL)
 		{
 			(*itr)->UpdateBattleScene(dt);
-			////(*itr)->isitHover();
-			//////Consumables
-			////if ((*itr)->type == "Red Potion" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	//if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////			if ((Player::Instance().GetConsumableList().find("Red Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
-			////			{
-			////				Player::Instance().AddConsumableItem("Red Potion", -1);
-			////				BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
-			////				BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
-			////				std::cout << "Red Potion Used" << std::endl;
-			////			}
-			////			else
-			////			{
-			////				std::cout << "No More Red Potion" << std::endl;
-			////			}
-			////	}
-			////}
-			////if ((*itr)->type == "Attack Potion" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	//if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////		if ((Player::Instance().GetConsumableList().find("Attack Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
-			////		{
-			////			Player::Instance().AddConsumableItem("Attack Potion", -1);
-			////			BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
-			////			BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
-			////			std::cout << "Attack Potion Used" << std::endl;
-			////		}
-			////		else
-			////		{
-			////			std::cout << "No More Attack Potion" << std::endl;
-			////		}
-			////	}
-			////}
-
-			////if ((*itr)->type == "Defence Potion" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	//if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////		if ((Player::Instance().GetConsumableList().find("Defence Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
-			////		{
-			////			Player::Instance().AddConsumableItem("Defence Potion", -1);
-			////			BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
-			////			BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
-			////			std::cout << "Defence Potion Used" << std::endl;
-			////		}
-			////		else
-			////		{
-			////			std::cout << "No More Defence Potion" << std::endl;
-			////		}
-			////	}
-			////}
-
-			////if ((*itr)->type == "Bandage" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	//if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////		if ((Player::Instance().GetConsumableList().find("Bandage")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
-			////		{
-			////			Player::Instance().AddConsumableItem("Bandage", -1);
-			////			BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
-			////			BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
-			////			std::cout << "Bandage Used" << std::endl;
-			////		}
-			////		else
-			////		{
-			////			std::cout << "No More Bandage" << std::endl;
-			////		}
-			////	}
-			////}
-			//////Skills and Auto Attack
-
-			////if ((*itr)->type == "Auto Attack" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////	}
-			////}
-
-			////if ((*itr)->type == "Skill 1" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////	}
-			////}
-
-			////if ((*itr)->type == "Skill 2" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////	}
-			////}
-
-			////if ((*itr)->type == "Skill 3" && (*itr)->GetCurrentState() == CLICK)
-			////{
-			////	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-			////	{
-			////	}
-			////}
 		}
-		//Character 1 (Most Right)
-		//if ((*itr)->type == "Character 1" && (*itr)->isitHover())
-		//{
-		//	if (Application::IsMousePressed(0))
-		//	{
-		//		if (!(*itr)->GetisPressed())
-		//		{
-		//			for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
-		//			{
-		//				if ((*itr2)->type == "Character 2")
-		//					(*itr2)->SetScale(Vector3(10,10,1));
-		//				if ((*itr2)->type == "Character 3")
-		//					(*itr2)->SetScale(Vector3(10, 10, 1));
-		//				(*itr2)->SetisSelected(false);
-		//			}
-		//			(*itr)->SetScale((*itr)->GetScale() + Vector3(5, 5, 1));
-		//			BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
-		//			std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
-		//			(*itr)->SetisSelected(true);
-		//			(*itr)->SetisPressed(true);
-		//		}
-		//	}
-		//	else
-		//	{
-		//		if ((*itr)->GetisPressed())
-		//			(*itr)->SetisPressed(false);
-		//	}
-		//}
-		////Character 2 (Middle)
-		//if ((*itr)->type == "Character 2" && (*itr)->isitHover())
-		//{
-		//	if (Application::IsMousePressed(0))
-		//	{
-		//		if (!(*itr)->GetisPressed())
-		//		{
-		//			for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
-		//			{
-		//				if ((*itr2)->type == "Character 1")
-		//					(*itr2)->SetScale(Vector3(10, 10, 1));
-		//				if ((*itr2)->type == "Character 3")
-		//					(*itr2)->SetScale(Vector3(10, 10, 1));
-		//				(*itr2)->SetisSelected(false);
-		//			}
-		//			(*itr)->SetScale((*itr)->GetScale() + Vector3(5, 5, 1));
-		//			BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(1));
-		//			std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
-		//			(*itr)->SetisSelected(true);
-		//			(*itr)->SetisPressed(true);
-		//		}
-		//	}
-		//	else
-		//	{
-		//		if ((*itr)->GetisPressed())
-		//			(*itr)->SetisPressed(false);
-		//	}
-		//}
-		////Character 3 (Most Left)
-		//if ((*itr)->type == "Character 3" && (*itr)->isitHover())
-		//{
-		//	if (Application::IsMousePressed(0))
-		//	{
-		//		if (!(*itr)->GetisPressed())
-		//		{
-		//			for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
-		//			{
-		//				if ((*itr2)->type == "Character 1")
-		//					(*itr2)->SetScale(Vector3(10, 10, 1));
-		//				if ((*itr2)->type == "Character 2")
-		//					(*itr2)->SetScale(Vector3(10, 10, 1));
-		//				(*itr2)->SetisSelected(false);
-		//			}
-		//			(*itr)->SetScale((*itr)->GetScale() + Vector3(5, 5, 1));
-		//			BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(1));
-		//			std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
-		//			(*itr)->SetisSelected(true);
-		//			(*itr)->SetisPressed(true);
-		//		}
-		//	}
-		//	else
-		//	{
-		//		if ((*itr)->GetisPressed())
-		//			(*itr)->SetisPressed(false);
-		//	}
-		//}
-		//AI 1 
-		if ((*itr)->type == "AI 1" && (*itr)->GetCurrentState() == CLICK)
+
+		//skill
+		if (((*itr)->type == "Default Attack" || (*itr)->type == "Skill 1" || (*itr)->type == "Skill 2" || (*itr)->type == "Skill 3") && (*itr)->isitHover())
 		{
-			for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+			if (Application::IsMousePressed(0))
 			{
-				(*itr2)->SetisTarget(false);
+				if (!(*itr)->GetisPressed())
+				{
+					for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
+					{
+						CharacterEntity* entity = (CharacterEntity*)itr2->second;
+						if (entity == BattleSystem::Instance().GetSelectedTroop())
+						{
+							if ((*itr)->type == "Default Attack")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
+							else if ((*itr)->type == "Skill 1")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
+							else if ((*itr)->type == "Skill 2")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(2));
+							else if ((*itr)->type == "Skill 3")
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
+						}
+					}
+					(*itr)->SetisPressed(true);
+				}
 			}
-			//BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
-			(*itr)->SetisTarget(true);
+			else
+			{
+				if ((*itr)->GetisPressed())
+				{
+					(*itr)->SetisPressed(false);
+				}
+			}
 		}
-		if ((*itr)->type == "AI 2" && (*itr)->GetCurrentState() == CLICK)
+
+
+		if ((*itr)->type == "Attack Button" && (*itr)->isitHover())
 		{
-			for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+			if (Application::IsMousePressed(0))
 			{
-				(*itr2)->SetisTarget(false);
+				if (!(*itr)->GetisPressed())
+				{
+					size_t i = 0;
+					CharacterEntity* temp = BattleSystem::Instance().GetSelectedEnemyTroop();
+					for (map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem().Instance().GetAITroops().end(); itr2++)
+					{
+						if (itr2->second == temp)
+							break;
+						i++;
+					}
+					CharacterEntity* tempo = BattleSystem::Instance().GetSelectedTroop();
+					Skill* tempi = BattleSystem::Instance().GetSelectedSkill();
+
+					bool temp2 = BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetSelectedTroop(), i, BattleSystem::Instance().GetSelectedSkill());
+					if (temp2)
+						BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
+					(*itr)->SetisPressed(true);
+				}
 			}
-			//BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
-			(*itr)->SetisTarget(true);
-		}
-		if ((*itr)->type == "AI 3" && (*itr)->GetCurrentState() == CLICK)
-		{
-			for (std::vector<Button*>::iterator itr2 = buttonList.begin(); itr2 != buttonList.end(); itr2++)
+			else
 			{
-				(*itr2)->SetisTarget(false);
+				if ((*itr)->GetisPressed())
+				{
+					(*itr)->SetisPressed(false);
+				}
 			}
-			//BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking(0));
-			(*itr)->SetisTarget(true);
 		}
 	}
 }

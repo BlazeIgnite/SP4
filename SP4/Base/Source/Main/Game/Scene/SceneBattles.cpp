@@ -41,11 +41,11 @@ void SceneBattles::Init()
 	priest->Init(20);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(5);
+	warrior2->Init(1);
 	Mage* mage2 = new Mage();
-	mage2->Init(5);
+	mage2->Init(1);
 	Priest* priest2 = new Priest();
-	priest2->Init(5);
+	priest2->Init(1);
 
 	Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
@@ -55,6 +55,14 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
 	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
 	BattleSystem::Instance().SetPlayerTroops(2, Player::Instance().GetCharacterEntityInClassUnit("Priest", 0));
+
+	for (size_t i = 0; i < BattleSystem::Instance().GetPlayerTroops().size(); i++)
+	{
+		for (size_t j = 0; j < 4; j++)
+		{
+			BattleSystem::Instance().SetPlayerTroopSkills(i, j);
+		}
+	}
 
 	AudioPlayer::Instance().PlayMusic("Battle Music");
 	BattleSystem::Instance().SetAITroops(0, warrior2);
@@ -133,36 +141,6 @@ void SceneBattles::Render()
 
 	//RenderMesh(meshList[GEO_AXES], false);
 	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
-	/*for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
-	{
-		Button* obj = (Button *)*itr;
-		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
-		modelStack->Scale(obj->GetScale().x , obj->GetScale().y , 1);
-
-		if (obj->type == "Character 1")
-		{
-			if (!obj->GetisSelected())
-				Renderer->RenderMesh("PlayerWarriorMesh", false);
-			else
-				Renderer->RenderMesh("PlayerWarriorMesh", false);
-		}
-		if (obj->type == "Character 2")
-		{
-			if (!obj->GetisSelected())
-				Renderer->RenderMesh("PlayerMageMesh", false);
-			else
-				Renderer->RenderMesh("PlayerMageMesh", false);
-		}
-		if (obj->type == "Character 3")
-		{
-			if (!obj->GetisSelected())
-				Renderer->RenderMesh("PlayerPriestMesh", false);
-			else
-				Renderer->RenderMesh("PlayerPriestMesh", false);
-		}
-		modelStack->PopMatrix();
-	}*/
 
 	for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
 	{
@@ -172,15 +150,13 @@ void SceneBattles::Render()
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
 		if (obj->type == "Red Potion")
 			Renderer->RenderMesh("RedPotion", false);
-		//if (obj->type == "Blue Potion")
-		//Renderer->RenderMesh("BluePotion", false);
 		if (obj->type == "Attack Potion")
 			Renderer->RenderMesh("AttackPotion", false);
 		if (obj->type == "Defence Potion")
 			Renderer->RenderMesh("DefencePotion", false);
 		if (obj->type == "Bandage")
 			Renderer->RenderMesh("Bandage", false);
-		if (obj->type == "Auto Attack")
+		if (obj->type == "Default Attack")
 			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 1")
 			Renderer->RenderMesh("Bandage", false);
@@ -188,6 +164,8 @@ void SceneBattles::Render()
 			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Skill 3")
 			Renderer->RenderMesh("Bandage", false);
+		if (obj->type == "Attack Button")
+			Renderer->RenderMesh("RedPotion", false);
 		/*if (obj->type == "AI 1")
 			Renderer->RenderMesh("RedPotion", false);
 		if (obj->type == "AI 2")
@@ -432,9 +410,6 @@ void SceneBattles::HandleUserInput()
 	{
 		LMouse = false;
 	}
-	//if (Application::IsKeyPressed(VK_RBUTTON))
-	//{
-	//}
 }
 
 void SceneBattles::Exit()

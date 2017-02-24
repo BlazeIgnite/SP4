@@ -50,22 +50,33 @@ void BattleSystem::SetAITroops(size_t position, CharacterEntity* Troop)
 	else
 		AITroops.find(position)->second = Troop;
 }
-void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition, Skill* skill)
+void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosition)
 {
 	map<size_t, map<size_t, Skill*>>::iterator itr = PlayerTroopSkills.find(playerPosition);
+	vector<Skill*>* temp = PlayerTroops.find(playerPosition)->second->GetSkillList();
+	if (temp->size() <= skillPosition)
+		return;
+	vector<Skill*>::iterator SkillIt = temp->begin();
+	for (size_t i = 0; SkillIt != temp->end(); SkillIt++)
+	{
+		if (i == skillPosition)
+			break;
+		i++;
+	}
+
 	if (itr == PlayerTroopSkills.end())
 	{
 		map<size_t, Skill*> EmptySkillMap;
-		EmptySkillMap[skillPosition] = skill;
+		EmptySkillMap[skillPosition] = (*SkillIt);
 		PlayerTroopSkills[playerPosition] = EmptySkillMap;
 	}
 	else
 	{
 		map<size_t, Skill*>::iterator itr2 = itr->second.find(skillPosition);
 		if (itr2 == itr->second.end())
-			PlayerTroopSkills.find(playerPosition)->second[skillPosition] = skill;
+			PlayerTroopSkills.find(playerPosition)->second[skillPosition] = (*SkillIt);
 		else
-			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = skill;
+			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = (*SkillIt);
 	}
 }
 void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
@@ -125,8 +136,8 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 	{
 		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
 		{
-			vector<Skill*> SkillList = it->second->GetSkillList();
-			for (vector<Skill*>::iterator it2 = SkillList.begin(); it2 != SkillList.end(); it2++)
+			vector<Skill*>* SkillList = it->second->GetSkillList();
+			for (vector<Skill*>::iterator it2 = SkillList->begin(); it2 != SkillList->end(); it2++)
 			{
 				if ((*it2)->GetTurnCooldown() > 0)
 					(*it2)->SetTurnCooldown((*it2)->GetTurnCooldown() - 1);
@@ -176,8 +187,8 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 	{
 		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
 		{
-			vector<Skill*> SkillList = it->second->GetSkillList();
-			for (vector<Skill*>::iterator it2 = SkillList.begin(); it2 != SkillList.end(); it2++)
+			vector<Skill*>* SkillList = it->second->GetSkillList();
+			for (vector<Skill*>::iterator it2 = SkillList->begin(); it2 != SkillList->end(); it2++)
 			{
 				if ((*it2)->GetTurnCooldown() > 0)
 					(*it2)->SetTurnCooldown((*it2)->GetTurnCooldown() - 1);

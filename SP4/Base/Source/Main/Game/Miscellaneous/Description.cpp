@@ -30,7 +30,7 @@ void Description::Init(Vector3 Position, Vector3 Scale, std::string type)
 	this->type = type;
 
 	text = new DescriptionText();
-	text->Init(Vector3(0,0,0), Vector3(2 ,2, 2), type, "Test");
+	text->Init(Vector3(0,0,0), Vector3(2 ,2, 1), type, "Test");
 
 }
 

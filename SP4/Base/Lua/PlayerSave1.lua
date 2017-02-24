@@ -1,12 +1,12 @@
-PlayerName = "FCK LA"
+PlayerName = "ASDAD"
 PlayerTag = 1
 PlayerGold = 0
 PlayerFurthestStage = 0
-RedHerbCount = 684
+RedHerbCount = 716
 WhiteHerbCount = 0
 EmptyBottleCount = 0
 ClothCount = 0
-RedPotionCount =228
+RedPotionCount =244
 AttackPotionCount = 0
 DefencePotionCount = 0
 AttackPotionCount = 0

@@ -360,7 +360,7 @@ void Town::RenderMaterialList()
 	modelStack->PushMatrix();
 	modelStack->Translate(50, 30, 1);
 	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("EmptyBottle", false);
+	Renderer->RenderMesh("Empty Bottle", false);
 	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();

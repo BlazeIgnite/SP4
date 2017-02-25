@@ -204,6 +204,8 @@ void SceneBattles::Render()
 			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Attack Button")
 			Renderer->RenderMesh("RedPotion", false);
+		if (obj->type == "End Turn")
+			Renderer->RenderMesh("BluePotion", false);
 		modelStack->PopMatrix();
 	}
 
@@ -338,7 +340,7 @@ void SceneBattles::Render()
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
 	modelStack->Scale(BattleSystem::Instance().GetTurnCost() / 2,5,1);
-	Renderer->RenderMesh("Test",false);
+	Renderer->RenderMesh("BattleScene",false);
 	modelStack->PopMatrix();
 	//std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
 

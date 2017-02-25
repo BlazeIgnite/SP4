@@ -29,9 +29,6 @@ void BattleButton::Init()
 	temp = new Button();
 	temp->Init(Vector3(17.5, 10, 0), Vector3(7, 7, 1), "Red Potion");
 	buttonList.push_back(temp);
-	/*temp = new Button();
-	temp->Init(Vector3(25, 20, 0), Vector3(5, 5, 1), "Blue Potion");
-	buttonList.push_back(temp);*/
 	temp = new Button();
 	temp->Init(Vector3(27.5, 10, 0), Vector3(7, 7, 1), "Bandage");
 	buttonList.push_back(temp);
@@ -58,6 +55,9 @@ void BattleButton::Init()
 	temp = new Button();
 	temp->Init(Vector3(150, 15, 0), Vector3(15, 15, 1), "Attack Button");
 	buttonList.push_back(temp);
+	temp = new Button();
+	temp->Init(Vector3(160, 15, 0), Vector3(15, 15, 1), "End Turn");
+	buttonList.push_back(temp);
 
 	temp = new Button();
 	temp->Init(Vector3(120, 22.5, 0), Vector3(10, 10, 1), "AI 1");
@@ -69,7 +69,12 @@ void BattleButton::Init()
 	temp->Init(Vector3(160, 22.5, 0), Vector3(10, 10, 1), "AI 3");
 	buttonList.push_back(temp);
 
+	temp->SetisPressed(false);
+	temp->SetisSelected(false);
+	temp->SetisTarget(false);
+
 	tempscale = Vector3(10, 10, 1);
+	tempscale1 = Vector3(15, 15, 1);
 }
 
 void BattleButton::Update(float dt)
@@ -77,6 +82,7 @@ void BattleButton::Update(float dt)
 	for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 	{
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
+
 		if (entity->GetName() == "Warrior" && entity->isitHover())
 		{
 			if (!entity->GetisPressed() && !entity->GetisSelected())
@@ -89,11 +95,11 @@ void BattleButton::Update(float dt)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
 							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
-								entity2->SetScale(Vector3(10, 10, 1));
+								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
 
-						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+						entity->SetScale(tempscale1);
 
 						BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
 						std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
@@ -122,11 +128,11 @@ void BattleButton::Update(float dt)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
 							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
-								entity2->SetScale(Vector3(10, 10, 1));
+								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
 
-						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+						entity->SetScale(tempscale1);
 
 						BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
 						std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
@@ -154,11 +160,11 @@ void BattleButton::Update(float dt)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
 							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
-								entity2->SetScale(Vector3(10, 10, 1));
+								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
 
-						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
+						entity->SetScale(tempscale1);
 						BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
 						std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
 						entity->SetisSelected(true);
@@ -348,6 +354,28 @@ void BattleButton::Update(float dt)
 					if (temp2)
 						BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
 					(*itr)->SetisPressed(true);
+				}
+			}
+			else
+			{
+				if ((*itr)->GetisPressed())
+				{
+					(*itr)->SetisPressed(false);
+				}
+			}
+		}
+
+		if ((*itr)->type == "End Turn" && (*itr)->isitHover())
+		{
+			if (Application::IsMousePressed(0))
+			{
+				BattleSystem::Instance().SetPlayerTurn(false);
+				for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
+				{
+					CharacterEntity* entity = (CharacterEntity*)itr->second;
+					if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Priest")
+						entity->SetScale(tempscale);
+					entity->SetisSelected(false);
 				}
 			}
 			else

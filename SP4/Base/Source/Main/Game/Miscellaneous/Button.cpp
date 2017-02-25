@@ -36,7 +36,6 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 	isPressed = false;
 	isSelected = false;
 	isTarget = false;
-	isOpened = false;
 
 	CurrentState = UNTOUCHED;
 }

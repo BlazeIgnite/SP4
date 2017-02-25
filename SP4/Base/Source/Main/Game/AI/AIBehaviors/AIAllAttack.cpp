@@ -38,8 +38,9 @@ void AIAllAttack::Execute()
 	{
 		for (size_t i = 0; i < BattleSystem::Instance().GetNumberOfAITroopAlive(); i++)
 		{
-			if (BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetAITroopAttacking(i), 0, BattleSystem::Instance().GetAITroopAttacking(i)->GetSkillInVector("Basic Attack")))
-				BattleSystem::Instance().DamageCalculation(0, BattleSystem::Instance().GetAITroopAttacking(i)->GetSkillInVector("Basic Attack"));
+			size_t target = (size_t)Math::RandIntMinMax(0, 1);
+			if (BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetAITroopAttacking(i), target,  BattleSystem::Instance().GetAITroopAttacking(i)->GetSkillInVector("Basic Attack")))
+				BattleSystem::Instance().DamageCalculation(target, BattleSystem::Instance().GetAITroopAttacking(i)->GetSkillInVector("Basic Attack"));
 		}
 	}
 	BattlePlanHolder->SetBattlePlan("");

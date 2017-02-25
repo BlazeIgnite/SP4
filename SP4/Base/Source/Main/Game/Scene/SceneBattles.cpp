@@ -209,7 +209,6 @@ void SceneBattles::Render()
 
 	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 	{
-		
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
 		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
 		modelStack->PushMatrix();

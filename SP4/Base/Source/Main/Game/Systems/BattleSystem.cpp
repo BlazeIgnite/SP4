@@ -274,12 +274,13 @@ void BattleSystem::MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap)
 
 
 // Battle Damage Calculation for basic attack and Skills here
-void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
+size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 {
+	size_t damage = AttackerSkill->GetDamage();
 	if (PlayerTurn)
 	{
 		CharacterEntity* targettroop = AITroops.find(target)->second;
-		int tempHealth = targettroop->GetHealth() - AttackerSkill->GetDamage();
+		int tempHealth = targettroop->GetHealth() - damage;
 		if (tempHealth <= 0)
 			tempHealth = 0;
 		targettroop->SetHealth(tempHealth);
@@ -309,7 +310,7 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 					}
 				}
 				Reset();
-				return;
+				return damage;
 			}
 			if (NumberofDefeatedTroops == 1)
 			{
@@ -324,11 +325,12 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 					MoveTroopFrontByOne(AITroops);
 			}
 		}
+		return damage;
 	}
 	else
 	{
 		CharacterEntity* targettroop = PlayerTroops.find(target)->second; 
-		int tempHealth = targettroop->GetHealth() - AttackerSkill->GetDamage();
+		int tempHealth = targettroop->GetHealth() - damage;
 		if (tempHealth <= 0)
 			tempHealth = 0;
 		targettroop->SetHealth(tempHealth);
@@ -353,7 +355,7 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 				//Go to lose screen;
 				SceneSystem::Instance().SwitchScene("Town_Scene");
 
-				return;
+				return damage;
 			}
 			if (NumberofDefeatedTroops == 1)
 			{
@@ -368,11 +370,15 @@ void BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 					MoveTroopFrontByOne(PlayerTroops);
 			}
 		}
+		return damage;
 	}
+	return 0;
 }
 
 bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Skill* AttackerSkill)
 {
+	if (Attacker == NULL || AttackerSkill == NULL)
+		return false;
 	if (PlayerTurn)
 	{
 		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)

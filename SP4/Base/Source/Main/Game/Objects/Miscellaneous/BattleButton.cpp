@@ -27,36 +27,35 @@ void BattleButton::Init()
 	buttonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(17.5, 10, 0), Vector3(7, 7, 1), "Red Potion");
+	temp->Init(Vector3(17.5, 20, 0), Vector3(7, 7, 1), "Red Potion");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(27.5, 10, 0), Vector3(7, 7, 1), "Bandage");
+	temp->Init(Vector3(27.5, 20, 0), Vector3(7, 7, 1), "Bandage");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(37.5, 10, 0), Vector3(7, 7, 1), "Attack Potion");
+	temp->Init(Vector3(37.5, 20, 0), Vector3(7, 7, 1), "Attack Potion");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(47.5, 10, 0), Vector3(7, 7, 1), "Defence Potion");
+	temp->Init(Vector3(47.5, 20, 0), Vector3(7, 7, 1), "Defence Potion");
 	buttonList.push_back(temp);
 
-
 	temp = new Button();
-	temp->Init(Vector3(70, 15, 0), Vector3(7, 7, 1), "Default Attack");
+	temp->Init(Vector3(68, 15, 0), Vector3(6, 6, 1), "Default Attack");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(80, 15, 0), Vector3(7, 7, 1), "Skill 1");
+	temp->Init(Vector3(82, 15, 0), Vector3(6, 6, 1), "Skill 1");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(90, 15, 0), Vector3(7, 7, 1), "Skill 2");
+	temp->Init(Vector3(96, 15, 0), Vector3(6, 6, 1), "Skill 2");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(100, 15, 0), Vector3(7, 7, 1), "Skill 3");
+	temp->Init(Vector3(110, 15, 0), Vector3(6, 6, 1), "Skill 3");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(150, 15, 0), Vector3(15, 15, 1), "Attack Button");
+	temp->Init(Vector3(140, 15, 0), Vector3(15, 7, 1), "Attack Button");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(160, 15, 0), Vector3(15, 15, 1), "End Turn");
+	temp->Init(Vector3(160, 15, 0), Vector3(15, 7, 1), "End Turn");
 	buttonList.push_back(temp);
 
 	temp = new Button();

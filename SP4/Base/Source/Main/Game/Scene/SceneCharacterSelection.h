@@ -12,11 +12,13 @@ class SceneCharacterSelection : public SceneEntity
 {
 private:
 	std::vector<CharacterEntity*> CharacterList;
-	CharacterEntity* SelectedCharacter;
+	int SelectedCharacter;
 	Button* Left;
 	Button* Right;
 	std::string ClassNameText;
 	std::vector<Button*> ButtonList;
+	int SelectedSkill[3];
+	float MaxSkillSelectedTimer;
 
 public:
 	SceneCharacterSelection();
@@ -32,6 +34,8 @@ public:
 	void RenderPlayerCharacterList();
 	void RenderSelectedCharacterInfo();
 	void RenderCharacterList();
+	void RenderCharacterInfo();
+	void RenderSelectedCharacters();
 	
 
 protected:

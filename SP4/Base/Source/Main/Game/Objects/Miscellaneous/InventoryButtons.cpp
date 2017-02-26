@@ -16,20 +16,17 @@ void InventoryButtons::Init(double x, double y)
 	Button* temp;
 
 	temp = new Button();
-	temp->Init(Vector3(40, 60, 0), Vector3(15, 5, 1), "Consumable Tab");
+	temp->Init(Vector3(40, 75, 0), Vector3(15, 5, 1), "Consumable Tab");
 	buttonVector.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(60, 60, 0), Vector3(15, 5, 1), "Material Tab");
+	temp->Init(Vector3(60, 75, 0), Vector3(15, 5, 1), "Material Tab");
 	buttonVector.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(80, 60, 0), Vector3(15, 5, 1), "Crafting Tab");
+	temp->Init(Vector3(80, 75, 0), Vector3(15, 5, 1), "Crafting Tab");
 	buttonVector.push_back(temp);
 
 	temp = new Button();
 	temp->Init(Vector3(75, 50, 0), Vector3(10, 10, 1), "Red Potion");
-	buttonVector.push_back(temp);
-	temp = new Button();
-	temp->Init(Vector3(90, 50, 0), Vector3(10, 10, 1), "Blue Potion");
 	buttonVector.push_back(temp);
 	temp = new Button();
 	temp->Init(Vector3(75, 35, 0), Vector3(10, 10, 1), "Attack Potion");
@@ -38,19 +35,19 @@ void InventoryButtons::Init(double x, double y)
 	temp->Init(Vector3(90, 35, 0), Vector3(10, 10, 1), "Defence Potion");
 	buttonVector.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(82.5f, 20, 0), Vector3(12, 10, 1), "Bandage");
+	temp->Init(Vector3(90, 50, 0), Vector3(10, 10, 1), "Bandage");
 	buttonVector.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(120, 50, 0), Vector3(12, 10, 1), "Close Button");
+	temp->Init(Vector3(130, 30, 0), Vector3(30, 10, 1), "Craft");
+	buttonVector.push_back(temp);
+	temp = new Button();
+	temp->Init(Vector3(140, 75, 0), Vector3(15, 5, 1), "Close Button");
 	buttonVector.push_back(temp);
 
 	//Descriptions
 	Description* temp2;
 	temp2 = new Description();
 	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Red Potion");
-	DescriptionVector.push_back(temp2);
-	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Blue Potion");
 	DescriptionVector.push_back(temp2);
 	temp2 = new Description();
 	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Attack Potion");
@@ -63,7 +60,6 @@ void InventoryButtons::Init(double x, double y)
 	DescriptionVector.push_back(temp2);
 
 	isOpened = false;
-
 }
 
 void InventoryButtons::Update(float dt)

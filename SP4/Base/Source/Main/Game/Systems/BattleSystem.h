@@ -69,7 +69,7 @@ public:
 	void MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap);
 
 	// Damage Calculations all here
-	void DamageCalculation(size_t target, Skill* AttackerSkill);
+	size_t DamageCalculation(size_t target, Skill* AttackerSkill);
 	// Buffing or Healing goes here
 	void ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUsed);
 	// Status Effect Calculations all here

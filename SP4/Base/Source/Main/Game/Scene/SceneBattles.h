@@ -15,6 +15,12 @@ class SceneBattles : public SceneEntity
 {
 
 private:
+	BattleButton* button;
+	CharacterEntity* character;
+	AIBase* AI = nullptr;
+
+	string damage;
+
 	void RenderObjects(BaseObject *obj);
 	void tempRenderObjects();
 	void UpdateCharacterLogic(double dt);
@@ -22,11 +28,6 @@ private:
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
 
 	double x, y;
-
-	BattleButton* button;
-	CharacterEntity* character;
-	AIBase* AI = nullptr;
-
 public:
 	SceneBattles();
 	~SceneBattles();

@@ -24,7 +24,7 @@ void LuaSystem::Exit()
 	std::map<std::string, lua_State*>::iterator it = LuaStateList.begin();
 	while (it != LuaStateList.end())
 	{
-		lua_close(it->second);
+		//lua_close(it->second);
 		it->second = nullptr;
 		it = LuaStateList.erase(it);
 	}

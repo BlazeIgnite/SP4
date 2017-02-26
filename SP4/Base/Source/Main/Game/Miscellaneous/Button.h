@@ -15,7 +15,6 @@ private:
 	bool isPressed;
 	bool isSelected;
 	bool isTarget;
-	bool isOpened;
 
 public:
 	Button();

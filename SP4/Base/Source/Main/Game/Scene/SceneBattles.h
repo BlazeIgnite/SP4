@@ -15,6 +15,9 @@ class SceneBattles : public SceneEntity
 {
 
 private:
+	Vector3 tempscale;
+	Vector3 tempscale1;
+
 	BattleButton* button;
 	CharacterEntity* character;
 	AIBase* AI = nullptr;

@@ -24,11 +24,39 @@ void SceneLevelSelection::Init()
 	this->SetEntityID("LevelSelection_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
+	Button* m_button = new Button();
+	m_button->Init(Vector3(140, 92, 0), Vector3(15, 10, 10), "Town Button");
+	m_buttonList.push_back(m_button);
+
+	m_button = new Button();
+	m_button->Init(Vector3(130, 60, 0), Vector3(15, 10, 10), "Level 1 Button");
+	m_buttonList.push_back(m_button);
+
+	m_button = new Button();
+	m_button->Init(Vector3(0, 0, 0), Vector3(1, 1, 1), "Level 2 Button");
+	m_buttonList.push_back(m_button);
 }
 
 void SceneLevelSelection::Update(float dt)
 {
+	for (vector<Button*>::iterator it = m_buttonList.begin(); it != m_buttonList.end(); it++)
+	{
+		Button* button = (Button*)(*it);
 
+		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+		{
+			if (button->type == "Town Button")
+			{
+				SceneSystem::Instance().SwitchScene("Town_Scene");
+			}
+			else if (button->type == "Level 1 Button")
+			{
+			}
+			else if (button->type == "Level 2 Button")
+			{
+			}
+		}
+	}
 }
 
 void SceneLevelSelection::Render()
@@ -53,10 +81,27 @@ void SceneLevelSelection::Render()
 	modelStack->LoadIdentity();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("RedPotion", false);
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
+	modelStack->Scale(200, 100, 1);
+	Renderer->RenderMesh("LevelSelection", false);
 	modelStack->PopMatrix();
+
+	for (vector<Button*>::iterator it = m_buttonList.begin(); it != m_buttonList.end(); it++)
+	{
+		Button* button = (Button*)(*it);
+		modelStack->PushMatrix();
+		modelStack->Translate(button->GetPosition().x, button->GetPosition().y, button->GetPosition().z);
+		modelStack->Scale(button->GetScale().x, button->GetScale().y, button->GetScale().z);
+
+		if (button->type == "Town Button")
+			Renderer->RenderMesh("MainMenu", false);
+		else if (button->type == "Level 1 Button")
+			Renderer->RenderMesh("Level1", false);
+		else if (button->type == "Level 2 Button")
+			Renderer->RenderMesh("MainMenu", false);
+		
+		modelStack->PopMatrix();
+	}
 }
 
 void SceneLevelSelection::Exit()

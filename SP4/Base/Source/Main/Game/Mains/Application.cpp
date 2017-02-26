@@ -183,13 +183,13 @@ void Application::Init()
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
 
-	SceneLevelSelection* temp5 = new SceneLevelSelection();
-	temp5->SetEntityID("LevelSelection_Scene");
-	SceneSystem::Instance().AddScene(*temp5);
-
 	Town* temp4 = new Town();
 	temp4->SetEntityID("Town_Scene");
 	SceneSystem::Instance().AddScene(*temp4);
+
+	SceneLevelSelection* temp5 = new SceneLevelSelection();
+	temp5->SetEntityID("LevelSelection_Scene");
+	SceneSystem::Instance().AddScene(*temp5);
 	
 	SceneBattles* temp = new SceneBattles();
 	temp->SetEntityID("Battle_Scene");

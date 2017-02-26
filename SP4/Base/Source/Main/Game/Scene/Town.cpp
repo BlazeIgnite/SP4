@@ -194,7 +194,7 @@ void Town::UpdateInventory(float dt)
 			{
 				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
-					SceneSystem::Instance().SwitchScene("Battle_Scene");
+					SceneSystem::Instance().SwitchScene("LevelSelection_Scene");
 					OpenMission = true;
 				}
 			}

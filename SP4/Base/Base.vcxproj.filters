@@ -14,7 +14,6 @@
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AICombined.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp" />
-    <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
@@ -48,6 +47,7 @@
     <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevelSelection.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneCharacterSelection.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />

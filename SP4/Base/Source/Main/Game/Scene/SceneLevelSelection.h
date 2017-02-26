@@ -3,9 +3,15 @@
 
 #include "SceneBase.h"
 #include "../../Engine/Objects/SceneEntity.h"
+#include "../Miscellaneous/Button.h"
+
+using std::vector;
 
 class SceneLevelSelection : public SceneEntity
 {
+private:
+	vector<Button*> m_buttonList;
+
 public:
 	SceneLevelSelection();
 	~SceneLevelSelection();

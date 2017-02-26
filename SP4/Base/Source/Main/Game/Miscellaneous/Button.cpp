@@ -43,12 +43,24 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 
 void Button::Update()
 {
-	if (isitHover() && (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK || InputManager::Instance().GetMouseState(MOUSE_L) == HOLD))
+	if ((InputManager::Instance().GetMouseState(MOUSE_L) == CLICK || InputManager::Instance().GetMouseState(MOUSE_L) == HOLD))
 	{
-		if (CurrentState == UNTOUCHED || CurrentState == RELEASE)
-			CurrentState = CLICK;
-		else if (CurrentState == CLICK)
-			CurrentState = HOLD;
+		if (isitHover())
+		{
+			isSelected = true;
+			if (CurrentState == UNTOUCHED || CurrentState == RELEASE)
+				CurrentState = CLICK;
+			else if (CurrentState == CLICK)
+				CurrentState = HOLD;
+		}
+		else
+		{
+			isSelected = false;
+			if (CurrentState == CLICK || CurrentState == HOLD)
+				CurrentState = RELEASE;
+			else if (CurrentState == RELEASE)
+				CurrentState = UNTOUCHED;
+		}
 	}
 	else
 	{

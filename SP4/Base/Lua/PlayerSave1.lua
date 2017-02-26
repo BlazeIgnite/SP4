@@ -1,12 +1,12 @@
-PlayerName = "123123"
+PlayerName = ""
 PlayerTag = 1
 PlayerGold = 0
 PlayerFurthestStage = 0
-RedHerbCount = 876
+RedHerbCount = 237068
 WhiteHerbCount = 0
 EmptyBottleCount = 0
 ClothCount = 0
-RedPotionCount =324
+RedPotionCount = 118420
 AttackPotionCount = 0
 DefencePotionCount = 0
 AttackPotionCount = 0

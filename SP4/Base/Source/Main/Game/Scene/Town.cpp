@@ -253,8 +253,7 @@ void Town::Render()
 	{
 		Button *obj = (Button *)*itr;
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-		//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 
 		if (obj->type == "Inventory")

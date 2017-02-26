@@ -201,7 +201,7 @@ void LuaSystem::LoadGame(int SaveFile)
 	{
 		for (int Value = 1; Value <= PriestCount; ++Value)
 		{
-			CharacterEntity* temp = new Warrior();
+			CharacterEntity* temp = new Priest();
 			std::string VariableName = "Priest" + std::to_string(Value);
 			unsigned int Level = GetIntValue(lua, VariableName.c_str());
 			temp->Init(Level);
@@ -212,7 +212,7 @@ void LuaSystem::LoadGame(int SaveFile)
 	{
 		for (int Value = 1; Value <= WizardCount; ++Value)
 		{
-			CharacterEntity* temp = new Warrior();
+			CharacterEntity* temp = new Mage();
 			std::string VariableName = "Mage" + std::to_string(Value);
 			unsigned int Level = GetIntValue(lua, VariableName.c_str());
 			temp->Init(Level);

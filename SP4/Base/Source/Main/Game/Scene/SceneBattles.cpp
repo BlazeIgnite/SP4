@@ -48,9 +48,9 @@ void SceneBattles::Init()
 	Priest* priest2 = new Priest();
 	priest2->Init(1);
 
-	Player::Instance().AddCharacter("Warrior", warrior);
+	/*Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
-	Player::Instance().AddCharacter("Priest", priest);
+	Player::Instance().AddCharacter("Priest", priest);*/
 
 	BattleSystem::Instance().Init();
 	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
@@ -142,6 +142,21 @@ void SceneBattles::Render()
 	//RenderMesh(meshList[GEO_AXES], false);
 	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
 
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
+	modelStack->Scale(BattleSystem::Instance().GetTurnCost() / 2, 5, 1);
+	Renderer->RenderMesh("BattleScene", false);
+	modelStack->PopMatrix();
+	//std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
+
+	modelStack->PushMatrix();
+	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
+	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
+	//Renderer->SetHUD(true);
+	Renderer->RenderMesh("BattleScene", false);
+	//Renderer->SetHUD(false);
+	modelStack->PopMatrix();
+
 	for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
 	{
 		Button* obj = (Button *)*itr;
@@ -203,10 +218,37 @@ void SceneBattles::Render()
 		if (obj->type == "Bandage")
 			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Attack Button")
-			Renderer->RenderMesh("RedPotion", false);
+			Renderer->RenderMesh("Inventory", false);
 		if (obj->type == "End Turn")
-			Renderer->RenderMesh("BluePotion", false);
+			Renderer->RenderMesh("Inventory", false);
 		modelStack->PopMatrix();
+
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, 0.5);
+		modelStack->Scale(2, 2, 1);
+		if (obj->type == "Attack Button")
+			Renderer->RenderText("text", "Attack", Color(1, 1, 1));
+		if (obj->type == "End Turn")
+			Renderer->RenderText("text", "End", Color(1, 1, 1));
+		modelStack->PopMatrix();
+			
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y - 10, 0.5);
+		modelStack->Scale(3, 3, 1);
+		std::string temp = std::to_string(Player::Instance().GetConsumableList().find("Red Potion")->second);
+		if (obj->type == "Red Potion")
+			Renderer->RenderText("text", temp, Color(1, 1, 1));
+		temp = std::to_string(Player::Instance().GetConsumableList().find("Attack Potion")->second);
+		if (obj->type == "Attack Potion")
+			Renderer->RenderText("text", temp, Color(1, 1, 1));
+		temp = std::to_string(Player::Instance().GetConsumableList().find("Defence Potion")->second);
+		if (obj->type == "Defence Potion")
+			Renderer->RenderText("text", temp, Color(1, 1, 1));
+		temp = std::to_string(Player::Instance().GetConsumableList().find("Bandage")->second);
+		if (obj->type == "Bandage")
+			Renderer->RenderText("text", temp, Color(1, 1, 1));
+		modelStack->PopMatrix();
+		
 	}
 
 	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
@@ -337,21 +379,7 @@ void SceneBattles::Render()
 		}
 		modelStack->PopMatrix();
 	}
-	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
-	modelStack->Scale(BattleSystem::Instance().GetTurnCost() / 2,5,1);
-	Renderer->RenderMesh("BattleScene",false);
-	modelStack->PopMatrix();
-	//std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
-
-	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
-	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
-	//RenderMesh(meshList[GEO_BACKGROUND], false);
-	//Renderer->SetHUD(true);
-	Renderer->RenderMesh("BattleScene", false);
-	//Renderer->SetHUD(false);
-	modelStack->PopMatrix();
+	
 
 	
 }

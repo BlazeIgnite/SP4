@@ -24,8 +24,6 @@ void Player::Init(const unsigned int PlayerTag)
 	MaterialList.insert(std::pair < std::string, unsigned int>("Empty Bottle", 0));
 	MaterialList.insert(std::pair < std::string, unsigned int>("Cloth", 0));
 
-	AddConsumableItem("Red Potion", 1);
-	AddMaterialItem("Red Herb", 2);
 	item = new ItemEntity();
 	LuaSystem::Instance().LoadGame(0);
 }

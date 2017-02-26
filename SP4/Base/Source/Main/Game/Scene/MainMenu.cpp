@@ -187,9 +187,9 @@ void MainMenu::Render()
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
 	modelStack->Scale(ObjectManager::Instance().WorldWidth, ObjectManager::Instance().WorldHeight, 1);
-	Renderer->SetHUD(true);
+	//Renderer->SetHUD(true);
 	Renderer->RenderMesh("MainMenu", false);
-	Renderer->SetHUD(false);
+	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
 	
 	//Title

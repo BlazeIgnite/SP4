@@ -27,11 +27,11 @@ void Town::Init()
 
 	Button* temp;
 	temp = new Button();
-	temp->Init(Vector3(150, 40, 1), Vector3(15, 5, 5), "Inventory");
+	temp->Init(Vector3(60, 10, 1), Vector3(15, 5, 5), "Inventory");
 	buttonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(150, 30, 1), Vector3(15, 5, 5), "Mission");
+	temp->Init(Vector3(85, 10, 1), Vector3(15, 5, 5), "Mission");
 	buttonList.push_back(temp);
 
 	OpenInventory = false;
@@ -289,25 +289,25 @@ void Town::RenderConsumableList()
 {
 	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 50, 1);
+	modelStack->Translate(50, 60, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("RedPotion", false);
 	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 40, 1);
+	modelStack->Translate(50, 50, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("AttackPotion", false);
 	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 30, 1);
+	modelStack->Translate(50, 40, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("DefencePotion", false);
 	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 20, 1);
+	modelStack->Translate(50, 30, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("Bandage", false);
 	modelStack->PopMatrix();
@@ -315,28 +315,28 @@ void Town::RenderConsumableList()
 
 	std::string temp = std::to_string(Player::Instance().GetConsumableList().find("Red Potion")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 50, 2);
+	modelStack->Translate(70, 60, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
 
 	temp = std::to_string(Player::Instance().GetConsumableList().find("Attack Potion")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 40, 2);
+	modelStack->Translate(70, 50, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
 
 	temp = std::to_string(Player::Instance().GetConsumableList().find("Defence Potion")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 30, 2);
+	modelStack->Translate(70, 40, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
 
 	temp = std::to_string(Player::Instance().GetConsumableList().find("Bandage")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 20, 2);
+	modelStack->Translate(70, 30, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
@@ -346,25 +346,25 @@ void Town::RenderMaterialList()
 {
 	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 50, 1);
+	modelStack->Translate(50, 60, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("RedHerb", false);
 	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 40, 1);
+	modelStack->Translate(50, 50, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("WhiteHerb", false);
 	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 30, 1);
+	modelStack->Translate(50, 40, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("Empty Bottle", false);
 	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(50, 20, 1);
+	modelStack->Translate(50, 30, 1);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("Cloth", false);
 	modelStack->PopMatrix();
@@ -372,28 +372,28 @@ void Town::RenderMaterialList()
 
 	std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Red Herb")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 50, 2);
+	modelStack->Translate(70, 60, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
 
 	temp = std::to_string(Player::Instance().GetMaterialList().find("White Herb")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 40, 2);
+	modelStack->Translate(70,50, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
 
 	temp = std::to_string(Player::Instance().GetMaterialList().find("Empty Bottle")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 30, 2);
+	modelStack->Translate(70, 40, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
 
 	temp = std::to_string(Player::Instance().GetMaterialList().find("Cloth")->second);
 	modelStack->PushMatrix();
-	modelStack->Translate(70, 20, 2);
+	modelStack->Translate(70, 30, 2);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
 	modelStack->PopMatrix();
@@ -420,6 +420,8 @@ void Town::RenderCraftingButtons()
 			Renderer->RenderMesh("DefencePotion", false);
 		if (obj->type == "Bandage")
 			Renderer->RenderMesh("Bandage", false);
+		if (obj->type == "Craft")
+			Renderer->RenderMesh("Inventory", false);
 		modelStack->PopMatrix();
 
 		//Description
@@ -485,6 +487,12 @@ void Town::RenderInventoryButtons()
 	for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
 	{
 		Button *obj = (Button *)*itr;
+
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth* 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -3);
+		modelStack->Scale(130, 70, 1);
+		Renderer->RenderMesh("Inventory", false);
+		modelStack->PopMatrix();
 
 		//Buttons
 		modelStack->PushMatrix();

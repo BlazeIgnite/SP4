@@ -71,7 +71,6 @@ void BattleButton::Init()
 	temp->SetisPressed(false);
 	temp->SetisSelected(false);
 	temp->SetisTarget(false);
-
 }
 
 void BattleButton::Update(float dt)

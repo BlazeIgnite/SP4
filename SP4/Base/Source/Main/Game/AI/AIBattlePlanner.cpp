@@ -31,3 +31,8 @@ void AIBattlePlanner::UseBattlePlan()
 {
 
 }
+
+void AIBattlePlanner::ResetBattlePlan()
+{
+	BattlePlan = "";
+}

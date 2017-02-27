@@ -157,11 +157,6 @@ void MainMenu::Update(float dt)
 				NewName.erase(NewName.size() - 1);
 		}
 	}
-	if (InputManager::Instance().CheckKeyPressed('G') == CLICK)
-	{
-		SceneSystem::Instance().SceneReset("MainMenu_Scene");
-	}
-
 }
 
 void MainMenu::Render()

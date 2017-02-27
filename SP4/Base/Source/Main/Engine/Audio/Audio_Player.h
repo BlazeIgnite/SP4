@@ -18,6 +18,8 @@ public:
 	void PlayMusic(string MusicName = "");
 	void PlayBGM();
 	void PlayBattleMusic();
+
+	void StopAllMusic();
 	
 	void SetVolume(float vol);
 	void Exit();

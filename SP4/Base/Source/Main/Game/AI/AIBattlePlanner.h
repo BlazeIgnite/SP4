@@ -19,6 +19,7 @@ public:
 	bool GetBattlePlan(string Battleplan);
 
 	void UseBattlePlan();
+	void ResetBattlePlan();
 };
 
 #endif

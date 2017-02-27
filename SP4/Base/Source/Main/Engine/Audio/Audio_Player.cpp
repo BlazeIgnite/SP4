@@ -39,6 +39,11 @@ void AudioPlayer::PlayBattleMusic()
 	SoundEngine->play2D("Music/BattleMusic.mp3", true);
 }
 
+void AudioPlayer::StopAllMusic()
+{
+	SoundEngine->stopAllSounds();
+}
+
 void AudioPlayer::Exit()
 {
 	if (SoundEngine)

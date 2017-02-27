@@ -387,7 +387,7 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 			{
 				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
-					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
+					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0 && (TurnCost - AttackerSkill->GetActionCost() >= 0))
 						return true;
 				}
 				else
@@ -404,7 +404,7 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 			{
 				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
-					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
+					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0 (TurnCost - AttackerSkill->GetActionCost() >= 0))
 						return true;
 				}
 				else

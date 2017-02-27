@@ -15,6 +15,8 @@ public:
 	void SetState(string newString);
 	string GetState(); 
 	bool GetState(string State);
+
+	void ResetState();
 };
 
 #endif

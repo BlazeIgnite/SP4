@@ -29,11 +29,11 @@ void SceneLevelSelection::Init()
 	m_buttonList.push_back(m_button);
 
 	m_button = new Button();
-	m_button->Init(Vector3(130, 60, 0), Vector3(15, 10, 10), "Level 1 Button");
+	m_button->Init(Vector3(130, 60, 0), Vector3(15, 10, 10), "Tutorial");
 	m_buttonList.push_back(m_button);
 
 	m_button = new Button();
-	m_button->Init(Vector3(0, 0, 0), Vector3(1, 1, 1), "Level 2 Button");
+	m_button->Init(Vector3(75, 87, 0), Vector3(15, 10, 1), "Level 1 Button");
 	m_buttonList.push_back(m_button);
 }
 
@@ -43,16 +43,13 @@ void SceneLevelSelection::Update(float dt)
 	{
 		Button* button = (Button*)(*it);
 
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && button->isitHover())
 		{
 			if (button->type == "Town Button")
-			{
 				SceneSystem::Instance().SwitchScene("Town_Scene");
-			}
+			else if (button->type == "Tutorial")
+				SceneSystem::Instance().SwitchScene("Tutorial_Scene");
 			else if (button->type == "Level 1 Button")
-			{
-			}
-			else if (button->type == "Level 2 Button")
 			{
 			}
 		}
@@ -95,10 +92,10 @@ void SceneLevelSelection::Render()
 
 		if (button->type == "Town Button")
 			Renderer->RenderMesh("MainMenu", false);
+		else if (button->type == "Tutorial")
+			Renderer->RenderMesh("TutorialLevel", false);
 		else if (button->type == "Level 1 Button")
 			Renderer->RenderMesh("Level1", false);
-		else if (button->type == "Level 2 Button")
-			Renderer->RenderMesh("MainMenu", false);
 		
 		modelStack->PopMatrix();
 	}

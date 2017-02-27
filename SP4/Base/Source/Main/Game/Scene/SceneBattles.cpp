@@ -568,7 +568,7 @@ void SceneBattles::Render()
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
 		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
 		modelStack->PushMatrix();
-		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
+		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 9);
 		modelStack->Scale(entity->GetScale().x, entity->GetScale().y, 1);
 		if (entity->GetName() == "Warrior")
 		{
@@ -614,6 +614,38 @@ void SceneBattles::Render()
 			{
 				Renderer->RenderMesh("PlayerPriestMesh", false);
 			}
+		}
+		if (entity->GetStunned() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(-entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("StunIcon", false);
+			modelStack->PopMatrix();
+		}
+		if (entity->GetBleeding() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(-entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("BleedIcon", false);
+			modelStack->PopMatrix();
+		}
+		if (entity->GetDebuffed() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("DebuffIcon", false);
+			modelStack->PopMatrix();
+		}
+		if (entity->GetBuffed() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("BuffIcon", false);
+			modelStack->PopMatrix();
 		}
 		modelStack->PopMatrix();
 	}
@@ -689,6 +721,38 @@ void SceneBattles::Render()
 				Renderer->RenderMesh("PriestMesh", false);
 			}
 		}
+		if (entity->GetStunned() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(-entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("StunIcon", false);
+			modelStack->PopMatrix();
+		}
+		if (entity->GetBleeding() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(-entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("BleedIcon", false);
+			modelStack->PopMatrix();
+		}
+		if (entity->GetDebuffed() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("DebuffIcon", false);
+			modelStack->PopMatrix();
+		}
+		if (entity->GetBuffed() == true)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+			modelStack->Scale(.2f, 0.2f, 1.f);
+			Renderer->RenderMesh("BuffIcon", false);
+			modelStack->PopMatrix();
+		}
 		modelStack->PopMatrix();
 	}
 	
@@ -723,8 +787,13 @@ void SceneBattles::HandleUserInput()
 	static bool DButtonState = false;
 	if (!DButtonState && Application::IsKeyPressed('D'))
 	{
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetStunned(true);
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetStunTimer(1);
 		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleeding(true);
-		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleedTimer(3);
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleedTimer(1);
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetDebuffed(true);
+		AudioPlayer::Instance().PlayDebuffEffect();
+		BattleSystem::Instance().GetPlayerTroops().at(1)->SetDebuffTimer(1);
 		DButtonState = true;
 	}
 	else if (DButtonState && !Application::IsKeyPressed('D'))

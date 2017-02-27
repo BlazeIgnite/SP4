@@ -61,10 +61,10 @@ void Priest::LevelUp()
 		Skill* skill = new Skill();
 		if (Level == 10)
 		{
-			skill->SetName("Guardian Angel");
-			skill->SetActionCost(80);
+			skill->SetName("Quake");
+			skill->SetActionCost(60);
 			skill->SetMaxTurnCooldown(6);
-			skill->SetStatusEffect(3, "Buff");
+			skill->SetStatusEffect(4, "Stun");
 			skill->SetRequiredPosition(2, true);
 			skill->SetRequiredPosition(3, true);
 			for (int i = 0; i < 3; i++)

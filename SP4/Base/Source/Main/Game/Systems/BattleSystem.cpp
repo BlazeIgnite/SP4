@@ -1,6 +1,7 @@
 #include "BattleSystem.h"
 #include "ObjectManager.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
+#include "../Audio/Audio_Player.h"
 #include <iostream>
 
 using std::cout;
@@ -440,6 +441,7 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			PlayerTroops.at(TargettedTeammate)->SetBuffed(true);
 			PlayerTroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
+			AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 	else
@@ -449,6 +451,7 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			AITroops.at(TargettedTeammate)->SetBuffed(true);
 			AITroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
+			AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 }
@@ -474,16 +477,19 @@ void BattleSystem::SetStatusEffect(size_t target, Skill* SkillUsed)
 		{
 			AITroops.at(target)->SetDebuffed(true);
 			AITroops.at(target)->SetDebuffTimer(SkillUsed->GetStatusEffectTimer("Debuff"));
+			AudioPlayer::Instance().PlayDebuffEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Stun"))
 		{
 			AITroops.at(target)->SetStunned(true);
 			AITroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Stun"));
+			AudioPlayer::Instance().PlayStunEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Bleed"))
 		{
 			AITroops.at(target)->SetBleeding(true);
 			AITroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Bleed"));
+			AudioPlayer::Instance().PlayBleedEffect();
 		}
 	}
 	else
@@ -492,16 +498,19 @@ void BattleSystem::SetStatusEffect(size_t target, Skill* SkillUsed)
 		{
 			PlayerTroops.at(target)->SetBuffed(true);
 			PlayerTroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Debuff"));
+			AudioPlayer::Instance().PlayDebuffEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Stun"))
 		{
 			PlayerTroops.at(target)->SetStunned(true);
 			PlayerTroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Stun"));
+			AudioPlayer::Instance().PlayStunEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Bleed"))
 		{
 			PlayerTroops.at(target)->SetBleeding(true);
 			PlayerTroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Bleed"));
+			AudioPlayer::Instance().PlayBleedEffect();
 		}
 	}
 

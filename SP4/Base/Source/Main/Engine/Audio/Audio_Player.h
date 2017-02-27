@@ -18,6 +18,14 @@ public:
 	void PlayMusic(string MusicName = "");
 	void PlayBGM();
 	void PlayBattleMusic();
+	void PlayBleedEffect();
+	void PlayStunEffect();
+	void PlayBuffEffect();
+	void PlayDebuffEffect();
+	void PlayWarriorAttack();
+	void PlayMageAttack();
+	void PlayPriestAttack();
+	void StopAllMusic();
 	
 	void SetVolume(float vol);
 	void Exit();

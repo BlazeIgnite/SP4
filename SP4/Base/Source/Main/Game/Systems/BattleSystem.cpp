@@ -388,11 +388,50 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 			{
 				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
-					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0 && (TurnCost - AttackerSkill->GetActionCost() >= 0))
-						return true;
+					int temp = TurnCost - AttackerSkill->GetActionCost();
+
+					std::cout << AttackerSkill->GetTurnCooldown() << std::endl;
+					if (temp < 0)
+					{
+						std::cout << "Not Enough Cost" << std::endl;
+						return false;
+					}
+					else
+					{
+						if (AttackerSkill->GetTurnCooldown() == 0)
+						{
+							if (AttackerSkill->GetRequiredPosition((*it).first))
+							{
+								if (AttackerSkill->GetSelectableTarget(target))
+								{
+									AttackerSkill->SetTurnCooldown(AttackerSkill->GetMaxTurnCooldown());
+									return true;
+								}
+								else
+								{
+									std::cout << "Target not affected by skill" << std::endl;
+									return false;
+								}
+							}
+							else
+							{
+								std::cout << "Skill unable to use on Position" << std::endl;
+								return false;
+							}
+						}
+						else
+						{
+							std::cout << "Skill still on Cooldown" << std::endl;
+							return false;
+						}
+						
+					}
 				}
 				else
+				{
+					std::cout << "Target is Defeated" << std::endl;
 					return false;
+				}
 			}
 		}
 		return false;
@@ -441,7 +480,7 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			PlayerTroops.at(TargettedTeammate)->SetBuffed(true);
 			PlayerTroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
-			AudioPlayer::Instance().PlayBuffEffect();
+			//AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 	else
@@ -451,7 +490,7 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			AITroops.at(TargettedTeammate)->SetBuffed(true);
 			AITroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
-			AudioPlayer::Instance().PlayBuffEffect();
+			//AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 }

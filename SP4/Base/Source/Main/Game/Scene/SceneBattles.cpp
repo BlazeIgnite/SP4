@@ -362,7 +362,7 @@ void SceneBattles::Update(float dt)
 							else if ((*itr)->type == "Skill 2")
 								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(2));
 							else if ((*itr)->type == "Skill 3")
-								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
+								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(3));
 						}
 					}
 					(*itr)->SetisPressed(true);
@@ -396,6 +396,7 @@ void SceneBattles::Update(float dt)
 					Skill* tempi = BattleSystem::Instance().GetSelectedSkill();
 
 					bool temp2 = BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetSelectedTroop(), i, BattleSystem::Instance().GetSelectedSkill());
+					std::cout << BattleSystem::Instance().GetSelectedSkill()->GetName() << std::endl;
 					if (temp2)
 						BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
 					(*itr)->SetisPressed(true);
@@ -508,7 +509,7 @@ void SceneBattles::Render()
 						Renderer->RenderMesh("Bash", false);
 					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Rush")
 						Renderer->RenderMesh("Rush", false);
-					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Taunt")
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Divine Execution")
 						Renderer->RenderMesh("Taunt", false);
 				}
 				if (BattleSystem::Instance().GetSelectedSkill(2) && obj->type == "Skill 2")
@@ -519,10 +520,10 @@ void SceneBattles::Render()
 						Renderer->RenderMesh("Bash", false);
 					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Rush")
 						Renderer->RenderMesh("Rush", false);
-					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Taunt")
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Divine Execution")
 						Renderer->RenderMesh("Taunt", false);
 				}
-				if (BattleSystem::Instance().GetSelectedSkill(3) && obj->type == "Skill 1")
+				if (BattleSystem::Instance().GetSelectedSkill(3) && obj->type == "Skill 3")
 				{
 					if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Stab")
 						Renderer->RenderMesh("Stab", false);
@@ -530,31 +531,103 @@ void SceneBattles::Render()
 						Renderer->RenderMesh("Bash", false);
 					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Rush")
 						Renderer->RenderMesh("Rush", false);
-					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Taunt")
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Divine Execution")
 						Renderer->RenderMesh("Taunt", false);
 				}
 			}
 			else if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Mage")
 			{
-				if (obj->type == "Default Attack")
-					Renderer->RenderMesh("RedPotion", false);
-				if (obj->type == "Skill 1")
-					Renderer->RenderMesh("RedPotion", false);
-				if (obj->type == "Skill 2")
-					Renderer->RenderMesh("RedPotion", false);
-				if (obj->type == "Skill 3")
-					Renderer->RenderMesh("RedPotion", false);
+				if (BattleSystem::Instance().GetSelectedSkill(0) && obj->type == "Default Attack")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(0)->GetName() == "Basic Attack")
+						Renderer->RenderMesh("DefaultAttack", false);
+				}
+				if (BattleSystem::Instance().GetSelectedSkill(1) && obj->type == "Skill 1")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Magic Bolt")
+						Renderer->RenderMesh("Stab", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Blinding Flash")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Unholy Incantation")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Miasmic cloud")
+						Renderer->RenderMesh("Rush", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Ars Arcanum")
+						Renderer->RenderMesh("Taunt", false);
+				}
+				if (BattleSystem::Instance().GetSelectedSkill(2) && obj->type == "Skill 2")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Magic Bolt")
+						Renderer->RenderMesh("Stab", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Blinding Flash")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Unholy Incantation")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Miasmic cloud")
+						Renderer->RenderMesh("Rush", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Ars Arcanum")
+						Renderer->RenderMesh("Taunt", false);
+				}
+				if (BattleSystem::Instance().GetSelectedSkill(3) && obj->type == "Skill 3")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Magic Bolt")
+						Renderer->RenderMesh("Stab", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Blinding Flash")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Unholy Incantation")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Miasmic cloud")
+						Renderer->RenderMesh("Rush", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Ars Arcanum")
+						Renderer->RenderMesh("Taunt", false);
+				}
 			}
 			else if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Priest")
 			{
-				if (obj->type == "Default Attack")
-					Renderer->RenderMesh("BluePotion", false);
-				if (obj->type == "Skill 1")
-					Renderer->RenderMesh("BluePotion", false);
-				if (obj->type == "Skill 2")
-					Renderer->RenderMesh("BluePotion", false);
-				if (obj->type == "Skill 3")
-					Renderer->RenderMesh("BluePotion", false);
+				if (BattleSystem::Instance().GetSelectedSkill(0) && obj->type == "Default Attack")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(0)->GetName() == "Basic Attack")
+						Renderer->RenderMesh("DefaultAttack", false);
+				}
+				if (BattleSystem::Instance().GetSelectedSkill(1) && obj->type == "Skill 1")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Life Drain")
+						Renderer->RenderMesh("Stab", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Dark Hail")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Unholy Gift")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Power Breakdown")
+						Renderer->RenderMesh("Rush", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Quake")
+						Renderer->RenderMesh("Taunt", false);
+				}
+				if (BattleSystem::Instance().GetSelectedSkill(2) && obj->type == "Skill 2")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Life Drain")
+						Renderer->RenderMesh("Stab", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Dark Hail")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Unholy Gift")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Power Breakdown")
+						Renderer->RenderMesh("Rush", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Quake")
+						Renderer->RenderMesh("Taunt", false);
+				}
+				if (BattleSystem::Instance().GetSelectedSkill(3) && obj->type == "Skill 3")
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Life Drain")
+						Renderer->RenderMesh("Stab", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Dark Hail")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Unholy Gift")
+						Renderer->RenderMesh("Bash", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Power Breakdown")
+						Renderer->RenderMesh("Rush", false);
+					else if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Quake")
+						Renderer->RenderMesh("Taunt", false);
+				}
 			}
 		}
 		modelStack->PopMatrix();

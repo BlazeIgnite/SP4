@@ -32,7 +32,7 @@ void SceneTutorial::Init()
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	button = new BattleButton();
-	button->Init();
+	button->Init(x,y);
 
 	m_Turn = 1;
 

@@ -75,10 +75,10 @@ void Priest::LevelUp()
 		}
 		else if (Level == 5)
 		{
-			skill->SetName("Divine Guidance");
+			skill->SetName("Power Breakdown");
 			skill->SetActionCost(30);
-			skill->SetMaxTurnCooldown(2);
-			skill->SetStatusEffect(3, "Buff");
+			skill->SetMaxTurnCooldown(4);
+			skill->SetStatusEffect(3, "Debuff");
 			for (int i = 0; i < 3; i++)
 			{
 				skill->SetRequiredPosition(i, true);
@@ -101,14 +101,17 @@ void Priest::LevelUp()
 		}
 		else if (Level == 3)
 		{
-			skill->SetName("Esuna");
+			skill->SetName("Dark Hail");
 			skill->SetActionCost(40);
 			skill->SetMaxTurnCooldown(2);
-			for (int i = 0; i < 3; i++)
-			{
-				skill->SetRequiredPosition(i, true);
-				skill->SetSelectableTarget(i, true);
-			}
+
+			skill->SetRequiredPosition(2, true);
+
+			skill->SetSelectableTarget(1, true);
+			skill->SetSelectableTarget(2, true);
+
+			skill->SetStatusEffect(1, "Stun");
+
 			SkillList.push_back(skill);
 		}
 		else if (Level == 1)
@@ -125,13 +128,15 @@ void Priest::LevelUp()
 			SkillList.push_back(skill);
 
 			skill = new Skill();
-			skill->SetName("Heal");
-			skill->SetActionCost(25);
+			skill->SetName("Life Drain");
+			skill->SetActionCost(40);
 			for (int i = 0; i < 3; i++)
 			{
 				skill->SetRequiredPosition(i, true);
 				skill->SetSelectableTarget(i, true);
 			}
+
+			skill->SetStatusEffect(2, "Debuff");
 
 			SkillList.push_back(skill);
 		}
@@ -143,7 +148,7 @@ void Priest::LevelUp()
 		if (SkillItr->GetName() == "Unholy Gift")
 			SkillItr->SetDamage((int)(Attack * 0.5));
 		else if (SkillItr->GetName() == "Heal")
-			SkillItr->SetHeal((int)(Attack * 0.45));
+			SkillItr->SetDamage((int)(Attack * 0.3));
 		else if (SkillItr->GetName() == "Basic Attack")
 			SkillItr->SetDamage((int)(Attack * 0.4));
 	}

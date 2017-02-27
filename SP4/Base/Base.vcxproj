@@ -18,6 +18,7 @@
     <ClCompile Include="Source\Main\Engine\System\RenderSystem.cpp" />
     <ClCompile Include="Source\Main\Engine\System\SceneSystem.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBattlePlanner.cpp" />
+    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AITutorial.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\Button.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp" />
@@ -46,7 +47,9 @@
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneCharacterSelection.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevelSelection.cpp" />
-    <ClCompile Include="Source\Main\Game\Scene\SceneResult.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneLose.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneWin.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneTutorial.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SplashScreen.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\Town.cpp" />
     <ClCompile Include="Source\Main\Game\Systems\BattleSystem.cpp" />
@@ -82,6 +85,7 @@
     <ClInclude Include="Main\Engine\System\State\StateList.h" />
     <ClInclude Include="Main\Engine\System\State\StateManager.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBattlePlanner.h" />
+    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AITutorial.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\Button.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.h" />
@@ -111,7 +115,9 @@
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneCharacterSelection.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneLevelSelection.h" />
-    <ClInclude Include="Source\Main\Game\Scene\SceneResult.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLose.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneWin.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneTutorial.h" />
     <ClInclude Include="Source\Main\Game\Scene\SplashScreen.h" />
     <ClInclude Include="Source\Main\Game\Scene\Town.h" />
     <ClInclude Include="Source\Main\Game\Systems\BattleSystem.h" />

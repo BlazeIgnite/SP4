@@ -25,3 +25,8 @@ bool AIStateManager::GetState(string State)
 		return true;
 	return false;
 }
+
+void AIStateManager::ResetState()
+{
+	state = "";
+}

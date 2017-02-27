@@ -18,6 +18,7 @@ public:
 
 	void Init(double x, double y);
 	void Update(float dt);
+	void UpdateDescriptions(float dt);
 	void Render();
 	void Exit();
 

@@ -32,7 +32,7 @@ void SceneTutorial::Init()
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	button = new BattleButton();
-	button->Init(x,y);
+	button->Init(x,y);;
 
 	m_Turn = 1;
 
@@ -43,11 +43,11 @@ void SceneTutorial::Init()
 
 	/*Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
-	Player::Instance().AddCharacter("Priest", priest);*/
+	Player::Instance().AddCharacter("Synergist", Synergist);*/
 
 	BattleSystem::Instance().Init();
 	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
-	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Priest", 0));
+	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Synergist", 0));
 
 	BattleSystem::Instance().GetPlayerTroopAttacking(0)->SetHealth(13);
 
@@ -122,7 +122,7 @@ void SceneTutorial::Update(float dt)
 					for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 					{
 						CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-						if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+						if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
 							entity2->SetScale(tempscale);
 						entity2->SetisSelected(false);
 					}
@@ -154,7 +154,7 @@ void SceneTutorial::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
 								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
@@ -175,7 +175,7 @@ void SceneTutorial::Update(float dt)
 			}
 		}
 
-		if (entity->GetName() == "Priest" && entity->isitHover())
+		if (entity->GetName() == "Synergist" && entity->isitHover())
 		{
 			if (!entity->GetisPressed() && !entity->GetisSelected())
 			{
@@ -186,7 +186,7 @@ void SceneTutorial::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
 								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
@@ -225,7 +225,7 @@ void SceneTutorial::Update(float dt)
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Synergist")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -261,7 +261,7 @@ void SceneTutorial::Update(float dt)
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Synergist")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -281,7 +281,7 @@ void SceneTutorial::Update(float dt)
 					entity->SetisPressed(false);
 			}
 		}
-		if (entity->GetName() == "Priest" && entity->isitHover())
+		if (entity->GetName() == "Synergist" && entity->isitHover())
 		{
 			if (!entity->GetisPressed() && !entity->GetisSelected())
 			{
@@ -296,7 +296,7 @@ void SceneTutorial::Update(float dt)
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Synergist")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -400,7 +400,7 @@ void SceneTutorial::Update(float dt)
 				for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 				{
 					CharacterEntity* entity = (CharacterEntity*)itr->second;
-					if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Priest")
+					if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
 						entity->SetScale(tempscale);
 					entity->SetisSelected(false);
 				}
@@ -495,7 +495,7 @@ void SceneTutorial::Render()
 				if (obj->type == "Skill 3")
 					Renderer->RenderMesh("RedPotion", false);
 			}
-			else if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Priest")
+			else if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Synergist")
 			{
 				if (obj->type == "Default Attack")
 					Renderer->RenderMesh("BluePotion", false);
@@ -595,19 +595,19 @@ void SceneTutorial::Render()
 				Renderer->RenderMesh("PlayerMageMesh", false);
 			}
 		}
-		if (entity->GetName() == "Priest")
+		if (entity->GetName() == "Synergist")
 		{
 			if (entity->GetDefeated())
 			{
-				Renderer->RenderMesh("PlayerPriestDead", false);
+				Renderer->RenderMesh("PlayerSynergistDead", false);
 			}
 			else if (entityhealth <= 0.3f)
 			{
-				Renderer->RenderMesh("PlayerPriestDying", false);
+				Renderer->RenderMesh("PlayerSynergistDying", false);
 			}
 			else
 			{
-				Renderer->RenderMesh("PlayerPriestMesh", false);
+				Renderer->RenderMesh("PlayerSynergistMesh", false);
 			}
 		}
 		modelStack->PopMatrix();

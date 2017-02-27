@@ -8,6 +8,7 @@
 #include "../Miscellaneous/Button.h"
 #include "../Objects/Characters/Warrior.h"
 #include "../Objects/Characters/Mage.h"
+#include "../Objects/Characters/Priest.h"
 #include "../Systems/BattleSystem.h"
 
 SceneBattles::SceneBattles()
@@ -38,24 +39,24 @@ void SceneBattles::Init()
 	warrior->Init(20);
 	Mage* mage = new Mage();
 	mage->Init(20);
-	Priest* priest = new Priest();
-	priest->Init(20);
+	Synergist* synergist = new Synergist();
+	synergist->Init(20);
 
 	Warrior* warrior2 = new Warrior();
 	warrior2->Init(1);
 	Mage* mage2 = new Mage();
 	mage2->Init(1);
-	Priest* priest2 = new Priest();
-	priest2->Init(1);
+	Synergist* Synergist2 = new Synergist();
+	Synergist2->Init(1);
 
 	/*Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
 	Player::Instance().AddCharacter("Priest", priest);*/
 
 	BattleSystem::Instance().Init();
-	BattleSystem::Instance().SetPlayerTroops(0, Player::Instance().GetCharacterEntityInClassUnit("Warrior", 0));
-	BattleSystem::Instance().SetPlayerTroops(1, Player::Instance().GetCharacterEntityInClassUnit("Mage", 0));
-	BattleSystem::Instance().SetPlayerTroops(2, Player::Instance().GetCharacterEntityInClassUnit("Priest", 0));
+	BattleSystem::Instance().SetPlayerTroops(0, warrior);
+	BattleSystem::Instance().SetPlayerTroops(1,mage);
+	BattleSystem::Instance().SetPlayerTroops(2,synergist);
 
 	for (size_t i = 0; i < BattleSystem::Instance().GetPlayerTroops().size(); i++)
 	{
@@ -70,7 +71,7 @@ void SceneBattles::Init()
 
 	BattleSystem::Instance().SetAITroops(0, warrior2);
 	BattleSystem::Instance().SetAITroops(1, mage2);
-	BattleSystem::Instance().SetAITroops(2, priest2);
+	BattleSystem::Instance().SetAITroops(2, Synergist2);
 
 	AI = new AIAllAttack();
 	BattleSystem::Instance().Debugging();
@@ -81,7 +82,7 @@ void SceneBattles::Init()
 	for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 	{
 		CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-		if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+		if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
 			entity2->SetScale(tempscale);
 		entity2->SetisSelected(false);
 	}
@@ -139,7 +140,7 @@ void SceneBattles::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
 								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
@@ -172,7 +173,7 @@ void SceneBattles::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
 								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
@@ -193,7 +194,7 @@ void SceneBattles::Update(float dt)
 			}
 		}
 
-		if (entity->GetName() == "Priest" && entity->isitHover())
+		if (entity->GetName() == "Synergist" && entity->isitHover())
 		{
 			if (!entity->GetisPressed() && !entity->GetisSelected())
 			{
@@ -204,7 +205,7 @@ void SceneBattles::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
 								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
@@ -243,7 +244,7 @@ void SceneBattles::Update(float dt)
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Synergist")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -279,7 +280,7 @@ void SceneBattles::Update(float dt)
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Synergist")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -299,7 +300,7 @@ void SceneBattles::Update(float dt)
 					entity->SetisPressed(false);
 			}
 		}
-		if (entity->GetName() == "Priest" && entity->isitHover())
+		if (entity->GetName() == "Synergist" && entity->isitHover())
 		{
 			if (!entity->GetisPressed() && !entity->GetisSelected())
 			{
@@ -314,7 +315,7 @@ void SceneBattles::Update(float dt)
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Synergist")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
 						}
@@ -419,7 +420,7 @@ void SceneBattles::Update(float dt)
 				for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 				{
 					CharacterEntity* entity = (CharacterEntity*)itr->second;
-					if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Priest")
+					if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
 						entity->SetScale(tempscale);
 					entity->SetisSelected(false);
 				}
@@ -582,7 +583,7 @@ void SceneBattles::Render()
 						Renderer->RenderMesh("Taunt", false);
 				}
 			}
-			else if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Priest")
+			else if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Synergist")
 			{
 				if (BattleSystem::Instance().GetSelectedSkill(0) && obj->type == "Default Attack")
 				{
@@ -802,7 +803,7 @@ void SceneBattles::Render()
 				Renderer->RenderMesh("PlayerMageMesh", false);
 			}
 		}
-		if (entity->GetName() == "Priest")
+		if (entity->GetName() == "Synergist")
 		{
 			if (entity->GetDefeated())
 			{
@@ -902,7 +903,7 @@ void SceneBattles::Render()
 				Renderer->RenderMesh("MageMesh", false);
 			}
 		}
-		if (entity->GetName() == "Priest")
+		if (entity->GetName() == "Synergist")
 		{
 			if (BattleSystem::Instance().GetPlayerTurn() == false)
 			{

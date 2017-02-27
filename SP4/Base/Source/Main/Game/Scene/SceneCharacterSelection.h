@@ -16,8 +16,10 @@ private:
 	Button* Left;
 	Button* Right;
 	std::string ClassNameText;
-	std::vector<Button*> ButtonList;
-	int SelectedSkill[3];
+	std::vector<Button*> CharacterButtonList;
+	std::vector<Button*> SkillButtonList;
+	std::vector<int> SelectedSkills;
+	int SelectedSkill;
 	float MaxSkillSelectedTimer;
 
 public:
@@ -33,11 +35,10 @@ public:
 
 	void RenderPlayerCharacterList();
 	void RenderSelectedCharacterInfo();
-	void RenderCharacterList();
 	void RenderCharacterInfo();
 	void RenderSelectedCharacters();
+	void RenderSkillInfo();
 	
-
 protected:
 
 	Camera camera;

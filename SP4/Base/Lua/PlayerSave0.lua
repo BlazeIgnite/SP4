@@ -12,4 +12,4 @@ DefencePotionCount = 0
 BandageCount = 0
 WarriorCount = 0
 MageCount = 0
-PriestCount = 0
+SynergistCount = 0

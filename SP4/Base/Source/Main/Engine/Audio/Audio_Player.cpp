@@ -9,7 +9,7 @@ AudioPlayer::~AudioPlayer()
 void AudioPlayer::Init()
 {
 	SoundEngine = createIrrKlangDevice();
-	SetVolume(0.1f);
+	SetVolume(1.f);
 }
 
 void AudioPlayer::PlayMusic(string MusicName)
@@ -20,8 +20,6 @@ void AudioPlayer::PlayMusic(string MusicName)
 		PlayBattleMusic();
 	if (MusicName == "Bleed Effect")
 		PlayBleedEffect();
-	if (MusicName == "Buff Effect")
-		PlayBuffEffect();
 	if (MusicName == "Debuff Effect")
 		PlayDebuffEffect();
 	if (MusicName == "StunEffect")
@@ -68,14 +66,6 @@ void AudioPlayer::PlayDebuffEffect()
 		return;
 	}
 	SoundEngine->play2D("Music/Debuff.wav");
-}
-void AudioPlayer::PlayBuffEffect()
-{
-	if (SoundEngine->isCurrentlyPlaying("Music/Buff.mp3"))
-	{
-		return;
-	}
-	SoundEngine->play2D("Music/Buff.mp3");
 }
 void AudioPlayer::PlayStunEffect()
 {

@@ -20,7 +20,6 @@ public:
 	void PlayBattleMusic();
 	void PlayBleedEffect();
 	void PlayStunEffect();
-	void PlayBuffEffect();
 	void PlayDebuffEffect();
 	void PlayWarriorAttack();
 	void PlayMageAttack();

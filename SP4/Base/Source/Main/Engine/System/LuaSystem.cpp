@@ -1,6 +1,7 @@
 #include "LuaSystem.h"
 #include "../../Base/Source/Main/Game/Objects/Characters/Player.h"
 #include "../../Base/Source/Main/Game/Objects/Characters/Warrior.h"
+#include "../../Base/Source/Main/Game/Objects/Characters/Synergist.h"
 #include <string>
 #include <iostream>
 
@@ -131,7 +132,7 @@ void LuaSystem::GameSave()
 			 
 	Input += ("\nWarriorCount = " + std::to_string(Player::Instance().GetClassUnitList("Warrior").size()));
 	Input += ("\nMageCount = " + std::to_string(Player::Instance().GetClassUnitList("Mage").size()));
-	Input += ("\nPriestCount = " + std::to_string(Player::Instance().GetClassUnitList("Priest").size()));
+	Input += ("\nSynergistCount = " + std::to_string(Player::Instance().GetClassUnitList("Synergist").size()));
 
 	if (Player::Instance().GetClassUnitList("Warrior").size() > 0)
 	{
@@ -147,11 +148,11 @@ void LuaSystem::GameSave()
 			Input += "\nMage" + std::to_string(it->first + 1) + " = " + std::to_string(it->second->GetLevel());
 		}
 	}
-	if (Player::Instance().GetClassUnitList("Priest").size() > 0)
+	if (Player::Instance().GetClassUnitList("Synergist").size() > 0)
 	{
-		for (std::map<int, CharacterEntity*>::iterator it = Player::Instance().GetClassUnitList("Priest").begin(); it != Player::Instance().GetClassUnitList("Priest").end(); ++it)
+		for (std::map<int, CharacterEntity*>::iterator it = Player::Instance().GetClassUnitList("Synergist").begin(); it != Player::Instance().GetClassUnitList("Synergist").end(); ++it)
 		{
-			Input += "\nPriest" + std::to_string(it->first + 1) + " = " + std::to_string(it->second->GetLevel());
+			Input += "\nSynergist" + std::to_string(it->first + 1) + " = " + std::to_string(it->second->GetLevel());
 		}
 	}
 	lua_pushinteger(lua, Player::Instance().GetPlayerID());
@@ -183,7 +184,7 @@ void LuaSystem::LoadGame(int SaveFile)
 	Player::Instance().AddConsumableItem("Bandage", GetIntValue(lua, "BandageCount"));
 
 	unsigned int WarriorCount = GetIntValue(lua, "WarriorCount");
-	unsigned int PriestCount = GetIntValue(lua, "PriestCount");
+	unsigned int SynergistCount = GetIntValue(lua, "SynergistCount");
 	unsigned int WizardCount = GetIntValue(lua, "MageCount");
 
 	if (WarriorCount > 0)
@@ -197,15 +198,15 @@ void LuaSystem::LoadGame(int SaveFile)
 			Player::Instance().AddCharacter("Warrior", temp);
 		}
 	}
-	if (PriestCount > 0)
+	if (SynergistCount > 0)
 	{
-		for (int Value = 1; Value <= PriestCount; ++Value)
+		for (int Value = 1; Value <= SynergistCount; ++Value)
 		{
-			CharacterEntity* temp = new Priest();
-			std::string VariableName = "Priest" + std::to_string(Value);
+			CharacterEntity* temp = new Synergist();
+			std::string VariableName = "Synergist" + std::to_string(Value);
 			unsigned int Level = GetIntValue(lua, VariableName.c_str());
 			temp->Init(Level);
-			Player::Instance().AddCharacter("Priest", temp);
+			Player::Instance().AddCharacter("Synergist", temp);
 		}
 	}
 	if (WizardCount > 0)

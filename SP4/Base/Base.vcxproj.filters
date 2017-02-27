@@ -18,7 +18,6 @@
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Player.cpp" />
-    <ClCompile Include="Source\Main\Game\Objects\Characters\Priest.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Items\Consumables.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Items\ItemEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Skill.cpp" />
@@ -51,6 +50,7 @@
     <ClCompile Include="Source\Main\Game\Scene\SceneLose.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneWin.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AITutorial.cpp" />
+    <ClCompile Include="Source\Main\Game\Objects\Characters\Synergist.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -87,7 +87,6 @@
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Mage.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Player.h" />
-    <ClInclude Include="Source\Main\Game\Objects\Characters\Priest.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\Consumables.h" />
     <ClInclude Include="Source\Main\Game\Objects\Items\ItemEntity.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Skill.h" />
@@ -121,6 +120,7 @@
     <ClInclude Include="Source\Main\Game\Scene\SceneLose.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneWin.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AITutorial.h" />
+    <ClInclude Include="Source\Main\Game\Objects\Characters\Synergist.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

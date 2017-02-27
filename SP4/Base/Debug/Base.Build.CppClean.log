@@ -8,6 +8,7 @@ c:\users\150576e\desktop\sp4new\sp4\base\debug\scenecharacterselection.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\scenelevelselection.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\scenelose.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\scenewin.obj
+c:\users\150576e\desktop\sp4new\sp4\base\debug\scenetutorial.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\splashscreen.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\town.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\battlesystem.obj
@@ -30,7 +31,7 @@ c:\users\150576e\desktop\sp4new\sp4\base\debug\descriptiontext.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\characterentity.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\mage.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\player.obj
-c:\users\150576e\desktop\sp4new\sp4\base\debug\priest.obj
+c:\users\150576e\desktop\sp4new\sp4\base\debug\synergist.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\consumables.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\itementity.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\skill.obj
@@ -49,7 +50,6 @@ c:\users\150576e\desktop\sp4new\sp4\base\debug\aibattleplanner.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\aitutorial.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\button.obj
 c:\users\150576e\desktop\sp4new\sp4\base\debug\description.obj
-c:\users\150576e\desktop\sp4new\sp4\base\debug\scenetutorial.obj
 c:\users\150576e\desktop\sp4new\sp4\debug\base.exe
 c:\users\150576e\desktop\sp4new\sp4\debug\base.pdb
 c:\users\150576e\desktop\sp4new\sp4\base\debug\base.tlog\cl.command.1.tlog

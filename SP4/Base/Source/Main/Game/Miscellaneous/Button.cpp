@@ -38,11 +38,12 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 	isTarget = false;
 
 	CurrentState = UNTOUCHED;
+	CurrentStateR = UNTOUCHED;
 }
 
 void Button::Update()
 {
-	if ((InputManager::Instance().GetMouseState(MOUSE_L) == CLICK || InputManager::Instance().GetMouseState(MOUSE_L) == HOLD))
+	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK || InputManager::Instance().GetMouseState(MOUSE_L) == HOLD)
 	{
 		if (isitHover())
 		{
@@ -68,61 +69,31 @@ void Button::Update()
 		else if (CurrentState == RELEASE)
 			CurrentState = UNTOUCHED;
 	}
-}
-
-
-void Button::UpdateMainMenu(float dt)
-{
-	Application::GetCursorPos(&x, &y);
-	isitHover();
-
-	if (type == "NewGame" && isitHover())
+	if (InputManager::Instance().GetMouseState(MOUSE_R) == CLICK || InputManager::Instance().GetMouseState(MOUSE_R) == HOLD)
 	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+		if (isitHover())
 		{
-			//SceneSystem::Instance().SwitchScene("Town_Scene");
+			isSelected = false;
+			if (CurrentStateR == UNTOUCHED || CurrentStateR == RELEASE)
+				CurrentStateR = CLICK;
+			else if (CurrentStateR == CLICK)
+				CurrentStateR = HOLD;
+		}
+		else
+		{
+			if (CurrentStateR == CLICK || CurrentStateR == HOLD)
+				CurrentStateR = RELEASE;
+			else if (CurrentStateR == RELEASE)
+				CurrentStateR = UNTOUCHED;
 		}
 	}
-	else if (type == "LoadGame" && isitHover())
+	else
 	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
+		if (CurrentStateR == CLICK || CurrentStateR == HOLD)
+			CurrentStateR = RELEASE;
+		else if (CurrentStateR == RELEASE)
+			CurrentStateR = UNTOUCHED;
 	}
-	else if (type == "Setting" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-	else if (type == "ExitGame" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-			
-		}
-	}
-	else if (type == "File1" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-	else if (type == "File2" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-
-		}
-	}
-	else if (type == "File3" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-
-		}
-	}
-	
 }
 
 void Button::UpdateBattleScene(float dt)

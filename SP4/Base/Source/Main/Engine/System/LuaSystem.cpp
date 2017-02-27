@@ -127,7 +127,7 @@ void LuaSystem::GameSave()
 	Input += ("\nRedPotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Red Potion")->second));
 	Input += ("\nAttackPotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Attack Potion")->second));
 	Input += ("\nDefencePotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Defence Potion")->second));
-	Input += ("\nAttackPotionCount = " + std::to_string(Player::Instance().GetConsumableList().find("Bandage")->second));
+	Input += ("\nBandageCount = " + std::to_string(Player::Instance().GetConsumableList().find("Bandage")->second));
 			 
 	Input += ("\nWarriorCount = " + std::to_string(Player::Instance().GetClassUnitList("Warrior").size()));
 	Input += ("\nMageCount = " + std::to_string(Player::Instance().GetClassUnitList("Mage").size()));
@@ -201,7 +201,7 @@ void LuaSystem::LoadGame(int SaveFile)
 	{
 		for (int Value = 1; Value <= PriestCount; ++Value)
 		{
-			CharacterEntity* temp = new Priest();
+			CharacterEntity* temp = new Synergist();
 			std::string VariableName = "Priest" + std::to_string(Value);
 			unsigned int Level = GetIntValue(lua, VariableName.c_str());
 			temp->Init(Level);

@@ -32,7 +32,7 @@ void SceneTutorial::Init()
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	button = new BattleButton();
-	button->Init();
+	button->Init(x, y);
 
 	m_Turn = 1;
 
@@ -122,7 +122,7 @@ void SceneTutorial::Update(float dt)
 					for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 					{
 						CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-						if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+						if (entity2->GetName() == "Warrior" || entity2->GetName() == "Priest")
 							entity2->SetScale(tempscale);
 						entity2->SetisSelected(false);
 					}
@@ -154,7 +154,7 @@ void SceneTutorial::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Priest")
 								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
@@ -186,7 +186,7 @@ void SceneTutorial::Update(float dt)
 						for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Priest")
+							if (entity2->GetName() == "Warrior" || entity2->GetName() == "Priest")
 								entity2->SetScale(tempscale);
 							entity2->SetisSelected(false);
 						}
@@ -223,8 +223,6 @@ void SceneTutorial::Update(float dt)
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
 							if (entity2->GetName() == "Warrior")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Mage")
-								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
@@ -259,8 +257,6 @@ void SceneTutorial::Update(float dt)
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
 							if (entity2->GetName() == "Warrior")
 								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Mage")
-								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
 							entity2->SetisSelected(false);
@@ -293,8 +289,6 @@ void SceneTutorial::Update(float dt)
 						{
 							CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
 							if (entity2->GetName() == "Warrior")
-								entity2->SetScale(Vector3(10, 10, 1));
-							if (entity2->GetName() == "Mage")
 								entity2->SetScale(Vector3(10, 10, 1));
 							if (entity2->GetName() == "Priest")
 								entity2->SetScale(Vector3(10, 10, 1));
@@ -341,10 +335,6 @@ void SceneTutorial::Update(float dt)
 								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
 							else if ((*itr)->type == "Skill 1")
 								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
-							else if ((*itr)->type == "Skill 2")
-								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(2));
-							else if ((*itr)->type == "Skill 3")
-								BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(3));
 						}
 					}
 					(*itr)->SetisPressed(true);
@@ -400,7 +390,7 @@ void SceneTutorial::Update(float dt)
 				for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 				{
 					CharacterEntity* entity = (CharacterEntity*)itr->second;
-					if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Priest")
+					if (entity->GetName() == "Warrior" || entity->GetName() == "Priest")
 						entity->SetScale(tempscale);
 					entity->SetisSelected(false);
 				}
@@ -443,18 +433,19 @@ void SceneTutorial::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack->LoadIdentity();
 
-	//RenderMesh(meshList[GEO_AXES], false);
-	//Renderer->RenderTextOnScreen("TESTING", Color(0, 0, 0), 25, 0, 50);
-
-	if (BattleSystem::Instance().GetTurnCost() > 0)
-	{
+	if (BattleSystem::Instance().GetTurnCost() > 0){
 		modelStack->PushMatrix();
-		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
-		modelStack->Scale(BattleSystem::Instance().GetTurnCost() / 2, 5, 1);
-		Renderer->RenderMesh("BattleScene", false);
+		modelStack->Translate(((float)(ObjectManager::Instance().WorldWidth * 0.5f - ((float)(100 - BattleSystem::Instance().GetTurnCost()) / 4))), ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
+		modelStack->Scale((float)(BattleSystem::Instance().GetTurnCost() * 0.5f), 5, 1);
+		Renderer->RenderMesh("Test", false);
 		modelStack->PopMatrix();
 	}
-	//std::cout <<BattleSystem::Instance().GetTurnCost() << std::endl;
+
+	modelStack->PushMatrix();
+	modelStack->Translate(((float)(ObjectManager::Instance().WorldWidth * 0.5f)), ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
+	modelStack->Scale(50, 5, 1);
+	Renderer->RenderMesh("Test1", false);
+	modelStack->PopMatrix();
 
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
@@ -475,14 +466,54 @@ void SceneTutorial::Render()
 		{
 			if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Warrior")
 			{
-				if (obj->type == "Default Attack")
-					Renderer->RenderMesh("Bandage", false);
-				if (obj->type == "Skill 1")
-					Renderer->RenderMesh("Bandage", false);
-				if (obj->type == "Skill 2")
-					Renderer->RenderMesh("Bandage", false);
-				if (obj->type == "Skill 3")
-					Renderer->RenderMesh("Bandage", false);
+
+				for (int i = 0; i < BattleSystem::Instance().GetSelectedTroop()->GetSkillList()->size(); i++)
+				{
+					if (BattleSystem::Instance().GetSelectedSkill(i) != nullptr)
+					{
+						if (BattleSystem::Instance().GetSelectedSkill(i) && obj->type == "Default Attack")
+						{
+							if (BattleSystem::Instance().GetSelectedSkill(i)->GetName() == "Basic Attack")
+								Renderer->RenderMesh("DefaultAttack", false);
+						}
+						if (BattleSystem::Instance().GetSelectedSkill(i))
+						{
+							if (obj->type == "Skill 1")
+							{
+								if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Stab")
+									Renderer->RenderMesh("Stab", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Bash")
+									Renderer->RenderMesh("Bash", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Rush")
+									Renderer->RenderMesh("Rush", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Taunt")
+									Renderer->RenderMesh("Taunt", false);
+							}
+							else if (obj->type == "Skill 2")
+							{
+								if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Stab")
+									Renderer->RenderMesh("Stab", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Bash")
+									Renderer->RenderMesh("Bash", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Rush")
+									Renderer->RenderMesh("Rush", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Taunt")
+									Renderer->RenderMesh("Taunt", false);
+							}
+							else if (obj->type == "Skill 3")
+							{
+								if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Stab")
+									Renderer->RenderMesh("Stab", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Bash")
+									Renderer->RenderMesh("Bash", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Rush")
+									Renderer->RenderMesh("Rush", false);
+								else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Taunt")
+									Renderer->RenderMesh("Taunt", false);
+							}
+						}
+					}
+				}
 			}
 			else if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Mage")
 			{
@@ -508,6 +539,94 @@ void SceneTutorial::Render()
 			}
 		}
 		modelStack->PopMatrix();
+
+		for (std::vector<Description*>::iterator itr2 = (*button->GetDescriList()).begin(); itr2 != (*button->GetDescriList()).end(); itr2++)
+		{
+			Description* obj2 = (Description*)*itr2;
+			modelStack->PushMatrix();
+			modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/5);
+			if ((*itr)->isitHover())
+			{
+				for (size_t i = 0; i < BattleSystem::Instance().GetSelectedTroop()->GetSkillList()->size(); i++)
+				if ((*itr)->type == "Default Attack" && obj2->type == "Default Attack")
+				{
+					modelStack->PushMatrix();
+					modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+					//Renderer->RenderMesh("DescripRedPotion", false);
+					modelStack->PopMatrix();
+					if (obj2->text->GetType() == "Default Attack")
+					{
+						if (BattleSystem::Instance().GetSelectedSkill(i) != nullptr)
+						{
+							std::string temp = BattleSystem::Instance().GetSelectedSkill(i)->GetName();
+							modelStack->PushMatrix();
+							modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+							modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+							Renderer->RenderText("text", temp, Color(1, 1, 1));
+							modelStack->PopMatrix();
+						}
+					}
+				}
+				else if ((*itr)->type == "Skill 1" && obj2->type == "Skill 1")
+				{
+					modelStack->PushMatrix();
+					modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+					//Renderer->RenderMesh("DescripAttackPotion", false);
+					modelStack->PopMatrix();
+					if (obj2->text->GetType() == "Skill 1")
+					{
+						if (BattleSystem::Instance().GetSelectedSkill(i) != nullptr)
+						{
+							std::string temp = BattleSystem::Instance().GetSelectedSkill(i)->GetName();
+							modelStack->PushMatrix();
+							modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+							modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+							Renderer->RenderText("text", temp, Color(1, 1, 1));
+							modelStack->PopMatrix();
+						}
+					}
+				}
+				else if ((*itr)->type == "Skill 2" && obj2->type == "Skill 2")
+				{
+					modelStack->PushMatrix();
+					modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+					//Renderer->RenderMesh("DescripDefencePotion", false);
+					modelStack->PopMatrix();
+					if (obj2->text->GetType() == "Skill 2")
+					{
+						if (BattleSystem::Instance().GetSelectedSkill(i) != nullptr)
+						{
+							std::string temp = BattleSystem::Instance().GetSelectedSkill(i)->GetName();
+							modelStack->PushMatrix();
+							modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+							modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+							Renderer->RenderText("text", temp, Color(1, 1, 1));
+							modelStack->PopMatrix();
+						}
+					}
+				}
+				else if ((*itr)->type == "Skill 3" && obj2->type == "Skill 3")
+				{
+					modelStack->PushMatrix();
+					modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+					//Renderer->RenderMesh("DescripBandage", false);
+					modelStack->PopMatrix();
+					if (obj2->text->GetType() == "Skill 3")
+					{
+						if (BattleSystem::Instance().GetSelectedSkill(i) != nullptr)
+						{
+							std::string temp = BattleSystem::Instance().GetSelectedSkill(i)->GetName();
+							modelStack->PushMatrix();
+							modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+							modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+							Renderer->RenderText("text", temp, Color(1, 1, 1));
+							modelStack->PopMatrix();
+						}
+					}
+				}
+			}
+			modelStack->PopMatrix();
+		}
 	}
 
 	for (std::vector<Button*>::iterator itr = (*button->GetList()).begin(); itr != (*button->GetList()).end(); itr++)
@@ -642,11 +761,50 @@ void SceneTutorial::Render()
 				Renderer->RenderMesh("WarriorMesh", false);
 			}
 		}
+		if (entity->GetName() == "Mage")
+		{
+			if (BattleSystem::Instance().GetPlayerTurn() == false)
+			{
+				Sleep(300);
+				Renderer->RenderMesh("MageAttack", false);
+
+			}
+			else if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("MageDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("MageDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("MageMesh", false);
+			}
+		}
+		if (entity->GetName() == "Priest")
+		{
+			if (BattleSystem::Instance().GetPlayerTurn() == false)
+			{
+				Sleep(300);
+				Renderer->RenderMesh("PriestAttack", false);
+
+			}
+			else if (entity->GetDefeated())
+			{
+				Renderer->RenderMesh("PriestDead", false);
+			}
+			else if (entityhealth <= 0.3f)
+			{
+				Renderer->RenderMesh("PriestDying", false);
+			}
+			else
+			{
+				Renderer->RenderMesh("PriestMesh", false);
+			}
+		}
 		modelStack->PopMatrix();
 	}
-
-
-
 }
 
 void SceneTutorial::HandleUserInput()

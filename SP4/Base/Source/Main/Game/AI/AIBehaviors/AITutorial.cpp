@@ -14,6 +14,7 @@ AITutorial::~AITutorial()
 void AITutorial::Init()
 {
 	m_Turn = 1;
+	m_BattleNumber = 1;
 }
 
 void AITutorial::Update(double dt)
@@ -37,7 +38,7 @@ void AITutorial::Planning()
 		{
 		case 1:
 			BattlePlanHolder->SetBattlePlan("Turn 1");
-			break;
+			break; 
 		case 2:
 			BattlePlanHolder->SetBattlePlan("Turn 2");
 			break;
@@ -57,15 +58,18 @@ void AITutorial::Execute()
 {
 	if (m_Turn < 4)
 	{
-		if (BattlePlanHolder->GetBattlePlan("Turn 1"))
+		if (m_BattleNumber == 1)
 		{
-			BattleSystem::Instance().DamageCalculation(0, BattleSystem::Instance().GetAITroopAttacking(0)->GetSkillInVector("Basic Attack"));
-		}
-		else if (BattlePlanHolder->GetBattlePlan("Turn 2"))
-		{
-		}
-		else if (BattlePlanHolder->GetBattlePlan("Turn 3"))
-		{
+			if (BattlePlanHolder->GetBattlePlan("Turn 1"))
+			{
+				BattleSystem::Instance().DamageCalculation(0, BattleSystem::Instance().GetAITroopAttacking(0)->GetSkillInVector("Basic Attack"));
+			}
+			else if (BattlePlanHolder->GetBattlePlan("Turn 2"))
+			{
+			}
+			else if (BattlePlanHolder->GetBattlePlan("Turn 3"))
+			{
+			} 
 		}
 	}
 

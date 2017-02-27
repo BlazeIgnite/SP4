@@ -220,6 +220,7 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 					}
 				}
 			}
+
 			if (it->second->GetDebuffed())
 			{
 				if (it->second->GetStunTimer() > 0)
@@ -277,6 +278,7 @@ void BattleSystem::MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap)
 size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 {
 	size_t damage = AttackerSkill->GetDamage();
+	AttackerSkill->SetTurnCooldown(AttackerSkill->GetMaxTurnCooldown());
 	if (PlayerTurn)
 	{
 		CharacterEntity* targettroop = AITroops.find(target)->second;

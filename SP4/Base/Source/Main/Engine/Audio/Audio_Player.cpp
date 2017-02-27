@@ -20,8 +20,6 @@ void AudioPlayer::PlayMusic(string MusicName)
 		PlayBattleMusic();
 	if (MusicName == "Bleed Effect")
 		PlayBleedEffect();
-	if (MusicName == "Buff Effect")
-		PlayBuffEffect();
 	if (MusicName == "Debuff Effect")
 		PlayDebuffEffect();
 	if (MusicName == "StunEffect")

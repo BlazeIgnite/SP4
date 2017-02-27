@@ -3,11 +3,11 @@
 #include "Skill.h"
 #include "CharacterEntity.h"
 
-class Priest : public CharacterEntity
+class Synergist : public CharacterEntity
 {
 public:
-	Priest();
-	~Priest();
+	Synergist();
+	~Synergist();
 	virtual void Init(int Level);
 	virtual void LevelUp();
 	void Update(double dt);

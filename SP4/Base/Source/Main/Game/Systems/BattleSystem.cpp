@@ -441,7 +441,6 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			PlayerTroops.at(TargettedTeammate)->SetBuffed(true);
 			PlayerTroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
-			AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 	else
@@ -451,7 +450,6 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			AITroops.at(TargettedTeammate)->SetBuffed(true);
 			AITroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
-			AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 }

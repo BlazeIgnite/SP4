@@ -26,16 +26,16 @@ void InventoryButtons::Init(double x, double y)
 	buttonVector.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(75, 50, 0), Vector3(10, 10, 1), "Red Potion");
+	temp->Init(Vector3(50, 60, 0), Vector3(10, 10, 1), "Red Potion");
 	buttonVector.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(75, 35, 0), Vector3(10, 10, 1), "Attack Potion");
+	temp->Init(Vector3(50, 50, 0), Vector3(10, 10, 1), "Attack Potion");
 	buttonVector.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(90, 35, 0), Vector3(10, 10, 1), "Defence Potion");
+	temp->Init(Vector3(50, 40, 0), Vector3(10, 10, 1), "Defence Potion");
 	buttonVector.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(90, 50, 0), Vector3(10, 10, 1), "Bandage");
+	temp->Init(Vector3(50, 30, 0), Vector3(10, 10, 1), "Bandage");
 	buttonVector.push_back(temp);
 	temp = new Button();
 	temp->Init(Vector3(130, 30, 0), Vector3(30, 10, 1), "Craft");
@@ -68,6 +68,10 @@ void InventoryButtons::Update(float dt)
 	{
 		(*itr)->UpdateCrafting(dt);
 	}
+}
+
+void InventoryButtons::UpdateDescriptions(float dt)
+{
 	for (std::vector<Description*>::iterator itr2 = DescriptionVector.begin(); itr2 != DescriptionVector.end(); itr2++)
 	{
 		(*itr2)->Update(dt);

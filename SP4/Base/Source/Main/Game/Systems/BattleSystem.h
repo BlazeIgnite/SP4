@@ -53,10 +53,11 @@ public:
 	inline CharacterEntity* GetAITroopAttacking(size_t position) { return AITroops.find(position)->second; };
 	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
 	inline CharacterEntity* GetSelectedEnemyTroop() { return SelectedEnemyTroop; };
+	inline Skill* GetSkillInMap(size_t Character, size_t Skill_Pos) { return PlayerTroopSkills.at(Character).at(Skill_Pos); };
 	inline Skill* GetSelectedSkill(size_t position) { return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);	};
 	inline Skill* GetSelectedSkill() { return SelectedSkill; };
 	inline size_t GetDisplaySkillNum(){ return DisplaySkillNum; };
-	inline size_t GetTurnCost(){ return TurnCost; };
+	inline size_t GetTurnCost(){ if (TurnCost <= 0) TurnCost = 0; return TurnCost; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
 	inline bool GetPlayerWon(){ return PlayerWon; };
 

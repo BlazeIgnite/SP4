@@ -28,7 +28,7 @@ void SceneResult::Init()
 
 void SceneResult::Update(float dt)
 {
-
+	
 }
 
 void SceneResult::Render()

@@ -9,17 +9,19 @@ class BattleButton
 private:
 	Button* button;
 	std::vector<Button*> buttonList;
+	std::vector<Description*> descripList;
 
 public:
 	BattleButton();
 	~BattleButton();
 
-	void Init();
+	void Init(double x, double y);
 	void Update(float dt);
+	void UpdateDescription(float dt);
 	void Render();
 	void Exit();
 
 	std::vector<Button*>* GetList();
-
+	std::vector<Description*>* GetDescriList();
 };
 

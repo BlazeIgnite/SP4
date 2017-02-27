@@ -58,7 +58,7 @@ public:
 	inline Skill* GetSelectedSkill(size_t position) { return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);	};
 	inline Skill* GetSelectedSkill() { return SelectedSkill; };
 	inline size_t GetDisplaySkillNum(){ return DisplaySkillNum; };
-	inline size_t GetTurnCost(){ return TurnCost; };
+	inline size_t GetTurnCost(){ if (TurnCost <= 0) TurnCost = 0; return TurnCost; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
 	inline bool GetPlayerWon(){ return PlayerWon; };
 

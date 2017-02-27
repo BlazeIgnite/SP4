@@ -197,7 +197,7 @@ void MainMenu::Render()
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5, ObjectManager::Instance().WorldHeight * 0.7f, 1.f);
 	modelStack->Scale(3, 3, 1);
-	Renderer->RenderText("Test", "Super Crusader", Color(1, 1, 1));
+	Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
 	modelStack->PopMatrix();
 
 	if (NameInput)

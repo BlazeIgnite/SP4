@@ -73,7 +73,7 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, Synergist2);
 
-	AI = new AIAllAttack();
+	AI = new AIStatusEffect();
 	BattleSystem::Instance().Debugging();
 
 	tempscale = Vector3(10, 10, 1);
@@ -399,7 +399,21 @@ void SceneBattles::Update(float dt)
 					bool temp2 = BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetSelectedTroop(), i, BattleSystem::Instance().GetSelectedSkill());
 					std::cout << BattleSystem::Instance().GetSelectedSkill()->GetName() << std::endl;
 					if (temp2)
+					{
 						BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
+						if (tempo->GetName() == "Warrior")
+						{
+							AudioPlayer::Instance().PlayWarriorAttack();
+						}
+						else if (tempo->GetName() == "Mage")
+						{
+							AudioPlayer::Instance().PlayMageAttack();
+						}
+						else if (tempo->GetName() == "Synergist")
+						{
+							AudioPlayer::Instance().PlayPriestAttack();
+						}
+					}
 					(*itr)->SetisPressed(true);
 				}
 			}
@@ -781,7 +795,7 @@ void SceneBattles::Render()
 				{
 					Renderer->RenderMesh("PlayerWarriorAttackMesh",false);
 				}
-				if (entityhealth <= 0.3f)
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("PlayerWarriorDying", false);
 				}
@@ -792,7 +806,11 @@ void SceneBattles::Render()
 			}
 			if (entity->GetName() == "Mage")
 			{
-				if (entityhealth <= 0.3f)
+				if (BattleSystem::Instance().GetSelectedTroop() == entity)
+				{
+					Renderer->RenderMesh("PlayerMageAttack", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("PlayerMageDying", false);
 				}
@@ -803,7 +821,11 @@ void SceneBattles::Render()
 			}
 			if (entity->GetName() == "Synergist")
 			{
-				if (entityhealth <= 0.3f)
+				if (BattleSystem::Instance().GetSelectedTroop() == entity)
+				{
+					Renderer->RenderMesh("PlayerSynergistAttack", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("PlayerSynergistDying", false);
 				}

@@ -53,18 +53,18 @@ void SceneBattles::Init()
 	Player::Instance().AddCharacter("Mage", mage);
 	Player::Instance().AddCharacter("Priest", priest);*/
 
-	BattleSystem::Instance().Init();
-	BattleSystem::Instance().SetPlayerTroops(0, warrior);
-	BattleSystem::Instance().SetPlayerTroops(1,mage);
-	BattleSystem::Instance().SetPlayerTroops(2,synergist);
+	//BattleSystem::Instance().Init();
+	//BattleSystem::Instance().SetPlayerTroops(0, warrior);
+	//BattleSystem::Instance().SetPlayerTroops(1,mage);
+	//BattleSystem::Instance().SetPlayerTroops(2,synergist);
 
-	for (size_t i = 0; i < BattleSystem::Instance().GetPlayerTroops().size(); i++)
-	{
-		for (size_t j = 0; j < 4; j++)
-		{
-			BattleSystem::Instance().SetPlayerTroopSkills(i, j);
-		}
-	}
+	//for (size_t i = 0; i < BattleSystem::Instance().GetPlayerTroops().size(); i++)
+	//{
+	//	for (size_t j = 0; j < 4; j++)
+	//	{
+	//		BattleSystem::Instance().SetPlayerTroopSkills(i, j);
+	//	}
+	//}
 
 	AudioPlayer::Instance().StopAllMusic();
 	AudioPlayer::Instance().PlayMusic("Battle Music");
@@ -807,15 +807,15 @@ void SceneBattles::Render()
 		{
 			if (entity->GetDefeated())
 			{
-				Renderer->RenderMesh("PlayerPriestDead", false);
+				Renderer->RenderMesh("PlayerSynergistDead", false);
 			}
 			else if (entityhealth <= 0.3f)
 			{
-				Renderer->RenderMesh("PlayerPriestDying", false);
+				Renderer->RenderMesh("PlayerSynergistDying", false);
 			}
 			else
 			{
-				Renderer->RenderMesh("PlayerPriestMesh", false);
+				Renderer->RenderMesh("PlayerSynergistMesh", false);
 			}
 		}
 		if (entity->GetStunned() == true)
@@ -908,20 +908,20 @@ void SceneBattles::Render()
 			if (BattleSystem::Instance().GetPlayerTurn() == false)
 			{
 				Sleep(300);
-				Renderer->RenderMesh("PriestAttack", false);
+				Renderer->RenderMesh("SynergistAttack", false);
 
 			}
 			else if (entity->GetDefeated())
 			{
-				Renderer->RenderMesh("PriestDead", false);
+				Renderer->RenderMesh("SynergistDead", false);
 			}
 			else if (entityhealth <= 0.3f)
 			{
-				Renderer->RenderMesh("PriestDying", false);
+				Renderer->RenderMesh("SynergistDying", false);
 			}
 			else
 			{
-				Renderer->RenderMesh("PriestMesh", false);
+				Renderer->RenderMesh("SynergistMesh", false);
 			}
 		}
 		if (entity->GetStunned() == true)

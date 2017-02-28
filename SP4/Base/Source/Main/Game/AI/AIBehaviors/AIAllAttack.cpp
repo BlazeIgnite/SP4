@@ -52,7 +52,7 @@ void AIAllAttack::Planning()
 			}
 		}
 	}
-	if (planningDone)
+	//if (planningDone)
 		stateHolder->SetState("Execute");
 }
 

@@ -167,6 +167,14 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 
 	if (PlayerTurn)
 	{
+		if (AITroops[0]->GetDefeated() && GetNumberOfPlayerTroopAlive() >= 1)
+		{
+			MoveTroopFrontByOne(AITroops);
+		}
+		if (AITroops[1]->GetDefeated() && GetNumberOfPlayerTroopAlive() == 2)
+		{
+			SwitchSpots(AITroops, 1, 2);
+		}
 		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
 		{
 			vector<Skill*>* SkillList = it->second->GetSkillList();
@@ -215,9 +223,18 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 				}
 			}
 		}
+		
 	}
 	else
 	{
+		if (PlayerTroops[0]->GetDefeated() && GetNumberOfPlayerTroopAlive() >= 1)
+		{
+			MoveTroopFrontByOne(PlayerTroops);
+		}
+		if (PlayerTroops[1]->GetDefeated() && GetNumberOfPlayerTroopAlive() == 2)
+		{
+			SwitchSpots(PlayerTroops, 1, 2);
+		}
 		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
 		{
 			vector<Skill*>* SkillList = it->second->GetSkillList();

@@ -300,21 +300,6 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 				if (itr->second->GetDefeated())
 					NumberofDefeatedTroops++;
 			}
-			if (NumberofDefeatedTroops >= AITroops.size())
-			{
-				//Go to win screen;
-				SceneSystem::Instance().SwitchScene("Town_Scene");
-				for (map<size_t, CharacterEntity*>::iterator i = AITroops.begin(); i != AITroops.end(); i++)
-				{
-					if (i->second != nullptr)
-					{
-						delete i->second;
-						i->second = NULL;
-					}
-				}
-				Reset();
-				return damage;
-			}
 			if (NumberofDefeatedTroops == 1)
 			{
 				if (AITroops.find(target)->first == 0)
@@ -352,13 +337,6 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 				{
 					NumberofDefeatedTroops++;
 				}
-			}
-			if (NumberofDefeatedTroops >= PlayerTroops.size())
-			{
-				//Go to lose screen;
-				SceneSystem::Instance().SwitchScene("Town_Scene");
-
-				return damage;
 			}
 			if (NumberofDefeatedTroops == 1)
 			{

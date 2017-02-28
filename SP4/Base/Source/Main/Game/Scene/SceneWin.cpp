@@ -28,7 +28,7 @@ void SceneWin::Init()
 
 void SceneWin::Update(float dt)
 {
-	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+	if (InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 		SceneSystem::Instance().SwitchScene("Town_Scene");
 }
 

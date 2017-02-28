@@ -31,7 +31,8 @@ void SceneLose::Init()
 
 void SceneLose::Update(float dt)
 {
-	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+	timer += dt;
+	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && timer > 5.f)
 	{
 		for (auto it : BattleSystem::Instance().GetPlayerTroops())
 		{

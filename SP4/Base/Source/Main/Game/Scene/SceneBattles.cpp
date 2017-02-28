@@ -73,7 +73,7 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, Synergist2);
 
-	AI = new AIStatusEffect();
+	AI = new AIAllAttack();
 	BattleSystem::Instance().Debugging();
 
 	tempscale = Vector3(10, 10, 1);
@@ -463,19 +463,20 @@ void SceneBattles::Update(float dt)
 		{
 			timer = 0.f;
 			renderDamage = false;
+			if (BattleSystem::Instance().GetSelectedEnemyTroop() != nullptr)
 			textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
 		}
 	}
-
-	if (BattleSystem::Instance().GetNumberOfPlayerTroopAlive() == 0)
-	{
-		SceneSystem::Instance().SwitchScene("Lose_Scene");
-		//BattleSystem::Instance().SetPlayerWon(1);
-	}
-	else if (BattleSystem::Instance().GetNumberOfAITroopAlive() == 0)
+	if (BattleSystem::Instance().GetNumberOfAITroopAlive() == 0)
 	{
 		SceneSystem::Instance().SwitchScene("Win_Scene");
 		//BattleSystem::Instance().SetPlayerWon(2);
+	}
+	else if (BattleSystem::Instance().GetNumberOfPlayerTroopAlive() == 0)
+	{
+		BattleSystem::Instance().GetNumberOfPlayerTroopAlive();
+		SceneSystem::Instance().SwitchScene("Lose_Scene");
+		//BattleSystem::Instance().SetPlayerWon(1);
 	}
 }
 

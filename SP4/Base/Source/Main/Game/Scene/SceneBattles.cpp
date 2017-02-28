@@ -402,7 +402,6 @@ void SceneBattles::Update(float dt)
 					bool temp2 = BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetSelectedTroop(), i, BattleSystem::Instance().GetSelectedSkill());
 					if (temp2)
 					{
-<<<<<<< HEAD
 						BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
 						if (tempo->GetName() == "Warrior")
 						{
@@ -416,10 +415,8 @@ void SceneBattles::Update(float dt)
 						{
 							AudioPlayer::Instance().PlayPriestAttack();
 						}
-=======
 						damage = "-" + std::to_string(BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill()));
 						renderDamage = true;
->>>>>>> 6dfa11c4df81e4f5eaf33dad923c3a2301f3bae6
 					}
 					(*itr)->SetisPressed(true);
 				}

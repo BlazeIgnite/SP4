@@ -244,8 +244,8 @@ void Warrior::LevelUp(bool init)
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Rush")
 			SkillItr->SetDamage((int)(Attack * 0.3));
-		else if (SkillItr->GetName() == "Quick Blitz")
-			SkillItr->SetDamage((int)(Attack*0.1));
+		//else if (SkillItr->GetName() == "Quick Blitz")
+		//	SkillItr->SetDamage((int)(Attack*0.1));
 		else if (SkillItr->GetName() == "Bash")
 			SkillItr->SetDamage((int)(Attack * 0.3));
 		else if (SkillItr->GetName() == "Divine Execution")

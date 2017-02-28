@@ -105,34 +105,24 @@ void Button::UpdateBattleScene(float dt)
 	{
 		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 		{
-			if (!isPressed)
-			{
-				if ((Player::Instance().GetConsumableList().find("Red Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth() ))
+				if ((Player::Instance().GetConsumableList().find("Red Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() < BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth() ))
 				{
 					Player::Instance().AddConsumableItem("Red Potion", -1);
 					BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
 					BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth();
 					std::cout << "Red Potion Used" << std::endl;
-					isPressed = true;
 				}
 				else
 				{
 					std::cout << "No More Red Potion" << std::endl;
-					isPressed = true;
 				}
 			}
-		}
-		else
-		{
-			if (isPressed)
-				isPressed = false;
-		}
 	}
 	if (type == "Attack Potion" && isitHover())
 	{
 		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 		{
-			if ((Player::Instance().GetConsumableList().find("Attack Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
+			if ((Player::Instance().GetConsumableList().find("Attack Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() < BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
 			{
 				Player::Instance().AddConsumableItem("Attack Potion", -1);
 				BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
@@ -152,7 +142,7 @@ void Button::UpdateBattleScene(float dt)
 	{
 		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 		{
-			if ((Player::Instance().GetConsumableList().find("Defence Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() >= BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
+			if ((Player::Instance().GetConsumableList().find("Defence Potion")->second > 0) && (BattleSystem::Instance().GetSelectedTroop()->GetHealth() < BattleSystem::Instance().GetSelectedTroop()->GetMaxHealth()))
 			{
 				Player::Instance().AddConsumableItem("Defence Potion", -1);
 				BattleSystem::Instance().GetSelectedTroop()->SetHealth(BattleSystem::Instance().GetSelectedTroop()->GetHealth() + 20);
@@ -192,36 +182,6 @@ void Button::UpdateBattleScene(float dt)
 			}
 		}
 	}
-	//Skills and Auto Attack
-
-	if (type == "Auto Attack" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-
-	if (type == "Skill 1" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-
-	if (type == "Skill 2" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-
-	if (type == "Skill 3" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-
 }
 
 void Button::UpdateCrafting(float dt)

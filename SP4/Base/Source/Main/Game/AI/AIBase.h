@@ -18,6 +18,7 @@ protected:
 	size_t m_AITurnCostHolder;
 
 	bool Calculate(Skill*);
+	bool CalculateCheck(Skill*);
 public:
 	AIBase();
 	~AIBase();

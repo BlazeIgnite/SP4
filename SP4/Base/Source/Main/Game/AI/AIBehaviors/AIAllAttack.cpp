@@ -41,18 +41,21 @@ void AIAllAttack::Planning()
 			{
 				if (BattleSystem::Instance().CanActivateSkill(it.second, tempTarget, it.second->GetSkillInVector("Basic Attack")))
 				{
-					AIBattlePlanner* temp = new AIBattlePlanner();
-					temp->SetSkill(it.second->GetSkillInVector("Basic Attack"));
-					temp->SetAttacker(it.first);
-					temp->SetTarget(tempTarget);
-					BattlePlanHolder.push_back(temp);
+					if (Calculate(it.second->GetSkillInVector("Basic Attack")))
+					{
+						AIBattlePlanner* temp = new AIBattlePlanner();
+						temp->SetSkill(it.second->GetSkillInVector("Basic Attack"));
+						temp->SetAttacker(it.first);
+						temp->SetTarget(tempTarget);
+						BattlePlanHolder.push_back(temp);
+					}
 				}
-				if (!BattleSystem::Instance().CanActivateSkill(tempCE, tempTarget, tempCE->GetSkillInVector("Basic Attack")))
+				if (!CalculateCheck(it.second->GetSkillInVector("Basic Attack")))
 					planningDone = true;
 			}
 		}
 	}
-	//if (planningDone)
+	if (planningDone)
 		stateHolder->SetState("Execute");
 }
 
@@ -77,8 +80,11 @@ void AIAllAttack::Execute()
 	//stateHolder->SetState("");
 
 
-
-	BattleSystem::Instance().SetPlayerTurn(true);
+	if (BattlePlanHolder.size() == 0)
+	{
+		m_AITurnCostHolder = 100;
+		BattleSystem::Instance().SetPlayerTurn(true);
+	}
 }
 
 void AIAllAttack::Exit()

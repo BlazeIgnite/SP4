@@ -73,6 +73,18 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, Synergist2);
 
+	for (size_t i = 0; i < BattleSystem::Instance().GetAITroops().size(); i++)
+	{
+		string emptyString = "";
+		AIDamaged.push_back(emptyString);
+	}
+
+	for (size_t i = 0; i < BattleSystem::Instance().GetPlayerTroops().size(); i++)
+	{
+		string emptyString = "";
+		PlayerDamaged.push_back(emptyString);
+	}
+
 	BattleSystem::Instance().CheckTroopPositions();
 
 	AI = new AIAllAttack();
@@ -1006,7 +1018,6 @@ void SceneBattles::Render()
 
 	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetAITroops().begin(); itr != BattleSystem::Instance().GetAITroops().end(); itr++)
 	{
-
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
 		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
 		modelStack->PushMatrix();

@@ -24,7 +24,7 @@ void SceneWin::Init()
 	this->SetEntityID("Win_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	youwin = "You Win!";
-
+	timer = 0.f;
 }
 
 void SceneWin::Update(float dt)
@@ -36,6 +36,7 @@ void SceneWin::Update(float dt)
 
 	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && timer > 5.f)
 	{
+		timer = 0.f;
 		SceneSystem::Instance().SwitchScene("Town_Scene");
 	}
 		

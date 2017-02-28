@@ -25,6 +25,19 @@ bool AIBase::Calculate(Skill* skillUsed)
 	if (turncost < 0)
 		return false;
 	else
+	{
+		m_AITurnCostHolder = turncost;
+		return true;
+	}
+}
+
+bool AIBase::CalculateCheck(Skill* skillUsed)
+{
+	int turncost;
+	turncost = m_AITurnCostHolder - skillUsed->GetActionCost();
+	if (turncost < 0)
+		return false;
+	else
 		return true;
 }
 

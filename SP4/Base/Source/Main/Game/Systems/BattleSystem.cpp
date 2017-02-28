@@ -142,7 +142,7 @@ void BattleSystem::CheckTroopPositions()
 			PlayerTroopSkills.erase(2);
 		}
 	}
-	else
+	else if (it1 == PlayerTroops.end())
 	{
 		if (it2 != PlayerTroops.end())
 		{
@@ -263,11 +263,11 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 
 	if (PlayerTurn)
 	{
-		if (AITroops[0]->GetDefeated() && GetNumberOfPlayerTroopAlive() >= 1)
+		if (GetNumberOfPlayerTroopAlive() >= 1 && AITroops[0]->GetDefeated())
 		{
 			MoveTroopFrontByOne(AITroops);
 		}
-		if (AITroops[1]->GetDefeated() && GetNumberOfPlayerTroopAlive() == 2)
+		if (GetNumberOfPlayerTroopAlive() == 2 && AITroops[1]->GetDefeated())
 		{
 			SwitchSpots(AITroops, 1, 2);
 		}
@@ -323,11 +323,11 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 	}
 	else
 	{
-		if (PlayerTroops[0]->GetDefeated() && GetNumberOfPlayerTroopAlive() >= 1)
+		if (GetNumberOfPlayerTroopAlive() >= 1 && PlayerTroops[0]->GetDefeated())
 		{
 			MoveTroopFrontByOne(PlayerTroops);
 		}
-		if (PlayerTroops[1]->GetDefeated() && GetNumberOfPlayerTroopAlive() == 2)
+		if (GetNumberOfPlayerTroopAlive() == 2 && PlayerTroops[1]->GetDefeated())
 		{
 			SwitchSpots(PlayerTroops, 1, 2);
 		}

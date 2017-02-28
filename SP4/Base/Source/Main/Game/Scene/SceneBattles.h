@@ -20,6 +20,8 @@ private:
 	BattleButton* button;
 	CharacterEntity* character;
 	AIBase* AI = nullptr;
+	vector<string> PlayerDamaged;
+	vector<string> AIDamaged;
 	double x, y;
 
 	string damage;

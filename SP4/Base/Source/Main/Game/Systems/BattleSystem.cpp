@@ -23,7 +23,7 @@ void BattleSystem::Init()
 	SelectedSkill = NULL;
 	SetTurnCost(100);
 	PlayerTurn = true;
-	PlayerWon = false;
+	PlayerWon = 0;
 }
 
 // Setters Here
@@ -446,7 +446,7 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 			{
 				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
-					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0 (TurnCost - AttackerSkill->GetActionCost() >= 0))
+					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0 && (TurnCost - AttackerSkill->GetActionCost() >= 0))
 						return true;
 				}
 				else
@@ -571,6 +571,12 @@ void BattleSystem::Reset()
 	SelectedEnemyTroop = NULL;
 	SelectedSkill = NULL;
 	SetTurnCost(100);
+	for (auto it : AITroops)
+	{
+		if (it.second != nullptr)
+			delete it.second;
+		it.second = nullptr;
+	}
 	PlayerTroops.clear();
 	AITroops.clear();
 	PlayerTurn = true;

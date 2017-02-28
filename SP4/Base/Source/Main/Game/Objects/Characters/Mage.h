@@ -8,7 +8,7 @@ public:
 	Mage();
 	~Mage();
 	virtual void Init(int Level);
-	virtual void LevelUp();
+	virtual void LevelUp(bool init);
 	void Update(double dt); 
 	//OffensiveSkill* skill_1;
 };

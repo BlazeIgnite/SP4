@@ -6,6 +6,7 @@
 #include "../Audio/Audio_Player.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../../Base/Source/Main/Engine/System/RenderSystem.h"
+#include "../Systems/BattleSystem.h"
 #include "../Miscellaneous/Button.h"
 
 
@@ -24,12 +25,63 @@ void SceneLose::Init()
 	this->SetEntityID("Lose_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
+	timer = 0.f;
+	youlose = "You Lost!";
 }
 
 void SceneLose::Update(float dt)
 {
 	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+	{
+		for (auto it : BattleSystem::Instance().GetPlayerTroops())
+		{
+			if (it.second != nullptr)
+				delete it.second;
+			it.second = nullptr;
+		}
+		for (auto it : Player::Instance().GetAllUnitList())
+		{
+			if (it.first == "Warrior")
+			{
+				for (auto it2 : Player::Instance().GetClassUnitList("Warrior"))
+				{
+					if (it2.second == nullptr)
+					{
+						Warrior* warrior = new Warrior();
+						warrior->Init(1);
+						it2.second = warrior;
+					}
+				}
+			}
+			else if (it.first == "Mage")
+			{
+				for (auto it2 : Player::Instance().GetClassUnitList("Mage"))
+				{
+					if (it2.second == nullptr)
+					{
+						Mage* mage = new Mage();
+						mage->Init(1);
+						it2.second = mage;
+					}
+				}
+			}
+			else if (it.first == "Synergist")
+			{
+				for (auto it2 : Player::Instance().GetClassUnitList("Synergist"))
+				{
+					if (it2.second == nullptr)
+					{
+						Synergist* synergist = new Synergist();
+						synergist->Init(1);
+						it2.second = synergist;
+					}
+				}
+			}
+
+		}
+		BattleSystem::Instance().Reset();
 		SceneSystem::Instance().SwitchScene("Town_Scene");
+	}
 }
 
 void SceneLose::Render()
@@ -54,9 +106,9 @@ void SceneLose::Render()
 	modelStack->LoadIdentity();
 
 	modelStack->PushMatrix();
-	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("RedPotion", false);
+	modelStack->Translate((ObjectManager::Instance().WorldWidth * 0.5f) - (youlose.size() * 4.3f), ObjectManager::Instance().WorldHeight * 0.8f, -5.f);
+	modelStack->Scale(15, 15, 1);
+	Renderer->RenderText("text", youlose, Color(1, 0, 0));
 	modelStack->PopMatrix();
 }
 

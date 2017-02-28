@@ -17,6 +17,7 @@ CharacterEntity::CharacterEntity()
 , DebuffTimer(0)
 , BuffTimer(0)
 , DamageMitigation(0)
+, ExperiencePoints(0)
 , Defeated(false)
 {
 	for (size_t i = 0; i < 4; i++)

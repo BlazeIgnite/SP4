@@ -43,11 +43,11 @@ void SceneBattles::Init()
 	synergist->Init(20);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(1);
+	warrior2->Init(20);
 	Mage* mage2 = new Mage();
-	mage2->Init(1);
+	mage2->Init(20);
 	Synergist* Synergist2 = new Synergist();
-	Synergist2->Init(1);
+	Synergist2->Init(20);
 
 	/*Player::Instance().AddCharacter("Warrior", warrior);
 	Player::Instance().AddCharacter("Mage", mage);
@@ -86,6 +86,9 @@ void SceneBattles::Init()
 			entity2->SetScale(tempscale);
 		entity2->SetisSelected(false);
 	}
+	timer = 0;
+	textPos = 0;
+	renderDamage = false;
 }
 
 void SceneBattles::UpdateCharacterLogic(double dt)
@@ -252,7 +255,7 @@ void SceneBattles::Update(float dt)
 						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
 
 						BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
-						std::cout << BattleSystem::Instance().GetSelectedEnemyTroop()->GetName() << std::endl;
+						textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
 						entity->SetisSelected(true);
 						entity->SetisPressed(true);
 					}
@@ -288,7 +291,7 @@ void SceneBattles::Update(float dt)
 						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
 
 						BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
-						std::cout << BattleSystem::Instance().GetSelectedEnemyTroop()->GetName() << std::endl;
+						textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
 						entity->SetisSelected(true);
 						entity->SetisPressed(true);
 					}
@@ -323,7 +326,7 @@ void SceneBattles::Update(float dt)
 						entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
 
 						BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
-						std::cout << BattleSystem::Instance().GetSelectedEnemyTroop()->GetName() << std::endl;
+						textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
 						entity->SetisSelected(true);
 						entity->SetisPressed(true);
 					}
@@ -397,9 +400,9 @@ void SceneBattles::Update(float dt)
 					Skill* tempi = BattleSystem::Instance().GetSelectedSkill();
 
 					bool temp2 = BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetSelectedTroop(), i, BattleSystem::Instance().GetSelectedSkill());
-					std::cout << BattleSystem::Instance().GetSelectedSkill()->GetName() << std::endl;
 					if (temp2)
 					{
+<<<<<<< HEAD
 						BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
 						if (tempo->GetName() == "Warrior")
 						{
@@ -413,6 +416,10 @@ void SceneBattles::Update(float dt)
 						{
 							AudioPlayer::Instance().PlayPriestAttack();
 						}
+=======
+						damage = "-" + std::to_string(BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill()));
+						renderDamage = true;
+>>>>>>> 6dfa11c4df81e4f5eaf33dad923c3a2301f3bae6
 					}
 					(*itr)->SetisPressed(true);
 				}
@@ -450,6 +457,29 @@ void SceneBattles::Update(float dt)
 	}
 
 	AI->Update(dt);
+
+	if (renderDamage)
+	{
+		timer += dt;
+		textPos += 10 * dt;
+		if (timer > 2.f)
+		{
+			timer = 0.f;
+			renderDamage = false;
+			textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
+		}
+	}
+
+	if (BattleSystem::Instance().GetNumberOfPlayerTroopAlive() == 0)
+	{
+		SceneSystem::Instance().SwitchScene("Lose_Scene");
+		//BattleSystem::Instance().SetPlayerWon(1);
+	}
+	else if (BattleSystem::Instance().GetNumberOfAITroopAlive() == 0)
+	{
+		SceneSystem::Instance().SwitchScene("Win_Scene");
+		//BattleSystem::Instance().SetPlayerWon(2);
+	}
 }
 
 void SceneBattles::RenderObjects(BaseObject *obj)
@@ -996,6 +1026,14 @@ void SceneBattles::Render()
 			Renderer->RenderMesh("BuffIcon", false);
 			modelStack->PopMatrix();
 		}
+		modelStack->PopMatrix();
+	}
+	if (renderDamage && BattleSystem::Instance().GetSelectedEnemyTroop() != nullptr)
+	{
+		modelStack->PushMatrix();
+		modelStack->Translate(BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().x, textPos, BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().z);
+		modelStack->Scale(5.f, 5.f, 5.f);
+		Renderer->RenderText("text", damage ,Color(1, 0, 0));
 		modelStack->PopMatrix();
 	}
 }

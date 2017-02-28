@@ -5,6 +5,7 @@ using std::endl;
 
 size_t SynergistHealth[] = { 0, 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
 size_t SynergistAttack[] = { 0, 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
+size_t ExperienceSNeed[] = { 0, 0, 10, 30, 55, 70, 100, 130, 165, 200, 240, 285, 325, 370, 420, 475, 530, 590, 650, 720 };
 float SynergistDefence[] = { 0, 15, 15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
 
 Synergist::Synergist()
@@ -43,13 +44,22 @@ void Synergist::Init(int Level)
 	////SetPosition(Position_Middle);
 	for (int i = 0; i < Level; i++)
 	{
-		LevelUp();
+		LevelUp(true);
 	}
 }
 
-void Synergist::LevelUp()
+void Synergist::LevelUp(bool init)
 {
-	Level++;
+	if (init)
+		Level++;
+	else
+	{
+		if (ExperiencePoints > ExperienceSNeed[Level + 1])
+			Level++;
+		else
+			return;
+	}
+	ExperiencePoints = ExperienceSNeed[Level];
 	SetHealth(SynergistHealth[Level]);
 	SetMaxHealth(SynergistHealth[Level]);
 	SetAttack(SynergistAttack[Level]);

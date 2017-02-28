@@ -9,7 +9,7 @@ AudioPlayer::~AudioPlayer()
 void AudioPlayer::Init()
 {
 	SoundEngine = createIrrKlangDevice();
-	SetVolume(1.f);
+	SetVolume(0.5f);
 }
 
 void AudioPlayer::PlayMusic(string MusicName)

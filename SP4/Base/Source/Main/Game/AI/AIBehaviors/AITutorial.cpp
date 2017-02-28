@@ -73,6 +73,7 @@ void AITutorial::Execute()
 		}
 	}
 
+	BattleSystem::Instance().SetPlayerTurn(true);
 	BattlePlanHolder->ResetBattlePlan();
 	stateHolder->ResetState();
 }

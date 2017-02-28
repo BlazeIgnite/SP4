@@ -9,7 +9,7 @@ public:
 	Synergist();
 	~Synergist();
 	virtual void Init(int Level);
-	virtual void LevelUp();
+	virtual void LevelUp(bool);
 	void Update(double dt);
 //	OffensiveSkill* skill_1;
 };

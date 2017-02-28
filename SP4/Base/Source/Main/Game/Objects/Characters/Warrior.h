@@ -9,7 +9,7 @@ public:
 	~Warrior();
 	virtual void Init(int Level);
 	void Update(double dt);
-	virtual void LevelUp();
+	virtual void LevelUp(bool);
 };
 
 #endif

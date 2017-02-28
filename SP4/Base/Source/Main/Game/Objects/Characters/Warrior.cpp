@@ -95,6 +95,29 @@ void Warrior::LevelUp(bool init)
 			// Now the Warrior is allowed to use this skill
 			SkillList.push_back(skill);
 		}
+		else if (Level == 5)
+		{
+			skill->SetName("Quick Blitz");
+
+			// Setting Action Cost for Battle
+			skill->SetActionCost(10);
+
+			// Setting the cooldown time after activation
+			skill->SetMaxTurnCooldown(1);
+
+			// Setting the Required Position to use skill
+			skill->SetRequiredPosition(0, true);
+			skill->SetRequiredPosition(1, true);
+			skill->SetRequiredPosition(2, true);
+
+			// Setting the Selectable Position to use skill on
+			skill->SetSelectableTarget(0, true);
+			skill->SetSelectableTarget(1, true);
+
+			// Now the Warrior is allowed to use this skill
+			SkillList.push_back(skill);
+
+		}
 		else if (Level == 4)
 		{
 			// Taunt
@@ -221,6 +244,8 @@ void Warrior::LevelUp(bool init)
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Rush")
 			SkillItr->SetDamage((int)(Attack * 0.3));
+		else if (SkillItr->GetName() == "Quick Blitz")
+			SkillItr->SetDamage((int)(Attack*0.1));
 		else if (SkillItr->GetName() == "Bash")
 			SkillItr->SetDamage((int)(Attack * 0.3));
 		else if (SkillItr->GetName() == "Divine Execution")

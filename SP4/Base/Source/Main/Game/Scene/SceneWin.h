@@ -23,6 +23,7 @@ protected:
 	float TimeMultiplier;
 	unsigned short StoredIterator = 0;
 	bool GameStage;
-
+	float timer;
+	std::string youwin;
 	Camera camera;
 };

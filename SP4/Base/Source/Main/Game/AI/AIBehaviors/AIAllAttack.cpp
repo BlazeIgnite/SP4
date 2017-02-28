@@ -79,6 +79,9 @@ void AIAllAttack::Execute()
 	//BattlePlanHolder->SetBattlePlan("");
 	//stateHolder->SetState("");
 
+	vector<AIBattlePlanner*>::iterator it = BattlePlanHolder.end();
+
+	BattlePlanHolder.pop_back();
 
 	if (BattlePlanHolder.size() == 0)
 	{

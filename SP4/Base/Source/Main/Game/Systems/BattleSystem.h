@@ -24,7 +24,7 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 	size_t TurnCost;
 	size_t PlayerStatus;
 	bool PlayerTurn;
-	bool PlayerWon;
+	int PlayerWon;
 public:
 	BattleSystem();
 	~BattleSystem();
@@ -42,7 +42,7 @@ public:
 	inline void SetSelectedSkill(Skill* newSelectedskill){ SelectedSkill = newSelectedskill; };
 	inline void SetDisplaySkillNum(size_t newDisplaySkillNum){ DisplaySkillNum = newDisplaySkillNum; };
 	inline void SetTurnCost(size_t newTurnCost) { TurnCost = newTurnCost; };
-	inline void SetPlayerWon(bool newPlayerWon) { PlayerWon = newPlayerWon; };
+	inline void SetPlayerWon(int newPlayerWon) { PlayerWon = newPlayerWon; };
 	 
 	 // Getters
 	size_t GetSelectedTroopPosition();
@@ -59,8 +59,8 @@ public:
 	inline Skill* GetSelectedSkill() { return SelectedSkill; };
 	inline size_t GetDisplaySkillNum(){ return DisplaySkillNum; };
 	inline size_t GetTurnCost(){ if (TurnCost <= 0) TurnCost = 0; return TurnCost; };
+	inline int GetPlayerWon(){ return PlayerWon; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
-	inline bool GetPlayerWon(){ return PlayerWon; };
 
 
 	// Switching Spots

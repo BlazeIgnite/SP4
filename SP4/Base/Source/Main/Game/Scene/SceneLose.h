@@ -6,6 +6,9 @@
 
 class SceneLose : public SceneEntity
 {
+private:
+	float timer;
+	string youlose;
 public:
 	SceneLose();
 	~SceneLose();

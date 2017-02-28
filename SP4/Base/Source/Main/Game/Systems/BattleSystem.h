@@ -63,6 +63,8 @@ public:
 	inline int GetPlayerWon(){ return PlayerWon; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
 
+	// Use this at every start of scene battles
+	void CheckTroopPositions();
 
 	// Switching Spots
 	void SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t FirstPosition, size_t SecondPosition);

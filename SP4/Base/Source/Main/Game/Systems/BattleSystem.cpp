@@ -29,11 +29,6 @@ void BattleSystem::Init()
 	if (AITroops.size() != 0)
 		AITroops.clear();
 
-	for (size_t i = 0; i < 3; i++)
-	{
-		PlayerTroops[i] = NULL;
-	}
-
 	SetTurnCost(100);
 	PlayerTurn = true;
 	PlayerWon = 0;
@@ -43,11 +38,6 @@ void BattleSystem::Init()
 void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 {
 	std::map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.find(position);
-	if ((*itr).second == NULL)
-	{
-		PlayerTroops[position] = Troop;
-		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
-	}
 	if (itr == PlayerTroops.end())
 	{
 		PlayerTroops[position] = Troop;
@@ -100,6 +90,112 @@ void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
 		if (SelectedTroop == it->second)
 			DisplaySkillNum = it->first;
 	}
+}
+
+void BattleSystem::CheckTroopPositions()
+{
+	map<size_t, CharacterEntity*>::iterator it = PlayerTroops.find(0);
+	map<size_t, CharacterEntity*>::iterator it1 = PlayerTroops.find(1);
+	map<size_t, CharacterEntity*>::iterator it2 = PlayerTroops.find(2);
+
+	if (it == PlayerTroops.end())
+	{
+		if (it1 != PlayerTroops.end())
+		{
+			CharacterEntity* temp = it1->second;
+			map<size_t, Skill*> ChangingMap = PlayerTroopSkills[1];
+			
+			PlayerTroopSkills[0] = ChangingMap;
+
+			SetPlayerTroops(0, temp);
+
+			// Bye bye
+			PlayerTroops.erase(1);
+			PlayerTroopSkills.erase(1);
+
+			if (it2 != PlayerTroops.end())
+			{
+				CharacterEntity* tempo = it2->second;
+				map<size_t, Skill*> ChangingMap2 = PlayerTroopSkills[2];
+
+				PlayerTroopSkills[1] = ChangingMap2;
+
+				SetPlayerTroops(1, tempo);
+
+				// Bye Bye
+				PlayerTroops.erase(2);
+				PlayerTroopSkills.erase(2);
+			}
+			return;
+		}
+		if (it2 != PlayerTroops.end())
+		{
+			CharacterEntity* tempo = it2->second;
+			map<size_t, Skill*> ChangingMap2 = PlayerTroopSkills[2];
+
+			PlayerTroopSkills[0] = ChangingMap2;
+
+			SetPlayerTroops(0, tempo);
+
+			// Bye Bye
+			PlayerTroops.erase(2);
+			PlayerTroopSkills.erase(2);
+		}
+	}
+	else
+	{
+		if (it2 != PlayerTroops.end())
+		{
+			CharacterEntity* temp = it2->second;
+			map<size_t, Skill*> ChangingMap2 = PlayerTroopSkills[2];
+
+			PlayerTroopSkills[1] = ChangingMap2;
+
+			SetPlayerTroops(1, temp);
+			
+			// Bye Bye
+			PlayerTroops.erase(2);
+			PlayerTroopSkills.erase(2);
+		}
+	}
+	//if (PlayerTroops[0] == nullptr)
+	//{
+	//	if (PlayerTroops[1] != nullptr)
+	//	{
+	//		//	MoveTroopFrontByOne(PlayerTroops);
+	//		CharacterEntity* temp = PlayerTroops[1];
+	//		SetPlayerTroops(0, temp);
+	//		PlayerTroops[1]->SetPosition(Vector3(0, 0, 0));
+	//		PlayerTroops[1] = NULL;
+	//		if (PlayerTroops[2] != nullptr)
+	//		{
+	//			CharacterEntity* temp2 = PlayerTroops[2];
+	//			SetPlayerTroops(1, temp2);
+	//			PlayerTroops[2]->SetPosition(Vector3(0, 0, 0));
+	//			PlayerTroops[2] = NULL;
+	//		}
+	//	}
+	//	else //if (PlayerTroops[2] != nullptr)
+	//	{
+	//		//	MoveTroopFrontByTwo(PlayerTroops);
+	//		CharacterEntity* temp = PlayerTroops[2];
+	//		SetPlayerTroops(1, temp);
+	//		PlayerTroops[2]->SetPosition(Vector3(0, 0, 0));
+	//		PlayerTroops[2] = NULL;
+	//	}
+	//	return;
+	//}
+	//else //if (PlayerTroops[1] == nullptr)
+	//{
+	//	if (PlayerTroops[2] != nullptr)
+	//	{
+	//		//	MoveTroopFrontByOne(PlayerTroops);
+	//		CharacterEntity* temp = PlayerTroops[2];
+	//		SetPlayerTroops(1, temp);
+	//		PlayerTroops[2]->SetPosition(Vector3(0, 0, 0));
+	//		PlayerTroops[2] = NULL;
+	//	}
+	//}
 }
 
 size_t BattleSystem::GetSelectedTroopPosition()

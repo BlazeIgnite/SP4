@@ -73,6 +73,8 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(1, mage2);
 	BattleSystem::Instance().SetAITroops(2, Synergist2);
 
+	BattleSystem::Instance().CheckTroopPositions();
+
 	AI = new AIAllAttack();
 	//BattleSystem::Instance().Debugging();
 
@@ -82,9 +84,12 @@ void SceneBattles::Init()
 	for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 	{
 		CharacterEntity* entity2 = (CharacterEntity*)itr2->second;
-		if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
-			entity2->SetScale(tempscale);
-		entity2->SetisSelected(false);
+		if (entity2 != NULL)
+		{
+			if (entity2->GetName() == "Warrior" || entity2->GetName() == "Mage" || entity2->GetName() == "Synergist")
+				entity2->SetScale(tempscale);
+			entity2->SetisSelected(false);
+		}
 	}
 	timer = 0;
 	textPos = 0;
@@ -892,107 +897,111 @@ void SceneBattles::Render()
 	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 	{
 		CharacterEntity* entity = (CharacterEntity*)itr->second;
-		float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
-		modelStack->PushMatrix();
-		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 9);
-		modelStack->Scale(entity->GetScale().x, entity->GetScale().y, 1);
-		if (!entity->GetDefeated())
+		if (entity != NULL)
 		{
-			if (entity->GetName() == "Warrior")
+			float entityhealth = (float)entity->GetHealth() / (float)entity->GetMaxHealth();
+			modelStack->PushMatrix();
+			modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 9);
+			modelStack->Scale(entity->GetScale().x, entity->GetScale().y, 1);
+			if (!entity->GetDefeated())
 			{
-				if (BattleSystem::Instance().GetSelectedTroop() == entity)
+				if (entity->GetName() == "Warrior")
 				{
-					Renderer->RenderMesh("PlayerWarriorAttackMesh",false);
+					if (BattleSystem::Instance().GetSelectedTroop() == entity)
+					{
+						Renderer->RenderMesh("PlayerWarriorAttackMesh", false);
+					}
+					else if (entityhealth <= 0.3f)
+					{
+						Renderer->RenderMesh("PlayerWarriorDying", false);
+					}
+					else
+					{
+						Renderer->RenderMesh("PlayerWarriorMesh", false);
+					}
 				}
-				else if (entityhealth <= 0.3f)
+				if (entity->GetName() == "Mage")
 				{
-					Renderer->RenderMesh("PlayerWarriorDying", false);
+					if (BattleSystem::Instance().GetSelectedTroop() == entity)
+					{
+						Renderer->RenderMesh("PlayerMageAttack", false);
+					}
+					else if (entityhealth <= 0.3f)
+					{
+						Renderer->RenderMesh("PlayerMageDying", false);
+					}
+					else
+					{
+						Renderer->RenderMesh("PlayerMageMesh", false);
+					}
 				}
-				else
+				if (entity->GetName() == "Synergist")
 				{
-					Renderer->RenderMesh("PlayerWarriorMesh", false);
+					if (BattleSystem::Instance().GetSelectedTroop() == entity)
+					{
+						Renderer->RenderMesh("PlayerSynergistAttack", false);
+					}
+					else if (entityhealth <= 0.3f)
+					{
+						Renderer->RenderMesh("PlayerSynergistDying", false);
+					}
+					else
+					{
+						Renderer->RenderMesh("PlayerSynergistMesh", false);
+					}
 				}
 			}
-			if (entity->GetName() == "Mage")
+			else
 			{
-				if (BattleSystem::Instance().GetSelectedTroop() == entity)
+				if (entity->GetName() == "Warrior")
 				{
-					Renderer->RenderMesh("PlayerMageAttack", false);
+					Renderer->RenderMesh("PlayerWarriorDead", false);
 				}
-				else if (entityhealth <= 0.3f)
+				if (entity->GetName() == "Mage")
 				{
-					Renderer->RenderMesh("PlayerMageDying", false);
+					Renderer->RenderMesh("PlayerMageDead", false);
 				}
-				else
+				if (entity->GetName() == "Synergist")
 				{
-					Renderer->RenderMesh("PlayerMageMesh", false);
+					Renderer->RenderMesh("PlayerSynergistDead", false);
 				}
 			}
-			if (entity->GetName() == "Synergist")
+
+			if (entity->GetStunned() == true)
 			{
-				if (BattleSystem::Instance().GetSelectedTroop() == entity)
-				{
-					Renderer->RenderMesh("PlayerSynergistAttack", false);
-				}
-				else if (entityhealth <= 0.3f)
-				{
-					Renderer->RenderMesh("PlayerSynergistDying", false);
-				}
-				else
-				{
-					Renderer->RenderMesh("PlayerSynergistMesh", false);
-				}
+				modelStack->PushMatrix();
+				modelStack->Translate(-entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+				modelStack->Scale(.2f, 0.2f, 1.f);
+				Renderer->RenderMesh("StunIcon", false);
+				modelStack->PopMatrix();
 			}
-		}
-		else
-		{
-			if (entity->GetName() == "Warrior")
+			if (entity->GetBleeding() == true)
 			{
-				Renderer->RenderMesh("PlayerWarriorDead", false);
+				modelStack->PushMatrix();
+				modelStack->Translate(-entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+				modelStack->Scale(.2f, 0.2f, 1.f);
+				Renderer->RenderMesh("BleedIcon", false);
+				modelStack->PopMatrix();
 			}
-			if (entity->GetName() == "Mage")
+			if (entity->GetDebuffed() == true)
 			{
-				Renderer->RenderMesh("PlayerMageDead", false);
+				modelStack->PushMatrix();
+				modelStack->Translate(entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+				modelStack->Scale(.2f, 0.2f, 1.f);
+				Renderer->RenderMesh("DebuffIcon", false);
+				modelStack->PopMatrix();
 			}
-			if (entity->GetName() == "Synergist")
+			if (entity->GetBuffed() == true)
 			{
-				Renderer->RenderMesh("PlayerSynergistDead", false);
+				modelStack->PushMatrix();
+				modelStack->Translate(entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+				modelStack->Scale(.2f, 0.2f, 1.f);
+				Renderer->RenderMesh("BuffIcon", false);
+				modelStack->PopMatrix();
 			}
+			modelStack->PopMatrix();
 		}
 		
-		if (entity->GetStunned() == true)
-		{
-			modelStack->PushMatrix();
-			modelStack->Translate(-entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
-			modelStack->Scale(.2f, 0.2f, 1.f);
-			Renderer->RenderMesh("StunIcon", false);
-			modelStack->PopMatrix();
-		}
-		if (entity->GetBleeding() == true)
-		{
-			modelStack->PushMatrix();
-			modelStack->Translate(-entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
-			modelStack->Scale(.2f, 0.2f, 1.f);
-			Renderer->RenderMesh("BleedIcon", false);
-			modelStack->PopMatrix();
-		}
-		if (entity->GetDebuffed() == true)
-		{
-			modelStack->PushMatrix();
-			modelStack->Translate(entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
-			modelStack->Scale(.2f, 0.2f, 1.f);
-			Renderer->RenderMesh("DebuffIcon", false);
-			modelStack->PopMatrix();
-		}
-		if (entity->GetBuffed() == true)
-		{
-			modelStack->PushMatrix();
-			modelStack->Translate(entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
-			modelStack->Scale(.2f, 0.2f, 1.f);
-			Renderer->RenderMesh("BuffIcon", false);
-			modelStack->PopMatrix();
-		}
-		modelStack->PopMatrix();
 	}
 
 	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetAITroops().begin(); itr != BattleSystem::Instance().GetAITroops().end(); itr++)

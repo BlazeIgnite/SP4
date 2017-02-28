@@ -1,13 +1,11 @@
 d:\studio projects\sp4\sp4\base\debug\vc120.pdb
 d:\studio projects\sp4\sp4\base\debug\vc120.idb
 d:\studio projects\sp4\sp4\base\debug\projection.obj
-d:\studio projects\sp4\sp4\base\debug\warrior.obj
 d:\studio projects\sp4\sp4\base\debug\mainmenu.obj
 d:\studio projects\sp4\sp4\base\debug\scenebattles.obj
 d:\studio projects\sp4\sp4\base\debug\scenecharacterselection.obj
 d:\studio projects\sp4\sp4\base\debug\scenelevelselection.obj
 d:\studio projects\sp4\sp4\base\debug\scenelose.obj
-d:\studio projects\sp4\sp4\base\debug\scenewin.obj
 d:\studio projects\sp4\sp4\base\debug\scenetutorial.obj
 d:\studio projects\sp4\sp4\base\debug\splashscreen.obj
 d:\studio projects\sp4\sp4\base\debug\town.obj
@@ -20,7 +18,6 @@ d:\studio projects\sp4\sp4\base\debug\main.obj
 d:\studio projects\sp4\sp4\base\debug\meshbuilder.obj
 d:\studio projects\sp4\sp4\base\debug\scene_assignment1.obj
 d:\studio projects\sp4\sp4\base\debug\scenebase.obj
-d:\studio projects\sp4\sp4\base\debug\aiallattack.obj
 d:\studio projects\sp4\sp4\base\debug\aibase.obj
 d:\studio projects\sp4\sp4\base\debug\aibuffdebuff.obj
 d:\studio projects\sp4\sp4\base\debug\aicombined.obj
@@ -50,6 +47,9 @@ d:\studio projects\sp4\sp4\base\debug\aibattleplanner.obj
 d:\studio projects\sp4\sp4\base\debug\aitutorial.obj
 d:\studio projects\sp4\sp4\base\debug\button.obj
 d:\studio projects\sp4\sp4\base\debug\description.obj
+d:\studio projects\sp4\sp4\base\debug\scenewin.obj
+d:\studio projects\sp4\sp4\base\debug\aiallattack.obj
+d:\studio projects\sp4\sp4\base\debug\warrior.obj
 d:\studio projects\sp4\sp4\debug\base.exe
 d:\studio projects\sp4\sp4\debug\base.pdb
 d:\studio projects\sp4\sp4\base\debug\base.tlog\cl.command.1.tlog

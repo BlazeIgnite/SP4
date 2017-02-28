@@ -158,9 +158,17 @@ void SceneCharacterSelection::Update(float dt)
 			ClickingOtherButtons = true;
 		if (it->GetisSelected() && it->CurrentState == CLICK)
 		{
-			SelectedSkill = -1;
-			SelectedSkills.clear();
-			SelectedSkills = std::vector<int>();
+//<<<<<<< HEAD
+//			SelectedSkill = -1;
+//			SelectedSkills.clear();
+//			SelectedSkills = std::vector<int>();
+//=======
+			if (SelectedCharacter != CharacterCount)
+			{
+				SelectedSkill = -1;
+				SelectedSkills.clear();
+				SelectedSkills = std::vector<int>();
+			}
 			SelectedCharacter = CharacterCount;
 			SelectChar = true;
 		}
@@ -305,13 +313,7 @@ void SceneCharacterSelection::Update(float dt)
 							BattleSystem::Instance().SetPlayerTroopSkills(Position, it3 + 1);
 					}
 				}
-
-
-				//BattleSystem::Instance().Init();
-				//BattleSystem::Instance().SetPlayerTroops(0, );
-				//BattleSystem::Instance().SetPlayerTroops(1, mage);
-				//BattleSystem::Instance().SetPlayerTroops(2, synergist);
-				SceneSystem::Instance().SwitchScene("Battle_Scene");
+				SceneSystem::Instance().SwitchScene("LevelSelection_Scene");
 			}
 	}
 }

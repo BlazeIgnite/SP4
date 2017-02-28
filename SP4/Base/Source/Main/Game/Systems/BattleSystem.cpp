@@ -145,11 +145,17 @@ CharacterEntity* BattleSystem::GetPlayerTroopAttacking(size_t position)
 	return PlayerTroops.at(position);
 }
 
+//Skill* BattleSystem::GetSelectedSkill(size_t position)
+//{
+//	if (position >= PlayerTroopSkills.size())
+//		return NULL;
+//	return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);
+//}
 Skill* BattleSystem::GetSelectedSkill(size_t position)
 {
-	if (position >= PlayerTroopSkills.size())
+	if (position >= PlayerTroopSkills.at(GetSelectedTroopPosition()).size())
 		return NULL;
- 	return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);
+	return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);
 }
 
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
@@ -345,7 +351,6 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 		TurnCost -= AttackerSkill->GetActionCost();
 		if (targettroop->GetHealth() == 0)
 			targettroop->SetDefeated(true);
-
 		return damage;
 	}
 	return 0;

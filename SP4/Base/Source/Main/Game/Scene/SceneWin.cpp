@@ -11,7 +11,7 @@
 
 SceneWin::SceneWin()
 {
-
+	timer = 0;
 }
 
 SceneWin::~SceneWin()
@@ -23,13 +23,22 @@ void SceneWin::Init()
 {
 	this->SetEntityID("Win_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	youwin = "You Win!";
 
 }
 
 void SceneWin::Update(float dt)
 {
-	if (InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
+	//if (InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
+	//	SceneSystem::Instance().SwitchScene("Town_Scene");
+
+	timer += dt;
+
+	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && timer > 5.f)
+	{
 		SceneSystem::Instance().SwitchScene("Town_Scene");
+	}
+		
 }
 
 void SceneWin::Render()
@@ -53,10 +62,16 @@ void SceneWin::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack->LoadIdentity();
 
-	modelStack->PushMatrix();
+	/*modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
 	modelStack->Scale(10, 10, 1);
 	Renderer->RenderMesh("RedPotion", false);
+	modelStack->PopMatrix();*/
+
+	modelStack->PushMatrix();
+	modelStack->Translate((ObjectManager::Instance().WorldWidth * 0.5f) - (youwin.size() * 4.3f), ObjectManager::Instance().WorldHeight * 0.8f, -5.f);
+	modelStack->Scale(15, 15, 1);
+	Renderer->RenderText("text", youwin, Color(1, 0, 0));
 	modelStack->PopMatrix();
 }
 

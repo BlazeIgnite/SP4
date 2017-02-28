@@ -41,7 +41,6 @@ void AIAllAttack::Planning()
 			{
 				if (BattleSystem::Instance().CanActivateSkill(it.second, tempTarget, it.second->GetSkillInVector("Basic Attack")))
 				{
-					if ()
 					AIBattlePlanner* temp = new AIBattlePlanner();
 					temp->SetSkill(it.second->GetSkillInVector("Basic Attack"));
 					temp->SetAttacker(it.first);

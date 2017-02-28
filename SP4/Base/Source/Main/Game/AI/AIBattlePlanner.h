@@ -23,8 +23,6 @@ public:
 	Skill* GetSkill();
 	size_t GetAttacker();
 	size_t GetTarget();
-
-	void ResetBattlePlan();
 };
 
 #endif

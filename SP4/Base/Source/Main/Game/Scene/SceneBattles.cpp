@@ -525,12 +525,12 @@ void SceneBattles::Render()
 		{
 			if (BattleSystem::Instance().GetSelectedTroop()->GetName() == "Warrior")
 			{
-				if (BattleSystem::Instance().GetSelectedSkill(0) && obj->type == "Default Attack")
+				if (obj->type == "Default Attack" && BattleSystem::Instance().GetSelectedSkill(0))
 				{
 					if (BattleSystem::Instance().GetSelectedSkill(0)->GetName() == "Basic Attack")
 						Renderer->RenderMesh("DefaultAttack", false);
 				}
-				if (BattleSystem::Instance().GetSelectedSkill(1) && obj->type == "Skill 1")
+				if (obj->type == "Skill 1" && BattleSystem::Instance().GetSelectedSkill(1))
 				{
 					if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Stab")
 						Renderer->RenderMesh("Stab", false);
@@ -541,7 +541,7 @@ void SceneBattles::Render()
 					else if (BattleSystem::Instance().GetSelectedSkill(1)->GetName() == "Divine Execution")
 						Renderer->RenderMesh("Taunt", false);
 				}
-				if (BattleSystem::Instance().GetSelectedSkill(2) && obj->type == "Skill 2")
+				if (obj->type == "Skill 2" && BattleSystem::Instance().GetSelectedSkill(2))
 				{
 					if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Stab")
 						Renderer->RenderMesh("Stab", false);
@@ -552,7 +552,7 @@ void SceneBattles::Render()
 					else if (BattleSystem::Instance().GetSelectedSkill(2)->GetName() == "Divine Execution")
 						Renderer->RenderMesh("Taunt", false);
 				}
-				if (BattleSystem::Instance().GetSelectedSkill(3) && obj->type == "Skill 3")
+				if (obj->type == "Skill 3" && BattleSystem::Instance().GetSelectedSkill(3))
 				{
 					if (BattleSystem::Instance().GetSelectedSkill(3)->GetName() == "Stab")
 						Renderer->RenderMesh("Stab", false);

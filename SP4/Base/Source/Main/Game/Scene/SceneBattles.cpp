@@ -773,51 +773,62 @@ void SceneBattles::Render()
 		modelStack->PushMatrix();
 		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 9);
 		modelStack->Scale(entity->GetScale().x, entity->GetScale().y, 1);
-		if (entity->GetName() == "Warrior")
+		if (!entity->GetDefeated())
 		{
-			if (entity->GetDefeated())
+			if (entity->GetName() == "Warrior")
+			{
+				if (BattleSystem::Instance().GetSelectedTroop() == entity)
+				{
+					Renderer->RenderMesh("PlayerWarriorAttackMesh",false);
+				}
+				if (entityhealth <= 0.3f)
+				{
+					Renderer->RenderMesh("PlayerWarriorDying", false);
+				}
+				else
+				{
+					Renderer->RenderMesh("PlayerWarriorMesh", false);
+				}
+			}
+			if (entity->GetName() == "Mage")
+			{
+				if (entityhealth <= 0.3f)
+				{
+					Renderer->RenderMesh("PlayerMageDying", false);
+				}
+				else
+				{
+					Renderer->RenderMesh("PlayerMageMesh", false);
+				}
+			}
+			if (entity->GetName() == "Synergist")
+			{
+				if (entityhealth <= 0.3f)
+				{
+					Renderer->RenderMesh("PlayerSynergistDying", false);
+				}
+				else
+				{
+					Renderer->RenderMesh("PlayerSynergistMesh", false);
+				}
+			}
+		}
+		else
+		{
+			if (entity->GetName() == "Warrior")
 			{
 				Renderer->RenderMesh("PlayerWarriorDead", false);
 			}
-			else if (entityhealth <= 0.3f)
-			{
-				Renderer->RenderMesh("PlayerWarriorDying",false);
-			}
-			else
-			{
-				Renderer->RenderMesh("PlayerWarriorMesh", false);
-			}
-		}
-		if (entity->GetName() == "Mage")
-		{
-			if (entity->GetDefeated())
+			if (entity->GetName() == "Mage")
 			{
 				Renderer->RenderMesh("PlayerMageDead", false);
 			}
-			else if (entityhealth <= 0.3f)
-			{
-				Renderer->RenderMesh("PlayerMageDying", false);
-			}
-			else
-			{
-				Renderer->RenderMesh("PlayerMageMesh", false);
-			}
-		}
-		if (entity->GetName() == "Synergist")
-		{
-			if (entity->GetDefeated())
+			if (entity->GetName() == "Synergist")
 			{
 				Renderer->RenderMesh("PlayerSynergistDead", false);
 			}
-			else if (entityhealth <= 0.3f)
-			{
-				Renderer->RenderMesh("PlayerSynergistDying", false);
-			}
-			else
-			{
-				Renderer->RenderMesh("PlayerSynergistMesh", false);
-			}
 		}
+		
 		if (entity->GetStunned() == true)
 		{
 			modelStack->PushMatrix();
@@ -861,69 +872,76 @@ void SceneBattles::Render()
 		modelStack->PushMatrix();
 		modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y, 10);
 		modelStack->Scale(entity->GetScale().x , entity->GetScale().y , 1);
-		if (entity->GetName() == "Warrior")
+		if (!entity->GetDefeated())
 		{
-			if (BattleSystem::Instance().GetPlayerTurn() == false)
+			if (entity->GetName() == "Warrior")
 			{
-				Sleep(300); //Now Left to check when a Skill is used, will add into the condition
-				Renderer->RenderMesh("WarriorAttackMesh", false);
-				
+				if (BattleSystem::Instance().GetPlayerTurn() == false)
+				{
+					Sleep(300); //Now Left to check when a Skill is used, will add into the condition
+					Renderer->RenderMesh("WarriorAttackMesh", false);
+
+				}
+				else if (entityhealth <= 0.3f)
+				{
+					Renderer->RenderMesh("WarriorDying", false);
+				}
+				else
+				{
+					Renderer->RenderMesh("WarriorMesh", false);
+				}
 			}
-			else if (entity->GetDefeated())
+			if (entity->GetName() == "Mage")
+			{
+				if (BattleSystem::Instance().GetPlayerTurn() == false)
+				{
+					Sleep(300);
+					Renderer->RenderMesh("MageAttack", false);
+
+				}
+				else if (entityhealth <= 0.3f)
+				{
+					Renderer->RenderMesh("MageDying", false);
+				}
+				else
+				{
+					Renderer->RenderMesh("MageMesh", false);
+				}
+			}
+			if (entity->GetName() == "Synergist")
+			{
+				if (BattleSystem::Instance().GetPlayerTurn() == false)
+				{
+					Sleep(300);
+					Renderer->RenderMesh("SynergistAttack", false);
+
+				}
+				else if (entityhealth <= 0.3f)
+				{
+					Renderer->RenderMesh("SynergistDying", false);
+				}
+				else
+				{
+					Renderer->RenderMesh("SynergistMesh", false);
+				}
+			}
+		}
+		else
+		{
+			if (entity->GetName() == "Warrior")
 			{
 				Renderer->RenderMesh("WarriorDead", false);
 			}
-			else if (entityhealth <= 0.3f)
-			{
-				Renderer->RenderMesh("WarriorDying", false);
-			}
-			else
-			{
-				Renderer->RenderMesh("WarriorMesh", false);
-			}
-		}
-		if (entity->GetName() == "Mage")
-		{
-			if (BattleSystem::Instance().GetPlayerTurn() == false)
-			{
-				Sleep(300);
-				Renderer->RenderMesh("MageAttack", false);
-
-			}
-			else if (entity->GetDefeated())
+			if (entity->GetName() == "Mage")
 			{
 				Renderer->RenderMesh("MageDead", false);
 			}
-			else if (entityhealth <= 0.3f)
-			{
-				Renderer->RenderMesh("MageDying", false);
-			}
-			else
-			{
-				Renderer->RenderMesh("MageMesh", false);
-			}
-		}
-		if (entity->GetName() == "Synergist")
-		{
-			if (BattleSystem::Instance().GetPlayerTurn() == false)
-			{
-				Sleep(300);
-				Renderer->RenderMesh("SynergistAttack", false);
-
-			}
-			else if (entity->GetDefeated())
+			if (entity->GetName() == "Synergist")
 			{
 				Renderer->RenderMesh("SynergistDead", false);
 			}
-			else if (entityhealth <= 0.3f)
-			{
-				Renderer->RenderMesh("SynergistDying", false);
-			}
-			else
-			{
-				Renderer->RenderMesh("SynergistMesh", false);
-			}
 		}
+		
 		if (entity->GetStunned() == true)
 		{
 			modelStack->PushMatrix();
@@ -987,13 +1005,7 @@ void SceneBattles::HandleUserInput()
 	static bool DButtonState = false;
 	if (!DButtonState && Application::IsKeyPressed('D'))
 	{
-		BattleSystem::Instance().GetPlayerTroops().at(1)->SetStunned(true);
-		BattleSystem::Instance().GetPlayerTroops().at(1)->SetStunTimer(1);
-		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleeding(true);
-		BattleSystem::Instance().GetPlayerTroops().at(1)->SetBleedTimer(1);
-		BattleSystem::Instance().GetPlayerTroops().at(1)->SetDebuffed(true);
-		AudioPlayer::Instance().PlayDebuffEffect();
-		BattleSystem::Instance().GetPlayerTroops().at(1)->SetDebuffTimer(1);
+		
 		DButtonState = true;
 	}
 	else if (DButtonState && !Application::IsKeyPressed('D'))
@@ -1035,7 +1047,7 @@ void SceneBattles::HandleUserInput()
 	static bool EButtonState = false;
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		BattleSystem::Instance().SetPlayerTurn(false);
+		
 		EButtonState = true;
 	}
 	else if (EButtonState && !Application::IsKeyPressed('E'))

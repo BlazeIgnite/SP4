@@ -16,9 +16,16 @@ private:
 	Button* Left;
 	Button* Right;
 	std::string ClassNameText;
-	std::vector<Button*> ButtonList;
-	int SelectedSkill[3];
+	std::vector<Button*> CharacterButtonList;
+	std::vector<Button*> SkillButtonList;
+	std::vector<Button*> CharacterClassList;
+	std::vector<Button*> FinalChoiceList;
+	std::vector<Button*> ChangeSceneList;
+	std::map<Button*, std::vector<int>> CharacterSelectedSkill;
+	std::vector<int> SelectedSkills;
+	int SelectedSkill;
 	float MaxSkillSelectedTimer;
+	bool ClickingOtherButtons;
 
 public:
 	SceneCharacterSelection();
@@ -33,11 +40,11 @@ public:
 
 	void RenderPlayerCharacterList();
 	void RenderSelectedCharacterInfo();
-	void RenderCharacterList();
 	void RenderCharacterInfo();
 	void RenderSelectedCharacters();
+	void RenderSkillInfo();
+	void RenderFinalChoiceInfo();
 	
-
 protected:
 
 	Camera camera;

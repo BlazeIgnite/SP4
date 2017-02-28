@@ -15,7 +15,17 @@ AIBase::~AIBase()
 void AIBase::Init()
 {
 	stateHolder = new AIStateManager();
-	BattlePlanHolder = new AIBattlePlanner();
+	m_AITurnCostHolder = 0;
+}
+
+bool AIBase::Calculate(Skill* skillUsed)
+{
+	int turncost;
+	turncost = m_AITurnCostHolder - skillUsed->GetActionCost();
+	if (turncost < 0)
+		return false;
+	else
+		return true;
 }
 
 void AIBase::Exit()
@@ -25,9 +35,10 @@ void AIBase::Exit()
 		delete stateHolder;
 		stateHolder = nullptr;
 	}
-	if (BattlePlanHolder != nullptr)
+	for (vector<AIBattlePlanner*>::iterator it = BattlePlanHolder.end(); it != BattlePlanHolder.begin();  it--)
 	{
-		delete BattlePlanHolder;
-		BattlePlanHolder = nullptr;
+		if ((*it) != nullptr)
+			delete *it;
+		BattlePlanHolder.pop_back();
 	}
 }

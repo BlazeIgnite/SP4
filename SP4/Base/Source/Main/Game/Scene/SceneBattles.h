@@ -17,20 +17,24 @@ class SceneBattles : public SceneEntity
 private:
 	Vector3 tempscale;
 	Vector3 tempscale1;
-
 	BattleButton* button;
 	CharacterEntity* character;
 	AIBase* AI = nullptr;
+	double x, y;
 
 	string damage;
+
+	float ActionMeter;
+	float textPos;
+	float timer;
 
 	void RenderObjects(BaseObject *obj);
 	void tempRenderObjects();
 	void UpdateCharacterLogic(double dt);
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
-
-	double x, y;
+	
+	bool renderDamage;
 public:
 	SceneBattles();
 	~SceneBattles();

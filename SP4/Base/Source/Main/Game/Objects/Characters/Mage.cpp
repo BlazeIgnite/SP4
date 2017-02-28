@@ -6,6 +6,7 @@ using std::endl;
 size_t MageHealth[] = { 0, 15, 100, 20, 24, 28, 30, 31, 33, 35, 37, 42, 47, 55, 60, 65, 71, 80, 81, 82, 85 };
 size_t MageAttack[] = { 0, 15, 17, 19, 21, 25, 29, 34, 37, 40, 44, 50, 56, 64, 66, 70, 75, 80, 83, 84, 89 }; 
 float MageDefence[] = { 0.f, 1.0f, 1.4f, 1.8f, 2.2f, 2.6f, 3.0f, 4.f, 4.4f, 4.8f, 5.2f, 5.6f, 6.0f, 7.0f, 7.6f, 8.2f, 8.8f, 9.4f, 10.f, 10.f, 10.f };
+size_t ExperienceNeed[] = {0, 0, 10, 30, 55, 70, 100, 130, 165, 200, 240, 285, 325, 370, 420, 475, 530, 590, 650, 720};
 
 
 Mage::Mage()
@@ -32,15 +33,24 @@ void Mage::Init(int Level)
 	SetisSelected(false);
 	for (int i = 0; i < Level; i++)
 	{
-		LevelUp();
+		LevelUp(true);
 	}
 
 }
 
-void Mage::LevelUp()
+void Mage::LevelUp(bool init)
 {
-	Level++;
+	if (init)
+		Level++;
+	else
+	{
+		if (ExperiencePoints > ExperienceNeed[Level + 1])
+			Level++;
+		else
+			return;
+	}
 
+	ExperiencePoints = ExperienceNeed[Level];
 	SetHealth(MageHealth[Level]);
 	SetMaxHealth(MageHealth[Level]);
 	SetAttack(MageAttack[Level]);

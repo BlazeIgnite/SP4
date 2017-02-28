@@ -2,23 +2,29 @@
 #define AI_BATTLEPLANNER_H
 
 #include <string>
+#include "../Objects/Characters/Skill.h"
 
 using std::string;
 
 class AIBattlePlanner
 {
-	string BattlePlan;
+	Skill* m_SkillUsed;
+	size_t m_Attacker;
+	size_t m_Target;
 
 public:
 	AIBattlePlanner();
 	~AIBattlePlanner();
 
-	void SetBattlePlan(string newBattlePlan);
-	string GetBattlePlan();
+	void SetSkill(Skill* skill);
+	void SetAttacker(size_t attacker);
+	void SetTarget(size_t target);
 
-	bool GetBattlePlan(string Battleplan);
+	Skill* GetSkill();
+	size_t GetAttacker();
+	size_t GetTarget();
 
-	void UseBattlePlan();
+	void ResetBattlePlan();
 };
 
 #endif

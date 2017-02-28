@@ -38,11 +38,12 @@ void Button::Init(Vector3 Position, Vector3 Scale, std::string type)
 	isTarget = false;
 
 	CurrentState = UNTOUCHED;
+	CurrentStateR = UNTOUCHED;
 }
 
 void Button::Update()
 {
-	if ((InputManager::Instance().GetMouseState(MOUSE_L) == CLICK || InputManager::Instance().GetMouseState(MOUSE_L) == HOLD))
+	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK || InputManager::Instance().GetMouseState(MOUSE_L) == HOLD)
 	{
 		if (isitHover())
 		{
@@ -68,61 +69,31 @@ void Button::Update()
 		else if (CurrentState == RELEASE)
 			CurrentState = UNTOUCHED;
 	}
-}
-
-
-void Button::UpdateMainMenu(float dt)
-{
-	Application::GetCursorPos(&x, &y);
-	isitHover();
-
-	if (type == "NewGame" && isitHover())
+	if (InputManager::Instance().GetMouseState(MOUSE_R) == CLICK || InputManager::Instance().GetMouseState(MOUSE_R) == HOLD)
 	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+		if (isitHover())
 		{
-			//SceneSystem::Instance().SwitchScene("Town_Scene");
+			isSelected = false;
+			if (CurrentStateR == UNTOUCHED || CurrentStateR == RELEASE)
+				CurrentStateR = CLICK;
+			else if (CurrentStateR == CLICK)
+				CurrentStateR = HOLD;
+		}
+		else
+		{
+			if (CurrentStateR == CLICK || CurrentStateR == HOLD)
+				CurrentStateR = RELEASE;
+			else if (CurrentStateR == RELEASE)
+				CurrentStateR = UNTOUCHED;
 		}
 	}
-	else if (type == "LoadGame" && isitHover())
+	else
 	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
+		if (CurrentStateR == CLICK || CurrentStateR == HOLD)
+			CurrentStateR = RELEASE;
+		else if (CurrentStateR == RELEASE)
+			CurrentStateR = UNTOUCHED;
 	}
-	else if (type == "Setting" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-	else if (type == "ExitGame" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-			
-		}
-	}
-	else if (type == "File1" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		}
-	}
-	else if (type == "File2" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-
-		}
-	}
-	else if (type == "File3" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-
-		}
-	}
-	
 }
 
 void Button::UpdateBattleScene(float dt)
@@ -257,114 +228,6 @@ void Button::UpdateCrafting(float dt)
 {
 	Application::GetCursorPos(&x, &y);
 	isitHover();
-
-	if (type == "Red Potion" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-			if ((Player::Instance().GetMaterialList().find("Red Herb")->second > 1) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
-			{
-				Player::Instance().AddMaterialItem("Red Herb", -2);
-				Player::Instance().AddMaterialItem("Empty Bottle", -1);
-				Player::Instance().AddConsumableItem("Red Potion", 1);
-				std::cout << "Red Potion Crafted" << std::endl;
-				isPressed = true;
-			}
-			else
-			{
-				std::cout << "Not Enough Materials" << std::endl;
-				isPressed = true;
-			}
-		}
-	}
-
-	/*if (type == "Blue Potion" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-			if (!isPressed)
-			{
-				if ((Player::Instance().GetMaterialList().find("Blue Herb")->second > 1) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
-				{
-					Player::Instance().AddMaterialItem("Blue Herb", -2);
-					Player::Instance().AddMaterialItem("Empty Bottle", -1);
-					Player::Instance().AddConsumableItem("Blue Potion", 1);
-					std::cout << "Blue Potion Crafted" << std::endl;
-					isPressed = true;
-				}
-				else
-				{
-					std::cout << "Not Enough Materials" << std::endl;
-					isPressed = true;
-				}
-			}
-		}
-		else
-		{
-			isPressed = false;
-		}
-	}*/
-
-	if (type == "Attack Potion" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-				if ((Player::Instance().GetMaterialList().find("White Herb")->second > 0) && (Player::Instance().GetMaterialList().find("Red Herb")->second > 2) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
-				{
-					Player::Instance().AddMaterialItem("White Herb", -1);
-					Player::Instance().AddMaterialItem("Red Herb", -3);
-					Player::Instance().AddMaterialItem("Empty Bottle", -1);
-					Player::Instance().AddConsumableItem("Attack Potion", 1);
-					std::cout << "Attack Potion Crafted" << std::endl;
-				}
-				else
-				{
-					std::cout << "Not Enough Materials" << std::endl;
-				}
-		}
-	}
-
-	if (type == "Defence Potion" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-				if ((Player::Instance().GetMaterialList().find("White Herb")->second > 0) && (Player::Instance().GetMaterialList().find("Blue Herb")->second > 2) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
-				{
-					Player::Instance().AddMaterialItem("White Herb", -1);
-					Player::Instance().AddMaterialItem("Blue Herb", -3);
-					Player::Instance().AddMaterialItem("Empty Bottle", -1);
-					Player::Instance().AddConsumableItem("Defence Potion", 1);
-					std::cout << "Defence Potion Crafted" << std::endl;
-					isPressed = true;
-				}
-				else
-				{
-					std::cout << "Not Enough Materials" << std::endl;
-					isPressed = true;
-				}
-		}
-	}
-
-	if (type == "Bandage" && isitHover())
-	{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-				if (Player::Instance().GetMaterialList().find("Cloth")->second > 2)
-				{
-					Player::Instance().AddMaterialItem("Cloth", -3);
-					Player::Instance().AddConsumableItem("Bandage", 1);
-					std::cout << "Bandage Crafted" << std::endl;
-					isPressed = true;
-				}
-				else
-				{
-					std::cout << "Not Enough Materials" << std::endl;
-					isPressed = true;
-				}
-		}
-	}
-	
-	//Crafting Page
 }
 
 bool Button::isitHover()

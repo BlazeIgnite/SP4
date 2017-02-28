@@ -12,8 +12,12 @@ class AIBase
 {
 protected:
 	// The troops that the AI will have 
+	vector<AIBattlePlanner*> BattlePlanHolder;
 	AIStateManager* stateHolder;
-	AIBattlePlanner* BattlePlanHolder;
+
+	size_t m_AITurnCostHolder;
+
+	bool Calculate(Skill*);
 public:
 	AIBase();
 	~AIBase();

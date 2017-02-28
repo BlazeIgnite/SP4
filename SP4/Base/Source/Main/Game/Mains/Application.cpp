@@ -19,8 +19,10 @@
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
 #include "../Scene/Town.h"
-#include "../Scene/SceneResult.h"
+#include "../Scene/SceneWin.h"
+#include "../Scene/SceneLose.h"
 #include "../Scene/SceneCharacterSelection.h"
+#include "../Scene/SceneTutorial.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -182,26 +184,35 @@ void Application::Init()
 	MainMenu* temp3 = new MainMenu();
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
-
+	
 	Town* temp4 = new Town();
 	temp4->SetEntityID("Town_Scene");
 	SceneSystem::Instance().AddScene(*temp4);
+
+	SceneLose* temp2 = new SceneLose();
+	temp2->SetEntityID("Lose_Scene");
+	SceneSystem::Instance().AddScene(*temp2);
+
+	SceneBattles* temp = new SceneBattles();
+	temp->SetEntityID("Battle_Scene");
+	SceneSystem::Instance().AddScene(*temp);
 
 	SceneLevelSelection* temp5 = new SceneLevelSelection();
 	temp5->SetEntityID("LevelSelection_Scene");
 	SceneSystem::Instance().AddScene(*temp5);
 	
-	SceneBattles* temp = new SceneBattles();
-	temp->SetEntityID("Battle_Scene");
-	SceneSystem::Instance().AddScene(*temp);
-
-	SceneResult* temp2 = new SceneResult();
-	temp2->SetEntityID("Result_Scene");
-	SceneSystem::Instance().AddScene(*temp2);
-
 	SceneCharacterSelection* temp6 = new SceneCharacterSelection();
 	temp6->SetEntityID("CharacterSelection_Scene");
 	SceneSystem::Instance().AddScene(*temp6);
+
+	SceneTutorial* temp7 = new SceneTutorial();
+	temp7->SetEntityID("Tutorial_Scene");
+	SceneSystem::Instance().AddScene(*temp7);
+
+	SceneWin* temp8 = new SceneWin();
+	temp8->SetEntityID("Win_Scene");
+	SceneSystem::Instance().AddScene(*temp8);
+
 }
 
 void Application::Run()

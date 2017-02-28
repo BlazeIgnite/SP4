@@ -52,7 +52,129 @@ void Town::UpdateInventory(float dt)
 {
 	//Crafting
 	if (OpenCraftingTab)
-		inventory->Update(dt); 
+	{
+		inventory->Update(dt);
+		inventory->UpdateDescriptions(dt);
+		for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
+		{
+			if ((*itr)->type == "Red Potion" && (*itr)->isitHover())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					for (std::vector<Button*>::iterator itr2 = inventory->buttonVector.begin(); itr2 != inventory->buttonVector.end(); itr2++)
+					{
+						(*itr2)->SetisSelected(false);
+					}
+					(*itr)->SetisSelected(true);
+				}
+			}
+			if ((*itr)->type == "Attack Potion" && (*itr)->isitHover())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					for (std::vector<Button*>::iterator itr2 = inventory->buttonVector.begin(); itr2 != inventory->buttonVector.end(); itr2++)
+					{
+						(*itr2)->SetisSelected(false);
+					}
+					(*itr)->SetisSelected(true);
+				}
+			}
+			if ((*itr)->type == "Defence Potion" && (*itr)->isitHover())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					for (std::vector<Button*>::iterator itr2 = inventory->buttonVector.begin(); itr2 != inventory->buttonVector.end(); itr2++)
+					{
+						(*itr2)->SetisSelected(false);
+					}
+					(*itr)->SetisSelected(true);
+				}
+			}
+			if ((*itr)->type == "Bandage" && (*itr)->isitHover())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					for (std::vector<Button*>::iterator itr2 = inventory->buttonVector.begin(); itr2 != inventory->buttonVector.end(); itr2++)
+					{
+						(*itr2)->SetisSelected(false);
+					}
+					(*itr)->SetisSelected(true);
+				}
+			}
+
+
+			if ((*itr)->type == "Craft" && (*itr)->isitHover())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					for (std::vector<Button*>::iterator itr2 = inventory->buttonVector.begin(); itr2 != inventory->buttonVector.end(); itr2++)
+					{
+						if ((*itr2)->GetisSelected() && (*itr2)->type == "Red Potion")
+						{
+							if ((Player::Instance().GetMaterialList().find("Red Herb")->second > 1) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
+							{
+								Player::Instance().AddMaterialItem("Red Herb", -2);
+								Player::Instance().AddMaterialItem("Empty Bottle", -1);
+								Player::Instance().AddConsumableItem("Red Potion", 1);
+								std::cout << "Red Potion Crafted" << std::endl;
+
+							}
+							else
+							{
+								std::cout << "Not Enough Materials" << std::endl;
+							}
+						}
+						else if ((*itr2)->GetisSelected() && (*itr2)->type == "Attack Potion")
+						{
+							if ((Player::Instance().GetMaterialList().find("White Herb")->second > 0) && (Player::Instance().GetMaterialList().find("Red Herb")->second > 2) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
+							{
+								Player::Instance().AddMaterialItem("White Herb", -1);
+								Player::Instance().AddMaterialItem("Red Herb", -3);
+								Player::Instance().AddMaterialItem("Empty Bottle", -1);
+								Player::Instance().AddConsumableItem("Attack Potion", 1);
+								std::cout << "Attack Potion Crafted" << std::endl;
+							}
+							else
+							{
+								std::cout << "Not Enough Materials" << std::endl;
+							}
+						}
+						else if ((*itr2)->GetisSelected() && (*itr2)->type == "Defence Potion")
+						{
+							if ((Player::Instance().GetMaterialList().find("White Herb")->second > 0) && (Player::Instance().GetMaterialList().find("Blue Herb")->second > 2) && (Player::Instance().GetMaterialList().find("Empty Bottle")->second > 0))
+							{
+								Player::Instance().AddMaterialItem("White Herb", -1);
+								Player::Instance().AddMaterialItem("Blue Herb", -3);
+								Player::Instance().AddMaterialItem("Empty Bottle", -1);
+								Player::Instance().AddConsumableItem("Defence Potion", 1);
+								std::cout << "Defence Potion Crafted" << std::endl;
+							}
+							else
+							{
+								std::cout << "Not Enough Materials" << std::endl;
+							}
+						}
+						else if ((*itr2)->GetisSelected() && (*itr2)->type == "Bandage")
+						{
+							if (Player::Instance().GetMaterialList().find("Cloth")->second > 2)
+							{
+								Player::Instance().AddMaterialItem("Cloth", -3);
+								Player::Instance().AddConsumableItem("Bandage", 1);
+								std::cout << "Bandage Crafted" << std::endl;
+							}
+							else
+							{
+								std::cout << "Not Enough Materials" << std::endl;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	if (OpenConsumableTab)
+		inventory->UpdateDescriptions(dt);
 
 	//To Open Tab
 	for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
@@ -139,7 +261,6 @@ void Town::UpdateInventory(float dt)
 						OpenMaterialTab = false;
 						OpenCraftingTab = false;
 						inventory->SetisOpened(true);
-						std::cout << "Closed" << std::endl;
 						(*itr)->SetisPressed(true);
 					}
 				}
@@ -194,7 +315,7 @@ void Town::UpdateInventory(float dt)
 			{
 				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 				{
-					SceneSystem::Instance().SwitchScene("LevelSelection_Scene");
+					SceneSystem::Instance().SwitchScene("CharacterSelection_Scene");
 					OpenMission = true;
 				}
 			}
@@ -287,30 +408,113 @@ void Town::Render()
 void Town::RenderConsumableList()
 {
 	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 60, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("RedPotion", false);
-	modelStack->PopMatrix();
 
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 50, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("AttackPotion", false);
-	modelStack->PopMatrix();
+	for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
+	{
+		if ((*itr)->type == "Red Potion")
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate((*itr)->GetPosition().x, (*itr)->GetPosition().y, 1);
+			modelStack->Scale((*itr)->GetScale().x, (*itr)->GetScale().y, 1);
+			Renderer->RenderMesh("RedPotion", false);
+			modelStack->PopMatrix();
+		}
+		if ((*itr)->type == "Attack Potion")
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate((*itr)->GetPosition().x, (*itr)->GetPosition().y, 1);
+			modelStack->Scale((*itr)->GetScale().x, (*itr)->GetScale().y, 1);
+			Renderer->RenderMesh("AttackPotion", false);
+			modelStack->PopMatrix();
+		}
+	
+		if ((*itr)->type == "Defence Potion")
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate((*itr)->GetPosition().x, (*itr)->GetPosition().y, 1);
+			modelStack->Scale((*itr)->GetScale().x, (*itr)->GetScale().y, 1);
+			Renderer->RenderMesh("DefencePotion", false);
+			modelStack->PopMatrix();
 
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 40, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("DefencePotion", false);
-	modelStack->PopMatrix();
+		}
+	
+		if ((*itr)->type == "Bandage")
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate((*itr)->GetPosition().x, (*itr)->GetPosition().y, 1);
+			modelStack->Scale((*itr)->GetScale().x, (*itr)->GetScale().x, 1);
+			Renderer->RenderMesh("Bandage", false);
+			modelStack->PopMatrix();
+		}
 
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 30, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("Bandage", false);
-	modelStack->PopMatrix();
-
+		for (std::vector<Description*>::iterator itr2 = inventory->DescriptionVector.begin(); itr2 != inventory->DescriptionVector.end(); itr2++)
+		{
+			Description* obj2 = (Description*)*itr2;
+			modelStack->PushMatrix();
+			modelStack->Translate(obj2->GetPosition().x, obj2->GetPosition().y, /*obj2->GetPosition().z*/5);
+			if ((*itr)->isitHover() && (*itr)->type == "Red Potion" && obj2->type == "Red Potion")
+			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+				//Renderer->RenderMesh("DescripRedPotion", false);
+				modelStack->PopMatrix();
+				if (obj2->text->GetType() == "Red Potion")
+				{
+					modelStack->PushMatrix();
+					modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+					modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+					Renderer->RenderText("text", "Red Potion", Color(1, 1, 1));
+					modelStack->PopMatrix();
+				}
+			}
+			if ((*itr)->isitHover() && (*itr)->type == "Attack Potion" && obj2->type == "Attack Potion")
+			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+				//Renderer->RenderMesh("DescripAttackPotion", false);
+				modelStack->PopMatrix();
+				if (obj2->text->GetType() == "Attack Potion")
+				{
+					modelStack->PushMatrix();
+					modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+					modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+					Renderer->RenderText("text", "Attack Potion", Color(1, 1, 1));
+					modelStack->PopMatrix();
+				}
+			}
+			if ((*itr)->isitHover() && (*itr)->type == "Defence Potion" && obj2->type == "Defence Potion")
+			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+				//Renderer->RenderMesh("DescripDefencePotion", false);
+				modelStack->PopMatrix();
+				if (obj2->text->GetType() == "Defence Potion")
+				{
+					modelStack->PushMatrix();
+					modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+					modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+					Renderer->RenderText("text", "Defence Potion", Color(1, 1, 1));
+					modelStack->PopMatrix();
+				}
+			}
+			if ((*itr)->isitHover() && (*itr)->type == "Bandage" && obj2->type == "Bandage")
+			{
+				modelStack->PushMatrix();
+				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
+				//Renderer->RenderMesh("DescripBandage", false);
+				modelStack->PopMatrix();
+				if (obj2->text->GetType() == "Bandage")
+				{
+					modelStack->PushMatrix();
+					modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
+					modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
+					Renderer->RenderText("text", "Bandage", Color(1, 1, 1));
+					modelStack->PopMatrix();
+				}
+			}
+			modelStack->PopMatrix();
+		}
+	}
 
 	std::string temp = std::to_string(Player::Instance().GetConsumableList().find("Red Potion")->second);
 	modelStack->PushMatrix();
@@ -423,6 +627,28 @@ void Town::RenderCraftingButtons()
 			Renderer->RenderMesh("Inventory", false);
 		modelStack->PopMatrix();
 
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5, 2);
+		modelStack->Scale(20, 20, 1);
+		if (obj->type == "Red Potion" && obj->GetisSelected())
+			Renderer->RenderMesh("RedPotion", false);
+		if (obj->type == "Attack Potion" && obj->GetisSelected())
+			Renderer->RenderMesh("AttackPotion", false);
+		if (obj->type == "Defence Potion" && obj->GetisSelected())
+			Renderer->RenderMesh("DefencePotion", false);
+		if (obj->type == "Bandage" && obj->GetisSelected())
+			Renderer->RenderMesh("Bandage", false);
+		modelStack->PopMatrix();
+	
+
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, 0.5);
+		modelStack->Scale(2, 2, 1);
+		if (obj->type == "Craft")
+			Renderer->RenderText("text", "Craft", Color(1, 1, 1));
+		modelStack->PopMatrix();
+
+
 		//Description
 		for (std::vector<Description*>::iterator itr2 = inventory->DescriptionVector.begin(); itr2 != inventory->DescriptionVector.end(); itr2++)
 		{
@@ -434,17 +660,16 @@ void Town::RenderCraftingButtons()
 			{
 				modelStack->PushMatrix();
 				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
-				//Renderer->RenderMesh("DescripRedPotion", false);
+				Renderer->RenderMesh("DescripRedPotion", false);
 				modelStack->PopMatrix();
 				if (obj2->text->GetType() == "Red Potion")
 				{
 					modelStack->PushMatrix();
-					std::cout << "out" << std::endl;
 					modelStack->Translate(obj2->text->GetPosition().x, obj2->text->GetPosition().y, /*obj2->GetPosition().z*/5);
 					modelStack->Scale(obj2->text->GetScale().x, obj2->text->GetScale().y, obj2->text->GetScale().z);
-					Renderer->RenderText("text", "IUASENSAHB", Color(1, 1, 1));
+					//Renderer->RenderText("text", "Test", Color(1, 1, 1));
 					modelStack->PopMatrix();
-					
+
 				}
 			}
 			if (obj->isitHover() && obj->type == "Blue Potion" && obj2->type == "Blue Potion")

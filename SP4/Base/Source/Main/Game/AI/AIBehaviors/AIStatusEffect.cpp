@@ -83,63 +83,63 @@ void AIStatusEffect::Update(double dt)
 
 void AIStatusEffect::Planning()
 {
-	if (m_Turns > 0)
-		BattlePlanHolder->SetBattlePlan("All Basic Attack");
-	else
-	{
-		m_target = 0;
-		for (map<size_t, CharacterEntity*>::iterator it = BattleSystem::Instance().GetPlayerTroops().begin(); it != BattleSystem::Instance().GetPlayerTroops().end(); it++)
-		{
-			if (BattleSystem::Instance().CanActivateSkill(m_SkillAvailableIterator->first, it->first, (*m_SkillIterator)))
-			{
-				/*if (!(*it).second->GetDefeated() && (*m_StatusEffectEIterator) == "Stun")
-				{
-					BattlePlanHolder->SetBattlePlan("Use Stun");
-					break;
-				}
-				else if (!(*it).second->GetDefeated() && (*m_StatusEffectEIterator) == "Bleed")
-				{
-					BattlePlanHolder->SetBattlePlan("Use Bleed");
-					break;
-				}*/
-				if (!(*it).second->GetDefeated())
-				{
-					BattlePlanHolder->SetBattlePlan("Use Status Skill");
-					break;
-				}
-			}
-			m_target++;
-		}
-	}
+	//if (m_Turns > 0)
+	//	BattlePlanHolder->SetBattlePlan("All Basic Attack");
+	//else
+	//{
+	//	m_target = 0;
+	//	for (map<size_t, CharacterEntity*>::iterator it = BattleSystem::Instance().GetPlayerTroops().begin(); it != BattleSystem::Instance().GetPlayerTroops().end(); it++)
+	//	{
+	//		if (BattleSystem::Instance().CanActivateSkill(m_SkillAvailableIterator->first, it->first, (*m_SkillIterator)))
+	//		{
+	//			/*if (!(*it).second->GetDefeated() && (*m_StatusEffectEIterator) == "Stun")
+	//			{
+	//				BattlePlanHolder->SetBattlePlan("Use Stun");
+	//				break;
+	//			}
+	//			else if (!(*it).second->GetDefeated() && (*m_StatusEffectEIterator) == "Bleed")
+	//			{
+	//				BattlePlanHolder->SetBattlePlan("Use Bleed");
+	//				break;
+	//			}*/
+	//			if (!(*it).second->GetDefeated())
+	//			{
+	//				BattlePlanHolder->SetBattlePlan("Use Status Skill");
+	//				break;
+	//			}
+	//		}
+	//		m_target++;
+	//	}
+	//}
 
-		/*int temp = Math::RandIntMinMax(0, 1);
-		for (vector<Skill*>::iterator iterate = m_SkillAvailable.begin(); iterate != m_SkillAvailable.end(); iterate++)
-		{
-			for (map<size_t, vector<string>>::iterator iterate2 = (*iterate)->GetStatusEffectMap().begin; iterate2 != (*iterate)->GetStatusEffectMap().begin; iterate2++)
-			{
-				for (vector<string>::iterator iterate3 = iterate2->second.begin(); iterate3 != iterate2->second.end(); iterate3++)
-				{
-					if ((*iterate3) == "Stun" && temp == 0)
-					{
-						BattlePlanHolder->SetBattlePlan("Stun Time");
-						stateHolder->SetState("Execute");
-					}
-				}
-			}
-		}
-		if (temp == 0)
-			BattlePlanHolder->SetBattlePlan("Stun Time");
-		else
-			BattlePlanHolder->SetBattlePlan("Bleed Time");
-			*/
+	//	/*int temp = Math::RandIntMinMax(0, 1);
+	//	for (vector<Skill*>::iterator iterate = m_SkillAvailable.begin(); iterate != m_SkillAvailable.end(); iterate++)
+	//	{
+	//		for (map<size_t, vector<string>>::iterator iterate2 = (*iterate)->GetStatusEffectMap().begin; iterate2 != (*iterate)->GetStatusEffectMap().begin; iterate2++)
+	//		{
+	//			for (vector<string>::iterator iterate3 = iterate2->second.begin(); iterate3 != iterate2->second.end(); iterate3++)
+	//			{
+	//				if ((*iterate3) == "Stun" && temp == 0)
+	//				{
+	//					BattlePlanHolder->SetBattlePlan("Stun Time");
+	//					stateHolder->SetState("Execute");
+	//				}
+	//			}
+	//		}
+	//	}
+	//	if (temp == 0)
+	//		BattlePlanHolder->SetBattlePlan("Stun Time");
+	//	else
+	//		BattlePlanHolder->SetBattlePlan("Bleed Time");
+	//		*/
 
-	if (!BattlePlanHolder->GetBattlePlan(""))
-		stateHolder->SetState("Execute");
+	//if (!BattlePlanHolder->GetBattlePlan(""))
+	//	stateHolder->SetState("Execute");
 }
 
 void AIStatusEffect::Execute()
 {
-	if (BattlePlanHolder->GetBattlePlan("All Basic Attack"))
+	/*if (BattlePlanHolder->GetBattlePlan("All Basic Attack"))
 	{
 		for (size_t i = 0; i < BattleSystem::Instance().GetNumberOfAITroopAlive(); i++)
 		{
@@ -170,7 +170,7 @@ void AIStatusEffect::Execute()
 
 	BattleSystem::Instance().SetPlayerTurn(true);
 	stateHolder->SetState("");
-	BattlePlanHolder->SetBattlePlan("");
+	BattlePlanHolder->SetBattlePlan("");*/
 }
 
 void AIStatusEffect::Exit()

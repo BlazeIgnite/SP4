@@ -80,7 +80,7 @@ public:
 	inline void SetBuffed(bool Buffed){ StatusEffect[2] = Buffed; };
 	inline void SetDebuffed(bool Debuffed){ StatusEffect[3] = Debuffed; };
 
-	virtual void LevelUp() = 0;
+	virtual void LevelUp(bool) = 0;
 
 	//Possible Functions for debuffs
 	void BleedEffect();

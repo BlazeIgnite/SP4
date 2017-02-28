@@ -1,6 +1,7 @@
 #include "BattleSystem.h"
 #include "ObjectManager.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
+#include "../Audio/Audio_Player.h"
 #include <iostream>
 
 using std::cout;
@@ -20,15 +21,33 @@ void BattleSystem::Init()
 	SelectedTroop = NULL;
 	SelectedEnemyTroop = NULL;
 	SelectedSkill = NULL;
+	
+	if (PlayerTroops.size() != 0)
+		PlayerTroops.clear();
+	if (PlayerTroopSkills.size() != 0)
+		PlayerTroopSkills.clear();
+	if (AITroops.size() != 0)
+		AITroops.clear();
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		PlayerTroops[i] = NULL;
+	}
+
 	SetTurnCost(100);
 	PlayerTurn = true;
-	PlayerWon = false;
+	PlayerWon = 0;
 }
 
 // Setters Here
 void BattleSystem::SetPlayerTroops(size_t position, CharacterEntity* Troop)
 {
 	std::map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.find(position);
+	if ((*itr).second == NULL)
+	{
+		PlayerTroops[position] = Troop;
+		Troop->SetPosition(Vector3(ObjectManager::Instance().WorldWidth * (0.3f - (position * 0.1f)), ObjectManager::Instance().WorldHeight * 0.5f, 0.f));
+	}
 	if (itr == PlayerTroops.end())
 	{
 		PlayerTroops[position] = Troop;
@@ -117,6 +136,20 @@ size_t BattleSystem::GetNumberOfPlayerTroopAlive()
 			NumberofAliveTroops++;
 	}
 	return NumberofAliveTroops;
+}
+
+CharacterEntity* BattleSystem::GetPlayerTroopAttacking(size_t position)
+{
+	if (position >= PlayerTroops.size())
+		return NULL;
+	return PlayerTroops.at(position);
+}
+
+Skill* BattleSystem::GetSelectedSkill(size_t position)
+{
+	if (position >= PlayerTroopSkills.size())
+		return NULL;
+ 	return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);
 }
 
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
@@ -220,6 +253,7 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 					}
 				}
 			}
+
 			if (it->second->GetDebuffed())
 			{
 				if (it->second->GetStunTimer() > 0)
@@ -250,6 +284,14 @@ void BattleSystem::SwitchSpots(map<size_t, CharacterEntity*>& TroopMap, size_t F
 	TroopMap[FirstPosition] = TroopMap[SecondPosition];
 	TroopMap[SecondPosition]->SetPosition(tempPos);
 	TroopMap[SecondPosition] = temp;
+
+	if (TroopMap == PlayerTroops)
+	{
+		map<size_t, Skill*> tempMap = PlayerTroopSkills.at(FirstPosition);
+		PlayerTroopSkills[FirstPosition] = PlayerTroopSkills[SecondPosition];
+		PlayerTroopSkills[SecondPosition] = tempMap;
+	}
+
 }
 void BattleSystem::MoveTroopBackByOne(map<size_t, CharacterEntity*>& TroopMap)
 {
@@ -277,6 +319,7 @@ void BattleSystem::MoveTroopFrontByTwo(map<size_t, CharacterEntity*>& TroopMap)
 size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 {
 	size_t damage = AttackerSkill->GetDamage();
+	AttackerSkill->SetTurnCooldown(AttackerSkill->GetMaxTurnCooldown());
 	if (PlayerTurn)
 	{
 		CharacterEntity* targettroop = AITroops.find(target)->second;
@@ -286,45 +329,9 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 		targettroop->SetHealth(tempHealth);
 		SetStatusEffect(target, AttackerSkill);
 		TurnCost -= AttackerSkill->GetActionCost();
-		if (targettroop->GetHealth() < 1)
-		{
+		if (targettroop->GetHealth() == 0)
 			targettroop->SetDefeated(true);
-			size_t NumberofDefeatedTroops = 0;
-			for (map<size_t, CharacterEntity*>::iterator itr = AITroops.begin(); itr != AITroops.end(); itr++)
-			{
-				// Find Out Position of defeated troop
-				// Do push back or front to set the troop that are alive to the front
-				if (itr->second->GetDefeated())
-					NumberofDefeatedTroops++;
-			}
-			if (NumberofDefeatedTroops >= AITroops.size())
-			{
-				//Go to win screen;
-				SceneSystem::Instance().SwitchScene("Town_Scene");
-				for (map<size_t, CharacterEntity*>::iterator i = AITroops.begin(); i != AITroops.end(); i++)
-				{
-					if (i->second != nullptr)
-					{
-						delete i->second;
-						i->second = NULL;
-					}
-				}
-				Reset();
-				return damage;
-			}
-			if (NumberofDefeatedTroops == 1)
-			{
-				if (AITroops.find(target)->first == 0)
-					MoveTroopFrontByOne(AITroops);
-				else if (AITroops.find(target)->first == 1)
-					SwitchSpots(AITroops, AITroops.find(target)->first, AITroops.find(target + 1)->first);
-			}
-			else if (NumberofDefeatedTroops == 2)
-			{
-				if (AITroops.find(target)->first == 0)
-					MoveTroopFrontByOne(AITroops);
-			}
-		}
+
 		return damage;
 	}
 	else
@@ -336,40 +343,9 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 		targettroop->SetHealth(tempHealth);
 		SetStatusEffect(target, AttackerSkill);
 		TurnCost -= AttackerSkill->GetActionCost();
-		if (targettroop->GetHealth() < 1)
-		{
+		if (targettroop->GetHealth() == 0)
 			targettroop->SetDefeated(true);
-			
-			size_t NumberofDefeatedTroops = 0;
-			for (map<size_t, CharacterEntity*>::iterator itr = PlayerTroops.begin(); itr != PlayerTroops.end(); itr++)
-			{
-				// Find Out Position of defeated troop
-				// Do push back or front to set the troop that are alive to the front
-				if (itr->second->GetDefeated())
-				{
-					NumberofDefeatedTroops++;
-				}
-			}
-			if (NumberofDefeatedTroops >= PlayerTroops.size())
-			{
-				//Go to lose screen;
-				SceneSystem::Instance().SwitchScene("Town_Scene");
 
-				return damage;
-			}
-			if (NumberofDefeatedTroops == 1)
-			{
-				if (PlayerTroops.find(target)->first == 0)
-					MoveTroopFrontByOne(PlayerTroops);
-				else if (PlayerTroops.find(target)->first == 1)
-					SwitchSpots(PlayerTroops, PlayerTroops.find(target)->first, PlayerTroops.find(target + 1)->first);
-			}
-			else if (NumberofDefeatedTroops == 2)
-			{
-				if (PlayerTroops.find(target)->first == 0)
-					MoveTroopFrontByOne(PlayerTroops);
-			}
-		}
 		return damage;
 	}
 	return 0;
@@ -381,14 +357,39 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 		return false;
 	if (PlayerTurn)
 	{
+		if (target >= AITroops.size())
+			return false;
+
+		if (AITroops.at(target)->GetDefeated())
+			return false;
+
 		for (map<size_t, CharacterEntity*>::iterator it = PlayerTroops.begin(); it != PlayerTroops.end(); it++)
 		{
 			if ((*it).second == Attacker)
 			{
 				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
-					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
-						return true;
+					int temp = TurnCost - AttackerSkill->GetActionCost();
+
+					if (temp < 0)
+						return false;
+					else
+					{
+						if (AttackerSkill->GetTurnCooldown() == 0)
+						{
+							if (AttackerSkill->GetRequiredPosition((*it).first))
+							{
+								if (AttackerSkill->GetSelectableTarget(target))
+									return true;
+								else
+									return false;
+							}
+							else
+								return false;
+						}
+						else
+							return false;
+					}
 				}
 				else
 					return false;
@@ -398,19 +399,44 @@ bool BattleSystem::CanActivateSkill(CharacterEntity* Attacker, size_t target, Sk
 	}
 	else
 	{
+		if (target >= PlayerTroops.size())
+			return false;
+
+		if (PlayerTroops.at(target)->GetDefeated())
+			return false;
+
 		for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
 		{
 			if ((*it).second == Attacker)
 			{
 				if (!Attacker->GetStunned() && !Attacker->GetDefeated())
 				{
-					if (AttackerSkill->GetSelectableTarget(target) && AttackerSkill->GetRequiredPosition((*it).first) && AttackerSkill->GetTurnCooldown() <= 0)
-						return true;
+					int temp = TurnCost - AttackerSkill->GetActionCost();
+
+					if (temp < 0)
+						return false;
+					else
+					{
+						if (AttackerSkill->GetTurnCooldown() == 0)
+						{
+							if (AttackerSkill->GetRequiredPosition((*it).first))
+							{
+								if (AttackerSkill->GetSelectableTarget(target))
+									return true;
+								else
+									return false;
+							}
+							else
+								return false;
+						}
+						else
+							return false;
+					}
 				}
 				else
 					return false;
 			}
- 		}
+		}
 		return false;
 	}
 }
@@ -440,6 +466,7 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			PlayerTroops.at(TargettedTeammate)->SetBuffed(true);
 			PlayerTroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
+			//AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 	else
@@ -449,6 +476,7 @@ void BattleSystem::ApplyFriendlyEffect(size_t TargettedTeammate, Skill* SkillUse
 		{
 			AITroops.at(TargettedTeammate)->SetBuffed(true);
 			AITroops.at(TargettedTeammate)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Buff"));
+			//AudioPlayer::Instance().PlayBuffEffect();
 		}
 	}
 }
@@ -474,16 +502,19 @@ void BattleSystem::SetStatusEffect(size_t target, Skill* SkillUsed)
 		{
 			AITroops.at(target)->SetDebuffed(true);
 			AITroops.at(target)->SetDebuffTimer(SkillUsed->GetStatusEffectTimer("Debuff"));
+			AudioPlayer::Instance().PlayDebuffEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Stun"))
 		{
 			AITroops.at(target)->SetStunned(true);
 			AITroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Stun"));
+			AudioPlayer::Instance().PlayStunEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Bleed"))
 		{
 			AITroops.at(target)->SetBleeding(true);
 			AITroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Bleed"));
+			AudioPlayer::Instance().PlayBleedEffect();
 		}
 	}
 	else
@@ -492,16 +523,19 @@ void BattleSystem::SetStatusEffect(size_t target, Skill* SkillUsed)
 		{
 			PlayerTroops.at(target)->SetBuffed(true);
 			PlayerTroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Debuff"));
+			AudioPlayer::Instance().PlayDebuffEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Stun"))
 		{
 			PlayerTroops.at(target)->SetStunned(true);
 			PlayerTroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Stun"));
+			AudioPlayer::Instance().PlayStunEffect();
 		}
 		if (SkillUsed->StatusEffectExistence("Bleed"))
 		{
 			PlayerTroops.at(target)->SetBleeding(true);
 			PlayerTroops.at(target)->SetBuffTimer(SkillUsed->GetStatusEffectTimer("Bleed"));
+			AudioPlayer::Instance().PlayBleedEffect();
 		}
 	}
 
@@ -521,6 +555,12 @@ void BattleSystem::Reset()
 	SelectedEnemyTroop = NULL;
 	SelectedSkill = NULL;
 	SetTurnCost(100);
+	for (auto it : AITroops)
+	{
+		if (it.second != nullptr)
+			delete it.second;
+		it.second = nullptr;
+	}
 	PlayerTroops.clear();
 	AITroops.clear();
 	PlayerTurn = true;

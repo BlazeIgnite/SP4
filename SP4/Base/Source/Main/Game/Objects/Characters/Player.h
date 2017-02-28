@@ -10,7 +10,7 @@
 #include "../Items/ItemEntity.h"
 #include "Warrior.h"
 #include "Mage.h"
-#include "Priest.h"
+#include "Synergist.h"
 
 class Player : public SingletonTemplate<Player>
 {

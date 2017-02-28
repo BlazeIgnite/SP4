@@ -5,8 +5,9 @@
 using std::cout;
 using std::endl;
 
-size_t WarriorHealth[] = { 0, 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
-size_t WarriorAttack[] = { 0, 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
+size_t WarriorHealth[] = { 0, 25, 29, 35, 36, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
+size_t WarriorAttack[] = { 0, 7, 7, 7, 8, 9, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
+size_t ExperienceWNeed[] = { 0, 0, 10, 30, 55, 70, 100, 130, 165, 200, 240, 285, 325, 370, 420, 475, 530, 590, 650, 720 };
 float WarriorDefence[] = { 0.f, 3.0f, 3.8f, 4.6f, 5.4f, 6.2f, 7.0f, 7.8f, 8.6f, 9.4f, 10.2f, 11.0f, 11.9f, 12.8f, 13.7f, 14.6f, 15.5f, 17.f, 18.5f, 20.f, 25.f };
 
 Warrior::Warrior()
@@ -44,7 +45,7 @@ void Warrior::Init(int Level)
 	//}
 	for (int i = 0; i < Level; i++)
 	{
-		LevelUp();
+		LevelUp(true);
 	}
 }
 void Warrior::Update(double dt)
@@ -52,10 +53,19 @@ void Warrior::Update(double dt)
 	
 }
 
-void Warrior::LevelUp()
+void Warrior::LevelUp(bool init)
 {
-	Level++;
+	if (init)
+		Level++;
+	else
+	{
+		if (ExperiencePoints > ExperienceWNeed[Level + 1])
+			Level++;
+		else
+			return;
+	}
 
+	ExperiencePoints = ExperienceWNeed[Level];
 	SetHealth(WarriorHealth[Level]);
 	SetMaxHealth(WarriorHealth[Level]);
 	SetAttack(WarriorAttack[Level]);
@@ -89,31 +99,33 @@ void Warrior::LevelUp()
 		{
 			// Taunt
 			// Setting Name of skill
-			skill->SetName("Taunt");
+			//skill->SetName("Taunt");
 
-			// Setting Action Cost for Battle
-			skill->SetActionCost(35);
+			//// Setting Action Cost for Battle
+			//skill->SetActionCost(35);
 
-			// Setting the cooldown time after activation
-			skill->SetMaxTurnCooldown(2);
+			//// Setting the cooldown time after activation
+			//skill->SetMaxTurnCooldown(2);
+			////skill->SetStatusEffect(1, "Buff");
+			////skill->
+
+			//// Setting of how many turns status effect affects, what status effect is it
 			//skill->SetStatusEffect(1, "Buff");
-			//skill->
 
-			// Setting of how many turns status effect affects, what status effect is it
-			skill->SetStatusEffect(1, "Buff");
+			//// Setting the Required Position to use skill
+			//skill->SetRequiredPosition(0, true);
+			//
+			//// Setting the Selectable Position to use skill on
+			//skill->SetSelectableTarget(0, true);
+			//skill->SetSelectableTarget(1, true);
+			//skill->SetSelectableTarget(2, true);
+			//
+			//// Now the Warrior is allowed to use this skill
+			//SkillList.push_back(skill);
 
-			// Setting the Required Position to use skill
-			skill->SetRequiredPosition(0, true);
-			
-			// Setting the Selectable Position to use skill on
-			skill->SetSelectableTarget(3, true);
-			
-			// Now the Warrior is allowed to use this skill
-			SkillList.push_back(skill);
-
-			
-			// Stab Skill
-			skill = new Skill();
+			//
+			//// Stab Skill
+			//skill = new Skill();
 
 			// Setting Name of skill
 			skill->SetName("Stab");

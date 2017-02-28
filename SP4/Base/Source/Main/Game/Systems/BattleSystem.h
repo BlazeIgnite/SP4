@@ -22,8 +22,9 @@ class BattleSystem : public SingletonTemplate<BattleSystem>
 
 	size_t DisplaySkillNum;
 	size_t TurnCost;
+	size_t PlayerStatus;
+	int PlayerWon;
 	bool PlayerTurn;
-	bool PlayerWon;
 public:
 	BattleSystem();
 	~BattleSystem();
@@ -41,24 +42,26 @@ public:
 	inline void SetSelectedSkill(Skill* newSelectedskill){ SelectedSkill = newSelectedskill; };
 	inline void SetDisplaySkillNum(size_t newDisplaySkillNum){ DisplaySkillNum = newDisplaySkillNum; };
 	inline void SetTurnCost(size_t newTurnCost) { TurnCost = newTurnCost; };
-	inline void SetPlayerWon(bool newPlayerWon) { PlayerWon = newPlayerWon; };
+	inline void SetPlayerWon(int newPlayerWon) { PlayerWon = newPlayerWon; };
 	 
 	 // Getters
 	size_t GetSelectedTroopPosition();
 	size_t GetNumberOfAITroopAlive();
 	size_t GetNumberOfPlayerTroopAlive();
+	CharacterEntity* GetPlayerTroopAttacking(size_t position);
+	Skill* GetSelectedSkill(size_t position);
 	inline map<size_t, CharacterEntity*>& GetPlayerTroops() { return PlayerTroops; };
 	inline map<size_t, CharacterEntity*>& GetAITroops() { return AITroops; };
-	inline CharacterEntity* GetPlayerTroopAttacking(size_t position) { return PlayerTroops.find(position)->second; };
+	inline map<size_t, Skill*>& GetPlayerTroopSkills(size_t position) { return PlayerTroopSkills.at(position); };
 	inline CharacterEntity* GetAITroopAttacking(size_t position) { return AITroops.find(position)->second; };
 	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
 	inline CharacterEntity* GetSelectedEnemyTroop() { return SelectedEnemyTroop; };
-	inline Skill* GetSelectedSkill(size_t position) { return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);	};
+	inline Skill* GetSkillInMap(size_t Character, size_t Skill_Pos) { return PlayerTroopSkills.at(Character).at(Skill_Pos); };
 	inline Skill* GetSelectedSkill() { return SelectedSkill; };
 	inline size_t GetDisplaySkillNum(){ return DisplaySkillNum; };
-	inline size_t GetTurnCost(){ return TurnCost; };
+	inline size_t GetTurnCost(){ if (TurnCost <= 0) TurnCost = 0; return TurnCost; };
+	inline int GetPlayerWon(){ return PlayerWon; };
 	inline bool GetPlayerTurn(){ return PlayerTurn; };
-	inline bool GetPlayerWon(){ return PlayerWon; };
 
 
 	// Switching Spots

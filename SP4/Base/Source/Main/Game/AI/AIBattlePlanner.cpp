@@ -1,7 +1,7 @@
 #include "AIBattlePlanner.h"
 
 
-AIBattlePlanner::AIBattlePlanner() : BattlePlan("")
+AIBattlePlanner::AIBattlePlanner()
 {
 }
 
@@ -10,24 +10,28 @@ AIBattlePlanner::~AIBattlePlanner()
 {
 }
 
-void AIBattlePlanner::SetBattlePlan(string newBattlePlan)
+void AIBattlePlanner::SetSkill(Skill* skill)
 {
-	BattlePlan = newBattlePlan;
+	m_SkillUsed = skill;
+}
+void AIBattlePlanner::SetAttacker(size_t attacker)
+{
+	m_Attacker = attacker;
+}
+void AIBattlePlanner::SetTarget(size_t target)
+{
+	m_Target = target;
 }
 
-string AIBattlePlanner::GetBattlePlan()
+Skill* AIBattlePlanner::GetSkill()
 {
-	return BattlePlan;
+	return m_SkillUsed;
 }
-
-bool AIBattlePlanner::GetBattlePlan(string BattlePlan)
+size_t AIBattlePlanner::GetAttacker()
 {
-	if (this->BattlePlan == BattlePlan)
-		return true;
-	return false;
+	return m_Attacker;
 }
-
-void AIBattlePlanner::UseBattlePlan()
+size_t AIBattlePlanner::GetTarget()
 {
-
+	return m_Target;
 }

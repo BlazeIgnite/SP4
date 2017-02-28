@@ -48,6 +48,7 @@ public:
 	size_t GetSelectedTroopPosition();
 	size_t GetNumberOfAITroopAlive();
 	size_t GetNumberOfPlayerTroopAlive();
+	Skill* GetSelectedSkill(size_t position);
 	inline map<size_t, CharacterEntity*>& GetPlayerTroops() { return PlayerTroops; };
 	inline map<size_t, CharacterEntity*>& GetAITroops() { return AITroops; };
 	inline CharacterEntity* GetPlayerTroopAttacking(size_t position) { return PlayerTroops.find(position)->second; };
@@ -55,7 +56,6 @@ public:
 	inline CharacterEntity* GetSelectedTroop() { return SelectedTroop; };
 	inline CharacterEntity* GetSelectedEnemyTroop() { return SelectedEnemyTroop; };
 	inline Skill* GetSkillInMap(size_t Character, size_t Skill_Pos) { return PlayerTroopSkills.at(Character).at(Skill_Pos); };
-	inline Skill* GetSelectedSkill(size_t position) { return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);	};
 	inline Skill* GetSelectedSkill() { return SelectedSkill; };
 	inline size_t GetDisplaySkillNum(){ return DisplaySkillNum; };
 	inline size_t GetTurnCost(){ if (TurnCost <= 0) TurnCost = 0; return TurnCost; };

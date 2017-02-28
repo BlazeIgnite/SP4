@@ -120,6 +120,13 @@ size_t BattleSystem::GetNumberOfPlayerTroopAlive()
 	return NumberofAliveTroops;
 }
 
+Skill* BattleSystem::GetSelectedSkill(size_t position)
+{
+	if (position >= PlayerTroopSkills.at(GetSelectedTroopPosition()).size())
+		return NULL;
+	return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);
+}
+
 void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 {
 	TurnCost = 100;

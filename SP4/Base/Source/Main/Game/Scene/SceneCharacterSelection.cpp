@@ -158,9 +158,12 @@ void SceneCharacterSelection::Update(float dt)
 			ClickingOtherButtons = true;
 		if (it->GetisSelected() && it->CurrentState == CLICK)
 		{
-			SelectedSkill = -1;
-			SelectedSkills.clear();
-			SelectedSkills = std::vector<int>();
+			if (SelectedCharacter != CharacterCount)
+			{
+				SelectedSkill = -1;
+				SelectedSkills.clear();
+				SelectedSkills = std::vector<int>();
+			}
 			SelectedCharacter = CharacterCount;
 			SelectChar = true;
 		}
@@ -305,13 +308,7 @@ void SceneCharacterSelection::Update(float dt)
 							BattleSystem::Instance().SetPlayerTroopSkills(Position, it3 + 1);
 					}
 				}
-
-
-				//BattleSystem::Instance().Init();
-				//BattleSystem::Instance().SetPlayerTroops(0, );
-				//BattleSystem::Instance().SetPlayerTroops(1, mage);
-				//BattleSystem::Instance().SetPlayerTroops(2, synergist);
-				SceneSystem::Instance().SwitchScene("Battle_Scene");
+				SceneSystem::Instance().SwitchScene("LevelSelection_Scene");
 			}
 	}
 }
@@ -407,6 +404,7 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 				Renderer->RenderMesh("ButtonBorder", false);
 			else
 				Renderer->RenderMesh("ButtonBorderRed", false);
+			
 
 			modelStack->PopMatrix();
 		}
@@ -539,6 +537,10 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 			modelStack->PushMatrix();
 			modelStack->Translate(it->GetPosition().x, it->GetPosition().y, it->GetPosition().z);
 			modelStack->Scale(it->GetScale().x, it->GetScale().y, it->GetScale().z);
+			//if (SelectedCharacter != -1 && Player::Instance().GetCharacterEntityInClassUnit(ClassNameText, SelectedCharacter)->GetSkillList()->at(Count + 1)->GetName() == "Basic Attack")
+			//{
+			//	Renderer->RenderMesh("DefaultAttack", false);
+			//}
 			if (it->GetisSelected())
 			{
 				Renderer->RenderMesh("ButtonBorderRed", false);

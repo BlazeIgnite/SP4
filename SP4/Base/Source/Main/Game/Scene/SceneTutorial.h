@@ -17,20 +17,32 @@ private:
 	Vector3 tempscale;
 	Vector3 tempscale1;
 
-	BattleButton* button;
-	CharacterEntity* character;
-	AIBase* AI = nullptr;
+	BattleButton* m_button;
+	AIBase* m_AI = nullptr;
 
 	double x, y;
 
 	size_t m_Turn;
-	string damage;
+	size_t i;
+	size_t m_attackTimes;
+	string m_damage;
+
+	float m_ActionMeter;
+	float m_textPosY;
+	float m_startPosY;
+	float m_timer;
 
 	void RenderObjects(BaseObject *obj);
 	void tempRenderObjects();
 	void UpdateCharacterLogic(double dt);
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
+
+	bool m_renderDamage;
+
+	bool m_T1pressAttack;
+	bool m_T2pressHeal;
+
 public:
 	SceneTutorial();
 	~SceneTutorial();

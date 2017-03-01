@@ -37,30 +37,30 @@ void AITutorial::Planning()
 		{
 		case 1:
 		{
-			/*
-
-			AIBattlePlanner* TurnOne = new AIBattlePlanner(BattleSystem::Instance().GetAITroops.at(0)->GetSkillInVector("Basic Attack"), 0, 0);
+			Skill* temp = BattleSystem::Instance().GetAITroops().at(0)->GetSkillInVector("Basic Attack");
+			AIBattlePlanner* TurnOne = new AIBattlePlanner(temp, 0, 0);
 			BattlePlanHolder.push_back(TurnOne);
-			
-			*/
 			break; 
-		}
-		case 2:
-		{
-		
-			//BattlePlanHolder->SetBattlePlan("Turn 2");
-			break;
 		}
 		case 3:
 		{
-		
+			Skill* temp = BattleSystem::Instance().GetAITroops().at(0)->GetSkillInVector("Basic Attack");
+			AIBattlePlanner* TurnThree = new AIBattlePlanner(temp, 0, 0);
+			BattlePlanHolder.push_back(TurnThree);
 			//BattlePlanHolder->SetBattlePlan("Turn 3");
 			break;
 		}
+		default:
+			break;
 		}
 	}
 	else
 	{
+		for (size_t j = 0; j < 2; j++)
+		{
+			AIBattlePlanner* AttackPhase = new AIBattlePlanner(BattleSystem::Instance().GetAITroops().at(0)->GetSkillInVector("Basic Attack"), 0, Math::RandIntMinMax(0, 1));
+			BattlePlanHolder.push_back(AttackPhase);
+		}
 		//BattlePlanHolder->SetBattlePlan("Normal Attack");
 	}
 	stateHolder->SetState("Execute");
@@ -68,26 +68,30 @@ void AITutorial::Planning()
 
 void AITutorial::Execute()
 {
-	/*if (m_Turn < 4)
+	if (BattlePlanHolder.size() > 0)
 	{
-		if (m_BattleNumber == 1)
+		AIBattlePlanner* ABP = BattlePlanHolder.back();
+		m_target = ABP->GetTarget();
+		if (BattleSystem::Instance().GetPlayerTroops().at(m_target)->GetDefeated())
 		{
-			if (BattlePlanHolder->GetBattlePlan("Turn 1"))
-			{
-				BattleSystem::Instance().DamageCalculation(0, BattleSystem::Instance().GetAITroopAttacking(0)->GetSkillInVector("Basic Attack"));
-			}
-			else if (BattlePlanHolder->GetBattlePlan("Turn 2"))
-			{
-			}
-			else if (BattlePlanHolder->GetBattlePlan("Turn 3"))
-			{
-			} 
+			delete ABP;
+			BattlePlanHolder.pop_back();
+			return;
 		}
+		m_Attacking = true;
+		m_DamageCaused = BattleSystem::Instance().DamageCalculation(ABP->GetTarget(), ABP->GetSkill());
+		delete ABP;
+		BattlePlanHolder.pop_back();
 	}
 
-	BattleSystem::Instance().SetPlayerTurn(true);
-	BattlePlanHolder->ResetBattlePlan();*/
-	stateHolder->ResetState();
+	if (BattlePlanHolder.size() == 0 && !m_Attacking)
+	{
+		m_AITurnCostHolder = 100;
+		m_Turn++;
+		stateHolder->ResetState();
+		BattleSystem::Instance().SetPlayerTurn(true);
+	}
+
 }
 
 void AITutorial::Exit()

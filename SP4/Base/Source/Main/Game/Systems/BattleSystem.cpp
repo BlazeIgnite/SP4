@@ -275,13 +275,13 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 
 	if (PlayerTurn)
 	{
-		if (GetNumberOfPlayerTroopAlive() >= 1 && AITroops[0]->GetDefeated())
+		if (GetNumberOfAITroopAlive() >= 1 && AITroops[0]->GetDefeated())
 		{
 			MoveTroopFrontByOne(AITroops);
 			if (AITroops[0]->GetDefeated())
 				MoveTroopFrontByOne(AITroops);
 		}
-		if (GetNumberOfPlayerTroopAlive() == 2 && AITroops[1]->GetDefeated()) 
+		if (GetNumberOfAITroopAlive() == 2 && AITroops[1]->GetDefeated())
 		{
 			SwitchSpots(AITroops, 1, 2);
 		}

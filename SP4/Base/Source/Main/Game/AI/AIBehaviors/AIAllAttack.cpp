@@ -97,7 +97,7 @@ void AIAllAttack::Execute()
 	if (BattlePlanHolder.size() == 0 && !m_Attacking)
 	{
 		m_AITurnCostHolder = 100;
-		stateHolder->SetState("");
+		stateHolder->ResetState();
 		BattleSystem::Instance().SetPlayerTurn(true);
 	}
 }

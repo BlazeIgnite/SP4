@@ -215,9 +215,9 @@ void Application::Init()
 	temp8->SetEntityID("Win_Scene");
 	SceneSystem::Instance().AddScene(*temp8);
 
-	SceneLevel4* temp9 = new SceneLevel4();
+	SceneLevel4* temp10 = new SceneLevel4();
 	temp9->SetEntityID("Level4_Scene");
-	SceneSystem::Instance().AddScene(*temp9);
+	SceneSystem::Instance().AddScene(*temp10);
 
 }
 

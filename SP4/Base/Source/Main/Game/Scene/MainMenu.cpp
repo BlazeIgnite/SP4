@@ -241,34 +241,14 @@ void MainMenu::RenderNameInput()
 	{
 		Button *obj = (Button *)*it;
 
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5f);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 		if (obj->type == "Enter")
-		{
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5f);
-			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			Renderer->RenderMesh("ButtonBorder", false);
-			modelStack->PopMatrix();
-
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 4.7, obj->GetPosition().y, 0.5);
-			modelStack->Scale(2, 2, 1);
-			Renderer->RenderText("text", "Enter", Color(1, 1, 1));
-			modelStack->PopMatrix();
-		}
+			Renderer->RenderMesh("Enter", false);
 		else if (obj->type == "Back")
-		{
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5f);
-			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			Renderer->RenderMesh("ButtonBorder", false);
-			modelStack->PopMatrix();
-
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 4.7, obj->GetPosition().y, 0);
-			modelStack->Scale(2, 2, 1);
-			Renderer->RenderText("text", "Back", Color(1, 1, 1));
-			modelStack->PopMatrix();
-		}
+			Renderer->RenderMesh("Back", false);
+		modelStack->PopMatrix();
 	}
 }
 
@@ -283,76 +263,44 @@ void MainMenu::RenderButtons()
 		{
 			modelStack->PushMatrix();
 			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-			//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
 			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			Renderer->RenderMesh("ButtonBorder", false);
-			modelStack->PopMatrix();
-
-			//Text on Box
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 4.7, obj->GetPosition().y, 0.5);
-			modelStack->Scale(2, 2, 1);
 			if (!NewGame && !LoadFile && !NameInput)
-				Renderer->RenderText("text", "New Game", Color(1, 1, 1));
+				Renderer->RenderMesh("NewGame", false);
 			else if (!NameInput)
-				Renderer->RenderText("text", "File 1", Color(1, 1, 1));
+				Renderer->RenderMesh("File1", false);
 			modelStack->PopMatrix();
 		}
 		else if (obj->type == "Second")
 		{
 			modelStack->PushMatrix();
 			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-			//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
 			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			Renderer->RenderMesh("ButtonBorder", false);
-			modelStack->PopMatrix();
-
-			//Text on Box
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack->Scale(2, 2, 1);
 			if (!NewGame && !LoadFile && !NameInput)
-				Renderer->RenderText("text", "Load Game", Color(1, 1, 1));
+				Renderer->RenderMesh("LoadGame",false);
 			else if (!NameInput)
-				Renderer->RenderText("text", "File 2", Color(1, 1, 1));
+				Renderer->RenderMesh("File2", false);
 			modelStack->PopMatrix();
 		}
 		else if (obj->type == "Third")
 		{
 			modelStack->PushMatrix();
 			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-			//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
 			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			Renderer->RenderMesh("ButtonBorder", false);
-			modelStack->PopMatrix();
-
-			//Text on Box
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 4, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack->Scale(2, 2, 1);
 			if (!NewGame && !LoadFile && !NameInput)
-				Renderer->RenderText("text", "Setting", Color(1, 1, 1));
+				Renderer->RenderMesh("Setting", false);
 			else if (!NameInput)
-				Renderer->RenderText("text", "File 3", Color(1, 1, 1));
+				Renderer->RenderMesh("File3", false);
 			modelStack->PopMatrix();
 		}
 		else if (obj->type == "Forth")
 		{
 			modelStack->PushMatrix();
 			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-			//modelStack.Rotate(obj->GetRotationAngle(), obj->GetRotationAxis().x, obj->GetRotationAxis().y, obj->GetRotationAxis().z);
 			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			Renderer->RenderMesh("ButtonBorder", false);
-			modelStack->PopMatrix();
-
-			//Text on Box
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, obj->GetPosition().z);
-			modelStack->Scale(2, 2, 1);
 			if (!NewGame && !LoadFile && !NameInput)
-				Renderer->RenderText("text", "Exit Game", Color(1, 1, 1));
+				Renderer->RenderMesh("ExitGame", false);
 			else if (!NameInput)
-				Renderer->RenderText("text", "Return", Color(1, 1, 1));
+				Renderer->RenderMesh("Return", false);
 			modelStack->PopMatrix();
 		}
 	}

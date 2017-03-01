@@ -15,7 +15,7 @@ class SceneBattles : public SceneEntity
 {
 
 private:
-#pragma message("TERENCE CANT SEE ME")
+#pragma message("Hid Wash Malcolm's Dick")
 	Vector3 tempscale;
 	Vector3 tempscale1;
 	BattleButton* button;

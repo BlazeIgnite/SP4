@@ -52,10 +52,10 @@ void BattleButton::Init(double x, double y)
 	temp->Init(Vector3(110, 15, 0), Vector3(6, 6, 1), "Skill 3");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(140, 15, 0), Vector3(15, 7, 1), "Attack Button");
+	temp->Init(Vector3(140, 15, 0), Vector3(17, 7, 1), "Attack Button");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(160, 15, 0), Vector3(15, 7, 1), "End Turn");
+	temp->Init(Vector3(160, 15, 0), Vector3(17, 7, 1), "End Turn");
 	buttonList.push_back(temp);
 
 	temp = new Button();

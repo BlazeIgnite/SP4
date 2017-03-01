@@ -327,27 +327,13 @@ void Town::Render()
 
 		if (obj->type == "Inventory")
 		{
-			Renderer->RenderMesh("Inventory", false);
-			modelStack->PopMatrix();
-
-			//Text on Box
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 5.5f, obj->GetPosition().y, 0.5f);
-			modelStack->Scale(2, 2, 1);
-			Renderer->RenderText("text", "Inventory", Color(1, 1, 1));
+			Renderer->RenderMesh("CraftStation", false);
 			modelStack->PopMatrix();
 		}
 
 		if (obj->type == "Mission")
 		{
-			Renderer->RenderMesh("Inventory", false);
-			modelStack->PopMatrix();
-
-			//Text on Box
-			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, 0.5);
-			modelStack->Scale(2, 2, 1);
-			Renderer->RenderText("text", "Mission", Color(1, 1, 1));
+			Renderer->RenderMesh("Mission", false);
 			modelStack->PopMatrix();
 		}
 	}
@@ -430,7 +416,7 @@ void Town::RenderCraftingButtons()
 		if (obj->type == "Bandage")
 			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Craft")
-			Renderer->RenderMesh("Inventory", false);
+			Renderer->RenderMesh("Craft", false);
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
@@ -579,13 +565,13 @@ void Town::RenderCraftingButtons()
 		modelStack->PopMatrix();
 
 
-		std::string Craft = "Craft";
+		/*std::string Craft = "Craft";
 		modelStack->PushMatrix();
 		modelStack->Translate(obj->GetPosition().x - Craft.size() * 1.1, obj->GetPosition().y, 0.5);
 		modelStack->Scale(4, 4, 1);
 		if (obj->type == "Craft")
 			Renderer->RenderText("text", Craft, Color(1, 1, 1));
-		modelStack->PopMatrix();
+		modelStack->PopMatrix();*/
 
 		if (obj->type == "Attack Potion")
 		{
@@ -704,16 +690,14 @@ void Town::RenderInventoryButtons()
 		modelStack->Scale(obj->GetScale().x * 5, obj->GetScale().y * 2, obj->GetScale().z);
 		if (obj->type == "Crafting Tab")
 			Renderer->RenderMesh("Inventory", false);
-		/*if (obj->type == "Close Button")
-		Renderer->RenderMesh("Inventory", false);*/
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 		if (obj->type == "Close Button")
-			Renderer->RenderMesh("Inventory", false);
-		modelStack->PopMatrix();
+			Renderer->RenderMesh("Back", false);
+		modelStack->PopMatrix(); 
 
 
 		//Text on Box
@@ -724,15 +708,6 @@ void Town::RenderInventoryButtons()
 		if (obj->type == "Crafting Tab")
 			Renderer->RenderText("text", Crafting, Color(1, 1, 1));
 		modelStack->PopMatrix();
-
-		std::string Back = "Back";
-		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x - Back.size() * 0.5, obj->GetPosition().y, 0.5);
-		modelStack->Scale(2, 2, 1);
-		if (obj->type == "Close Button")
-			Renderer->RenderText("text", Back, Color(1, 1, 1));
-		modelStack->PopMatrix();
-
 	}
 }
 

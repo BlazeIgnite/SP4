@@ -1098,18 +1098,9 @@ void SceneBattles::Render()
 		if (obj->type == "Bandage")
 			Renderer->RenderMesh("Bandage", false);
 		if (obj->type == "Attack Button")
-			Renderer->RenderMesh("Inventory", false);
+			Renderer->RenderMesh("Attack", false);
 		if (obj->type == "End Turn")
-			Renderer->RenderMesh("Inventory", false);
-		modelStack->PopMatrix();
-
-		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, 0.5);
-		modelStack->Scale(2, 2, 1);
-		if (obj->type == "Attack Button")
-			Renderer->RenderText("text", "Attack", Color(1, 1, 1));
-		if (obj->type == "End Turn")
-			Renderer->RenderText("text", "End", Color(1, 1, 1));
+			Renderer->RenderMesh("EndTurn", false);
 		modelStack->PopMatrix();
 			
 		modelStack->PushMatrix();

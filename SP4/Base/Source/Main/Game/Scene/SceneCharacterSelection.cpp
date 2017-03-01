@@ -587,6 +587,8 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 					Renderer->RenderMesh("Bash", false);
 				else if (SkillName == "Rush")
 					Renderer->RenderMesh("Rush", false);
+				else if (SkillName == "Quick Blitz")
+					Renderer->RenderMesh("QuickBlitz", false);
 				else if (SkillName == "Divine Execution")
 					Renderer->RenderMesh("Divine Execution", false);
 				else if (SkillName == "Magic Bolt")

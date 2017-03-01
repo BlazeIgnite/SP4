@@ -70,16 +70,17 @@ void BattleSystem::SetPlayerTroopSkills(size_t playerPosition, size_t skillPosit
 	if (itr == PlayerTroopSkills.end())
 	{
 		map<size_t, Skill*> EmptySkillMap;
-		EmptySkillMap[skillPosition] = (*SkillIt);
+		EmptySkillMap[EmptySkillMap.size()] = (*SkillIt);
 		PlayerTroopSkills[playerPosition] = EmptySkillMap;
 	}
 	else
 	{
-		map<size_t, Skill*>::iterator itr2 = itr->second.find(skillPosition);
+		int SkillPosition = PlayerTroopSkills.find(playerPosition)->second.size();
+		map<size_t, Skill*>::iterator itr2 = itr->second.find(SkillPosition);
 		if (itr2 == itr->second.end())
-			PlayerTroopSkills.find(playerPosition)->second[skillPosition] = (*SkillIt);
+			PlayerTroopSkills.find(playerPosition)->second[SkillPosition] = (*SkillIt);
 		else
-			PlayerTroopSkills.find(playerPosition)->second.at(skillPosition) = (*SkillIt);
+			PlayerTroopSkills.find(playerPosition)->second.at(SkillPosition) = (*SkillIt);
 	}
 }
 void BattleSystem::SetSelectedTroop(CharacterEntity* newSelectedTroop)
@@ -251,6 +252,7 @@ Skill* BattleSystem::GetSelectedSkill(size_t position)
 {
 	if (position >= PlayerTroopSkills.at(GetSelectedTroopPosition()).size())
 		return NULL;
+	map<size_t, Skill*> t =  PlayerTroopSkills.at(GetSelectedTroopPosition());
 	return PlayerTroopSkills.at(GetSelectedTroopPosition()).at(position);
 }
 

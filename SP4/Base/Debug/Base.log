@@ -1,0 +1,64 @@
+﻿Build started 3/1/2017 3:42:19 PM.
+     1>Project "C:\Users\150576E\Desktop\SP4New\SP4\Base\Base.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\150576E\Desktop\SP4New\SP4\/Base/Source/Main/Engine/Lua /IC:\Users\150576E\Desktop\SP4New\SP4\/Common/Source /IC:\Users\150576E\Desktop\SP4New\SP4\/glew/include /IC:\Users\150576E\Desktop\SP4New\SP4\/irrKlang/include /IC:\Users\150576E\Desktop\SP4New\SP4\/glfw/include /ZI /nologo /W3 /WX- /Od /Oy- /D _VARIADIC_MAX=10 /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp
+         AIAllAttack.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\150576E\Desktop\SP4New\SP4\Debug\Base.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\Users\150576E\Desktop\SP4New\SP4\/irrKlang/lib /LIBPATH:C:\Users\150576E\Desktop\SP4New\SP4\/Lua /LIBPATH:C:\Users\150576E\Desktop\SP4New\SP4\Debug /LIBPATH:"C:\Users\150576E\Desktop\SP4New\SP4\/glfw/lib-msvc100" /LIBPATH:C:\Users\150576E\Desktop\SP4New\SP4\/glew/lib Common.lib winmm.lib opengl32.lib glu32.lib glew32.lib glfw3.lib lua5.1.lib irrKlang.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\150576E\Desktop\SP4New\SP4\Debug\Base.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\150576E\Desktop\SP4New\SP4\Debug\Base.lib" /MACHINE:X86 Debug\Audio_Player.obj
+         Debug\BaseObject.obj
+         Debug\InputManager.obj
+         Debug\LuaSystem.obj
+         Debug\RenderSystem.obj
+         Debug\SceneSystem.obj
+         Debug\AIBattlePlanner.obj
+         Debug\AITutorial.obj
+         Debug\Button.obj
+         Debug\Description.obj
+         Debug\AIAllAttack.obj
+         Debug\AIBase.obj
+         Debug\AIBuffDebuff.obj
+         Debug\AICombined.obj
+         Debug\AIDefault.obj
+         Debug\AIStateManager.obj
+         Debug\AIStatusEffect.obj
+         Debug\DescriptionText.obj
+         Debug\CharacterEntity.obj
+         Debug\Mage.obj
+         Debug\Player.obj
+         Debug\Synergist.obj
+         Debug\Consumables.obj
+         Debug\ItemEntity.obj
+         Debug\Skill.obj
+         Debug\Resource.obj
+         Debug\BattleButton.obj
+         Debug\Boundary.obj
+         Debug\Boundary2D.obj
+         Debug\InventoryButtons.obj
+         Debug\Projection.obj
+         Debug\Warrior.obj
+         Debug\MainMenu.obj
+         Debug\SceneBattles.obj
+         Debug\SceneCharacterSelection.obj
+         Debug\SceneLevelSelection.obj
+         Debug\SceneLose.obj
+         Debug\SceneWin.obj
+         Debug\SceneTutorial.obj
+         Debug\SplashScreen.obj
+         Debug\Town.obj
+         Debug\BattleSystem.obj
+         Debug\EventSystem.obj
+         Debug\ObjectManager.obj
+         Debug\Application.obj
+         Debug\Camera.obj
+         Debug\main.obj
+         Debug\MeshBuilder.obj
+         Debug\Scene_Assignment1.obj
+         Debug\SceneBase.obj
+     1>Audio_Player.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Base.vcxproj -> C:\Users\150576E\Desktop\SP4New\SP4\Debug\Base.exe
+     1>Done Building Project "C:\Users\150576E\Desktop\SP4New\SP4\Base\Base.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.62

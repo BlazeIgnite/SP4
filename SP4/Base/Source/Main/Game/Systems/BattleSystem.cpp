@@ -457,7 +457,7 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 	}
 	else
 	{
-		CharacterEntity* targettroop = PlayerTroops.find(target)->second; 
+		CharacterEntity* targettroop = PlayerTroops.find(target)->second;
 		int tempHealth = targettroop->GetHealth() - damage;
 		if (tempHealth <= 0)
 			tempHealth = 0;

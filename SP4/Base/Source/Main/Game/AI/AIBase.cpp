@@ -9,13 +9,17 @@ AIBase::AIBase()
 
 AIBase::~AIBase()
 {
-	//Exit();
+	Exit();
 }
 
 void AIBase::Init()
 {
 	stateHolder = new AIStateManager();
 	m_AITurnCostHolder = 0;
+	m_target = 0;
+	m_DamageCaused = 0;
+
+	m_Attacking = false;
 }
 
 bool AIBase::Calculate(Skill* skillUsed)
@@ -41,6 +45,32 @@ bool AIBase::CalculateCheck(Skill* skillUsed)
 		return true;
 }
 
+void AIBase::SetAttacking(bool attacking)
+{
+	m_Attacking = attacking;
+}
+
+bool AIBase::GetAttacking()
+{
+	return m_Attacking;
+
+}
+
+void AIBase::SetDamageCaused(size_t dmg)
+{
+	m_DamageCaused = dmg;
+}
+
+size_t AIBase::GetDamageCaused()
+{
+	return m_DamageCaused;
+}
+
+size_t AIBase::GetTarget()
+{
+	return m_target;
+}
+
 void AIBase::Exit()
 {
 	if (stateHolder != nullptr)
@@ -48,10 +78,10 @@ void AIBase::Exit()
 		delete stateHolder;
 		stateHolder = nullptr;
 	}
-	for (vector<AIBattlePlanner*>::iterator it = BattlePlanHolder.end(); it != BattlePlanHolder.begin();  it--)
+	/*for (vector<AIBattlePlanner*>::iterator it = BattlePlanHolder.end(); it != BattlePlanHolder.begin();  it--)
 	{
 		if ((*it) != nullptr)
 			delete *it;
 		BattlePlanHolder.pop_back();
-	}
+	}*/
 }

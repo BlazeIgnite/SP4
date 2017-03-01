@@ -79,10 +79,15 @@ void AIAllAttack::Execute()
 	//BattlePlanHolder->SetBattlePlan("");
 	//stateHolder->SetState("");
 
-	vector<AIBattlePlanner*>::iterator it = BattlePlanHolder.end();
-
-	if (BattlePlanHolder.size() > 0)
+	AIBattlePlanner* ABP = BattlePlanHolder.back();
+	if (!m_Attacking && BattlePlanHolder.size() > 0)
+	{
+		m_target = ABP->GetTarget();
+		m_Attacking = true;
+		m_DamageCaused = BattleSystem::Instance().DamageCalculation(ABP->GetTarget(), ABP->GetSkill());
 		BattlePlanHolder.pop_back();
+	}
+
 
 	if (BattlePlanHolder.size() == 0)
 	{

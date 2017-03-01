@@ -31,7 +31,6 @@ void AIAllAttack::Update(double dt)
 void AIAllAttack::Planning()
 {
 	bool planningDone = false;
-	CharacterEntity* tempCE = BattleSystem::Instance().GetAITroops().at(BattleSystem::Instance().GetNumberOfAITroopAlive() - 1);
 	for (auto it : BattleSystem::Instance().GetAITroops())
 	{
 		if (!it.second->GetDefeated())
@@ -78,15 +77,25 @@ void AIAllAttack::Execute()
 	//}
 	//BattlePlanHolder->SetBattlePlan("");
 	//stateHolder->SetState("");
-
-	vector<AIBattlePlanner*>::iterator it = BattlePlanHolder.end();
-
-	if (BattlePlanHolder.size() > 0)
+	if (!m_Attacking && BattlePlanHolder.size() > 0)
+	{
+		AIBattlePlanner* ABP = BattlePlanHolder.back();
+		m_target = ABP->GetTarget();
+		if (BattleSystem::Instance().GetPlayerTroops().at(m_target)->GetDefeated())
+		{
+			BattlePlanHolder.pop_back();
+			return;
+		}
+		m_Attacking = true;
+		m_DamageCaused = BattleSystem::Instance().DamageCalculation(ABP->GetTarget(), ABP->GetSkill());
 		BattlePlanHolder.pop_back();
+	}
 
-	if (BattlePlanHolder.size() == 0)
+
+	if (BattlePlanHolder.size() == 0 && !m_Attacking)
 	{
 		m_AITurnCostHolder = 100;
+		stateHolder->SetState("");
 		BattleSystem::Instance().SetPlayerTurn(true);
 	}
 }

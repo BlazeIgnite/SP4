@@ -8,8 +8,6 @@ using std::endl;
 
 
 AIStatusEffect::AIStatusEffect() 
-: m_Turns(0)
-, m_target(0)
 {
 	Init();
 }

@@ -16,12 +16,24 @@ protected:
 	AIStateManager* stateHolder;
 
 	size_t m_AITurnCostHolder;
+	size_t m_DamageCaused;
+	size_t m_target;
+
+	bool m_Attacking;
 
 	bool Calculate(Skill*);
 	bool CalculateCheck(Skill*);
 public:
 	AIBase();
 	~AIBase();
+
+	virtual void SetAttacking(bool attack);
+	virtual bool GetAttacking();
+
+	virtual void SetDamageCaused(size_t dmg);
+	virtual size_t GetDamageCaused();
+
+	virtual size_t GetTarget();
 
 	virtual void Init();
 	virtual void Update(double dt) = 0;

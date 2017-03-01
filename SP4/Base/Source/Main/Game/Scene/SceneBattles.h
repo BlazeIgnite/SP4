@@ -18,16 +18,15 @@ private:
 	Vector3 tempscale;
 	Vector3 tempscale1;
 	BattleButton* button;
-	CharacterEntity* character;
-	AIBase* AI = nullptr;
-	vector<string> PlayerDamaged;
-	vector<string> AIDamaged;
+	AIBase* AI;
 	double x, y;
 
+	size_t i;
 	string damage;
 
 	float ActionMeter;
-	float textPos;
+	float textPosY;
+	float startPosY;
 	float timer;
 
 	void RenderObjects(BaseObject *obj);

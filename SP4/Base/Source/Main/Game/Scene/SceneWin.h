@@ -14,7 +14,7 @@ public:
 	virtual void Update(float dt);
 	virtual void Render();
 	virtual void Exit();
-
+	void Drop();
 
 protected:
 	int NumCharacters = 0;
@@ -25,6 +25,8 @@ protected:
 	bool GameStage;
 	float timer;
 	std::string youwin;
-	int drops;
+	int drops[4];
+	string itemmesh[4];
+	string item[4];
 	Camera camera;
 };

@@ -278,8 +278,10 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 		if (GetNumberOfPlayerTroopAlive() >= 1 && AITroops[0]->GetDefeated())
 		{
 			MoveTroopFrontByOne(AITroops);
+			if (AITroops[0]->GetDefeated())
+				MoveTroopFrontByOne(AITroops);
 		}
-		if (GetNumberOfPlayerTroopAlive() == 2 && AITroops[1]->GetDefeated())
+		if (GetNumberOfPlayerTroopAlive() == 2 && AITroops[1]->GetDefeated()) 
 		{
 			SwitchSpots(AITroops, 1, 2);
 		}
@@ -338,6 +340,8 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 		if (GetNumberOfPlayerTroopAlive() >= 1 && PlayerTroops[0]->GetDefeated())
 		{
 			MoveTroopFrontByOne(PlayerTroops);
+			if (PlayerTroops[0]->GetDefeated())
+				MoveTroopFrontByOne(PlayerTroops);
 		}
 		if (GetNumberOfPlayerTroopAlive() == 2 && PlayerTroops[1]->GetDefeated())
 		{
@@ -402,7 +406,6 @@ void BattleSystem::SetPlayerTurn(bool newPlayerTurn)
 
 
 	PlayerTurn = newPlayerTurn;
-	Debugging();
 }
 
 

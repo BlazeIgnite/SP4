@@ -21,6 +21,7 @@ private:
 	AIBase* AI;
 	double x, y;
 
+	size_t i;
 	string damage;
 
 	float ActionMeter;

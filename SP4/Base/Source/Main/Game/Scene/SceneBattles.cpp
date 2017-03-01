@@ -90,6 +90,7 @@ void SceneBattles::Init()
 			entity2->SetisSelected(false);
 		}
 	}
+	i = 0;
 	timer = 0;
 	startPosY = textPosY = BattleSystem::Instance().GetPlayerTroops().at(0)->GetVectorPosition().y;
 	renderDamage = false;
@@ -421,6 +422,7 @@ void SceneBattles::Update(float dt)
 							AudioPlayer::Instance().PlayPriestAttack();
 						}
 						damage = "-" + std::to_string(BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill()));
+						i = BattleSystem::Instance().GetSelectedEnemyTroopPosition();
 						renderDamage = true;
 					}
 					(*itr)->SetisPressed(true);
@@ -734,7 +736,7 @@ void SceneBattles::Render()
 		if (entity->GetStunned() == true)
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(-entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+			modelStack->Translate(-entity->GetScale().y / 30, -entity->GetScale().y / 15, 0);
 			modelStack->Scale(.2f, 0.2f, 1.f);
 			Renderer->RenderMesh("StunIcon", false);
 			modelStack->PopMatrix();
@@ -742,7 +744,7 @@ void SceneBattles::Render()
 		if (entity->GetBleeding() == true)
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(-entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+			modelStack->Translate(-entity->GetScale().y / 100, -entity->GetScale().y / 15, 0);
 			modelStack->Scale(.2f, 0.2f, 1.f);
 			Renderer->RenderMesh("BleedIcon", false);
 			modelStack->PopMatrix();
@@ -750,7 +752,7 @@ void SceneBattles::Render()
 		if (entity->GetDebuffed() == true)
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(entity->GetScale().y / 100, -entity->GetScale().y / 15, 1);
+			modelStack->Translate(entity->GetScale().y / 100, -entity->GetScale().y / 15, 0);
 			modelStack->Scale(.2f, 0.2f, 1.f);
 			Renderer->RenderMesh("DebuffIcon", false);
 			modelStack->PopMatrix();
@@ -758,7 +760,7 @@ void SceneBattles::Render()
 		if (entity->GetBuffed() == true)
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(entity->GetScale().y / 30, -entity->GetScale().y / 15, 1);
+			modelStack->Translate(entity->GetScale().y / 30, -entity->GetScale().y / 15, 0);
 			modelStack->Scale(.2f, 0.2f, 1.f);
 			Renderer->RenderMesh("BuffIcon", false);
 			modelStack->PopMatrix();
@@ -770,7 +772,7 @@ void SceneBattles::Render()
 	{
 		Button* obj = (Button *)*itr;
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 10);
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
 
 		if (BattleSystem::Instance().GetSelectedTroop() != nullptr)
@@ -1129,7 +1131,6 @@ void SceneBattles::Render()
 	}
 	else if (renderDamage && BattleSystem::Instance().GetPlayerTurn())
 	{
-		size_t i = BattleSystem::Instance().GetSelectedEnemyTroopPosition();
 		modelStack->PushMatrix();
 		modelStack->Translate(BattleSystem::Instance().GetAITroops().at(i)->GetVectorPosition().x, textPosY, BattleSystem::Instance().GetPlayerTroops().at(i)->GetVectorPosition().z);
 		modelStack->Scale(9, 9, 1);

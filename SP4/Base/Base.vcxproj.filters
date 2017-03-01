@@ -52,6 +52,7 @@
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AITutorial.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Synergist.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevel2.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneLevel1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main\Engine\Audio\Audio_Player.h" />
@@ -123,6 +124,8 @@
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AITutorial.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\Synergist.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneLevel2.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLevel1.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLevel3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

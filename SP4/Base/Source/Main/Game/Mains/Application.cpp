@@ -23,6 +23,7 @@
 #include "../Scene/SceneLose.h"
 #include "../Scene/SceneCharacterSelection.h"
 #include "../Scene/SceneTutorial.h"
+#include "../Scene/SceneLevel4.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -212,6 +213,10 @@ void Application::Init()
 	SceneWin* temp8 = new SceneWin();
 	temp8->SetEntityID("Win_Scene");
 	SceneSystem::Instance().AddScene(*temp8);
+
+	SceneLevel4* temp9 = new SceneLevel4();
+	temp9->SetEntityID("Level4_Scene");
+	SceneSystem::Instance().AddScene(*temp9);
 
 }
 

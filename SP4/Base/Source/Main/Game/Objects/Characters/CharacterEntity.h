@@ -60,6 +60,7 @@ public:
 	inline bool GetBleeding(){ return StatusEffect[1]; };
 	inline bool GetBuffed(){ return StatusEffect[2]; }
 	inline bool GetDebuffed(){ return StatusEffect[3]; };
+	inline void SetExperiencePoints(size_t ExperiencePoints){ this->ExperiencePoints = ExperiencePoints; }
 
 	//Setters
 	inline void SetPosition(Vector3 Position){ this->Position = Position; };

@@ -40,6 +40,7 @@ void SceneSystem::SwitchScene(const std::string &id_)
 	std::map<std::string, SceneEntity*>::iterator it = StoredSceneList.find(id_);
 	if (it != StoredSceneList.end())
 	{
+		SceneHistory.back()->Exit();
 		it->second->Init();
 		SceneHistory.push(it->second);
 		Renderer->modelStack = SceneHistory.back()->modelStack;

@@ -78,6 +78,16 @@ void MainMenu::Update(float dt)
 	{
 		LMouse = false; 
 	}
+	if (NameInput)
+	{
+		if (InputManager::Instance().GetKeyPressed() != NULL)
+		{
+			if (InputManager::Instance().GetKeyPressed() != VK_BACK && NewName.size() < 18)
+				NewName += InputManager::Instance().GetKeyPressed();
+			else if (InputManager::Instance().GetKeyPressed() == VK_BACK && NewName.size() > 0)
+				NewName.erase(NewName.size() - 1);
+		}
+	}
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
 		(*itr)->Update();
@@ -96,6 +106,7 @@ void MainMenu::Update(float dt)
 			else if ((*itr)->type == "Third" && (*itr)->GetCurrentState() == CLICK)
 			{
 				SceneSystem::Instance().SwitchScene("Settings");
+				break;
 			}
 			else if ((*itr)->type == "Forth" && (*itr)->GetCurrentState() == CLICK)
 			{
@@ -108,16 +119,19 @@ void MainMenu::Update(float dt)
 			{
 				Player::Instance().LoadPlayer(1);
 				SceneSystem::Instance().SwitchScene("Town_Scene");
+				break;
 			}
 			else if ((*itr)->type == "Second" && (*itr)->GetCurrentState() == CLICK)
 			{
 				Player::Instance().LoadPlayer(2);
 				SceneSystem::Instance().SwitchScene("Town_Scene");
+				break;
 			}
 			else if ((*itr)->type == "Third" && (*itr)->GetCurrentState() == CLICK)
 			{
 				Player::Instance().LoadPlayer(3);
 				SceneSystem::Instance().SwitchScene("Town_Scene");
+				break;
 			}
 			else if ((*itr)->type == "Forth" && (*itr)->GetCurrentState() == CLICK)
 			{
@@ -139,22 +153,13 @@ void MainMenu::Update(float dt)
 				Player::Instance().SetPlayerName(NewName);
 				std::cout << Player::Instance().GetPlayerName() << std::endl;
 				SceneSystem::Instance().SwitchScene("Town_Scene");
+				break;
 			}
 			else if ((*itr)->type == "Back" && (*itr)->GetCurrentState() == CLICK)
 			{
 				NewName = "";
 				NameInput = false;
 			}
-		}
-	}
-	if (NameInput)
-	{
-		if (InputManager::Instance().GetKeyPressed() != NULL)
-		{
-			if (InputManager::Instance().GetKeyPressed() != VK_BACK && NewName.size() < 18)
-				NewName += InputManager::Instance().GetKeyPressed();
-			else if (InputManager::Instance().GetKeyPressed() == VK_BACK && NewName.size() > 0)
-				NewName.erase(NewName.size() - 1);
 		}
 	}
 }

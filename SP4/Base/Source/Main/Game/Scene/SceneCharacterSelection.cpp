@@ -18,41 +18,7 @@ SceneCharacterSelection::SceneCharacterSelection()
 
 SceneCharacterSelection::~SceneCharacterSelection()
 {
-	for (auto it : SkillButtonList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : CharacterButtonList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : CharacterClassList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : FinalChoiceList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : ChangeSceneList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : CharacterSelectedSkill)
-	{
-		it.second.clear();
-	}
-	SkillButtonList.clear();
-	CharacterButtonList.clear();
-	CharacterClassList.clear();
-	FinalChoiceList.clear();
-	ChangeSceneList.clear();
-	CharacterSelectedSkill.clear();
+	Exit();
 }
 
 void SceneCharacterSelection::Init()
@@ -158,11 +124,6 @@ void SceneCharacterSelection::Update(float dt)
 			ClickingOtherButtons = true;
 		if (it->GetisSelected() && it->CurrentState == CLICK)
 		{
-//<<<<<<< HEAD
-//			SelectedSkill = -1;
-//			SelectedSkills.clear();
-//			SelectedSkills = std::vector<int>();
-//=======
 			if (SelectedCharacter != CharacterCount)
 			{
 				SelectedSkill = -1;
@@ -230,6 +191,8 @@ void SceneCharacterSelection::Update(float dt)
 				ClassNameText = "Mage";
 			else if (ClassNameText == "Mage")
 				ClassNameText = "Warrior";
+			SelectedCharacter = -1;
+			SelectedSkills.clear();
 		}
 		else if (it->GetisSelected() && it->CurrentState == CLICK && it->type.find("Right") != string::npos)
 		{
@@ -239,6 +202,8 @@ void SceneCharacterSelection::Update(float dt)
 				ClassNameText = "Synergist";
 			else if (ClassNameText == "Synergist")
 				ClassNameText = "Warrior";
+			SelectedCharacter = -1;
+			SelectedSkills.clear();
 		}
 	}
 
@@ -263,7 +228,10 @@ void SceneCharacterSelection::Update(float dt)
 		it->Update();
 		if (it->GetisSelected())
 			if (it->type == "Return")
+			{
 				SceneSystem::Instance().SwitchScene("Town_Scene");
+				break;
+			}
 			else if (it->type == "Start")
 			{
 				BattleSystem::Instance().Init();
@@ -314,6 +282,7 @@ void SceneCharacterSelection::Update(float dt)
 					}
 				}
 				SceneSystem::Instance().SwitchScene("LevelSelection_Scene");
+				break;
 			}
 	}
 }
@@ -391,6 +360,41 @@ void SceneCharacterSelection::Render()
 void SceneCharacterSelection::Exit()
 {
 	ObjectManager::Instance().Exit();
+	for (auto it : SkillButtonList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : CharacterButtonList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : CharacterClassList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : FinalChoiceList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : ChangeSceneList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : CharacterSelectedSkill)
+	{
+		it.second.clear();
+	}
+	SkillButtonList.clear();
+	CharacterButtonList.clear();
+	CharacterClassList.clear();
+	FinalChoiceList.clear();
+	ChangeSceneList.clear();
+	CharacterSelectedSkill.clear();
 }
 
 void SceneCharacterSelection::RenderPlayerCharacterList()

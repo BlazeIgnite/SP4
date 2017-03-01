@@ -97,20 +97,7 @@ void Warrior::LevelUp(bool init)
 		}
 		else if (Level == 5)
 		{
-			// Taunt
-			// Setting Name of skill
-			//skill->SetName("Taunt");
-
-			//// Setting Action Cost for Battle
-			//skill->SetActionCost(35);
-
-			//// Setting the cooldown time after activation
-			//skill->SetMaxTurnCooldown(2);
-			////skill->SetStatusEffect(1, "Buff");
-			////skill->
-
-			//// Setting of how many turns status effect affects, what status effect is it
-			//skill->SetStatusEffect(1, "Buff");
+			
 			skill->SetName("Quick Blitz");
 
 			// Setting Action Cost for Battle
@@ -134,31 +121,6 @@ void Warrior::LevelUp(bool init)
 		}
 		else if (Level == 4)
 		{
-			// Taunt
-			// Setting Name of skill
-			//skill->SetName("Taunt");
-
-			//// Setting Action Cost for Battle
-			//skill->SetActionCost(35);
-
-			//// Setting the cooldown time after activation
-			//skill->SetMaxTurnCooldown(2);
-			////skill->SetStatusEffect(1, "Buff");
-			////skill->
-
-			//// Setting of how many turns status effect affects, what status effect is it
-			//skill->SetStatusEffect(1, "Buff");
-
-			//// Setting the Required Position to use skill
-			//skill->SetRequiredPosition(0, true);
-			//
-			//// Setting the Selectable Position to use skill on
-			//skill->SetSelectableTarget(0, true);
-			//skill->SetSelectableTarget(1, true);
-			//skill->SetSelectableTarget(2, true);
-			//
-			//// Now the Warrior is allowed to use this skill
-			//SkillList.push_back(skill);
 
 			// Stab Skill
 
@@ -234,6 +196,8 @@ void Warrior::LevelUp(bool init)
 
 			skill->SetMaxTurnCooldown(2);
 
+			skill->SetStatusEffect(1, "Bleed");
+
 			for (int i = 0; i < 3; i++)
 			{
 				skill->SetRequiredPosition(i, true);
@@ -255,7 +219,7 @@ void Warrior::LevelUp(bool init)
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Rush")
-			SkillItr->SetDamage((int)(Attack * 0.3));
+			SkillItr->SetDamage((int)(Attack * 0.25));
 		//else if (SkillItr->GetName() == "Quick Blitz")
 		//	SkillItr->SetDamage((int)(Attack*0.1));
 		else if (SkillItr->GetName() == "Bash")

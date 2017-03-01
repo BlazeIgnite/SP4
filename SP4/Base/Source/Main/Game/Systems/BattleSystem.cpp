@@ -235,6 +235,16 @@ size_t BattleSystem::GetNumberOfPlayerTroopAlive()
 	return NumberofAliveTroops;
 }
 
+size_t BattleSystem::GetSelectedEnemyTroopPosition()
+{
+	for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
+	{
+		if (it->second == SelectedEnemyTroop)
+			return it->first;
+	}
+	return NULL;
+}
+
 CharacterEntity* BattleSystem::GetPlayerTroopAttacking(size_t position)
 {
 	if (position >= PlayerTroops.size())
@@ -457,7 +467,7 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 	}
 	else
 	{
-		CharacterEntity* targettroop = PlayerTroops.find(target)->second; 
+		CharacterEntity* targettroop = PlayerTroops.find(target)->second;
 		int tempHealth = targettroop->GetHealth() - damage;
 		if (tempHealth <= 0)
 			tempHealth = 0;

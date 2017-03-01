@@ -26,6 +26,18 @@ void SceneWin::Init()
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	youwin = "You Win!";
 	timer = 0.f;
+	for (int i = 0; i < 4; i++)
+	{
+		drops[i] = Math::RandIntMinMax(0, 5);
+	}
+	item[0] = "Red Herb";
+	item[1] = "White Herb";
+	item[2] = "Empty Bottle";
+	item[3] = "Cloth";
+	itemmesh[0] = "RedHerb";
+	itemmesh[1] = "WhiteHerb";
+	itemmesh[2] = "Empty Bottle";
+	itemmesh[3] = "Cloth";
 }
 
 void SceneWin::Update(float dt)
@@ -34,13 +46,12 @@ void SceneWin::Update(float dt)
 	//	SceneSystem::Instance().SwitchScene("Town_Scene");
 
 	timer += dt;
-
 	if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && timer > 5.f)
 	{
 		timer = 0.f;
 		for (auto it : BattleSystem::Instance().GetPlayerTroops())
 		{
-			if (it.second != nullptr)
+			if (it.second->GetDefeated() == true)
 				delete it.second;
 			it.second = nullptr;
 		}
@@ -83,6 +94,7 @@ void SceneWin::Update(float dt)
 				}
 			}
 		}
+		Drop();
 		BattleSystem::Instance().Reset();
 		SceneSystem::Instance().SwitchScene("Town_Scene");
 	}
@@ -124,10 +136,37 @@ void SceneWin::Render()
 
 
 	modelStack->PushMatrix(); 
-	modelStack->Translate((ObjectManager::Instance().WorldWidth * 0.5f), ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
+	modelStack->Translate((ObjectManager::Instance().WorldWidth * 0.2f), ObjectManager::Instance().WorldHeight * 0.5f, -5.f);
 	modelStack->Scale(5, 5, 1);
 	Renderer->RenderText("text", "Material Earned: ", Color(1, 0, 0));
 	modelStack->PopMatrix();
+
+	for (int i = 0; i < 4; i++)
+	{
+		string temp = std::to_string(drops[i]);
+		modelStack->PushMatrix();
+		modelStack->Translate((ObjectManager::Instance().WorldWidth * 0.5f) + i * 10, ObjectManager::Instance().WorldHeight * 0.4f, -5.f);
+		modelStack->Scale(5, 5, 1);
+		Renderer->RenderText("text", temp , Color(1, 0, 0));
+
+		modelStack->PushMatrix();
+		modelStack->Translate(0, 1, 0);
+		modelStack->Scale(1, 1, 1);
+		Renderer->RenderMesh(itemmesh[i], false);
+		modelStack->PopMatrix();
+
+		modelStack->PopMatrix();
+	}
+	
+}
+
+
+void SceneWin::Drop()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		Player::Instance().AddMaterialItem(item[i],drops[i]);
+	}
 }
 
 void SceneWin::Exit()

@@ -48,6 +48,7 @@ public:
 	size_t GetSelectedTroopPosition();
 	size_t GetNumberOfAITroopAlive();
 	size_t GetNumberOfPlayerTroopAlive();
+	size_t GetSelectedEnemyTroopPosition();
 	CharacterEntity* GetPlayerTroopAttacking(size_t position);
 	Skill* GetSelectedSkill(size_t position);
 	inline map<size_t, CharacterEntity*>& GetPlayerTroops() { return PlayerTroops; };

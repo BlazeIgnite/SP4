@@ -120,9 +120,9 @@ void SceneCharacterSelection::Update(float dt)
 	for (auto it : CharacterButtonList)
 	{
 		it->Update();
-		if (it->CurrentState == CLICK || it->CurrentState == HOLD)
+		if ((it->CurrentState == CLICK || it->CurrentState == HOLD) && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			ClickingOtherButtons = true;
-		if (it->GetisSelected() && it->CurrentState == CLICK)
+		if ((it->GetisSelected() && it->CurrentState == CLICK) && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 		{
 			if (SelectedCharacter != CharacterCount)
 			{
@@ -133,7 +133,7 @@ void SceneCharacterSelection::Update(float dt)
 			SelectedCharacter = CharacterCount;
 			SelectChar = true;
 		}
-		else if (it->CurrentStateR == CLICK)
+		else if ((it->CurrentStateR == CLICK) && InputManager::Instance().GetMouseState(MOUSE_R) == CLICK)
 		{
 			SelectedSkill = -1;
 			SelectedSkills.clear();
@@ -149,7 +149,7 @@ void SceneCharacterSelection::Update(float dt)
 		it->Update();
 		if (it->CurrentState == CLICK || it->CurrentState == HOLD)
 			ClickingOtherButtons = true;
-		if (it->GetisSelected() && it->CurrentState == CLICK)
+		if ((it->GetisSelected() && it->CurrentState == CLICK) && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 		{
 			SelectedSkill = SkillCount;
 			SelectSkill = true;
@@ -181,7 +181,7 @@ void SceneCharacterSelection::Update(float dt)
 	for (auto it : CharacterClassList)
 	{
 		it->Update();
-		if (it->CurrentState == CLICK || it->CurrentState == HOLD)
+		if ((it->CurrentState == CLICK || it->CurrentState == HOLD) && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 			ClickingOtherButtons = true;
 		if (it->GetisSelected() && it->CurrentState == CLICK && it->type.find("Left") != string::npos)
 		{
@@ -206,7 +206,6 @@ void SceneCharacterSelection::Update(float dt)
 			SelectedSkills.clear();
 		}
 	}
-
 	for (auto it : FinalChoiceList)
 	{
 		it->Update();
@@ -220,6 +219,17 @@ void SceneCharacterSelection::Update(float dt)
 				CharacterSelectedSkill.insert(std::pair<Button*, std::vector<int>>(it, SelectedSkills));
 			else
 				CharacterSelectedSkill.find(it)->second = SelectedSkills;
+		}
+		else if (it->CurrentState == CLICK && SelectedCharacter == -1 && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+		{
+			char Name = it->type[it->type.size() - 1];
+			SelectedCharacter = Name - 48;
+			SelectedSkills = CharacterSelectedSkill.find(it)->second;
+		}
+		else if (it->CurrentStateR == CLICK && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+		{
+			CharacterSelectedSkill.erase(it);
+			it->type = "";
 		}
 		++FinalCount;
 	}
@@ -465,10 +475,10 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 			{
 				//Render Character Icon
 				modelStack->PushMatrix();
-				if (InputManager::Instance().GetMouseState(MOUSE_L) == HOLD && Count == SelectedCharacter && ClickingOtherButtons == false)
-					modelStack->Translate(InputManager::Instance().GetMousePosition().x - ObjectManager::Instance().WorldWidth * 0.2f, InputManager::Instance().GetMousePosition().y - (25 - (12 * Count) + ObjectManager::Instance().WorldHeight * 0.6f), 1);
-				else
-					modelStack->Translate(-15, 0, 1);
+				//if (InputManager::Instance().GetMouseState(MOUSE_L) == HOLD && Count == SelectedCharacter && ClickingOtherButtons == false)
+				//	modelStack->Translate(InputManager::Instance().GetMousePosition().x - ObjectManager::Instance().WorldWidth * 0.2f, InputManager::Instance().GetMousePosition().y - (25 - (12 * Count) + ObjectManager::Instance().WorldHeight * 0.6f), 1);
+				//else
+				modelStack->Translate(-15, 0, 1);
 				modelStack->Scale(7.5f, 7.5f, 1);
 				if (ClassNameText == "Warrior")
 					Renderer->RenderMesh("PlayerWarriorMesh", false);
@@ -485,6 +495,33 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 				modelStack->Scale(3, 3, 1);
 				Renderer->RenderText("text", ("Level: " + std::to_string(it->second->GetLevel())), Color(1, 1, 1));
 				modelStack->PopMatrix();
+				int PosCount = 1;
+				for (auto it2 : FinalChoiceList)
+				{
+					std::string Name = it2->type;
+					if (Name.find(ClassNameText) != string::npos)
+					{
+						Name.replace(Name.find(ClassNameText), ClassNameText.size(), "");
+						if (Count == std::stoi(Name))
+						{
+							modelStack->PushMatrix();
+							modelStack->Translate(20, 0, 1);
+
+								modelStack->PushMatrix();
+								modelStack->Scale(3, 3, 1);
+								Renderer->RenderMesh("ButtonBorder", false);
+								modelStack->PopMatrix();
+
+								modelStack->Translate(0.75f, 0, 1);
+								modelStack->Scale(3, 3, 1);
+								Renderer->RenderText("text", std::to_string(PosCount), Color(1, 1, 1));
+
+							modelStack->PopMatrix();
+						}
+					}
+					++PosCount;
+				}
+
 				++it;
 			}
 			else
@@ -569,7 +606,7 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 			if (SelectedCharacter != -1)
 			{
 				std::string SkillName;
-				if (Count + 1 <= Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size())
+				if (Count + 1 < Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size())
 					SkillName = Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(Count + 1)->GetName();
 				if (SkillName == "Life Drain")
 					Renderer->RenderMesh("LifeDrain", false);
@@ -629,7 +666,8 @@ void SceneCharacterSelection::RenderCharacterInfo()
 			Renderer->RenderMesh("PlayerMageMesh", false);
 		Renderer->RenderMesh("ButtonBorder", false);
 		modelStack->PopMatrix();
-		//Render Character Image
+
+		modelStack->Translate(0, -5, 0);
 
 		modelStack->PushMatrix();
 		modelStack->Translate(16, 8, 0);
@@ -639,7 +677,6 @@ void SceneCharacterSelection::RenderCharacterInfo()
 		else
 			Renderer->RenderText("text", "Level: ---", Color(1, 1, 1));
 		modelStack->PopMatrix();
-
 		modelStack->PushMatrix();
 		modelStack->Translate(16, 5, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);

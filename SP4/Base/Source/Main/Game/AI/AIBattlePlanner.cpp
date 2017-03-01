@@ -5,6 +5,12 @@ AIBattlePlanner::AIBattlePlanner()
 {
 }
 
+AIBattlePlanner::AIBattlePlanner(Skill* SkillUsed, size_t Attacker, size_t Target)
+: m_SkillUsed(SkillUsed)
+, m_Attacker(Attacker)
+, m_Target(Target)
+{
+}
 
 AIBattlePlanner::~AIBattlePlanner()
 {

@@ -53,7 +53,7 @@ void AIStatusEffect::Init()
 					vector<string>::iterator it4 = it3->second.begin();
 					for (; it4 != it3->second.end(); it4++)
 					{
-						if (((*it4) == "Stun" || (*it4) == "Bleed") && ((*it2)->GetName() != "Ars Arcanum"))
+						if (((*it4) == "Stun" || (*it4) == "Bleed" || (*it4) == "Stab" || (*it4) == "Dark Hail" || (*it4) == "Quake") && ((*it2)->GetName() != "Ars Arcanum"))
 						{
 							m_SkillAvailable[it->second].push_back((*it).second->GetSkillInVector((*it2)->GetName()));
 						}

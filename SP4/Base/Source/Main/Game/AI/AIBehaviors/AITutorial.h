@@ -8,8 +8,6 @@ class AITutorial :
 private:
 	size_t m_Turn;
 
-	size_t m_BattleNumber;
-
 public:
 	AITutorial();
 	~AITutorial();
@@ -20,6 +18,5 @@ public:
 	virtual void Execute();
 	virtual void Exit();
 
-	void SetBattleNumber(size_t BattleNumber) { m_BattleNumber = BattleNumber; };
 };
 

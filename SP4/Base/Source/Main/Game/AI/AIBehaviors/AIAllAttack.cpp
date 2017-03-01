@@ -83,11 +83,13 @@ void AIAllAttack::Execute()
 		m_target = ABP->GetTarget();
 		if (BattleSystem::Instance().GetPlayerTroops().at(m_target)->GetDefeated())
 		{
+			delete ABP;
 			BattlePlanHolder.pop_back();
 			return;
 		}
 		m_Attacking = true;
 		m_DamageCaused = BattleSystem::Instance().DamageCalculation(ABP->GetTarget(), ABP->GetSkill());
+		delete ABP;
 		BattlePlanHolder.pop_back();
 	}
 

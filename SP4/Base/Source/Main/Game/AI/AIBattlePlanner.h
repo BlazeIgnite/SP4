@@ -14,6 +14,7 @@ class AIBattlePlanner
 
 public:
 	AIBattlePlanner();
+	AIBattlePlanner(Skill* SkillUsed, size_t Attacker, size_t Target);
 	~AIBattlePlanner();
 
 	void SetSkill(Skill* skill);

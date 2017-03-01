@@ -35,13 +35,6 @@ void SceneBattles::Init()
 	button = new BattleButton();
 	button->Init(x,y);
 
-	Warrior* warrior = new Warrior();
-	warrior->Init(20);
-	Mage* mage = new Mage();
-	mage->Init(20);
-	Synergist* synergist = new Synergist();
-	synergist->Init(20);
-
 	Warrior* warrior2 = new Warrior();
 	warrior2->Init(20);
 	Mage* mage2 = new Mage();

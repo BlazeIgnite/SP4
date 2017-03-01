@@ -1,10 +1,10 @@
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\vc120.pdb
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\vc120.idb
-c:\users\151131h\desktop\sp4.3\sp4\base\debug\projection.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\warrior.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\mainmenu.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\scenebattles.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\scenecharacterselection.obj
+c:\users\151131h\desktop\sp4.3\sp4\base\debug\scenelevel2.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\scenelevelselection.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\scenelose.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\scenewin.obj
@@ -20,7 +20,6 @@ c:\users\151131h\desktop\sp4.3\sp4\base\debug\main.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\meshbuilder.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\scene_assignment1.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\scenebase.obj
-c:\users\151131h\desktop\sp4.3\sp4\base\debug\aiallattack.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\aibase.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\aibuffdebuff.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\aicombined.obj
@@ -40,6 +39,7 @@ c:\users\151131h\desktop\sp4.3\sp4\base\debug\battlebutton.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\boundary.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\boundary2d.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\inventorybuttons.obj
+c:\users\151131h\desktop\sp4.3\sp4\base\debug\projection.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\audio_player.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\baseobject.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\inputmanager.obj
@@ -50,6 +50,7 @@ c:\users\151131h\desktop\sp4.3\sp4\base\debug\aibattleplanner.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\aitutorial.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\button.obj
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\description.obj
+c:\users\151131h\desktop\sp4.3\sp4\base\debug\aiallattack.obj
 c:\users\151131h\desktop\sp4.3\sp4\debug\base.exe
 c:\users\151131h\desktop\sp4.3\sp4\debug\base.pdb
 c:\users\151131h\desktop\sp4.3\sp4\base\debug\base.tlog\cl.command.1.tlog

@@ -16,6 +16,7 @@
 
 #include "../Scene/SceneLevelSelection.h"
 #include "../Scene/Scene_Assignment1.h"
+#include "../Scene/SceneLevel1.h"
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
 #include "../Scene/Town.h"
@@ -178,10 +179,6 @@ void Application::Init()
 	Renderer->Init();
 	SceneSystem::Instance().SetRenderSystem(*Renderer);
 
-	/*Scene_Assignment1* temp2 = new Scene_Assignment1();
-	temp2->Init();
-	SceneSystem::Instance().AddScene(*temp2);*/
-
 	MainMenu* temp3 = new MainMenu();
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
@@ -209,6 +206,10 @@ void Application::Init()
 	SceneTutorial* temp7 = new SceneTutorial();
 	temp7->SetEntityID("Tutorial_Scene");
 	SceneSystem::Instance().AddScene(*temp7);
+
+	SceneLevel1* temp9 = new SceneLevel1();
+	temp9->SetEntityID("Level1");
+	SceneSystem::Instance().AddScene(*temp9);
 
 	SceneWin* temp8 = new SceneWin();
 	temp8->SetEntityID("Win_Scene");

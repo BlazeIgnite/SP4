@@ -46,7 +46,9 @@
     <ClCompile Include="Source\Main\Game\Scene\MainMenu.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBattles.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneCharacterSelection.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneLevel1.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevel2.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneLevel4.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevelSelection.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLose.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneWin.cpp" />
@@ -115,7 +117,10 @@
     <ClInclude Include="Source\Main\Game\Scene\MainMenu.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBattles.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneCharacterSelection.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLevel1.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneLevel2.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLevel4.h" />
+    <ClInclude Include="Source\Main\Game\Scene\SceneLevel3.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneLevelSelection.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneLose.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneWin.h" />

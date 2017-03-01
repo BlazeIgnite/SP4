@@ -67,6 +67,11 @@ void SceneWin::Update(float dt)
 						warrior->Init(1);
 						it2.second = warrior;
 					}
+					else
+					{
+						it2.second->SetExperiencePoints(Math::RandIntMinMax(10,300));
+						it2.second->LevelUp(false);
+					}
 				}
 			}
 			else if (it.first == "Mage")
@@ -79,6 +84,11 @@ void SceneWin::Update(float dt)
 						mage->Init(1);
 						it2.second = mage;
 					}
+					else
+					{
+						it2.second->SetExperiencePoints(Math::RandIntMinMax(10, 300));
+						it2.second->LevelUp(false);
+					}
 				}
 			}
 			else if (it.first == "Synergist")
@@ -90,6 +100,11 @@ void SceneWin::Update(float dt)
 						Synergist* synergist = new Synergist();
 						synergist->Init(1);
 						it2.second = synergist;
+					}
+					else
+					{
+						it2.second->SetExperiencePoints(Math::RandIntMinMax(10, 300));
+						it2.second->LevelUp(false);
 					}
 				}
 			}

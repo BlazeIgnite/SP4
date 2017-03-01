@@ -16,6 +16,7 @@
 
 #include "../Scene/SceneLevelSelection.h"
 #include "../Scene/Scene_Assignment1.h"
+#include "../Scene/SceneLevel1.h"
 #include "../Scene/MainMenu.h"
 #include "../Scene/SceneBattles.h"
 #include "../Scene/Town.h"
@@ -23,6 +24,7 @@
 #include "../Scene/SceneLose.h"
 #include "../Scene/SceneCharacterSelection.h"
 #include "../Scene/SceneTutorial.h"
+#include "../Scene/SceneLevel4.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -177,10 +179,6 @@ void Application::Init()
 	Renderer->Init();
 	SceneSystem::Instance().SetRenderSystem(*Renderer);
 
-	/*Scene_Assignment1* temp2 = new Scene_Assignment1();
-	temp2->Init();
-	SceneSystem::Instance().AddScene(*temp2);*/
-
 	MainMenu* temp3 = new MainMenu();
 	temp3->Init();
 	SceneSystem::Instance().AddScene(*temp3);
@@ -209,9 +207,17 @@ void Application::Init()
 	temp7->SetEntityID("Tutorial_Scene");
 	SceneSystem::Instance().AddScene(*temp7);
 
+	SceneLevel1* temp9 = new SceneLevel1();
+	temp9->SetEntityID("Level1");
+	SceneSystem::Instance().AddScene(*temp9);
+
 	SceneWin* temp8 = new SceneWin();
 	temp8->SetEntityID("Win_Scene");
 	SceneSystem::Instance().AddScene(*temp8);
+
+	SceneLevel4* temp9 = new SceneLevel4();
+	temp9->SetEntityID("Level4_Scene");
+	SceneSystem::Instance().AddScene(*temp9);
 
 }
 

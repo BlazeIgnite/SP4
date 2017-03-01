@@ -18,41 +18,7 @@ SceneCharacterSelection::SceneCharacterSelection()
 
 SceneCharacterSelection::~SceneCharacterSelection()
 {
-	for (auto it : SkillButtonList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : CharacterButtonList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : CharacterClassList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : FinalChoiceList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : ChangeSceneList)
-	{
-		delete it;
-		it = nullptr;
-	}
-	for (auto it : CharacterSelectedSkill)
-	{
-		it.second.clear();
-	}
-	SkillButtonList.clear();
-	CharacterButtonList.clear();
-	CharacterClassList.clear();
-	FinalChoiceList.clear();
-	ChangeSceneList.clear();
-	CharacterSelectedSkill.clear();
+	Exit();
 }
 
 void SceneCharacterSelection::Init()
@@ -158,11 +124,6 @@ void SceneCharacterSelection::Update(float dt)
 			ClickingOtherButtons = true;
 		if (it->GetisSelected() && it->CurrentState == CLICK)
 		{
-//<<<<<<< HEAD
-//			SelectedSkill = -1;
-//			SelectedSkills.clear();
-//			SelectedSkills = std::vector<int>();
-//=======
 			if (SelectedCharacter != CharacterCount)
 			{
 				SelectedSkill = -1;
@@ -230,6 +191,8 @@ void SceneCharacterSelection::Update(float dt)
 				ClassNameText = "Mage";
 			else if (ClassNameText == "Mage")
 				ClassNameText = "Warrior";
+			SelectedCharacter = -1;
+			SelectedSkills.clear();
 		}
 		else if (it->GetisSelected() && it->CurrentState == CLICK && it->type.find("Right") != string::npos)
 		{
@@ -239,6 +202,8 @@ void SceneCharacterSelection::Update(float dt)
 				ClassNameText = "Synergist";
 			else if (ClassNameText == "Synergist")
 				ClassNameText = "Warrior";
+			SelectedCharacter = -1;
+			SelectedSkills.clear();
 		}
 	}
 
@@ -263,7 +228,10 @@ void SceneCharacterSelection::Update(float dt)
 		it->Update();
 		if (it->GetisSelected())
 			if (it->type == "Return")
+			{
 				SceneSystem::Instance().SwitchScene("Town_Scene");
+				break;
+			}
 			else if (it->type == "Start")
 			{
 				BattleSystem::Instance().Init();
@@ -314,6 +282,7 @@ void SceneCharacterSelection::Update(float dt)
 					}
 				}
 				SceneSystem::Instance().SwitchScene("LevelSelection_Scene");
+				break;
 			}
 	}
 }
@@ -391,6 +360,41 @@ void SceneCharacterSelection::Render()
 void SceneCharacterSelection::Exit()
 {
 	ObjectManager::Instance().Exit();
+	for (auto it : SkillButtonList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : CharacterButtonList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : CharacterClassList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : FinalChoiceList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : ChangeSceneList)
+	{
+		delete it;
+		it = nullptr;
+	}
+	for (auto it : CharacterSelectedSkill)
+	{
+		it.second.clear();
+	}
+	SkillButtonList.clear();
+	CharacterButtonList.clear();
+	CharacterClassList.clear();
+	FinalChoiceList.clear();
+	ChangeSceneList.clear();
+	CharacterSelectedSkill.clear();
 }
 
 void SceneCharacterSelection::RenderPlayerCharacterList()
@@ -466,6 +470,12 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 				else
 					modelStack->Translate(-15, 0, 1);
 				modelStack->Scale(7.5f, 7.5f, 1);
+				if (ClassNameText == "Warrior")
+					Renderer->RenderMesh("PlayerWarriorMesh", false);
+				else if (ClassNameText == "Synergist")
+					Renderer->RenderMesh("PlayerSynergistMesh", false);
+				else if (ClassNameText == "Mage")
+					Renderer->RenderMesh("PlayerMageMesh", false);
 				Renderer->RenderMesh("ButtonBorder", false);
 				modelStack->PopMatrix();
 
@@ -543,19 +553,54 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 			modelStack->Scale(it->GetScale().x, it->GetScale().y, it->GetScale().z);
 			if (it->GetisSelected())
 			{
-				Renderer->RenderMesh("ButtonBorderRed", false);
+				Renderer->RenderMesh("ButtonBorderRedInvi", false);
 				SkillSelectedCheck = true;
 			}
 			for (auto it2 : SelectedSkills)
 			{
 				if (!SkillSelectedCheck && it == SkillButtonList[it2])
 				{
-					Renderer->RenderMesh("ButtonBorderBlue", false);
+					Renderer->RenderMesh("ButtonBorderBlueInvi", false);
 					SkillSelectedCheck = true;
 				}
 			}
 			if (!SkillSelectedCheck)
-				Renderer->RenderMesh("ButtonBorder", false);
+				Renderer->RenderMesh("ButtonBorderInvi", false);
+			if (SelectedCharacter != -1)
+			{
+				std::string SkillName;
+				if (Count + 1 <= Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size())
+					SkillName = Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(Count + 1)->GetName();
+				if (SkillName == "Life Drain")
+					Renderer->RenderMesh("LifeDrain", false);
+				else if (SkillName == "Dark Hail")
+					Renderer->RenderMesh("DarkHail", false);
+				else if (SkillName == "Unholy Gift")
+					Renderer->RenderMesh("UnholyGift", false);
+				else if (SkillName == "Power Breakdown")
+					Renderer->RenderMesh("PowerBreakdown", false);
+				else if (SkillName == "Quake")
+					Renderer->RenderMesh("Quake", false);
+				else if (SkillName == "Stab")
+					Renderer->RenderMesh("Stab", false);
+				else if (SkillName == "Bash")
+					Renderer->RenderMesh("Bash", false);
+				else if (SkillName == "Rush")
+					Renderer->RenderMesh("Rush", false);
+				else if (SkillName == "Divine Execution")
+					Renderer->RenderMesh("Divine Execution", false);
+				else if (SkillName == "Magic Bolt")
+					Renderer->RenderMesh("MagicBolt", false);
+				else if (SkillName == "Blinding Flash")
+					Renderer->RenderMesh("BlindingFlash", false);
+				else if (SkillName == "Unholy Incantation")
+					Renderer->RenderMesh("Unholy Incantation", false);
+				else if (SkillName == "Miasmic Cloud")
+					Renderer->RenderMesh("MiasmicCloud", false);
+				else if (SkillName == "Ars Arcanum")
+					Renderer->RenderMesh("Ars Arcanum", false);
+			}
+
 			modelStack->PopMatrix();
 		}
 		++Count;
@@ -574,6 +619,12 @@ void SceneCharacterSelection::RenderCharacterInfo()
 
 		modelStack->PushMatrix();
 		modelStack->Scale(20, 20, 1);
+		if (ClassNameText == "Warrior")
+			Renderer->RenderMesh("PlayerWarriorMesh", false);
+		else if (ClassNameText == "Synergist")
+			Renderer->RenderMesh("PlayerSynergistMesh", false);
+		else if (ClassNameText == "Mage")
+			Renderer->RenderMesh("PlayerMageMesh", false);
 		Renderer->RenderMesh("ButtonBorder", false);
 		modelStack->PopMatrix();
 		//Render Character Image

@@ -81,7 +81,8 @@ void AIAllAttack::Execute()
 
 	vector<AIBattlePlanner*>::iterator it = BattlePlanHolder.end();
 
-	BattlePlanHolder.pop_back();
+	if (BattlePlanHolder.size() > 0)
+		BattlePlanHolder.pop_back();
 
 	if (BattlePlanHolder.size() == 0)
 	{

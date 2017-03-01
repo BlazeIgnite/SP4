@@ -317,6 +317,7 @@ void Town::UpdateInventory(float dt)
 				{
 					SceneSystem::Instance().SwitchScene("CharacterSelection_Scene");
 					OpenMission = true;
+					break;
 				}
 			}
 		}
@@ -761,4 +762,5 @@ void Town::Exit()
 			(*it) = nullptr;
 		}
 	}
+	buttonList.clear();
 }

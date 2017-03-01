@@ -587,6 +587,8 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 					Renderer->RenderMesh("Bash", false);
 				else if (SkillName == "Rush")
 					Renderer->RenderMesh("Rush", false);
+				else if (SkillName == "Quick Blitz")
+					Renderer->RenderMesh("Rush", false);
 				else if (SkillName == "Divine Execution")
 					Renderer->RenderMesh("Divine Execution", false);
 				else if (SkillName == "Magic Bolt")
@@ -740,10 +742,10 @@ void SceneCharacterSelection::RenderSkillInfo()
 				}
 
 			}
-			Renderer->RenderText("text", "Avaliable Position: " + Position, Color(1, 1, 1));
+			Renderer->RenderText("text", "Usable Pos: " + Position, Color(1, 1, 1));
 		}
 		else
-			Renderer->RenderText("text", "Avaliable Position: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Usable Pos: ---", Color(1, 1, 1));
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
@@ -773,10 +775,10 @@ void SceneCharacterSelection::RenderSkillInfo()
 				}
 
 			}
-			Renderer->RenderText("text", "Target Position: " + Position, Color(1, 1, 1));
+			Renderer->RenderText("text", "Target Pos: " + Position, Color(1, 1, 1));
 		}
 		else
-			Renderer->RenderText("text", "Target Position: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Target Pos: ---", Color(1, 1, 1));
 		modelStack->PopMatrix();
 
 	modelStack->PopMatrix();

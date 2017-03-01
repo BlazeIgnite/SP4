@@ -700,6 +700,24 @@ void BattleSystem::Reset()
 	PlayerWon = false;
 }
 
+void BattleSystem::ClearWave()
+{
+	SelectedTroop = NULL;
+	SelectedEnemyTroop = NULL;
+	SelectedSkill = NULL;
+
+	for (auto it : AITroops)
+	{
+		if (it.second != nullptr)
+			delete it.second;
+		it.second = nullptr;
+	}
+	AITroops.clear();
+
+	SetTurnCost(100);
+	PlayerTurn = true;
+}
+
 void BattleSystem::Debugging()
 {
 	cout << "/*****************************************/" << endl;

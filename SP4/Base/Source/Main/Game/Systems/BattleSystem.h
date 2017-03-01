@@ -86,6 +86,8 @@ public:
 	
 	void Reset();
 
+	void ClearWave();
+
 	void Debugging();
 };
 

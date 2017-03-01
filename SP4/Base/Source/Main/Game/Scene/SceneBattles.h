@@ -18,8 +18,6 @@ private:
 	Vector3 tempscale;
 	Vector3 tempscale1;
 	BattleButton* button;
-	vector<string> PlayerDamaged;
-	vector<string> AIDamaged;
 	AIBase* AI;
 	double x, y;
 

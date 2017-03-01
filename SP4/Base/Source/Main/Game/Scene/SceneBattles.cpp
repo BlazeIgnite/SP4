@@ -74,19 +74,6 @@ void SceneBattles::Init()
 	BattleSystem::Instance().SetAITroops(2, Synergist2);
 	BattleSystem::Instance().CheckTroopPositions();
 
-	for (size_t i = 0; i < BattleSystem::Instance().GetAITroops().size(); i++)
-	{
-		string emptyString = "";
-		AIDamaged.push_back(emptyString);
-	}
-
-	for (size_t i = 0; i < BattleSystem::Instance().GetPlayerTroops().size(); i++)
-	{
-		string emptyString = "";
-		PlayerDamaged.push_back(emptyString);
-	}
-
-
 	AI = new AIAllAttack();
 	//BattleSystem::Instance().Debugging();
 
@@ -420,7 +407,7 @@ void SceneBattles::Update(float dt)
 					bool temp2 = BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetSelectedTroop(), i, BattleSystem::Instance().GetSelectedSkill());
 					if (temp2)
 					{
-						BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
+						//BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
 						if (tempo->GetName() == "Warrior")
 						{
 							AudioPlayer::Instance().PlayWarriorAttack();
@@ -488,6 +475,25 @@ void SceneBattles::Update(float dt)
 			if (timer > 2.5f)
 			{
 				AI->SetAttacking(false);
+				damage = "";
+				renderDamage = false;
+				timer = 0.f;
+				textPosY = startPosY;
+			}
+		}
+	}
+	else if (BattleSystem::Instance().GetPlayerTurn())
+	{
+		if (!renderDamage)
+		{
+			renderDamage = true;
+		}
+		if (renderDamage)
+		{
+			timer += dt;
+			textPosY += 10 * dt;
+			if (timer > 2.5f)
+			{
 				damage = "";
 				renderDamage = false;
 				timer = 0.f;
@@ -1117,6 +1123,15 @@ void SceneBattles::Render()
 	{
 		modelStack->PushMatrix();
 		modelStack->Translate(BattleSystem::Instance().GetPlayerTroops().at(AI->GetTarget())->GetVectorPosition().x, textPosY, BattleSystem::Instance().GetPlayerTroops().at(AI->GetTarget())->GetVectorPosition().z);
+		modelStack->Scale(9, 9, 1);
+		Renderer->RenderText("text", damage, Color(1, 0, 0));
+		modelStack->PopMatrix();
+	}
+	else if (renderDamage && BattleSystem::Instance().GetPlayerTurn())
+	{
+		size_t i = BattleSystem::Instance().GetSelectedEnemyTroopPosition();
+		modelStack->PushMatrix();
+		modelStack->Translate(BattleSystem::Instance().GetAITroops().at(i)->GetVectorPosition().x, textPosY, BattleSystem::Instance().GetPlayerTroops().at(i)->GetVectorPosition().z);
 		modelStack->Scale(9, 9, 1);
 		Renderer->RenderText("text", damage, Color(1, 0, 0));
 		modelStack->PopMatrix();

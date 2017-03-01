@@ -235,6 +235,16 @@ size_t BattleSystem::GetNumberOfPlayerTroopAlive()
 	return NumberofAliveTroops;
 }
 
+size_t BattleSystem::GetSelectedEnemyTroopPosition()
+{
+	for (map<size_t, CharacterEntity*>::iterator it = AITroops.begin(); it != AITroops.end(); it++)
+	{
+		if (it->second == SelectedEnemyTroop)
+			return it->first;
+	}
+	return NULL;
+}
+
 CharacterEntity* BattleSystem::GetPlayerTroopAttacking(size_t position)
 {
 	if (position >= PlayerTroops.size())

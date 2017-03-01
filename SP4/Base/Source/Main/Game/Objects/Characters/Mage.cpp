@@ -66,6 +66,7 @@ void Mage::LevelUp(bool init)
 			skill->SetMaxTurnCooldown(6);
 			skill->SetStatusEffect(2, "Bleed");
 			skill->SetStatusEffect(2, "Debuff");
+			skill->SetRequiredPosition(1, true);
 			skill->SetRequiredPosition(2, true);
 			for (int i = 0; i < 3; i++)
 			{
@@ -93,11 +94,10 @@ void Mage::LevelUp(bool init)
 			skill->SetActionCost(40);
 			skill->SetMaxTurnCooldown(2);
 			//skill->SetShiftPosition()
-			skill->SetRequiredPosition(0, true);
 			skill->SetRequiredPosition(1, true);
-			skill->SetSelectableTarget(0, true);
-			skill->SetSelectableTarget(1, true);
-
+			skill->SetRequiredPosition(2, true);
+			skill->SetSelectableTarget(2, true);
+			skill->SetStatusEffect(1, "Debuff");
 			SkillList.push_back(skill);
 		}
 		else if (Level == 1)
@@ -148,7 +148,7 @@ void Mage::LevelUp(bool init)
 	{
 		Skill* SkillItr = (*it);
 		if (SkillItr->GetName() == "Ars Arcanum")
-			SkillItr->SetDamage((int)(Attack * 0.9));
+			SkillItr->SetDamage((int)(Attack * 1.4));
 		else if (SkillItr->GetName() == "Unholy Incantation")
 			SkillItr->SetDamage((int)(Attack * 0.2));
 		else if (SkillItr->GetName() == "Blinding Flash")

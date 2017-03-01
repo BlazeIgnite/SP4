@@ -74,7 +74,7 @@ void Synergist::LevelUp(bool init)
 			skill->SetName("Quake");
 			skill->SetActionCost(60);
 			skill->SetMaxTurnCooldown(6);
-			skill->SetStatusEffect(4, "Stun");
+			skill->SetStatusEffect(6, "Stun");
 			skill->SetRequiredPosition(2, true);
 			skill->SetRequiredPosition(3, true);
 			for (int i = 0; i < 3; i++)

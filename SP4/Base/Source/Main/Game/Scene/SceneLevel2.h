@@ -10,24 +10,23 @@
 #include "../Objects/Miscellaneous/BattleButton.h"
 #include "../Objects/Characters/CharacterEntity.h"
 
-
-class SceneBattles : public SceneEntity
+class SceneLevel2 : public SceneEntity
 {
 
-private:
-#pragma message("TERENCE CANT SEE ME")
+private: 
 	Vector3 tempscale;
 	Vector3 tempscale1;
 	BattleButton* button;
+	CharacterEntity* character;
 	AIBase* AI = nullptr;
+	vector<string> PlayerDamaged;
+	vector<string> AIDamaged;
 	double x, y;
 
-	size_t i;
 	string damage;
 
 	float ActionMeter;
-	float textPosY;
-	float startPosY;
+	float textPos;
 	float timer;
 
 	void RenderObjects(BaseObject *obj);
@@ -35,18 +34,20 @@ private:
 	void UpdateCharacterLogic(double dt);
 	void UpdateInternals(double dt);
 	bool CheckCollision(BaseObject* o1, BaseObject* o2, std::string type = "Circle");
-	
-	bool renderDamage;
-public:
-	SceneBattles();
-	~SceneBattles();
 
-	virtual void Init();
-	virtual void Update(float dt);
-	virtual void Render();
-	virtual void Exit();
+	bool renderDamage;
+
+public:
+	SceneLevel2();
+	~SceneLevel2();
+
+	void Init();
+	void Update(float dt);
+	void Render();
+	void Exit();
 
 	void HandleUserInput();
+
 protected:
 
 	//Physics Related

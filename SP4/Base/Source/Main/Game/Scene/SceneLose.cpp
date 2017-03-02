@@ -36,50 +36,62 @@ void SceneLose::Update(float dt)
 	{
 		for (auto it : BattleSystem::Instance().GetPlayerTroops())
 		{
-			if (it.second != nullptr)
-				delete it.second;
-			it.second = nullptr;
+			if (it.second->GetDefeated())
+			{
+				for (auto it2 : Player::Instance().GetAllUnitList())
+				{
+					if (it2.first == "Warrior")
+					{
+						for (auto it3 : Player::Instance().GetClassUnitList("Warrior"))
+						{
+							if (it3.second == it.second)
+							{
+								Player::Instance().GetAllUnitList().at("Warrior").erase(it3.first);
+								CharacterEntity* mage = new Warrior();
+								mage->Init(1);
+								Player::Instance().AddCharacter("Warrior", mage);
+								delete it.second;
+								it.second = nullptr;
+								break;
+							}
+						}
+					}
+					else if (it2.first == "Mage")
+					{
+						for (auto it3 : Player::Instance().GetClassUnitList("Mage"))
+						{
+							if (it3.second == it.second)
+							{
+								Player::Instance().GetAllUnitList().at("Mage").erase(it3.first);
+								CharacterEntity* mage = new Mage();
+								mage->Init(1);
+								Player::Instance().AddCharacter("Mage", mage);
+								delete it.second;
+								it.second = nullptr;
+								break;
+							}
+						}
+					}
+					else if (it2.first == "Synergist")
+					{
+						for (auto it3 : Player::Instance().GetClassUnitList("Synergist"))
+						{
+							if (it3.second == it.second)
+							{
+								Player::Instance().GetAllUnitList().at("Synergist").erase(it3.first);
+								CharacterEntity* mage = new Synergist();
+								mage->Init(1);
+								Player::Instance().AddCharacter("Synergist", mage);
+								delete it.second;
+								it.second = nullptr;
+								break;
+							}
+						}
+					}
+				}
+			}
 		}
-		for (auto it : Player::Instance().GetAllUnitList())
-		{
-			if (it.first == "Warrior")
-			{
-				for (auto it2 : Player::Instance().GetClassUnitList("Warrior"))
-				{
-					if (it2.second == nullptr)
-					{
-						Warrior* warrior = new Warrior();
-						warrior->Init(1);
-						it2.second = warrior;
-					}
-				}
-			}
-			else if (it.first == "Mage")
-			{
-				for (auto it2 : Player::Instance().GetClassUnitList("Mage"))
-				{
-					if (it2.second == nullptr)
-					{
-						Mage* mage = new Mage();
-						mage->Init(1);
-						it2.second = mage;
-					}
-				}
-			}
-			else if (it.first == "Synergist")
-			{
-				for (auto it2 : Player::Instance().GetClassUnitList("Synergist"))
-				{
-					if (it2.second == nullptr)
-					{
-						Synergist* synergist = new Synergist();
-						synergist->Init(1);
-						it2.second = synergist;
-					}
-				}
-			}
-
-		}
+	
 		BattleSystem::Instance().Reset();
 		SceneSystem::Instance().SwitchScene("Town_Scene");
 	}

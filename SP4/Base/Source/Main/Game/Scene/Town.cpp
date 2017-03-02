@@ -348,6 +348,14 @@ void Town::Render()
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
 
+	std::string Name = Player::Instance().GetPlayerName();
+	modelStack->PushMatrix();
+	modelStack->Translate(10, ObjectManager::Instance().WorldHeight * 0.9f, -5.f);
+	modelStack->Scale(5, 5, 1);
+	Renderer->RenderText("text","Player Name: " + Name, Color(1,1,1));
+	modelStack->PopMatrix();
+
+
 	if (OpenInventory)
 		RenderInventoryButtons();
 	if (OpenCraftingTab && OpenInventory)

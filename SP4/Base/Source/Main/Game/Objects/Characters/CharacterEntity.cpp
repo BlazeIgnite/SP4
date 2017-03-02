@@ -37,6 +37,7 @@ CharacterEntity::~CharacterEntity()
 			(*it) = nullptr;
 		}
 	}
+	SkillList.clear();
 }
 
 Skill* CharacterEntity::GetSkillInVector(string SkillName)

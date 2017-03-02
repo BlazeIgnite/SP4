@@ -459,6 +459,15 @@ void SceneBattles::Update(float dt)
 							entity->SetScale(tempscale);
 						entity->SetisSelected(false);
 					}
+					for (map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem().Instance().GetAITroops().end(); itr2++)
+					{
+						CharacterEntity* entity = (CharacterEntity*)itr2->second;
+						if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
+							entity->SetScale(tempscale);
+						BattleSystem::Instance().SetSelectedEnemyTroop(nullptr);
+						entity->SetisSelected(false);
+					}
+					BattleSystem::Instance().SetSelectedSkill(nullptr);
 				}
 				else
 				{

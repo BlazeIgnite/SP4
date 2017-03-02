@@ -6,6 +6,7 @@
 #include "GL\glew.h"
 #include "../Mains/Application.h"
 #include <string>
+#include "../../Engine/Audio/Audio_Player.h"
 
 Town::Town()
 {
@@ -185,6 +186,22 @@ void Town::UpdateInventory(float dt)
 	//To Open Tab
 	for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
 	{
+		if ((*itr)->type == "DecreaseVolume" && (*itr)->isitHover())
+		{
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && Volume > 0.f)
+			{
+				Volume -= 1.f;
+				AudioPlayer::Instance().SetVolume(Volume * 0.1f);
+			}
+		}
+		if ((*itr)->type == "IncreaseVolume" && (*itr)->isitHover())
+		{
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && Volume < 10.f)
+			{
+				Volume += 1.f;
+				AudioPlayer::Instance().SetVolume(Volume * 0.1f);
+			}
+		}
 		//Close Inventory Tab
 		if (!inventory->GetisOpened())
 		{
@@ -478,15 +495,15 @@ void Town::RenderCraftingButtons()
 			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5, 2);
 			modelStack->Scale(20, 20, 1);
 			Renderer->RenderMesh("DefencePotion", false);
-			modelStack->PopMatrix();
+			modelStack->PopMatrix();	
 
 			modelStack->PushMatrix();
 			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
 			modelStack->Scale(5, 5, 1);
-			Renderer->RenderMesh("RedHerb", false);
+			Renderer->RenderMesh("BlueHerb", false);
 			modelStack->PopMatrix();
 
-			std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Red Herb")->second);
+			std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Blue Herb")->second);
 			modelStack->PushMatrix();
 			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
 			modelStack->Scale(3, 3, 1);
@@ -720,14 +737,14 @@ void Town::RenderSetting()
 			Renderer->RenderMesh("RightVolume", false);
 		modelStack->PopMatrix();
 
-		std::string tempVolume = std::to_string(Volume);
+		std::string tempVolume = std::to_string((int)Volume);
 		modelStack->PushMatrix();
 		modelStack->Translate(85, 40, 5);
 		modelStack->Scale(7, 7, 1);
 		Renderer->RenderText("text", tempVolume, Color(0,0,0));
 		modelStack->PopMatrix();
 
-		tempVolume = "Volume";
+		tempVolume = "Volume"; 
 		modelStack->PushMatrix();
 		modelStack->Translate(70, ObjectManager::Instance().WorldHeight* 0.5f + 20, 5);
 		modelStack->Scale(10, 10, 1);

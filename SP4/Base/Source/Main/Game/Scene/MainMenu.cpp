@@ -190,15 +190,15 @@ void MainMenu::Render()
 	//Title
 	modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.7f, -4.f);
-	modelStack->Scale(60, 25, 1);
-	Renderer->RenderMesh("ButtonBorder", false);
+	modelStack->Scale(100, 25, 1);
+	Renderer->RenderMesh("Title", false);
 	modelStack->PopMatrix();
 	
-	modelStack->PushMatrix();
+	/*modelStack->PushMatrix();
 	modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 22.5, ObjectManager::Instance().WorldHeight * 0.7f, 1.f);
 	modelStack->Scale(3, 3, 1);
 	Renderer->RenderText("text", "Super Crusader", Color(1, 1, 1));
-	modelStack->PopMatrix();
+	modelStack->PopMatrix();*/
 
 	if (NameInput)
 	{

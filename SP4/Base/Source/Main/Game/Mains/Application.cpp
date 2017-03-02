@@ -22,6 +22,7 @@
 #include "../Scene/SceneTutorial.h"
 #include "../Scene/SceneLevel1.h"
 #include "../Scene/SceneLevel2.h"
+#include "../Scene/SceneLevel3.h"
 #include "../Scene/SceneLevel4.h"
 #include "../Scene/SceneWin.h"
 #include "../Scene/SceneLose.h"
@@ -219,9 +220,13 @@ void Application::Init()
 	temp8->SetEntityID("Win_Scene");
 	SceneSystem::Instance().AddScene(*temp8);
 
-	SceneLevel4* temp10 = new SceneLevel4();
-	temp10->SetEntityID("Level4_Scene");
+	SceneLevel3* temp10 = new SceneLevel3();
+	temp10->SetEntityID("Level3_Scene");
 	SceneSystem::Instance().AddScene(*temp10);
+
+	SceneLevel4* temp11 = new SceneLevel4();
+	temp11->SetEntityID("Level4_Scene");
+	SceneSystem::Instance().AddScene(*temp11);
 
 }
 
@@ -279,7 +284,6 @@ void Application::Exit()
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW
 	glfwTerminate();
-	_CrtDumpMemoryLeaks();
 }
 
 void Application::QuitGame()

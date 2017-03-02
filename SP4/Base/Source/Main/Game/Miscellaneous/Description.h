@@ -23,7 +23,7 @@ public:
 	void Exit();
 	std::string type;
 	
-	DescriptionText* text;
+	DescriptionText* text = nullptr;
 
 	Vector3 GetPosition();
 	Vector3 GetScale();

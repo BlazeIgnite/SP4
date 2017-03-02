@@ -96,6 +96,7 @@ void LuaSystem::GameSave()
 	Input += ("\nPlayerFurthestStage = " + std::to_string(Player::Instance().GetPlayerStageCount()));
 			 
 	Input += ("\nRedHerbCount = " + std::to_string(Player::Instance().GetMaterialList().find("Red Herb")->second));
+	Input += ("\nBlueHerbCount = " + std::to_string(Player::Instance().GetMaterialList().find("Blue Herb")->second));
 	Input += ("\nWhiteHerbCount = " + std::to_string(Player::Instance().GetMaterialList().find("White Herb")->second));
 	Input += ("\nEmptyBottleCount = " + std::to_string(Player::Instance().GetMaterialList().find("Empty Bottle")->second));
 	Input += ("\nClothCount = " + std::to_string(Player::Instance().GetMaterialList().find("Cloth")->second));
@@ -148,9 +149,9 @@ void LuaSystem::LoadGame(int SaveFile)
 
 	Player::Instance().AddMaterialItem("Red Herb", GetIntValue(lua, "RedHerbCount"));
 	Player::Instance().AddMaterialItem("Blue Herb", GetIntValue(lua, "BlueHerbCount"));
+	Player::Instance().AddMaterialItem("White Herb", GetIntValue(lua, "WhiteHerbCount"));
 	Player::Instance().AddMaterialItem("Empty Bottle", GetIntValue(lua, "EmptyBottleCount"));
 	Player::Instance().AddMaterialItem("Cloth", GetIntValue(lua, "ClothCount"));
-	Player::Instance().AddMaterialItem("White Herb", GetIntValue(lua, "WhiteHerbCount"));
 
 	Player::Instance().AddConsumableItem("Red Potion", GetIntValue(lua, "RedPotionCount"));
 	Player::Instance().AddConsumableItem("Blue Potion", GetIntValue(lua, "BluePotionCount"));

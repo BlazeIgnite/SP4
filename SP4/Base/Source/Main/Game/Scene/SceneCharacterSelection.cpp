@@ -31,7 +31,7 @@ void SceneCharacterSelection::Init()
 	SelectedCharacter = -1;
 	ClassNameText = "Warrior";
 	MaxSkillSelectedTimer = 1.f;
-	NoCharacterSelectedTimer = 1.f;
+	NoCharacterSelectedTimer = 1.5f;
 	SelectedSkills = std::vector<int>();
 	SelectedSkill = -1;
 	CharacterSelectedSkill = std::map <Button*, std::vector<int>>();
@@ -116,7 +116,7 @@ void SceneCharacterSelection::Update(float dt)
 	bool SelectChar = false;
 	bool SelectSkill = false;
 	MaxSkillSelectedTimer = Math::Clamp(MaxSkillSelectedTimer + dt, 0.f, 1.f);
-	NoCharacterSelectedTimer = Math::Clamp(NoCharacterSelectedTimer + dt, 0.f, 1.f);
+	NoCharacterSelectedTimer = Math::Clamp(NoCharacterSelectedTimer + dt, 0.f, 1.5f);
 	ClickingOtherButtons = false;
 
 	for (auto it : CharacterButtonList)
@@ -383,7 +383,7 @@ void SceneCharacterSelection::Render()
 		modelStack->PopMatrix();
 	}
 
-	if (NoCharacterSelectedTimer < 1.f)
+	if (NoCharacterSelectedTimer < 1.5f)
 	{
 		modelStack->PushMatrix();
 		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 10);

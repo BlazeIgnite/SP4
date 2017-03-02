@@ -17,7 +17,7 @@ private:
 	Vector3 tempscale;
 	Vector3 tempscale1;
 
-	BattleButton* m_button;
+	BattleButton* m_button = nullptr;
 	AIBase* m_AI = nullptr;
 
 	double x, y;

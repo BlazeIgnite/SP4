@@ -25,6 +25,7 @@ private:
 	std::vector<int> SelectedSkills;
 	int SelectedSkill;
 	float MaxSkillSelectedTimer;
+	float NoCharacterSelectedTimer;
 	bool ClickingOtherButtons;
 
 public:

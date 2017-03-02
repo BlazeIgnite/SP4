@@ -50,11 +50,11 @@ void Mage::LevelUp(bool init)
 			return;
 	}
 
-	ExperiencePoints = ExperienceNeed[Level];
+	ExperiencePoints = (float)ExperienceNeed[Level];
 	SetHealth(MageHealth[Level]);
 	SetMaxHealth(MageHealth[Level]);
 	SetAttack(MageAttack[Level]);
-	SetDefence(MageDefence[Level]);
+	SetDefence((size_t)MageDefence[Level]);
 	SetDamageMitigation();
 	if (Level <= 10)
 	{

@@ -779,8 +779,8 @@ void SceneTutorial::Render()
 
 			if (!entity->GetDefeated())
 			{
-				float temp = entity->GetHealth();
-				float temp2 = entity->GetMaxHealth();
+				float temp = (float)entity->GetHealth();
+				float temp2 = (float)entity->GetMaxHealth();
 				float temp3 = (temp / temp2) * 10;
 				if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
 				{
@@ -1094,7 +1094,7 @@ void SceneTutorial::Render()
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x + obj->GetScale().x * 0.25, obj->GetPosition().y, 11);
+		modelStack->Translate(obj->GetPosition().x + obj->GetScale().x * 0.25f, obj->GetPosition().y, 11);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
 
 		if (BattleSystem::Instance().GetSelectedTroop() != nullptr)

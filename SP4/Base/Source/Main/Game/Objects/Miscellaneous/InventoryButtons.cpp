@@ -53,16 +53,16 @@ void InventoryButtons::Init(double x, double y)
 	//Descriptions
 	Description* temp2;
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Red Potion");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Red Potion");
 	DescriptionVector.push_back(temp2);
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Attack Potion");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Attack Potion");
 	DescriptionVector.push_back(temp2);
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Defence Potion");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Defence Potion");
 	DescriptionVector.push_back(temp2);
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Bandage");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Bandage");
 	DescriptionVector.push_back(temp2);
 
 

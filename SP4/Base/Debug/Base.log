@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Build started 3/2/2017 8:22:28 PM.
      1>Project "C:\Users\150576E\Desktop\SP4New\SP4\Base\Base.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -70,3 +71,18 @@
 Build succeeded.
 
 Time Elapsed 00:00:02.36
+=======
+<<<<<<< HEAD
+﻿Build started 3/2/2017 8:09:35 PM.
+     1>Project "C:\Users\151131H\Desktop\SP4.3\SP4\Base\Base.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         Base.vcxproj -> C:\Users\151131H\Desktop\SP4.3\SP4\Debug\Base.exe
+     1>Done Building Project "C:\Users\151131H\Desktop\SP4.3\SP4\Base\Base.vcxproj" (Build target(s)).
+=======
+﻿Build started 3/2/2017 6:49:50 PM.
+>>>>>>> 7a47e95af84a8f7627f030fb5d098e5e242213f4
+
+Build succeeded.
+
+Time Elapsed 00:00:00.10
+>>>>>>> e69f721005af43b8f3659a70fe6af8f6f7c92104

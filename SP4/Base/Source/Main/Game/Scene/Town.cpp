@@ -348,6 +348,14 @@ void Town::Render()
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
 
+	std::string Name = Player::Instance().GetPlayerName();
+	modelStack->PushMatrix();
+	modelStack->Translate(10, ObjectManager::Instance().WorldHeight * 0.9f, -5.f);
+	modelStack->Scale(5, 5, 1);
+	Renderer->RenderText("text","Player Name: " + Name, Color(1,1,1));
+	modelStack->PopMatrix();
+
+
 	if (OpenInventory)
 		RenderInventoryButtons();
 	if (OpenCraftingTab && OpenInventory)
@@ -414,162 +422,153 @@ void Town::RenderCraftingButtons()
 		modelStack->PushMatrix();
 		if (obj->type == "Red Potion" && obj->GetisSelected())
 		{
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 2.f);
 			modelStack->Scale(20, 20, 1);
 			Renderer->RenderMesh("RedPotion", false);
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("RedHerb", false);
 			modelStack->PopMatrix();
 
 			std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Red Herb")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/2", Color(1, 1, 1));
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 20, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 20.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("Empty Bottle", false);
 			modelStack->PopMatrix();
 
 			temp = std::to_string(Player::Instance().GetMaterialList().find("Empty Bottle")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 20, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 20.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/1", Color(1, 1, 1));
 
 		}
 		if (obj->type == "Attack Potion" && obj->GetisSelected())
 		{
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 2.f);
 			modelStack->Scale(20, 20, 1);
 			Renderer->RenderMesh("AttackPotion", false);
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("RedHerb", false);
 			modelStack->PopMatrix();
 
 			std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Red Herb")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/2", Color(1, 1, 1));
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 20, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 20.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("WhiteHerb", false);
 			modelStack->PopMatrix();
 
 			temp = std::to_string(Player::Instance().GetMaterialList().find("White Herb")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 20, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 20.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/2", Color(1, 1, 1));
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 25, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 25.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("Empty Bottle", false);
 			modelStack->PopMatrix();
 
 			temp = std::to_string(Player::Instance().GetMaterialList().find("Empty Bottle")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 25, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 25.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/1", Color(1, 1, 1));
 		}
 		if (obj->type == "Defence Potion" && obj->GetisSelected())
 		{
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 2.f);
 			modelStack->Scale(20, 20, 1);
 			Renderer->RenderMesh("DefencePotion", false);
 			modelStack->PopMatrix();	
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("BlueHerb", false);
 			modelStack->PopMatrix();
 
 			std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Blue Herb")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/2", Color(1, 1, 1));
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 20, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 20.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("WhiteHerb", false);
 			modelStack->PopMatrix();
 
 			temp = std::to_string(Player::Instance().GetMaterialList().find("White Herb")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 20, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 20.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/2", Color(1, 1, 1));
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 25, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 25.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("Empty Bottle", false);
 			modelStack->PopMatrix();
 
 			temp = std::to_string(Player::Instance().GetMaterialList().find("Empty Bottle")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 25, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 25.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/1", Color(1, 1, 1));
 		}
 		if (obj->type == "Bandage" && obj->GetisSelected())
 		{
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 2.f);
 			modelStack->Scale(20, 20, 1);
 			Renderer->RenderMesh("Bandage", false);
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - 5.f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(5, 5, 1);
 			Renderer->RenderMesh("Cloth", false);
 			modelStack->PopMatrix();
 
 			std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Cloth")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5 - 15, 2);
+			modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f - 15.f, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x" + temp + "/2", Color(1, 1, 1));
 		}
 		modelStack->PopMatrix();
 
-
-		/*std::string Craft = "Craft";
-		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x - Craft.size() * 1.1, obj->GetPosition().y, 0.5);
-		modelStack->Scale(4, 4, 1);
-		if (obj->type == "Craft")
-			Renderer->RenderText("text", Craft, Color(1, 1, 1));
-		modelStack->PopMatrix();*/
-
 		if (obj->type == "Attack Potion")
 		{
 			std::string temp = std::to_string(Player::Instance().GetConsumableList().find("Attack Potion")->second);
 			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x + 10, obj->GetPosition().y, 2);
+			modelStack->Translate(obj->GetPosition().x + 10.f, obj->GetPosition().y, 2.f);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", "x " + temp, Color(1, 1, 1));
 			modelStack->PopMatrix();

@@ -36,11 +36,11 @@ void SceneBattles::Init()
 	button->Init(x,y);
 
 	Warrior* warrior2 = new Warrior();
-	warrior2->Init(20);
+	warrior2->Init(10);
 	Mage* mage2 = new Mage();
-	mage2->Init(20);
+	mage2->Init(10);
 	Synergist* Synergist2 = new Synergist();
-	Synergist2->Init(20);
+	Synergist2->Init(10);
 
 	AudioPlayer::Instance().StopAllMusic();
 	AudioPlayer::Instance().PlayMusic("Battle Music");
@@ -237,8 +237,6 @@ void SceneBattles::Update(float dt)
 							entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
 
 							BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
-							//textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
-
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -570,7 +568,7 @@ void SceneBattles::Render()
 		Renderer->RenderMesh("Test", false);
 		modelStack->PopMatrix();
 	}
-	
+
 	modelStack->PushMatrix();
 	modelStack->Translate(((float)(ObjectManager::Instance().WorldWidth * 0.5f)), ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
 	modelStack->Scale(50, 5, 1);
@@ -584,6 +582,26 @@ void SceneBattles::Render()
 	Renderer->RenderMesh("BattleScene", false);
 	//Renderer->SetHUD(false);
 	modelStack->PopMatrix();
+
+	if (BattleSystem::Instance().GetPlayerTurn())
+	{
+		std::string temp = "Player's Turn";
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - temp.size() * 1.7f, ObjectManager::Instance().WorldHeight * 0.9f, -5.f);
+		modelStack->Scale(5, 5, 1);
+		Renderer->RenderText("text", temp, Color(1, 1, 1));
+		modelStack->PopMatrix();
+	}
+	else
+	{
+		std::string temp = "Enemy's Turn";
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f - temp.size() * 1.7f, ObjectManager::Instance().WorldHeight * 0.9f, -5.f);
+		modelStack->Scale(5, 5, 1);
+		Renderer->RenderText("text", temp, Color(1, 1, 1));
+		modelStack->PopMatrix();
+	}
+	
 
 	for (map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
 	{
@@ -661,8 +679,8 @@ void SceneBattles::Render()
 
 			if (!entity->GetDefeated())
 			{
-				float temp = entity->GetHealth();
-				float temp2 = entity->GetMaxHealth();
+				float temp = (float)entity->GetHealth();
+				float temp2 = (float)entity->GetMaxHealth();
 				float temp3 = (temp / temp2) * 10;
 				if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
 				{
@@ -676,9 +694,6 @@ void SceneBattles::Render()
 				}
 				
 			}
-			
-			
-
 			if (entity->GetStunned() == true)
 			{
 				modelStack->PushMatrix();
@@ -976,7 +991,7 @@ void SceneBattles::Render()
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x + obj->GetScale().x * 0.25, obj->GetPosition().y, 11);
+		modelStack->Translate(obj->GetPosition().x + obj->GetScale().x * 0.25f, obj->GetPosition().y, 11);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
 
 		if (BattleSystem::Instance().GetSelectedTroop() != nullptr)

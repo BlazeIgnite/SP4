@@ -32,12 +32,12 @@ int Consumables::UseManaPot(int Mana)
 
 float Consumables::UseAtkBuffPot(int Attack)
 {
-	Attack *= 1.25f;
-	return Attack;
+	Attack = (int)(Attack * 1.25f);
+	return (float)Attack;
 }
 
 float Consumables::UseDefBuffPot(int Defence)
 {
-	Defence *= 1.25f;
-	return Defence;
+	Defence = (int)(Defence * 1.25f);
+	return (float)Defence;
 }

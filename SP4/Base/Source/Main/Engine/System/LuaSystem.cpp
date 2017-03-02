@@ -36,20 +36,20 @@ float LuaSystem::GetField(lua_State* lua, const char* key)
 	int result;
 	lua_pushstring(lua, key);
 	lua_gettable(lua, -2);
-	result = lua_tonumber(lua, -1);
+	result = (int)lua_tonumber(lua, -1);
 	lua_pop(lua, 1);
-	return result;
+	return (float)result;
 }
 int LuaSystem::GetIntValue(lua_State* lua, const char* varName)
 {
 	lua_getglobal(lua, varName);
-	int result = lua_tointeger(lua, -1);
+	int result = (int)lua_tointeger(lua, -1);
 	return result;
 }
 float LuaSystem::GetFloatValue(lua_State* lua, const char* varName)
 {
 	lua_getglobal(lua, varName);
-	float result = lua_tointeger(lua, -1);
+	float result = (float)lua_tointeger(lua, -1);
 	return result;
 }
 const char* LuaSystem::GetString(lua_State* lua, const char* varName)
@@ -57,30 +57,6 @@ const char* LuaSystem::GetString(lua_State* lua, const char* varName)
 	lua_getglobal(lua, varName);
 	const char* result = lua_tostring(lua, -1);
 	return result;
-}
-
-
-void LuaSystem::saveIntValue(const char* varName, const int value, const bool bOverWrite)
-{
-	lua_State* lua = LuaStateList.find("Save Score")->second;
-	lua_getglobal(lua, "SaveToLuaFile");
-	char outputString[80];
-	sprintf(outputString, "%s = %d\n", varName, value);
-	lua_pushstring(lua, outputString);
-	lua_pushinteger(lua, bOverWrite);
-	lua_call(lua, 2, 0);
-	lua = nullptr;
-}
-void LuaSystem::saveFloatValue(const char* varName, const float value, const bool bOverWrite)
-{
-	lua_State* lua = LuaStateList.find("Save Score")->second;
-	lua_getglobal(lua, "SaveToLuaFile");
-	char outputString[80];
-	sprintf(outputString, "%s = %6.4f\n", varName, value);
-	lua_pushstring(lua, outputString);
-	lua_pushinteger(lua, bOverWrite);
-	lua_call(lua, 2, 0);
-	lua = nullptr;
 }
 
 lua_State* LuaSystem::GetLuaState(std::string FileName)
@@ -114,7 +90,6 @@ void LuaSystem::GameSave()
 	lua_State* lua = GetLuaState("Lua\\SaveFile.lua");
 	lua_getglobal(lua, "SavePlayerFile");
 	std::string Input = "";
-	int WarriorSize, MageSize, PriestSize;
 	Input += ("PlayerName = \"" + Player::Instance().GetPlayerName() + "\"");
 	Input += ("\nPlayerTag = " + std::to_string(Player::Instance().GetPlayerID()));
 	Input += ("\nPlayerGold = " + std::to_string(Player::Instance().GetPlayerGold()));
@@ -189,7 +164,7 @@ void LuaSystem::LoadGame(int SaveFile)
 
 	if (WarriorCount > 0)
 	{
-		for (int Value = 1; Value <= WarriorCount; ++Value)
+		for (int Value = 1; Value <= (int)WarriorCount; ++Value)
 		{
 			CharacterEntity* temp = new Warrior();
 			std::string VariableName = "Warrior" + std::to_string(Value);
@@ -200,7 +175,7 @@ void LuaSystem::LoadGame(int SaveFile)
 	}
 	if (SynergistCount > 0)
 	{
-		for (int Value = 1; Value <= SynergistCount; ++Value)
+		for (int Value = 1; Value <= (int)SynergistCount; ++Value)
 		{
 			CharacterEntity* temp = new Synergist();
 			std::string VariableName = "Synergist" + std::to_string(Value);
@@ -211,7 +186,7 @@ void LuaSystem::LoadGame(int SaveFile)
 	}
 	if (WizardCount > 0)
 	{
-		for (int Value = 1; Value <= WizardCount; ++Value)
+		for (int Value = 1; Value <= (int)WizardCount; ++Value)
 		{
 			CharacterEntity* temp = new Mage();
 			std::string VariableName = "Mage" + std::to_string(Value);

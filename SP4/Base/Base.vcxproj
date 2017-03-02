@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Main\Game\Scene\SceneCharacterSelection.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevel1.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevel2.cpp" />
+    <ClCompile Include="Source\Main\Game\Scene\SceneLevel3.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevel4.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLevelSelection.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneLose.cpp" />

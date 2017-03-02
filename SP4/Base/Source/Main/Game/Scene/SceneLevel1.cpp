@@ -691,7 +691,7 @@ void SceneLevel1::Render()
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x + obj->GetScale().x * 0.25, obj->GetPosition().y, 11);
+		modelStack->Translate(obj->GetPosition().x + obj->GetScale().x * 0.25f, obj->GetPosition().y, 11);
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, 1);
 
 		if (BattleSystem::Instance().GetSelectedTroop() != nullptr)
@@ -863,7 +863,7 @@ void SceneLevel1::Render()
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x - 5.5, obj->GetPosition().y, 0.5);
+		modelStack->Translate(obj->GetPosition().x - 5.5f, obj->GetPosition().y, 0.5f);
 		modelStack->Scale(2, 2, 1);
 		if (obj->type == "Attack Button")
 			Renderer->RenderText("text", "Attack", Color(1, 1, 1));
@@ -872,7 +872,7 @@ void SceneLevel1::Render()
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y - 10, 0.5);
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y - 10, 0.5f);
 		modelStack->Scale(3, 3, 1);
 		std::string temp = std::to_string(Player::Instance().GetConsumableList().find("Red Potion")->second);
 		if (obj->type == "Red Potion")

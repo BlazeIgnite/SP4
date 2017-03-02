@@ -51,7 +51,7 @@ Skill* CharacterEntity::GetSkillInVector(string SkillName)
 
 void CharacterEntity::SetDamageMitigation()
 {
-	this->DamageMitigation = (0.06 * Defence) / (1 + 0.06 * Defence);
+	this->DamageMitigation = (int)((0.06f * Defence) / (1 + 0.06f * Defence));
 }
 
 void CharacterEntity::Init(int Level)

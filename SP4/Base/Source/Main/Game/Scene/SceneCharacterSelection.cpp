@@ -31,6 +31,7 @@ void SceneCharacterSelection::Init()
 	SelectedCharacter = -1;
 	ClassNameText = "Warrior";
 	MaxSkillSelectedTimer = 1.f;
+	NoCharacterSelectedTimer = 1.5f;
 	SelectedSkills = std::vector<int>();
 	SelectedSkill = -1;
 	CharacterSelectedSkill = std::map <Button*, std::vector<int>>();
@@ -115,6 +116,7 @@ void SceneCharacterSelection::Update(float dt)
 	bool SelectChar = false;
 	bool SelectSkill = false;
 	Math::Clamp(MaxSkillSelectedTimer += dt, 0.f, 1.f);
+	Math::Clamp(NoCharacterSelectedTimer += dt, 0.f, 1.5f);
 	ClickingOtherButtons = false;
 
 	for (auto it : CharacterButtonList)
@@ -244,6 +246,13 @@ void SceneCharacterSelection::Update(float dt)
 			}
 			else if (it->type == "Start")
 			{
+				bool SelectedAtLeastOne = false;
+				for (auto it2 : FinalChoiceList)
+					if (it2->type.find("Warrior") == string::npos || it2->type.find("Mage") == string::npos || it2->type.find("Synergist") == string::npos)
+					{
+						NoCharacterSelectedTimer = 0.f;
+						return;
+					}
 				BattleSystem::Instance().Init();
 				for (auto it2 : CharacterSelectedSkill)
 				{
@@ -363,6 +372,15 @@ void SceneCharacterSelection::Render()
 			modelStack->Scale(2, 2, 1);
 			Renderer->RenderText("text", AnnouncementText, Color(0, 0, 0));
 			modelStack->PopMatrix();
+		modelStack->PopMatrix();
+	}
+
+	if (NoCharacterSelectedTimer < 1.5f)
+	{
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 10);
+		modelStack->Scale(10, 4, 1);
+		Renderer->RenderMesh("SkillButtonBlack", false);
 		modelStack->PopMatrix();
 	}
 }
@@ -606,7 +624,7 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 			if (SelectedCharacter != -1)
 			{
 				std::string SkillName;
-				if (Count + 1 < Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size())
+				if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && Count + 1 < Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size())
 					SkillName = Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(Count + 1)->GetName();
 				if (SkillName == "Life Drain")
 					Renderer->RenderMesh("LifeDrain", false);
@@ -625,7 +643,7 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 				else if (SkillName == "Rush")
 					Renderer->RenderMesh("Rush", false);
 				else if (SkillName == "Quick Blitz")
-					Renderer->RenderMesh("Rush", false);
+					Renderer->RenderMesh("QuickBlitz", false);
 				else if (SkillName == "Divine Execution")
 					Renderer->RenderMesh("Divine Execution", false);
 				else if (SkillName == "Magic Bolt")
@@ -810,12 +828,28 @@ void SceneCharacterSelection::RenderSkillInfo()
 						break;
 					}
 				}
-
 			}
 			Renderer->RenderText("text", "Target Pos: " + Position, Color(0, 0, 0));
 		}
 		else
 			Renderer->RenderText("text", "Target Pos: ---", Color(0, 0, 0));
+		modelStack->PopMatrix();
+
+		modelStack->PushMatrix();
+		modelStack->Translate(-25, -7, 0);
+		modelStack->Scale(2, 2, 1.f);
+		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr && Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(SelectedSkill + 1)->GetStatusEffectMap().size() > 0)
+		{
+			std::string SkillEffectName = "";
+			for (auto it : Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(SelectedSkill + 1)->GetStatusEffectMap())
+			{
+				for (auto it2 : it.second)
+					SkillEffectName += it2;
+			}
+			Renderer->RenderText("text", "Status: " + SkillEffectName, Color(0, 0, 0));
+		}
+		else
+			Renderer->RenderText("text", "Status: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 	modelStack->PopMatrix();

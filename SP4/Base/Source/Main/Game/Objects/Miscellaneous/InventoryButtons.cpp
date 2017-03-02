@@ -43,6 +43,12 @@ void InventoryButtons::Init(double x, double y)
 	temp = new Button();
 	temp->Init(Vector3(140, 75, 0), Vector3(15, 5, 1), "Close Button");
 	buttonVector.push_back(temp);
+	temp = new Button();
+	temp->Init(Vector3(70, 40, 0), Vector3(10, 10, 1), "DecreaseVolume");
+	buttonVector.push_back(temp);
+	temp = new Button();
+	temp->Init(Vector3(100, 40, 0), Vector3(10, 10, 1), "IncreaseVolume");
+	buttonVector.push_back(temp);
 
 	//Descriptions
 	Description* temp2;
@@ -58,6 +64,8 @@ void InventoryButtons::Init(double x, double y)
 	temp2 = new Description();
 	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Bandage");
 	DescriptionVector.push_back(temp2);
+
+
 
 	isOpened = false;
 }

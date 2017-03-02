@@ -146,7 +146,6 @@ void MainMenu::Update(float dt)
 			{
 				Player::Instance().LoadPlayer(1);
 				Player::Instance().SetPlayerName(NewName);
-				std::cout << Player::Instance().GetPlayerName() << std::endl;
 				SceneSystem::Instance().SwitchScene("Town_Scene");
 				break;
 			}

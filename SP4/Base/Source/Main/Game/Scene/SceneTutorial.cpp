@@ -70,7 +70,7 @@ void SceneTutorial::Init()
 			entity2->SetisSelected(false);
 		}
 	}
-	m_Turn = 0;
+	m_Turn = 1;
 	i = 0;
 	m_timer = 0;
 	m_startPosY = m_textPosY = BattleSystem::Instance().GetPlayerTroops().at(0)->GetVectorPosition().y;
@@ -80,6 +80,9 @@ void SceneTutorial::Init()
 	m_T1pressSkill = false;
 	m_T1pressEnemy = false;
 	m_T1pressTroop = false;
+
+	m_T2pressHeal = false;
+	m_T2pressTroop = false;
 }
 
 void SceneTutorial::UpdateCharacterLogic(double dt)
@@ -131,7 +134,7 @@ void SceneTutorial::Update(float dt)
 				{
 					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 					{
-						//if (!entity->GetisSelected())
+						if (m_Turn > 0)
 						{
 							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 							{
@@ -144,8 +147,12 @@ void SceneTutorial::Update(float dt)
 							entity->SetScale(tempscale1);
 
 							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
+
 							if (m_Turn == 1)
 								m_T1pressTroop = true;
+							else if (m_Turn == 2)
+								m_T2pressTroop = true;
+
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -165,7 +172,7 @@ void SceneTutorial::Update(float dt)
 				{
 					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 					{
-						//if (!entity->GetisSelected())
+						if (m_Turn > 1)
 						{
 							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 							{
@@ -196,7 +203,7 @@ void SceneTutorial::Update(float dt)
 				{
 					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 					{
-						//if (entity->GetisSelected())
+						if (m_Turn > 1)
 						{
 							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 							{
@@ -208,7 +215,6 @@ void SceneTutorial::Update(float dt)
 
 							entity->SetScale(tempscale1);
 							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -341,6 +347,25 @@ void SceneTutorial::Update(float dt)
 			if (BattleSystem::Instance().GetSelectedTroop() != NULL)
 			{
 				(*itr)->UpdateBattleScene(dt);
+			}
+
+			if ((*itr)->type == "Red Potion" && (*itr)->isitHover())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					if (!(*itr)->GetisPressed())
+					{
+						m_T2pressHeal = true;
+						(*itr)->SetisPressed(true);
+					}
+				}
+				else
+				{
+					if ((*itr)->GetisPressed())
+					{
+						(*itr)->SetisPressed(false);
+					}
+				}
 			}
 
 			//skill
@@ -507,6 +532,27 @@ void SceneTutorial::Update(float dt)
 						{
 							BattleSystem::Instance().SetPlayerTurn(false);
 							m_Turn++;
+							for (std::map<size_t, CharacterEntity*>::iterator itr = BattleSystem::Instance().GetPlayerTroops().begin(); itr != BattleSystem::Instance().GetPlayerTroops().end(); itr++)
+							{
+								CharacterEntity* entity = (CharacterEntity*)itr->second;
+								if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
+									entity->SetScale(tempscale);
+								entity->SetisSelected(false);
+							}
+							for (map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem().Instance().GetAITroops().end(); itr2++)
+							{
+								CharacterEntity* entity = (CharacterEntity*)itr2->second;
+								if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
+									entity->SetScale(tempscale);
+								BattleSystem::Instance().SetSelectedEnemyTroop(nullptr);
+								entity->SetisSelected(false);
+							}
+							for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+							{
+								if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
+									(*itr3)->SetScale(Vector3(6, 6, 1));
+								BattleSystem::Instance().SetSelectedSkill(nullptr);
+							}
 							return;
 						}
 					}
@@ -686,7 +732,27 @@ void SceneTutorial::Render()
 	}
 	else if (m_Turn == 2)
 	{
-
+		modelStack->PushMatrix();
+		modelStack->Translate(25, ObjectManager::Instance().WorldHeight * 0.92f, -4.f);
+		modelStack->Scale(40, 10, 1);
+		Renderer->RenderMesh("TutorialT2", false);
+		modelStack->PopMatrix();
+		if (!m_T2pressTroop)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().x, BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().y + 17.f, -4.f);
+			modelStack->Scale(10, 10, 1);
+			Renderer->RenderMesh("ArrowD", false);
+			modelStack->PopMatrix();
+		}
+		if (m_T2pressTroop && !m_T2pressHeal)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(17.5, 35, 0);
+			modelStack->Scale(10, 10, 1);
+			Renderer->RenderMesh("ArrowD", false);
+			modelStack->PopMatrix();
+		}
 	}
 
 	modelStack->PushMatrix();

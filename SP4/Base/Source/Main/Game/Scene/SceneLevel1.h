@@ -5,7 +5,6 @@
 #include "SceneBase.h"
 #include "../Objects/Characters/Warrior.h"
 #include "../AI/AIBehaviors/AIAllAttack.h"
-#include "../AI/AIBehaviors/AIStatusEffect.h"
 #include "../Systems/BattleSystem.h"
 #include "../../Engine/Objects/BaseObject.h"
 #include "../../Engine/Objects/SceneEntity.h"
@@ -19,16 +18,15 @@ private:
 	Vector3 tempscale;
 	Vector3 tempscale1;
 	BattleButton* button;
-	CharacterEntity* character;
 	AIBase* AI = nullptr;
-	vector<string> PlayerDamaged;
-	vector<string> AIDamaged;
 	double x, y;
 
+	size_t i;
 	string damage;
 
 	float ActionMeter;
-	float textPos;
+	float textPosY;
+	float startPosY;
 	float timer;
 
 	void RenderObjects(BaseObject *obj);

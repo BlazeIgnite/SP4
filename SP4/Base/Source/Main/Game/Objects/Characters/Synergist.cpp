@@ -1,7 +1,5 @@
 #include "Synergist.h"
 #include <iostream>
-using std::cout;
-using std::endl;
 
 size_t SynergistHealth[] = { 0, 25, 25, 31, 34, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
 size_t SynergistAttack[] = { 0, 13, 15, 15, 17, 19, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 65 };

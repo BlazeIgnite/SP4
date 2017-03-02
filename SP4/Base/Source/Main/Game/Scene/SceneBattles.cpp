@@ -106,7 +106,6 @@ bool SceneBattles::CheckCollision(BaseObject* o1, BaseObject* o2, std::string ty
 
 void SceneBattles::Update(float dt)
 {
-	HandleUserInput();
 	button->UpdateDescription(dt);
 
 	if (BattleSystem::Instance().GetPlayerTurn())
@@ -166,7 +165,6 @@ void SceneBattles::Update(float dt)
 							entity->SetScale(tempscale1);
 
 							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -197,7 +195,6 @@ void SceneBattles::Update(float dt)
 
 							entity->SetScale(tempscale1);
 							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -1196,94 +1193,6 @@ void SceneBattles::Render()
 		modelStack->Scale(9, 9, 1);
 		Renderer->RenderText("text", damage, Color(1, 0, 0));
 		modelStack->PopMatrix();
-	}
-}
-
-void SceneBattles::HandleUserInput()
-{
-	//Keys Section
-	//Mouse Section
-
-	Application::GetCursorPos(&x, &y);
-	int w = Application::GetWindowWidth();
-	int h = Application::GetWindowHeight();
-	float worldX = (float)x * ObjectManager::Instance().WorldWidth / (float)w;
-	float worldY = ((float)h - (float)y) * ObjectManager::Instance().WorldHeight / (float)h;
-
-	// Characters
-	static bool SButtonState = false;
-	float Radius = 1;
-	if (!SButtonState && Application::IsKeyPressed('S'))
-	{
-	//	SceneSystem::Instance().SwitchScene("ResultScene");
-		SButtonState = true;
-	}
-	else if (SButtonState && !Application::IsKeyPressed('S'))
-	{
-		SButtonState = false;
-	}
-
-	static bool DButtonState = false;
-	if (!DButtonState && Application::IsKeyPressed('D'))
-	{
-		
-		DButtonState = true;
-	}
-	else if (DButtonState && !Application::IsKeyPressed('D'))
-	{
-		DButtonState = false;
-	}
-
-	static bool WButtonState = false;
-	if (!WButtonState && Application::IsKeyPressed('W'))
-	{
-		WButtonState = true;
-	}
-	else if (WButtonState && !Application::IsKeyPressed('W'))
-	{
-		WButtonState = false;
-	}
-
-	static bool AButtonState = false;
-	if (!AButtonState && Application::IsKeyPressed('A'))
-	{
-		AButtonState = true;
-	}
-	else if (AButtonState && !Application::IsKeyPressed('A'))
-	{
-		AButtonState = false;
-	}
-
-	// Items
-	static bool QButtonState = false;
-	if (!QButtonState && Application::IsKeyPressed('Q'))
-	{
-		QButtonState = true;
-	}
-	else if (QButtonState && !Application::IsKeyPressed('Q'))
-	{
-		QButtonState = false;
-	}
-
-	static bool EButtonState = false;
-	if (!EButtonState && Application::IsKeyPressed('E'))
-	{
-		
-		EButtonState = true;
-	}
-	else if (EButtonState && !Application::IsKeyPressed('E'))
-	{
-		EButtonState = false;
-	}
-
-	static bool LMouse = false;
-	if (!LMouse && Application::IsKeyPressed(VK_LBUTTON))
-	{
-		LMouse = true;
-	}
-	else if (LMouse && Application::IsKeyPressed(VK_LBUTTON))
-	{
-		LMouse = false;
 	}
 }
 

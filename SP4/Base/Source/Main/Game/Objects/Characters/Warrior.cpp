@@ -1,10 +1,6 @@
 #include "Warrior.h"
 #include "Skill.h"
 
-#include <iostream>
-using std::cout;
-using std::endl;
-
 size_t WarriorHealth[] = { 0, 25, 29, 35, 36, 38, 38, 41, 47, 52, 59, 66, 71, 75, 81, 85, 90, 95, 103, 110, 125 };
 size_t WarriorAttack[] = { 0, 7, 7, 7, 8, 9, 19, 21, 23, 25, 30, 33, 37, 43, 48, 50, 54, 55, 60, 63, 66 };
 size_t ExperienceWNeed[] = { 0, 0, 10, 30, 55, 70, 100, 130, 165, 200, 240, 285, 325, 370, 420, 475, 530, 590, 650, 720 };

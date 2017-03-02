@@ -1,7 +1,4 @@
 #include "Mage.h"
-#include <iostream>
-using std::cout;
-using std::endl;
 
 size_t MageHealth[] = { 0, 15, 100, 20, 24, 28, 30, 31, 33, 35, 37, 42, 47, 55, 60, 65, 71, 80, 81, 82, 85 };
 size_t MageAttack[] = { 0, 15, 17, 19, 21, 25, 29, 34, 37, 40, 44, 50, 56, 64, 66, 70, 75, 80, 83, 84, 89 }; 

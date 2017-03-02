@@ -1,4 +1,4 @@
-PlayerName = "HIDRASTIC"
+PlayerName = "HID"
 PlayerTag = 1
 PlayerGold = 0
 PlayerFurthestStage = 0

@@ -35,6 +35,18 @@ void SceneLevelSelection::Init()
 	m_button = new Button();
 	m_button->Init(Vector3(75, 87, 0), Vector3(15, 10, 1), "Level 1 Button");
 	m_buttonList.push_back(m_button);
+
+	m_button = new Button();
+	m_button->Init(Vector3(90, 55, 0), Vector3(15, 10, 1), "Level 2 Button");
+	m_buttonList.push_back(m_button);
+
+	m_button = new Button();
+	m_button->Init(Vector3(38, 72, 0), Vector3(15, 10, 1), "Level 3 Button");
+	m_buttonList.push_back(m_button);
+
+	m_button = new Button();
+	m_button->Init(Vector3(50, 20, 0), Vector3(15, 10, 1), "Level 4 Button");
+	m_buttonList.push_back(m_button);
 }
 
 void SceneLevelSelection::Update(float dt)
@@ -50,9 +62,13 @@ void SceneLevelSelection::Update(float dt)
 			else if (button->type == "Tutorial")
 				SceneSystem::Instance().SwitchScene("Tutorial_Scene");
 			else if (button->type == "Level 1 Button")
-			{
-				SceneSystem::Instance().SwitchScene("Battle_Scene");
-			}
+				SceneSystem::Instance().SwitchScene("Level1_Scene");
+			else if (button->type == "Level 2 Button")
+				SceneSystem::Instance().SwitchScene("Level2_Scene");
+			else if (button->type == "Level 3 Button")
+				SceneSystem::Instance().SwitchScene("Level3_Scene");
+			else if (button->type == "Level 4 Button")
+				SceneSystem::Instance().SwitchScene("Level4_Scene");
 		}
 	}
 }
@@ -97,6 +113,13 @@ void SceneLevelSelection::Render()
 			Renderer->RenderMesh("TutorialLevel", false);
 		else if (button->type == "Level 1 Button")
 			Renderer->RenderMesh("Level1", false);
+		else if (button->type == "Level 2 Button")
+			Renderer->RenderMesh("Level2", false);
+		else if (button->type == "Level 3 Button")
+			Renderer->RenderMesh("Level3", false);
+		else if (button->type == "Level 4 Button")
+			Renderer->RenderMesh("Level4", false);
+
 		
 		modelStack->PopMatrix();
 	}

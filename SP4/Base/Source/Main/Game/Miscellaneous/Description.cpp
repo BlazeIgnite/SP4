@@ -2,7 +2,6 @@
 #include "GL\glew.h"
 #include "../Systems/EventSystem.h"
 #include "../Mains/Application.h"
-#include "../Scene/Scene_Assignment1.h"
 
 Description::Description()
 {

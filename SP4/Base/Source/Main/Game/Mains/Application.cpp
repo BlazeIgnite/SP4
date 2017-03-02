@@ -15,16 +15,16 @@
 #include "../../Engine/System/LuaSystem.h"
 
 #include "../Scene/SceneLevelSelection.h"
-#include "../Scene/Scene_Assignment1.h"
-#include "../Scene/SceneLevel1.h"
 #include "../Scene/MainMenu.h"
-#include "../Scene/SceneBattles.h"
 #include "../Scene/Town.h"
+#include "../Scene/SceneCharacterSelection.h"
+#include "../Scene/SceneBattles.h"
+#include "../Scene/SceneTutorial.h"
+#include "../Scene/SceneLevel1.h"
+#include "../Scene/SceneLevel2.h"
+#include "../Scene/SceneLevel4.h"
 #include "../Scene/SceneWin.h"
 #include "../Scene/SceneLose.h"
-#include "../Scene/SceneCharacterSelection.h"
-#include "../Scene/SceneTutorial.h"
-#include "../Scene/SceneLevel4.h"
 #include "../Audio/Audio_Player.h"
 
 GLFWwindow* m_window;
@@ -208,8 +208,12 @@ void Application::Init()
 	SceneSystem::Instance().AddScene(*temp7);
 
 	SceneLevel1* temp9 = new SceneLevel1();
-	temp9->SetEntityID("Level1");
+	temp9->SetEntityID("Level1_Scene");
 	SceneSystem::Instance().AddScene(*temp9);
+
+	SceneLevel2* temp12 = new SceneLevel2();
+	temp12->SetEntityID("Level2_Scene");
+	SceneSystem::Instance().AddScene(*temp12);
 
 	SceneWin* temp8 = new SceneWin();
 	temp8->SetEntityID("Win_Scene");

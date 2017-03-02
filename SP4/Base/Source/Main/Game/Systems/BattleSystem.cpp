@@ -2,10 +2,6 @@
 #include "ObjectManager.h"
 #include "../../Base/Source/Main/Engine/System/SceneSystem.h"
 #include "../Audio/Audio_Player.h"
-#include <iostream>
-
-using std::cout;
-using std::endl;
 
 BattleSystem::BattleSystem()
 {
@@ -727,21 +723,21 @@ void BattleSystem::ClearWave()
 
 void BattleSystem::Debugging()
 {
-	cout << "/*****************************************/" << endl;
-	for (size_t i = 0; i < PlayerTroops.size(); i++)
-	{
-		cout << "Player Troop " << i << " : " << PlayerTroops.at(i)->GetName() << endl;
-		cout << "Health : " << PlayerTroops.at(i)->GetHealth() << endl;
-		cout << "Stunned : " << PlayerTroops.at(i)->GetStunned() << endl;
-		cout << "Bleed : " << PlayerTroops.at(i)->GetBleeding() << endl;
-		//cout << ""
-	}
+	//cout << "/*****************************************/" << endl;
+	//for (size_t i = 0; i < PlayerTroops.size(); i++)
+	//{
+	//	cout << "Player Troop " << i << " : " << PlayerTroops.at(i)->GetName() << endl;
+	//	cout << "Health : " << PlayerTroops.at(i)->GetHealth() << endl;
+	//	cout << "Stunned : " << PlayerTroops.at(i)->GetStunned() << endl;
+	//	cout << "Bleed : " << PlayerTroops.at(i)->GetBleeding() << endl;
+	//	//cout << ""
+	//}
 
-	for (size_t i = 0; i < AITroops.size(); i++)
-	{
-		cout << "Enemy Troop " << i << " : " << AITroops.at(i)->GetName() << endl;
-		cout << "Health : " << AITroops.at(i)->GetHealth() << endl;
-	}
+	//for (size_t i = 0; i < AITroops.size(); i++)
+	//{
+	//	cout << "Enemy Troop " << i << " : " << AITroops.at(i)->GetName() << endl;
+	//	cout << "Health : " << AITroops.at(i)->GetHealth() << endl;
+	//}
 
-	cout << "/*****************************************/" << endl;
+	//cout << "/*****************************************/" << endl;
 }

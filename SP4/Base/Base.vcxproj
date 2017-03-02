@@ -23,11 +23,7 @@
     <ClCompile Include="Source\Main\Game\Miscellaneous\Description.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIBase.cpp" />
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.cpp" />
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AICombined.cpp" />
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIDefault.cpp" />
     <ClCompile Include="Source\Main\Game\AI\AIStateManager.cpp" />
-    <ClCompile Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\DescriptionText.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\CharacterEntity.cpp" />
     <ClCompile Include="Source\Main\Game\Objects\Characters\Mage.cpp" />
@@ -63,7 +59,6 @@
     <ClCompile Include="Source\Main\Game\Miscellaneous\Camera.cpp" />
     <ClCompile Include="Source\Main\Game\Mains\main.cpp" />
     <ClCompile Include="Source\Main\Game\Miscellaneous\MeshBuilder.cpp" />
-    <ClCompile Include="Source\Main\Game\Scene\Scene_Assignment1.cpp" />
     <ClCompile Include="Source\Main\Game\Scene\SceneBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,11 +89,7 @@
     <ClInclude Include="Source\Main\Game\Miscellaneous\Description.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIAllAttack.h" />
     <ClInclude Include="Source\Main\Game\AI\AIBase.h" />
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIBuffDebuff.h" />
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AICombined.h" />
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIDefault.h" />
     <ClInclude Include="Source\Main\Game\AI\AIStateManager.h" />
-    <ClInclude Include="Source\Main\Game\AI\AIBehaviors\AIStatusEffect.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DescriptionText.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\DetectMemoryLeak.h" />
     <ClInclude Include="Source\Main\Game\Objects\Characters\CharacterEntity.h" />
@@ -137,7 +128,6 @@
     <ClInclude Include="Source\Main\Game\Miscellaneous\Camera.h" />
     <ClInclude Include="Source\Main\Game\Miscellaneous\MeshBuilder.h" />
     <ClInclude Include="Source\Main\Game\Scene\Scene.h" />
-    <ClInclude Include="Source\Main\Game\Scene\Scene_Assignment1.h" />
     <ClInclude Include="Source\Main\Game\Scene\SceneBase.h" />
   </ItemGroup>
   <ItemGroup>

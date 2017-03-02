@@ -20,6 +20,9 @@ void Town::Init()
 {
 	this->EntityID = "Town_Scene";
 
+	AudioPlayer::Instance().StopAllMusic();
+	//AudioPlayer::Instance().PlayMusic();
+
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	EventSystem::Instance().Init();
 
@@ -125,12 +128,7 @@ void Town::UpdateInventory(float dt)
 								Player::Instance().AddMaterialItem("Red Herb", -2);
 								Player::Instance().AddMaterialItem("Empty Bottle", -1);
 								Player::Instance().AddConsumableItem("Red Potion", 1);
-								std::cout << "Red Potion Crafted" << std::endl;
 
-							}
-							else
-							{
-								std::cout << "Not Enough Materials" << std::endl;
 							}
 						}
 						else if ((*itr2)->GetisSelected() && (*itr2)->type == "Attack Potion")
@@ -141,11 +139,6 @@ void Town::UpdateInventory(float dt)
 								Player::Instance().AddMaterialItem("Red Herb", -3);
 								Player::Instance().AddMaterialItem("Empty Bottle", -1);
 								Player::Instance().AddConsumableItem("Attack Potion", 1);
-								std::cout << "Attack Potion Crafted" << std::endl;
-							}
-							else
-							{
-								std::cout << "Not Enough Materials" << std::endl;
 							}
 						}
 						else if ((*itr2)->GetisSelected() && (*itr2)->type == "Defence Potion")
@@ -156,11 +149,6 @@ void Town::UpdateInventory(float dt)
 								Player::Instance().AddMaterialItem("Blue Herb", -3);
 								Player::Instance().AddMaterialItem("Empty Bottle", -1);
 								Player::Instance().AddConsumableItem("Defence Potion", 1);
-								std::cout << "Defence Potion Crafted" << std::endl;
-							}
-							else
-							{
-								std::cout << "Not Enough Materials" << std::endl;
 							}
 						}
 						else if ((*itr2)->GetisSelected() && (*itr2)->type == "Bandage")
@@ -169,11 +157,6 @@ void Town::UpdateInventory(float dt)
 							{
 								Player::Instance().AddMaterialItem("Cloth", -3);
 								Player::Instance().AddConsumableItem("Bandage", 1);
-								std::cout << "Bandage Crafted" << std::endl;
-							}
-							else
-							{
-								std::cout << "Not Enough Materials" << std::endl;
 							}
 						}
 					}
@@ -242,7 +225,6 @@ void Town::UpdateInventory(float dt)
 						OpenInventory = true;
 						OpenCraftingTab = true;
 						OpenSetting = false;
-						std::cout << "Open" << std::endl;
 						(*itr)->SetisPressed(true);
 					}
 				}
@@ -284,7 +266,6 @@ void Town::UpdateInventory(float dt)
 						OpenSetting = true;
 						OpenInventory = false;
 						OpenCraftingTab = false;
-						std::cout << "Open" << std::endl;
 						(*itr)->SetisPressed(true);
 					}
 				}

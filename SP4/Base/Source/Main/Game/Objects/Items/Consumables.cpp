@@ -20,7 +20,7 @@ void Consumables::Update(double dt)
 
 int Consumables::UseHealthPot(int HP)
 {
-	HP += 30;
+	HP += 50;
 	return HP;
 }
 

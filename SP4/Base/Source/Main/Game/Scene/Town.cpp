@@ -27,11 +27,19 @@ void Town::Init()
 
 	Button* temp;
 	temp = new Button();
-	temp->Init(Vector3(60, 10, 1), Vector3(15, 5, 5), "Inventory");
+	temp->Init(Vector3(50, 10, 1), Vector3(15, 5, 5), "Inventory");
 	buttonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(85, 10, 1), Vector3(15, 5, 5), "Mission");
+	temp->Init(Vector3(75, 10, 1), Vector3(15, 5, 5), "Mission");
+	buttonList.push_back(temp);
+
+	temp = new Button();
+	temp->Init(Vector3(100, 10, 1), Vector3(15, 5, 5), "Setting");
+	buttonList.push_back(temp);
+
+	temp = new Button();
+	temp->Init(Vector3(125, 10, 1), Vector3(15, 5, 5), "Exit Game");
 	buttonList.push_back(temp);
 
 	OpenInventory = false;
@@ -171,36 +179,10 @@ void Town::UpdateInventory(float dt)
 		}
 
 	}
-	/*if (OpenConsumableTab)
-	inventory->UpdateDescriptions(dt);*/
 
 	//To Open Tab
 	for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
 	{
-		/*
-		if ((*itr)->type == "Crafting Tab" && (*itr)->isitHover())
-		{
-		if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-		{
-		if (!(*itr)->GetisPressed())
-		{
-		OpenConsumableTab = false;
-		OpenMaterialTab = false;
-		for (std::vector<Button*>::iterator itr2 = inventory->buttonVector.begin(); itr2 != inventory->buttonVector.end(); itr2++)
-		{
-		(*itr2)->SetisSelected(false);
-		}
-		OpenCraftingTab = true;
-		(*itr)->SetisSelected(true);
-		(*itr)->SetisPressed(true);
-		}
-		}
-		else
-		{
-		if ((*itr)->GetisPressed())
-		(*itr)->SetisPressed(false);
-		}
-		}*/
 		//Close Inventory Tab
 		if (!inventory->GetisOpened())
 		{
@@ -211,6 +193,7 @@ void Town::UpdateInventory(float dt)
 					if (!(*itr)->GetisPressed())
 					{
 						OpenCraftingTab = false;
+						OpenSetting = false;
 						inventory->SetisOpened(true);
 						(*itr)->SetisPressed(true);
 					}
@@ -239,6 +222,7 @@ void Town::UpdateInventory(float dt)
 					{
 						OpenInventory = true;
 						OpenCraftingTab = true;
+						OpenSetting = false;
 						std::cout << "Open" << std::endl;
 						(*itr)->SetisPressed(true);
 					}
@@ -260,6 +244,48 @@ void Town::UpdateInventory(float dt)
 			}
 		}
 
+		if ((*itr)->type == "Exit Game" && (*itr)->isitHover())
+		{
+			if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+			{
+				Application::GetInstance().QuitGame();
+			}
+		}
+
+		//OpenSetting
+		if (!OpenSetting)
+		{
+			inventory->SetisOpened(false);
+			if ((*itr)->type == "Setting" && (*itr)->isitHover())
+			{
+				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+				{
+					if (!(*itr)->GetisPressed())
+					{
+						OpenSetting = true;
+						OpenInventory = false;
+						OpenCraftingTab = false;
+						std::cout << "Open" << std::endl;
+						(*itr)->SetisPressed(true);
+					}
+				}
+				else
+				{
+					if ((*itr)->GetisPressed())
+					{
+						(*itr)->SetisPressed(false);
+					}
+				}
+			}
+		}
+		if (OpenSetting)
+		{
+			if (inventory->GetisOpened())
+			{
+				OpenSetting = false;
+			}
+		}
+
 		if (!OpenMission)
 		{
 			if ((*itr)->type == "Mission" && (*itr)->isitHover())
@@ -269,16 +295,6 @@ void Town::UpdateInventory(float dt)
 					SceneSystem::Instance().SwitchScene("CharacterSelection_Scene");
 					OpenMission = true;
 					break;
-				}
-			}
-		}
-		if (OpenMission)
-		{
-			if ((*itr)->type == "Mission" && (*itr)->isitHover())
-			{
-				if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
-				{
-					OpenMission = false;
 				}
 			}
 		}
@@ -317,6 +333,8 @@ void Town::Render()
 		RenderInventoryButtons();
 	if (OpenCraftingTab && OpenInventory)
 		RenderCraftingButtons();
+	if (OpenSetting)
+		RenderSetting();
 
 	for (std::vector<Button*>::iterator itr = buttonList.begin(); itr != buttonList.end(); itr++)
 	{
@@ -336,64 +354,19 @@ void Town::Render()
 			Renderer->RenderMesh("Mission", false);
 			modelStack->PopMatrix();
 		}
+
+		if (obj->type == "Setting")
+		{
+			Renderer->RenderMesh("Setting", false);
+			modelStack->PopMatrix();
+		}
+
+		if (obj->type == "Exit Game")
+		{
+			Renderer->RenderMesh("ExitGame", false);
+			modelStack->PopMatrix();
+		}
 	}
-}
-
-void Town::RenderMaterialList()
-{
-	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 60, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("RedHerb", false);
-	modelStack->PopMatrix();
-
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 50, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("WhiteHerb", false);
-	modelStack->PopMatrix();
-
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 40, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("Empty Bottle", false);
-	modelStack->PopMatrix();
-
-	modelStack->PushMatrix();
-	modelStack->Translate(50, 30, 1);
-	modelStack->Scale(10, 10, 1);
-	Renderer->RenderMesh("Cloth", false);
-	modelStack->PopMatrix();
-
-
-	std::string temp = std::to_string(Player::Instance().GetMaterialList().find("Red Herb")->second);
-	modelStack->PushMatrix();
-	modelStack->Translate(70, 60, 2);
-	modelStack->Scale(5, 5, 1);
-	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
-	modelStack->PopMatrix();
-
-	temp = std::to_string(Player::Instance().GetMaterialList().find("White Herb")->second);
-	modelStack->PushMatrix();
-	modelStack->Translate(70, 50, 2);
-	modelStack->Scale(5, 5, 1);
-	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
-	modelStack->PopMatrix();
-
-	temp = std::to_string(Player::Instance().GetMaterialList().find("Empty Bottle")->second);
-	modelStack->PushMatrix();
-	modelStack->Translate(70, 40, 2);
-	modelStack->Scale(5, 5, 1);
-	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
-	modelStack->PopMatrix();
-
-	temp = std::to_string(Player::Instance().GetMaterialList().find("Cloth")->second);
-	modelStack->PushMatrix();
-	modelStack->Translate(70, 30, 2);
-	modelStack->Scale(5, 5, 1);
-	Renderer->RenderText("text", "Quantity: " + temp, Color(1, 1, 1));
-	modelStack->PopMatrix();
 }
 
 void Town::RenderCraftingButtons()
@@ -707,6 +680,28 @@ void Town::RenderInventoryButtons()
 		modelStack->Scale(10, 10, 1);
 		if (obj->type == "Crafting Tab")
 			Renderer->RenderText("text", Crafting, Color(1, 1, 1));
+		modelStack->PopMatrix();
+	}
+}
+
+void Town::RenderSetting()
+{
+	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
+	for (std::vector<Button*>::iterator itr = inventory->buttonVector.begin(); itr != inventory->buttonVector.end(); itr++)
+	{
+		Button *obj = (Button *)*itr;
+
+		modelStack->PushMatrix();
+		modelStack->Translate(ObjectManager::Instance().WorldWidth* 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -3);
+		modelStack->Scale(130, 70, 1);
+		Renderer->RenderMesh("Inventory", false);
+		modelStack->PopMatrix();
+
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+		if (obj->type == "Close Button")
+			Renderer->RenderMesh("Back", false);
 		modelStack->PopMatrix();
 	}
 }

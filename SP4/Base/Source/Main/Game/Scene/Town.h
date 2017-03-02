@@ -17,12 +17,9 @@ private:
 	InventoryButtons* inventory;
 	double x, y;
 	bool OpenInventory;
-	bool OpenConsumableTab;
-	bool OpenMaterialTab;
 	bool OpenCraftingTab;
 	bool isSelected;
 	bool OpenSetting;
-
 	bool OpenMission;
 	Camera camera;
 public: 
@@ -33,10 +30,9 @@ public:
 	void Update(float dt);
 	void UpdateInventory(float dt);
 	void Render();
-	void RenderConsumableList();
-	void RenderMaterialList();
 	void RenderInventoryButtons();
 	void RenderCraftingButtons();
+	void RenderSetting();
 	void Exit();
 
 	std::vector<Button*> buttonList;

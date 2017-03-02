@@ -22,6 +22,8 @@ private:
 	bool OpenSetting;
 	bool OpenMission;
 	Camera camera;
+	int Volume;
+
 public: 
 	Town();
 	~Town();

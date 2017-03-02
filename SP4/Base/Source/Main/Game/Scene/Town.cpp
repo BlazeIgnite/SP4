@@ -47,6 +47,8 @@ void Town::Init()
 	OpenSetting = false;
 	OpenMission = false;
 	isSelected = false;
+
+	Volume = 10;
 }
 
 void Town::Update(float dt)
@@ -702,6 +704,34 @@ void Town::RenderSetting()
 		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 		if (obj->type == "Close Button")
 			Renderer->RenderMesh("Back", false);
+		modelStack->PopMatrix();
+
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+		if (obj->type == "DecreaseVolume")
+			Renderer->RenderMesh("LeftVolume", false);
+		modelStack->PopMatrix();
+
+		modelStack->PushMatrix();
+		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
+		modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+		if (obj->type == "IncreaseVolume")
+			Renderer->RenderMesh("RightVolume", false);
+		modelStack->PopMatrix();
+
+		std::string tempVolume = std::to_string(Volume);
+		modelStack->PushMatrix();
+		modelStack->Translate(85, 40, 5);
+		modelStack->Scale(7, 7, 1);
+		Renderer->RenderText("text", tempVolume, Color(0,0,0));
+		modelStack->PopMatrix();
+
+		tempVolume = "Volume";
+		modelStack->PushMatrix();
+		modelStack->Translate(70, ObjectManager::Instance().WorldHeight* 0.5f + 20, 5);
+		modelStack->Scale(10, 10, 1);
+		Renderer->RenderText("text", tempVolume, Color(0, 0, 0));
 		modelStack->PopMatrix();
 	}
 }

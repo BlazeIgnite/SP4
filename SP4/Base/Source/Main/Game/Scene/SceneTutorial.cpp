@@ -31,6 +31,8 @@ SceneTutorial::~SceneTutorial()
 		delete m_button;
 	}
 	m_button = nullptr;
+
+
 }
 
 void SceneTutorial::Init()
@@ -68,7 +70,7 @@ void SceneTutorial::Init()
 			entity2->SetisSelected(false);
 		}
 	}
-	m_Turn = 1;
+	m_Turn = 0;
 	i = 0;
 	m_timer = 0;
 	m_startPosY = m_textPosY = BattleSystem::Instance().GetPlayerTroops().at(0)->GetVectorPosition().y;
@@ -129,7 +131,7 @@ void SceneTutorial::Update(float dt)
 				{
 					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 					{
-						if (m_Turn > 0)
+						//if (!entity->GetisSelected())
 						{
 							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 							{
@@ -163,7 +165,7 @@ void SceneTutorial::Update(float dt)
 				{
 					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 					{
-						if (m_Turn > 1)
+						//if (!entity->GetisSelected())
 						{
 							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 							{
@@ -176,7 +178,6 @@ void SceneTutorial::Update(float dt)
 							entity->SetScale(tempscale1);
 
 							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -195,7 +196,7 @@ void SceneTutorial::Update(float dt)
 				{
 					if (InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
 					{
-						if (m_Turn > 1)
+						//if (entity->GetisSelected())
 						{
 							for (std::map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetPlayerTroops().begin(); itr2 != BattleSystem::Instance().GetPlayerTroops().end(); itr2++)
 							{
@@ -207,6 +208,7 @@ void SceneTutorial::Update(float dt)
 
 							entity->SetScale(tempscale1);
 							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
+							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -284,8 +286,8 @@ void SceneTutorial::Update(float dt)
 							entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
 
 							BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
-							//textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
 							m_T1pressEnemy = false;
+							//textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -321,7 +323,6 @@ void SceneTutorial::Update(float dt)
 
 							BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
 							//textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
-							m_T1pressEnemy = false;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -389,7 +390,7 @@ void SceneTutorial::Update(float dt)
 												(*itr3)->SetScale(Vector3(6, 6, 1));
 										}
 										(*itr)->SetScale(Vector3(7, 7, 1));
-										BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
+										BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(2));
 									}
 								}
 								else if ((*itr)->type == "Skill 3")
@@ -402,7 +403,7 @@ void SceneTutorial::Update(float dt)
 												(*itr3)->SetScale(Vector3(6, 6, 1));
 										}
 										(*itr)->SetScale(Vector3(7, 7, 1));
-										BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
+										BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(3));
 									}
 								}
 							}
@@ -467,7 +468,6 @@ void SceneTutorial::Update(float dt)
 							bool temp2 = BattleSystem::Instance().CanActivateSkill(BattleSystem::Instance().GetSelectedTroop(), i, BattleSystem::Instance().GetSelectedSkill());
 							if (temp2)
 							{
-								//BattleSystem::Instance().DamageCalculation(i, BattleSystem::Instance().GetSelectedSkill());
 								if (tempo->GetName() == "Warrior")
 								{
 									AudioPlayer::Instance().PlayWarriorAttack();
@@ -520,6 +520,20 @@ void SceneTutorial::Update(float dt)
 							if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
 								entity->SetScale(tempscale);
 							entity->SetisSelected(false);
+						}
+						for (map<size_t, CharacterEntity*>::iterator itr2 = BattleSystem::Instance().GetAITroops().begin(); itr2 != BattleSystem().Instance().GetAITroops().end(); itr2++)
+						{
+							CharacterEntity* entity = (CharacterEntity*)itr2->second;
+							if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
+								entity->SetScale(tempscale);
+							BattleSystem::Instance().SetSelectedEnemyTroop(nullptr);
+							entity->SetisSelected(false);
+						}
+						for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+						{
+							if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
+								(*itr3)->SetScale(Vector3(6, 6, 1));
+							BattleSystem::Instance().SetSelectedSkill(nullptr);
 						}
 					}
 				}

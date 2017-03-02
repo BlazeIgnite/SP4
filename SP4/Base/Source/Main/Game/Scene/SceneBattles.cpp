@@ -466,7 +466,12 @@ void SceneBattles::Update(float dt)
 						BattleSystem::Instance().SetSelectedEnemyTroop(nullptr);
 						entity->SetisSelected(false);
 					}
-					BattleSystem::Instance().SetSelectedSkill(nullptr);
+					for (std::vector<Button*>::iterator itr3 = button->GetList()->begin(); itr3 != button->GetList()->end(); itr3++)
+					{
+						if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
+							(*itr3)->SetScale(Vector3(6, 6, 1));
+						BattleSystem::Instance().SetSelectedSkill(nullptr);
+					}
 				}
 				else
 				{

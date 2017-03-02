@@ -216,7 +216,7 @@ void Application::Init()
 	SceneSystem::Instance().AddScene(*temp8);
 
 	SceneLevel4* temp10 = new SceneLevel4();
-	temp9->SetEntityID("Level4_Scene");
+	temp10->SetEntityID("Level4_Scene");
 	SceneSystem::Instance().AddScene(*temp10);
 
 }

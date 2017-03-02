@@ -22,7 +22,7 @@ private:
 	bool OpenSetting;
 	bool OpenMission;
 	Camera camera;
-	int Volume;
+	float Volume;
 
 public: 
 	Town();

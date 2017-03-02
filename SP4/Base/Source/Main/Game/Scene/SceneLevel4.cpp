@@ -29,7 +29,7 @@ SceneLevel4::~SceneLevel4()
 void SceneLevel4::Init()
 {
 	// Init Scene
-	this->SetEntityID("Battle_Scene");
+	this->SetEntityID("Level4_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	Waves = 2; Currentwave = 1;
@@ -1254,28 +1254,28 @@ void SceneLevel4::SpawnWave(int Currentwave)
 	{
 		int baselevel = 13;
 		BattleSystem::Instance().ClearWave();
-		for (int i = 0; i < 2; i++)
+		for (int i = 1; i <= 3; i++)
 		{
 			int temp = Math::RandIntMinMax(1, 3);
 			if (temp == 1)
 			{
 				Warrior* warrior2 = new Warrior();
 				warrior2->Init(baselevel + Math::RandIntMinMax(1, Currentwave));
-				BattleSystem::Instance().SetAITroops(i, warrior2);
+				BattleSystem::Instance().SetAITroops(i-1, warrior2);
 			}
 			else if (temp == 2)
 			{
 
 				Mage* mage2 = new Mage();
 				mage2->Init(baselevel + Math::RandIntMinMax(1, Currentwave));
-				BattleSystem::Instance().SetAITroops(i, mage2);
+				BattleSystem::Instance().SetAITroops(i-1, mage2);
 			}
 			else if (temp == 3)
 			{
 
 				Synergist* Synergist2 = new Synergist();
 				Synergist2->Init(baselevel + Math::RandIntMinMax(1, Currentwave));
-				BattleSystem::Instance().SetAITroops(i, Synergist2);
+				BattleSystem::Instance().SetAITroops(i-1, Synergist2);
 			}
 		}
 		Wavecleared = false;

@@ -105,11 +105,6 @@ void MainMenu::Update(float dt)
 			}
 			else if ((*itr)->type == "Third" && (*itr)->GetCurrentState() == CLICK)
 			{
-				SceneSystem::Instance().SwitchScene("Settings");
-				break;
-			}
-			else if ((*itr)->type == "Forth" && (*itr)->GetCurrentState() == CLICK)
-			{
 				Application::GetInstance().QuitGame();
 			}
 		}
@@ -273,34 +268,46 @@ void MainMenu::RenderButtons()
 		else if (obj->type == "Second")
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+			
 			if (!NewGame && !LoadFile && !NameInput)
-				Renderer->RenderMesh("LoadGame",false);
-			else if (!NameInput)
+			{
+				modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
+				modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+				Renderer->RenderMesh("LoadGame", false);
+			}
+			else if (!NameInput){
+				modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
+				modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 				Renderer->RenderMesh("File2", false);
+			}
 			modelStack->PopMatrix();
 		}
 		else if (obj->type == "Third")
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			if (!NewGame && !LoadFile && !NameInput)
-				Renderer->RenderMesh("Setting", false);
-			else if (!NameInput)
+			
+			if (!NewGame && !LoadFile && !NameInput){
+				modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
+				modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
+				Renderer->RenderMesh("ExitGame", false);
+			}
+			else if ( !NameInput){
+				modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
+				modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 				Renderer->RenderMesh("File3", false);
+			}
 			modelStack->PopMatrix();
 		}
 		else if (obj->type == "Forth")
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
-			modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
-			if (!NewGame && !LoadFile && !NameInput)
-				Renderer->RenderMesh("ExitGame", false);
-			else if (!NameInput)
+			
+			
+			if ((NewGame || LoadFile) && !NameInput){
+				modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, 0.5 /*obj->GetPosition().z*/);
+				modelStack->Scale(obj->GetScale().x, obj->GetScale().y, obj->GetScale().z);
 				Renderer->RenderMesh("Return", false);
+			}
 			modelStack->PopMatrix();
 		}
 	}

@@ -552,7 +552,7 @@ void SceneBattles::Render()
 
 	if (BattleSystem::Instance().GetTurnCost() > 0){
 		modelStack->PushMatrix();
-		modelStack->Translate(((float)(ObjectManager::Instance().WorldWidth * 0.5f - ((float)(100 - BattleSystem::Instance().GetTurnCost()) / 4))), ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
+		modelStack->Translate(((float)(ObjectManager::Instance().WorldWidth * 0.5f - ((float)(100 - BattleSystem::Instance().GetTurnCost()) * 0.25f))), ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
 		modelStack->Scale((float)(BattleSystem::Instance().GetTurnCost() * 0.5f), 5, 1);
 		Renderer->RenderMesh("Test", false);
 		modelStack->PopMatrix();
@@ -644,6 +644,27 @@ void SceneBattles::Render()
 					Renderer->RenderMesh("PlayerSynergistDead", false);
 				}
 			}
+			modelStack->PopMatrix();
+
+			if (!entity->GetDefeated())
+			{
+				float temp = entity->GetHealth();
+				float temp2 = entity->GetMaxHealth();
+				float temp3 = (temp / temp2) * 10;
+				if (entity->GetName() == "Warrior" || entity->GetName() == "Mage" || entity->GetName() == "Synergist")
+				{
+					modelStack->PushMatrix();
+					modelStack->Translate(entity->GetVectorPosition().x, entity->GetVectorPosition().y + 10, 9);
+					modelStack->Scale(temp3, 2, 1);
+					{
+						Renderer->RenderMesh("Health", false);
+					}
+					modelStack->PopMatrix();
+				}
+				
+			}
+			
+			
 
 			if (entity->GetStunned() == true)
 			{
@@ -677,7 +698,7 @@ void SceneBattles::Render()
 				Renderer->RenderMesh("BuffIcon", false);
 				modelStack->PopMatrix();
 			}
-			modelStack->PopMatrix();
+			
 		}
 
 	}

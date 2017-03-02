@@ -454,10 +454,14 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 {
 	size_t damage = AttackerSkill->GetDamage();
 	AttackerSkill->SetTurnCooldown(AttackerSkill->GetMaxTurnCooldown());
+
 	if (PlayerTurn)
 	{
 		CharacterEntity* targettroop = AITroops.find(target)->second;
-		int tempHealth = targettroop->GetHealth() - damage;
+		int tempdamage = damage - targettroop->GetDefence();
+		if (tempdamage <= 0)
+			tempdamage = 1;
+		int tempHealth = targettroop->GetHealth() - tempdamage;
 		if (tempHealth <= 0)
 			tempHealth = 0;
 		targettroop->SetHealth(tempHealth);
@@ -466,12 +470,15 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 		if (targettroop->GetHealth() == 0)
 			targettroop->SetDefeated(true);
 
-		return damage;
+		return (size_t)tempdamage;
 	}
 	else
 	{
 		CharacterEntity* targettroop = PlayerTroops.find(target)->second;
-		int tempHealth = targettroop->GetHealth() - damage;
+		int tempdamage = damage - targettroop->GetDefence();
+		if (tempdamage <= 0)
+			tempdamage = 1;
+		int tempHealth = targettroop->GetHealth() - tempdamage;
 		if (tempHealth <= 0)
 			tempHealth = 0;
 		targettroop->SetHealth(tempHealth);
@@ -479,7 +486,7 @@ size_t BattleSystem::DamageCalculation(size_t target, Skill* AttackerSkill)
 		TurnCost -= AttackerSkill->GetActionCost();
 		if (targettroop->GetHealth() == 0)
 			targettroop->SetDefeated(true);
-		return damage;
+		return (size_t)tempdamage;
 	}
 	return 0;
 }

@@ -51,7 +51,7 @@ void SceneLevelSelection::Update(float dt)
 				SceneSystem::Instance().SwitchScene("Tutorial_Scene");
 			else if (button->type == "Level 1 Button")
 			{
-				SceneSystem::Instance().SwitchScene("Battle_Scene");
+				SceneSystem::Instance().SwitchScene("Level3_Scene");
 			}
 		}
 	}

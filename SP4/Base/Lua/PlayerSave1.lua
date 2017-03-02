@@ -3,6 +3,7 @@ PlayerTag = 1
 PlayerGold = 0
 PlayerFurthestStage = 0
 RedHerbCount = 2
+BlueHerbCount = 0
 WhiteHerbCount = 0
 EmptyBottleCount = 0
 ClothCount = 0

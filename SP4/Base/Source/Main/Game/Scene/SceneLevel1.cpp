@@ -29,7 +29,7 @@ SceneLevel1::~SceneLevel1()
 void SceneLevel1::Init()
 {
 	// Init Scene
-	this->SetEntityID("Level1");
+	this->SetEntityID("Level1_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	button = new BattleButton();

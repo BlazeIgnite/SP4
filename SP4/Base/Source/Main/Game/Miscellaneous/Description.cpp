@@ -11,6 +11,7 @@ Description::Description()
 
 Description::~Description()
 {
+	Exit();
 }
 
 void Description::Init(Vector3 Position, Vector3 Scale, std::string type)
@@ -31,7 +32,6 @@ void Description::Init(Vector3 Position, Vector3 Scale, std::string type)
 
 	text = new DescriptionText();
 	text->Init(Vector3(0,0,0), Vector3(2 ,2, 1), type, "Test");
-
 }
 
 void Description::Update(double dt)

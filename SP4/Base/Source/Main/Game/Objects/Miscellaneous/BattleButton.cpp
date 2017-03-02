@@ -15,7 +15,7 @@ BattleButton::~BattleButton()
 
 void BattleButton::Init(double x, double y)
 {
-	Button* temp;
+	Button* temp; 
 	temp = new Button();
 	temp->Init(Vector3(55, 22.5, 0), Vector3(10, 10, 1), "Character 1");
 	buttonList.push_back(temp);

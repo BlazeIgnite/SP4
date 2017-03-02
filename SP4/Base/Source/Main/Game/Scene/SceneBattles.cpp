@@ -134,7 +134,6 @@ void SceneBattles::Update(float dt)
 							entity->SetScale(tempscale1);
 
 							BattleSystem::Instance().SetSelectedTroop(BattleSystem::Instance().GetPlayerTroopAttacking((*itr).first));
-							std::cout << BattleSystem::Instance().GetSelectedTroop()->GetName() << std::endl;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -714,7 +713,11 @@ void SceneBattles::Render()
 		{
 			if (entity->GetName() == "Warrior")
 			{
-				if (entityhealth <= 0.3f)
+				if (AI->GetAttacking() && itr->first == AI->GetAttacker())
+				{
+					Renderer->RenderMesh("WarriorAttackMesh", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("WarriorDying", false);
 				}
@@ -723,9 +726,13 @@ void SceneBattles::Render()
 					Renderer->RenderMesh("WarriorMesh", false);
 				}
 			}
-			if (entity->GetName() == "Mage")
+			else if (entity->GetName() == "Mage")
 			{
-				if (entityhealth <= 0.3f)
+				if (AI->GetAttacking() && itr->first == AI->GetAttacker())
+				{
+					Renderer->RenderMesh("MageAttack", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("MageDying", false);
 				}
@@ -734,9 +741,13 @@ void SceneBattles::Render()
 					Renderer->RenderMesh("MageMesh", false);
 				}
 			}
-			if (entity->GetName() == "Synergist")
+			else if (entity->GetName() == "Synergist")
 			{
-				if (entityhealth <= 0.3f)
+				if (AI->GetAttacking() && itr->first == AI->GetAttacker())
+				{
+					Renderer->RenderMesh("SynergistAttack", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("SynergistDying", false);
 				}

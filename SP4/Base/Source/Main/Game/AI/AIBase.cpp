@@ -17,6 +17,7 @@ void AIBase::Init()
 	stateHolder = new AIStateManager();
 	m_AITurnCostHolder = 0;
 	m_target = 0;
+	m_Attacker = 0;
 	m_DamageCaused = 0;
 
 	m_Attacking = false;
@@ -69,6 +70,11 @@ size_t AIBase::GetDamageCaused()
 size_t AIBase::GetTarget()
 {
 	return m_target;
+}
+
+size_t AIBase::GetAttacker()
+{
+	return m_Attacker;
 }
 
 void AIBase::Exit()

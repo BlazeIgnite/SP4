@@ -72,6 +72,7 @@ void AITutorial::Execute()
 	{
 		AIBattlePlanner* ABP = BattlePlanHolder.back();
 		m_target = ABP->GetTarget();
+		m_Attacker = ABP->GetAttacker();
 		if (BattleSystem::Instance().GetPlayerTroops().at(m_target)->GetDefeated())
 		{
 			delete ABP;

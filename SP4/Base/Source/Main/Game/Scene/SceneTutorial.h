@@ -36,6 +36,7 @@ private:
 
 	bool m_T1pressTroop;
 	bool m_T1pressSkill;
+	bool m_T1pressEnemy;
 	bool m_T1pressAttack;
 	bool m_T2pressTroop;
 	bool m_T2pressHeal;

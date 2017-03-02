@@ -18,6 +18,7 @@ protected:
 	size_t m_AITurnCostHolder;
 	size_t m_DamageCaused;
 	size_t m_target;
+	size_t m_Attacker;
 
 	bool m_Attacking;
 
@@ -34,6 +35,8 @@ public:
 	virtual size_t GetDamageCaused();
 
 	virtual size_t GetTarget();
+
+	virtual size_t GetAttacker();
 
 	virtual void Init();
 	virtual void Update(double dt) = 0;

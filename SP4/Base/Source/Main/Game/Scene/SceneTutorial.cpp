@@ -76,6 +76,7 @@ void SceneTutorial::Init()
 
 	m_T1pressAttack = false;
 	m_T1pressSkill = false;
+	m_T1pressEnemy = false;
 	m_T1pressTroop = false;
 }
 
@@ -245,6 +246,7 @@ void SceneTutorial::Update(float dt)
 							entity->SetScale(entity->GetScale() + Vector3(5, 5, 1));
 
 							BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
+							m_T1pressEnemy = true;
 							//textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
 
 							entity->SetisSelected(true);
@@ -283,6 +285,7 @@ void SceneTutorial::Update(float dt)
 
 							BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
 							//textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
+							m_T1pressEnemy = false;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -318,6 +321,7 @@ void SceneTutorial::Update(float dt)
 
 							BattleSystem::Instance().SetSelectedEnemyTroop(BattleSystem::Instance().GetAITroopAttacking((*itr).first));
 							//textPos = BattleSystem::Instance().GetSelectedEnemyTroop()->GetVectorPosition().y;
+							m_T1pressEnemy = false;
 							entity->SetisSelected(true);
 							entity->SetisPressed(true);
 						}
@@ -624,35 +628,51 @@ void SceneTutorial::Render()
 		modelStack->Scale(40, 10, 1);
 		Renderer->RenderMesh("TutorialT1", false);
 		modelStack->PopMatrix();
+
+		if (!m_T1pressTroop)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().x, BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().y + 17.f, -4.f);
+			modelStack->Scale(10, 10, 1);
+			Renderer->RenderMesh("ArrowD", false);
+			modelStack->PopMatrix();
+		}
+		if (!m_T1pressSkill && m_T1pressTroop)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(68, 25, -4.f);
+			modelStack->Scale(10, 10, 1);
+			Renderer->RenderMesh("ArrowD", false);
+			modelStack->PopMatrix();
+		}
+		if (m_T1pressSkill && m_T1pressTroop && !m_T1pressEnemy)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(BattleSystem::Instance().GetAITroopAttacking(0)->GetVectorPosition().x, BattleSystem::Instance().GetAITroopAttacking(0)->GetVectorPosition().y + 17.f, -4.f);
+			modelStack->Scale(10, 10, 1);
+			Renderer->RenderMesh("ArrowD", false);
+			modelStack->PopMatrix();
+		}
+		if (m_T1pressSkill && m_T1pressTroop && m_T1pressEnemy && !m_T1pressAttack)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(140, 15 + 10, -4.f);
+			modelStack->Scale(10, 10, 1);
+			Renderer->RenderMesh("ArrowD", false);
+			modelStack->PopMatrix();
+		}
+		if (m_T1pressSkill && m_T1pressTroop && m_T1pressEnemy && m_T1pressAttack)
+		{
+			modelStack->PushMatrix();
+			modelStack->Translate(160, 15 + 10, -4.f);
+			modelStack->Scale(10, 10, 1);
+			Renderer->RenderMesh("ArrowD", false);
+			modelStack->PopMatrix();
+		}
 	}
 	else if (m_Turn == 2)
 	{
 
-	}
-
-	if (!m_T1pressTroop)
-	{
-		modelStack->PushMatrix();
-		modelStack->Translate(BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().x, BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().y + 17.f, -4.f);
-		modelStack->Scale(10, 10, 1);
-		Renderer->RenderMesh("ArrowD", false);
-		modelStack->PopMatrix();
-	}
-	if (!m_T1pressSkill && m_T1pressTroop)
-	{
-		modelStack->PushMatrix();
-		modelStack->Translate(68, 25, -4.f);
-		modelStack->Scale(10, 10, 1);
-		Renderer->RenderMesh("ArrowD", false);
-		modelStack->PopMatrix();
-	}
-	if (m_T1pressSkill && m_T1pressTroop)
-	{
-		modelStack->PushMatrix();
-		modelStack->Translate(BattleSystem::Instance().GetAITroopAttacking(0)->GetVectorPosition().x, BattleSystem::Instance().GetAITroopAttacking(0)->GetVectorPosition().y + 17.f, -4.f);
-		modelStack->Scale(10, 10, 1);
-		Renderer->RenderMesh("ArrowD", false);
-		modelStack->PopMatrix();
 	}
 
 	modelStack->PushMatrix();
@@ -811,7 +831,11 @@ void SceneTutorial::Render()
 		{
 			if (entity->GetName() == "Warrior")
 			{
-				if (entityhealth <= 0.3f)
+				if (m_AI->GetAttacking() && itr->first == m_AI->GetAttacker())
+				{
+					Renderer->RenderMesh("WarriorAttackMesh", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("WarriorDying", false);
 				}
@@ -820,9 +844,13 @@ void SceneTutorial::Render()
 					Renderer->RenderMesh("WarriorMesh", false);
 				}
 			}
-			if (entity->GetName() == "Mage")
+			else if (entity->GetName() == "Mage")
 			{
-				if (entityhealth <= 0.3f)
+				if (m_AI->GetAttacking() && itr->first == m_AI->GetAttacker())
+				{
+					Renderer->RenderMesh("MageAttack", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("MageDying", false);
 				}
@@ -831,9 +859,13 @@ void SceneTutorial::Render()
 					Renderer->RenderMesh("MageMesh", false);
 				}
 			}
-			if (entity->GetName() == "Synergist")
+			else if (entity->GetName() == "Synergist")
 			{
-				if (entityhealth <= 0.3f)
+				if (m_AI->GetAttacking() && itr->first == m_AI->GetAttacker())
+				{
+					Renderer->RenderMesh("SynergistAttack", false);
+				}
+				else if (entityhealth <= 0.3f)
 				{
 					Renderer->RenderMesh("SynergistDying", false);
 				}

@@ -39,27 +39,27 @@ void SceneCharacterSelection::Init()
 void SceneCharacterSelection::InitButtons()
 {
 	Button* temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f + 25, 0), Vector3(50, 10, 1), "CharacterFirst");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f + 22, 0), Vector3(50, 10, 1), "CharacterFirst");
 	CharacterButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f + 13, 0), Vector3(50, 10, 1), "CharacterSecond");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f + 10, 0), Vector3(50, 10, 1), "CharacterSecond");
 	CharacterButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 0), Vector3(50, 10, 1), "CharacterThird");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f - 2, 0), Vector3(50, 10, 1), "CharacterThird");
 	CharacterButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f - 11, 0), Vector3(50, 10, 1), "CharacterForth");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f - 14, 0), Vector3(50, 10, 1), "CharacterForth");
 	CharacterButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f - 23, 0), Vector3(50, 10, 1), "CharacterFifth");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f, ObjectManager::Instance().WorldHeight * 0.6f - 26, 0), Vector3(50, 10, 1), "CharacterFifth");
 	CharacterButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.65f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillFirst");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.655f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillFirst");
 	SkillButtonList.push_back(temp);
 
 	temp = new Button();
@@ -67,23 +67,23 @@ void SceneCharacterSelection::InitButtons()
 	SkillButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.8f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillThird");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.795f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillThird");
 	SkillButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.875f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillForth");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.865f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillForth");
 	SkillButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.95f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillFifth");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.935f, ObjectManager::Instance().WorldHeight * 0.6f + 1, 1), Vector3(10, 10, 1), "SkillFifth");
 	SkillButtonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f - 15, ObjectManager::Instance().WorldHeight * 0.95f, 1), Vector3(5, 5, 1), "ClassLeft");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f - 15, ObjectManager::Instance().WorldHeight * 0.915f, 1), Vector3(5, 3, 1), "ClassLeft");
 	CharacterClassList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f + 15, ObjectManager::Instance().WorldHeight * 0.95f, 1), Vector3(5, 5, 1), "ClassRight");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.2f + 15, ObjectManager::Instance().WorldHeight * 0.915f, 1), Vector3(5, 3, 1), "ClassRight");
 	CharacterClassList.push_back(temp);
 
 	temp = new Button();
@@ -99,11 +99,11 @@ void SceneCharacterSelection::InitButtons()
 	FinalChoiceList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.85f, ObjectManager::Instance().WorldHeight * 0.1f, 1), Vector3(15, 7, 1), "Start");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.85f, ObjectManager::Instance().WorldHeight * 0.09f, 1), Vector3(15, 7, 1), "Start");
 	ChangeSceneList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.15f, ObjectManager::Instance().WorldHeight * 0.1f, 1), Vector3(15, 7, 1), "Return");
+	temp->Init(Vector3(ObjectManager::Instance().WorldWidth * 0.15f, ObjectManager::Instance().WorldHeight * 0.09f, 1), Vector3(15, 7, 1), "Return");
 	ChangeSceneList.push_back(temp);
 }
 
@@ -336,13 +336,13 @@ void SceneCharacterSelection::Render()
 
 			modelStack->PushMatrix();
 			modelStack->Scale(it->GetScale().x, it->GetScale().y, it->GetScale().z);
-			Renderer->RenderMesh("ButtonBorder", false);
+			Renderer->RenderMesh("SkillButtonBlackFilled", false);
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
 			modelStack->Translate((int)(it->type.size() * -0.85f), 0, 0);
 			modelStack->Scale(3, 3, 1);
-			Renderer->RenderText(it->type, Color(1,1,1));
+			Renderer->RenderText(it->type, Color(0,0,0));
 			modelStack->PopMatrix();
 
 		modelStack->PopMatrix();
@@ -354,14 +354,14 @@ void SceneCharacterSelection::Render()
 		modelStack->PushMatrix();
 		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.8f, ObjectManager::Instance().WorldHeight * 0.5f + 1, 10);
 			modelStack->PushMatrix();
-			modelStack->Scale(AnnouncementText.size() * 2, 10, 1);
-			Renderer->RenderMesh("Alert", false);
+			modelStack->Scale(AnnouncementText.size() * 1.8f, 4, 1);
+			Renderer->RenderMesh("SkillButtonBlack", false);
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
 			modelStack->Translate((AnnouncementText.size() * -(0.7f)), 0, 1);
-			modelStack->Scale(2, 3, 1);
-			Renderer->RenderText("text", AnnouncementText, Color(1, 1, 1));
+			modelStack->Scale(2, 2, 1);
+			Renderer->RenderText("text", AnnouncementText, Color(0, 0, 0));
 			modelStack->PopMatrix();
 		modelStack->PopMatrix();
 	}
@@ -420,9 +420,9 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 			modelStack->Translate(it->GetPosition().x, it->GetPosition().y, it->GetPosition().z);
 			modelStack->Scale(it->GetScale().x, it->GetScale().y, it->GetScale().z);
 			if (SelectButton != SelectedCharacter)
-				Renderer->RenderMesh("ButtonBorder", false);
+				Renderer->RenderMesh("SkillButtonBlack", false);
 			else
-				Renderer->RenderMesh("ButtonBorderRed", false);
+				Renderer->RenderMesh("SkillButtonRed", false);
 
 			modelStack->PopMatrix();
 		}
@@ -434,7 +434,10 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 		modelStack->PushMatrix();
 		modelStack->Translate(it->GetPosition().x, it->GetPosition().y, it->GetPosition().z);
 		modelStack->Scale(it->GetScale().x, it->GetScale().y, it->GetScale().z);
-		Renderer->RenderMesh("ButtonBorderBlue", false);
+		if (it->type.find("Left") != string::npos)
+			Renderer->RenderMesh("ArrowL", false);
+		else if (it->type.find("Right") != string::npos)
+			Renderer->RenderMesh("ArrowR", false);
 		modelStack->PopMatrix();
 	}
 
@@ -444,22 +447,22 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 		//Left Border
 		modelStack->PushMatrix();
 		modelStack->Scale(ObjectManager::Instance().WorldWidth * 0.4f, ObjectManager::Instance().WorldHeight * 0.8f, 1);
-		Renderer->RenderMesh("ButtonBorder", false);
+		Renderer->RenderMesh("SkillButtonBlackFilled", false);
 		modelStack->PopMatrix();
 
 		//Class Name
 		modelStack->PushMatrix();
-		modelStack->Translate(0, ObjectManager::Instance().WorldHeight * 0.35f, 1);
+		modelStack->Translate(0, ObjectManager::Instance().WorldHeight * 0.315f, 1);
 
 			modelStack->PushMatrix();
-			modelStack->Scale(25, 8, 1);
-			Renderer->RenderMesh("ButtonBorder", false);
+			modelStack->Scale(25, 6, 1);
+			Renderer->RenderMesh("SkillButtonBlue", false);
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
 			modelStack->Translate((int)-(ClassNameText.size()), 0, 1);
 			modelStack->Scale(3, 3, 1);
-			Renderer->RenderText("text", ClassNameText, Color(1,1,1));
+			Renderer->RenderText("text", ClassNameText, Color(0,0,0));
 			modelStack->PopMatrix();
 
 		modelStack->PopMatrix();
@@ -469,15 +472,12 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 		for (int Count = 0; Count < 5; ++Count)
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(0, 25 - (12 * Count),0);
+			modelStack->Translate(0, 22 - (12 * Count),0);
 
 			if (!ListEnd && it != Player::Instance().GetClassUnitList(ClassNameText).end())
 			{
 				//Render Character Icon
 				modelStack->PushMatrix();
-				//if (InputManager::Instance().GetMouseState(MOUSE_L) == HOLD && Count == SelectedCharacter && ClickingOtherButtons == false)
-				//	modelStack->Translate(InputManager::Instance().GetMousePosition().x - ObjectManager::Instance().WorldWidth * 0.2f, InputManager::Instance().GetMousePosition().y - (25 - (12 * Count) + ObjectManager::Instance().WorldHeight * 0.6f), 1);
-				//else
 				modelStack->Translate(-15, 0, 1);
 				modelStack->Scale(7.5f, 7.5f, 1);
 				if (ClassNameText == "Warrior")
@@ -486,14 +486,14 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 					Renderer->RenderMesh("PlayerSynergistMesh", false);
 				else if (ClassNameText == "Mage")
 					Renderer->RenderMesh("PlayerMageMesh", false);
-				Renderer->RenderMesh("ButtonBorder", false);
+				Renderer->RenderMesh("SkillButtonBlack", false);
 				modelStack->PopMatrix();
 
 				//Render Character Level
 				modelStack->PushMatrix();
 				modelStack->Translate(-5, 0, 1);
 				modelStack->Scale(3, 3, 1);
-				Renderer->RenderText("text", ("Level: " + std::to_string(it->second->GetLevel())), Color(1, 1, 1));
+				Renderer->RenderText("text", ("Level: " + std::to_string(it->second->GetLevel())), Color(0, 0, 0));
 				modelStack->PopMatrix();
 				int PosCount = 1;
 				for (auto it2 : FinalChoiceList)
@@ -509,12 +509,12 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 
 								modelStack->PushMatrix();
 								modelStack->Scale(3, 3, 1);
-								Renderer->RenderMesh("ButtonBorder", false);
+								Renderer->RenderMesh("SkillButtonBlack", false);
 								modelStack->PopMatrix();
 
 								modelStack->Translate(0.75f, 0, 1);
 								modelStack->Scale(3, 3, 1);
-								Renderer->RenderText("text", std::to_string(PosCount), Color(1, 1, 1));
+								Renderer->RenderText("text", std::to_string(PosCount), Color(0, 0, 0));
 
 							modelStack->PopMatrix();
 						}
@@ -530,7 +530,7 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 				modelStack->PushMatrix();
 				modelStack->Translate(-5, 0, 1);
 				modelStack->Scale(3, 3, 1);
-				Renderer->RenderText("text", "-----", Color(1, 1, 1));
+				Renderer->RenderText("text", "-----", Color(0, 0, 0));
 				modelStack->PopMatrix();
 			}
 
@@ -553,23 +553,23 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 		//Render Right Border
 		modelStack->PushMatrix();
 		modelStack->Scale(ObjectManager::Instance().WorldWidth * 0.4f, ObjectManager::Instance().WorldHeight * 0.8f, 3);
-		Renderer->RenderMesh("ButtonBorder", false);
+		Renderer->RenderMesh("SkillButtonBlackFilled", false);
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
-		modelStack->Translate(0, ObjectManager::Instance().WorldHeight * 0.35f, 1);
+		modelStack->Translate(12, ObjectManager::Instance().WorldHeight * 0.29f, 1);
 
 			//Selected Character Class Border
 			modelStack->PushMatrix();
-			modelStack->Scale(25, 8, 1);
-			Renderer->RenderMesh("ButtonBorder", false);
+			modelStack->Scale(25, 6, 1);
+			Renderer->RenderMesh("SkillButtonBlue", false);
 			modelStack->PopMatrix();
 
 			//Selected Character Class Name
 			modelStack->PushMatrix();
 			modelStack->Translate((int)-(ClassNameText.size()), 0, 0);
 			modelStack->Scale(3, 3, 1);
-			Renderer->RenderText("text", ClassNameText, Color(1, 1, 1));
+			Renderer->RenderText("text", ClassNameText, Color(0, 0, 0));
 			modelStack->PopMatrix();
 
 		modelStack->PopMatrix();
@@ -590,19 +590,19 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 			modelStack->Scale(it->GetScale().x, it->GetScale().y, it->GetScale().z);
 			if (it->GetisSelected())
 			{
-				Renderer->RenderMesh("ButtonBorderRedInvi", false);
+				Renderer->RenderMesh("SkillButtonRed", false);
 				SkillSelectedCheck = true;
 			}
 			for (auto it2 : SelectedSkills)
 			{
 				if (!SkillSelectedCheck && it == SkillButtonList[it2])
 				{
-					Renderer->RenderMesh("ButtonBorderBlueInvi", false);
+					Renderer->RenderMesh("SkillButtonBlue", false);
 					SkillSelectedCheck = true;
 				}
 			}
 			if (!SkillSelectedCheck)
-				Renderer->RenderMesh("ButtonBorderInvi", false);
+				Renderer->RenderMesh("SkillButtonBlack", false);
 			if (SelectedCharacter != -1)
 			{
 				std::string SkillName;
@@ -664,7 +664,7 @@ void SceneCharacterSelection::RenderCharacterInfo()
 			Renderer->RenderMesh("PlayerSynergistMesh", false);
 		else if (ClassNameText == "Mage")
 			Renderer->RenderMesh("PlayerMageMesh", false);
-		Renderer->RenderMesh("ButtonBorder", false);
+		Renderer->RenderMesh("SkillButtonBlack", false);
 		modelStack->PopMatrix();
 
 		modelStack->Translate(0, -5, 0);
@@ -673,35 +673,35 @@ void SceneCharacterSelection::RenderCharacterInfo()
 		modelStack->Translate(16, 8, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
 		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
-			Renderer->RenderText("text", "Level: " + std::to_string(CurrentlySelected->GetLevel()), Color(1, 1, 1));
+			Renderer->RenderText("text", "Level: " + std::to_string(CurrentlySelected->GetLevel()), Color(0, 0, 0));
 		else
-			Renderer->RenderText("text", "Level: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Level: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 		modelStack->PushMatrix();
 		modelStack->Translate(16, 5, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
 		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
-			Renderer->RenderText("text", "Health: " + std::to_string(CurrentlySelected->GetHealth()), Color(1, 1, 1));
+			Renderer->RenderText("text", "Health: " + std::to_string(CurrentlySelected->GetHealth()), Color(0, 0, 0));
 		else
-			Renderer->RenderText("text", "Health: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Health: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
 		modelStack->Translate(16, 2, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
 		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
-			Renderer->RenderText("text", "Attack: " + std::to_string(CurrentlySelected->GetAttack()), Color(1, 1, 1));
+			Renderer->RenderText("text", "Attack: " + std::to_string(CurrentlySelected->GetAttack()), Color(0, 0, 0));
 		else
-			Renderer->RenderText("text", "Attack: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Attack: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
 		modelStack->Translate(16, -1, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
 		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
-			Renderer->RenderText("text", "Defence: " + std::to_string(CurrentlySelected->GetDefence()), Color(1, 1, 1));
+			Renderer->RenderText("text", "Defence: " + std::to_string(CurrentlySelected->GetDefence()), Color(0, 0, 0));
 		else
-			Renderer->RenderText("text", "Defence: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Defence: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 	modelStack->PopMatrix();
@@ -722,34 +722,34 @@ void SceneCharacterSelection::RenderSkillInfo()
 
 		modelStack->PushMatrix();
 		modelStack->Scale(60, 30, 1);
-		Renderer->RenderMesh("ButtonBorder", false);
+		Renderer->RenderMesh("SkillButtonBlack", false);
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, 8, 0);
 		modelStack->Scale(2, 2, 1.f);
 		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
-			Renderer->RenderText("text", "Name: " + CurrentlySelected->GetName(), Color(1, 1, 1));
+			Renderer->RenderText("text", "Name: " + CurrentlySelected->GetName(), Color(0, 0, 0));
 		else
-			Renderer->RenderText("text", "Name: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Name: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, 5, 0);
 		modelStack->Scale(2, 2, 1.f);
 		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
-			Renderer->RenderText("text", "Damage: " + std::to_string(CurrentlySelected->GetDamage()), Color(1, 1, 1));
+			Renderer->RenderText("text", "Damage: " + std::to_string(CurrentlySelected->GetDamage()), Color(0, 0, 0));
 		else
-			Renderer->RenderText("text", "Damage: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Damage: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, 2, 0);
 		modelStack->Scale(2, 2, 1.f);
 		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
-			Renderer->RenderText("text", "Cool Down: " + std::to_string(CurrentlySelected->GetMaxTurnCooldown()), Color(1, 1, 1));
+			Renderer->RenderText("text", "Cool Down: " + std::to_string(CurrentlySelected->GetMaxTurnCooldown()), Color(0, 0, 0));
 		else
-			Renderer->RenderText("text", "Cool Down: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Cool Down: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
@@ -779,10 +779,10 @@ void SceneCharacterSelection::RenderSkillInfo()
 				}
 
 			}
-			Renderer->RenderText("text", "Usable Pos: " + Position, Color(1, 1, 1));
+			Renderer->RenderText("text", "Usable Pos: " + Position, Color(0, 0, 0));
 		}
 		else
-			Renderer->RenderText("text", "Usable Pos: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Usable Pos: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
@@ -812,10 +812,10 @@ void SceneCharacterSelection::RenderSkillInfo()
 				}
 
 			}
-			Renderer->RenderText("text", "Target Pos: " + Position, Color(1, 1, 1));
+			Renderer->RenderText("text", "Target Pos: " + Position, Color(0, 0, 0));
 		}
 		else
-			Renderer->RenderText("text", "Target Pos: ---", Color(1, 1, 1));
+			Renderer->RenderText("text", "Target Pos: ---", Color(0, 0, 0));
 		modelStack->PopMatrix();
 
 	modelStack->PopMatrix();
@@ -837,7 +837,7 @@ void SceneCharacterSelection::RenderFinalChoiceInfo()
 		else if (it->type.find("Mage") != string::npos)
 			Renderer->RenderMesh("PlayerMageMesh", false);
 		else
-			Renderer->RenderMesh("ButtonBorder", false);
+			Renderer->RenderMesh("SkillButtonBlack", false);
 		
 		modelStack->PopMatrix();
 	}

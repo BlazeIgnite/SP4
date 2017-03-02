@@ -93,56 +93,56 @@ void MainMenu::Update(float dt)
 		(*itr)->Update();
 		if (!NewGame && !LoadFile && !NameInput)
 		{
-			if ((*itr)->type == "First" && (*itr)->GetCurrentState() == CLICK)
+			if ((*itr)->type == "First" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				NewGame = true;
 				LoadFile = false;
 			}
-			else if ((*itr)->type == "Second" && (*itr)->GetCurrentState() == CLICK)
+			else if ((*itr)->type == "Second" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				NewGame = false;
 				LoadFile = true;
 			}
-			else if ((*itr)->type == "Third" && (*itr)->GetCurrentState() == CLICK)
+			else if ((*itr)->type == "Third" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				Application::GetInstance().QuitGame();
 			}
 		}
 		else if (!NewGame && !NameInput && LoadFile)
 		{
-			if ((*itr)->type == "First" && (*itr)->GetCurrentState() == CLICK)
+			if ((*itr)->type == "First" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				Player::Instance().LoadPlayer(1);
 				SceneSystem::Instance().SwitchScene("Town_Scene");
 				break;
 			}
-			else if ((*itr)->type == "Second" && (*itr)->GetCurrentState() == CLICK)
+			else if ((*itr)->type == "Second" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				Player::Instance().LoadPlayer(2);
 				SceneSystem::Instance().SwitchScene("Town_Scene");
 				break;
 			}
-			else if ((*itr)->type == "Third" && (*itr)->GetCurrentState() == CLICK)
+			else if ((*itr)->type == "Third" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				Player::Instance().LoadPlayer(3);
 				SceneSystem::Instance().SwitchScene("Town_Scene");
 				break;
 			}
-			else if ((*itr)->type == "Forth" && (*itr)->GetCurrentState() == CLICK)
+			else if ((*itr)->type == "Forth" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				LoadFile = false;
 			}
 		}
 		else if (NewGame && !NameInput && !LoadFile)
 		{
-			if ((*itr)->type == "Forth" && (*itr)->GetCurrentState() == CLICK)
+			if ((*itr)->type == "Forth" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 				NewGame = false;
-			else if ((*itr)->GetCurrentState() == CLICK)
+			else if ((*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 				NameInput = true;
 		}
 		else if (NameInput)
 		{
-			if ((*itr)->type == "Enter" && (*itr)->GetCurrentState() == CLICK)
+			if ((*itr)->type == "Enter" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				Player::Instance().LoadPlayer(1);
 				Player::Instance().SetPlayerName(NewName);
@@ -150,7 +150,7 @@ void MainMenu::Update(float dt)
 				SceneSystem::Instance().SwitchScene("Town_Scene");
 				break;
 			}
-			else if ((*itr)->type == "Back" && (*itr)->GetCurrentState() == CLICK)
+			else if ((*itr)->type == "Back" && (*itr)->GetCurrentState() == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			{
 				NewName = "";
 				NameInput = false;

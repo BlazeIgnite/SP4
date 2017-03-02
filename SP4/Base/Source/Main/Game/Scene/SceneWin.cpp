@@ -26,18 +26,20 @@ void SceneWin::Init()
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	youwin = "You Win!";
 	timer = 0.f;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		drops[i] = Math::RandIntMinMax(0, 5);
 	}
 	item[0] = "Red Herb";
-	item[1] = "White Herb";
-	item[2] = "Empty Bottle";
-	item[3] = "Cloth";
+	item[1] = "Blue Herb";
+	item[2] = "White Herb";
+	item[3] = "Empty Bottle";
+	item[4] = "Cloth";
 	itemmesh[0] = "RedHerb";
-	itemmesh[1] = "WhiteHerb";
-	itemmesh[2] = "Empty Bottle";
-	itemmesh[3] = "Cloth";
+	itemmesh[1] = "BlueHerb";
+	itemmesh[2] = "WhiteHerb";
+	itemmesh[3] = "Empty Bottle";
+	itemmesh[4] = "Cloth";
 
 }
 
@@ -165,7 +167,7 @@ void SceneWin::Render()
 	Renderer->RenderText("text", "Material Earned: ", Color(1, 0, 0));
 	modelStack->PopMatrix();
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		string temp = std::to_string(drops[i]);
 		modelStack->PushMatrix();
@@ -187,7 +189,7 @@ void SceneWin::Render()
 
 void SceneWin::Drop()
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		Player::Instance().AddMaterialItem(item[i],drops[i]);
 	}

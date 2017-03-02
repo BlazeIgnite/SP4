@@ -610,13 +610,6 @@ void Town::RenderCraftingButtons()
 
 				}
 			}
-			if (obj->isitHover() && obj->type == "Blue Potion" && obj2->type == "Blue Potion")
-			{
-				modelStack->PushMatrix();
-				modelStack->Scale(obj2->GetScale().x, obj2->GetScale().y, obj2->GetScale().z);
-				Renderer->RenderMesh("DescripBluePotion", false);
-				modelStack->PopMatrix();
-			}
 			if (obj->isitHover() && obj->type == "Attack Potion" && obj2->type == "Attack Potion")
 			{
 				modelStack->PushMatrix();
@@ -661,7 +654,7 @@ void Town::RenderInventoryButtons()
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
 		modelStack->Scale(obj->GetScale().x * 5, obj->GetScale().y * 2, obj->GetScale().z);
 		if (obj->type == "Crafting Tab")
-			Renderer->RenderMesh("CraftBorder", false);
+			Renderer->RenderMesh("CraftStation", false);
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();

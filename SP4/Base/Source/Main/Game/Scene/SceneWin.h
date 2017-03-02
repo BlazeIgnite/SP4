@@ -25,8 +25,8 @@ protected:
 	bool GameStage;
 	float timer;
 	std::string youwin;
-	int drops[4];
-	string itemmesh[4];
-	string item[4];
+	int drops[5];
+	string itemmesh[5];
+	string item[5];
 	Camera camera;
 };

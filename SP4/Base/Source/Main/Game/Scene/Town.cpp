@@ -49,7 +49,7 @@ void Town::Init()
 	OpenMission = false;
 	isSelected = false;
 
-	Volume = 10;
+	Volume = 5;
 }
 
 void Town::Update(float dt)
@@ -664,7 +664,7 @@ void Town::RenderInventoryButtons()
 		modelStack->PushMatrix();
 		modelStack->Translate(ObjectManager::Instance().WorldWidth* 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -3);
 		modelStack->Scale(130, 70, 1);
-		Renderer->RenderMesh("Inventory", false);
+		Renderer->RenderMesh("Border", false);
 		modelStack->PopMatrix();
 
 		//Buttons
@@ -672,7 +672,7 @@ void Town::RenderInventoryButtons()
 		modelStack->Translate(obj->GetPosition().x, obj->GetPosition().y, obj->GetPosition().z);
 		modelStack->Scale(obj->GetScale().x * 5, obj->GetScale().y * 2, obj->GetScale().z);
 		if (obj->type == "Crafting Tab")
-			Renderer->RenderMesh("Inventory", false);
+			Renderer->RenderMesh("CraftBorder", false);
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();
@@ -681,16 +681,6 @@ void Town::RenderInventoryButtons()
 		if (obj->type == "Close Button")
 			Renderer->RenderMesh("Back", false);
 		modelStack->PopMatrix(); 
-
-
-		//Text on Box
-		std::string Crafting = "Crafting";
-		modelStack->PushMatrix();
-		modelStack->Translate(obj->GetPosition().x - Crafting.size() * 3, obj->GetPosition().y, 0.5);
-		modelStack->Scale(10, 10, 1);
-		if (obj->type == "Crafting Tab")
-			Renderer->RenderText("text", Crafting, Color(1, 1, 1));
-		modelStack->PopMatrix();
 	}
 }
 
@@ -704,7 +694,7 @@ void Town::RenderSetting()
 		modelStack->PushMatrix();
 		modelStack->Translate(ObjectManager::Instance().WorldWidth* 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, -3);
 		modelStack->Scale(130, 70, 1);
-		Renderer->RenderMesh("Inventory", false);
+		Renderer->RenderMesh("Border", false);
 		modelStack->PopMatrix();
 
 		modelStack->PushMatrix();

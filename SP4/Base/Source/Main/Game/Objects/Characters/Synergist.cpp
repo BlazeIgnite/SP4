@@ -59,11 +59,11 @@ void Synergist::LevelUp(bool init)
 		else
 			return;
 	}
-	ExperiencePoints = ExperienceSNeed[Level];
+	ExperiencePoints = (float)ExperienceSNeed[Level];
 	SetHealth(SynergistHealth[Level]);
 	SetMaxHealth(SynergistHealth[Level]);
 	SetAttack(SynergistAttack[Level]);
-	SetDefence(SynergistDefence[Level]);
+	SetDefence((size_t)SynergistDefence[Level]);
 	SetDamageMitigation();
 
 	if (Level <= 10)

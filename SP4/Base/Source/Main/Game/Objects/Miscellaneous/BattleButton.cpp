@@ -59,13 +59,13 @@ void BattleButton::Init(double x, double y)
 	buttonList.push_back(temp);
 
 	temp = new Button();
-	temp->Init(Vector3(120, 22.5, 0), Vector3(10, 10, 1), "AI 1");
+	temp->Init(Vector3(120, 22.5f, 0), Vector3(10, 10, 1), "AI 1");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(140, 22.5, 0), Vector3(10, 10, 1), "AI 2");
+	temp->Init(Vector3(140, 22.5f, 0), Vector3(10, 10, 1), "AI 2");
 	buttonList.push_back(temp);
 	temp = new Button();
-	temp->Init(Vector3(160, 22.5, 0), Vector3(10, 10, 1), "AI 3");
+	temp->Init(Vector3(160, 22.5f, 0), Vector3(10, 10, 1), "AI 3");
 	buttonList.push_back(temp);
 
 	temp->SetisPressed(false);
@@ -74,16 +74,16 @@ void BattleButton::Init(double x, double y)
 
 	Description* temp2;
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Default Attack");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Default Attack");
 	descripList.push_back(temp2);
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Skill 1");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Skill 1");
 	descripList.push_back(temp2);
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Skill 2");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Skill 2");
 	descripList.push_back(temp2);
 	temp2 = new Description();
-	temp2->Init(Vector3(x, y, 0), Vector3(14, 10, 1), "Skill 3");
+	temp2->Init(Vector3((float)x, (float)y, 0), Vector3(14, 10, 1), "Skill 3");
 	descripList.push_back(temp2);
 }
 

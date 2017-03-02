@@ -65,11 +65,11 @@ void Warrior::LevelUp(bool init)
 			return;
 	}
 
-	ExperiencePoints = ExperienceWNeed[Level];
+	ExperiencePoints = (float)ExperienceWNeed[Level];
 	SetHealth(WarriorHealth[Level]);
 	SetMaxHealth(WarriorHealth[Level]);
 	SetAttack(WarriorAttack[Level]);
-	SetDefence(WarriorDefence[Level]);
+	SetDefence((size_t)WarriorDefence[Level]);
 	SetDamageMitigation();
 	if (Level <= 10)
 	{

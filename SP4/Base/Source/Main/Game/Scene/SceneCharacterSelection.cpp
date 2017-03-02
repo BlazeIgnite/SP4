@@ -157,7 +157,7 @@ void SceneCharacterSelection::Update(float dt)
 			SelectSkill = true;
 			if (std::find(SelectedSkills.begin(), SelectedSkills.end(), SkillCount) == SelectedSkills.end())
 			{
-				if (SelectedCharacter <= -1 || SelectedCharacter >= Player::Instance().GetClassUnitList(ClassNameText).size() || SelectedSkill >= Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size() - 1)
+				if (SelectedCharacter <= -1 || SelectedCharacter >= (int)Player::Instance().GetClassUnitList(ClassNameText).size() || SelectedSkill >= (int)Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size() - 1)
 				{
 					SelectedSkill = -1;
 					SelectSkill = false;
@@ -211,7 +211,7 @@ void SceneCharacterSelection::Update(float dt)
 	for (auto it : FinalChoiceList)
 	{
 		it->Update();
-		if (it->CurrentState == RELEASE && SelectedCharacter >-1 && SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
+		if (it->CurrentState == RELEASE && SelectedCharacter >-1 && SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size())
 		{
 			for (auto it2 : FinalChoiceList)
 				if (it2->type == ClassNameText + std::to_string(SelectedCharacter))
@@ -357,7 +357,7 @@ void SceneCharacterSelection::Render()
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate((int)(it->type.size() * -0.85f), 0, 0);
+			modelStack->Translate((it->type.size() * -0.85f), 0, 0);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText(it->type, Color(0,0,0));
 			modelStack->PopMatrix();
@@ -486,7 +486,7 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 			modelStack->PopMatrix();
 
 			modelStack->PushMatrix();
-			modelStack->Translate((int)-(ClassNameText.size()), 0, 1);
+			modelStack->Translate((ClassNameText.size() * -1.f), 0, 1);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", ClassNameText, Color(0,0,0));
 			modelStack->PopMatrix();
@@ -498,7 +498,7 @@ void SceneCharacterSelection::RenderPlayerCharacterList()
 		for (int Count = 0; Count < 5; ++Count)
 		{
 			modelStack->PushMatrix();
-			modelStack->Translate(0, 22 - (12 * Count),0);
+			modelStack->Translate(0.f, 22.f - (12.f * Count), 0.f);
 
 			if (!ListEnd && it != Player::Instance().GetClassUnitList(ClassNameText).end())
 			{
@@ -593,7 +593,7 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 
 			//Selected Character Class Name
 			modelStack->PushMatrix();
-			modelStack->Translate((int)-(ClassNameText.size()), 0, 0);
+			modelStack->Translate((ClassNameText.size() * -1.f), 0, 0);
 			modelStack->Scale(3, 3, 1);
 			Renderer->RenderText("text", ClassNameText, Color(0, 0, 0));
 			modelStack->PopMatrix();
@@ -632,7 +632,7 @@ void SceneCharacterSelection::RenderSelectedCharacterInfo()
 			if (SelectedCharacter != -1)
 			{
 				std::string SkillName;
-				if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && Count + 1 < Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size())
+				if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size() && Count + 1 < (int)Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size())
 					SkillName = Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(Count + 1)->GetName();
 				if (SkillName == "Life Drain")
 					Renderer->RenderMesh("LifeDrain", false);
@@ -677,7 +677,7 @@ void SceneCharacterSelection::RenderCharacterInfo()
 	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
 	CharacterEntity* CurrentlySelected = nullptr;
 
-	if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
+	if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size())
 		CurrentlySelected = Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter);
 	modelStack->PushMatrix();
 	modelStack->Translate(-14.f, 20.f, 1);
@@ -698,7 +698,7 @@ void SceneCharacterSelection::RenderCharacterInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(16, 8, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size())
 			Renderer->RenderText("text", "Level: " + std::to_string(CurrentlySelected->GetLevel()), Color(0, 0, 0));
 		else
 			Renderer->RenderText("text", "Level: ---", Color(0, 0, 0));
@@ -706,7 +706,7 @@ void SceneCharacterSelection::RenderCharacterInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(16, 5, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size())
 			Renderer->RenderText("text", "Health: " + std::to_string(CurrentlySelected->GetHealth()), Color(0, 0, 0));
 		else
 			Renderer->RenderText("text", "Health: ---", Color(0, 0, 0));
@@ -715,7 +715,7 @@ void SceneCharacterSelection::RenderCharacterInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(16, 2, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size())
 			Renderer->RenderText("text", "Attack: " + std::to_string(CurrentlySelected->GetAttack()), Color(0, 0, 0));
 		else
 			Renderer->RenderText("text", "Attack: ---", Color(0, 0, 0));
@@ -724,7 +724,7 @@ void SceneCharacterSelection::RenderCharacterInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(16, -1, 0);
 		modelStack->Scale(2.5f, 2.5f, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size())
 			Renderer->RenderText("text", "Defence: " + std::to_string(CurrentlySelected->GetDefence()), Color(0, 0, 0));
 		else
 			Renderer->RenderText("text", "Defence: ---", Color(0, 0, 0));
@@ -739,8 +739,8 @@ void SceneCharacterSelection::RenderSkillInfo()
 {
 	RenderSystem *Renderer = dynamic_cast<RenderSystem*>(&SceneSystem::Instance().GetRenderSystem());
 	Skill* CurrentlySelected = nullptr;
-	if (SelectedCharacter > -1 && SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size())
-		if (SelectedSkill < Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size() - 1)
+	if (SelectedCharacter > -1 && SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size())
+		if (SelectedSkill < (int)Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->size() - 1)
 			CurrentlySelected = Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(SelectedSkill + 1);
 
 	modelStack->PushMatrix();
@@ -754,7 +754,7 @@ void SceneCharacterSelection::RenderSkillInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, 8, 0);
 		modelStack->Scale(2, 2, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
 			Renderer->RenderText("text", "Name: " + CurrentlySelected->GetName(), Color(0, 0, 0));
 		else
 			Renderer->RenderText("text", "Name: ---", Color(0, 0, 0));
@@ -763,7 +763,7 @@ void SceneCharacterSelection::RenderSkillInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, 5, 0);
 		modelStack->Scale(2, 2, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
 			Renderer->RenderText("text", "Damage: " + std::to_string(CurrentlySelected->GetDamage()), Color(0, 0, 0));
 		else
 			Renderer->RenderText("text", "Damage: ---", Color(0, 0, 0));
@@ -772,7 +772,7 @@ void SceneCharacterSelection::RenderSkillInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, 2, 0);
 		modelStack->Scale(2, 2, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
 			Renderer->RenderText("text", "Cool Down: " + std::to_string(CurrentlySelected->GetMaxTurnCooldown()), Color(0, 0, 0));
 		else
 			Renderer->RenderText("text", "Cool Down: ---", Color(0, 0, 0));
@@ -781,7 +781,7 @@ void SceneCharacterSelection::RenderSkillInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, -1, 0);
 		modelStack->Scale(2, 2, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
 		{
 			std::string Position = "";
 			for (int i = 0; i < 3; ++i)
@@ -814,7 +814,7 @@ void SceneCharacterSelection::RenderSkillInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, -4, 0);
 		modelStack->Scale(2, 2, 1);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr)
 		{
 			std::string Position = "";
 			for (int i = 0; i < 3; ++i)
@@ -846,7 +846,7 @@ void SceneCharacterSelection::RenderSkillInfo()
 		modelStack->PushMatrix();
 		modelStack->Translate(-25, -7, 0);
 		modelStack->Scale(2, 2, 1.f);
-		if (SelectedCharacter < Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr && Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(SelectedSkill + 1)->GetStatusEffectMap().size() > 0)
+		if (SelectedCharacter < (int)Player::Instance().GetClassUnitList(ClassNameText).size() && CurrentlySelected != nullptr && (int)Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(SelectedSkill + 1)->GetStatusEffectMap().size() > 0)
 		{
 			std::string SkillEffectName = "";
 			for (auto it : Player::Instance().GetClassUnitList(ClassNameText).at(SelectedCharacter)->GetSkillList()->at(SelectedSkill + 1)->GetStatusEffectMap())

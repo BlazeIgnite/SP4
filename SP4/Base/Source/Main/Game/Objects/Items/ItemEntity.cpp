@@ -12,15 +12,15 @@ void ItemEntity::Use(std::string Item, CharacterEntity* Character)
 {
 	if (Item == "Red Potion")
 	{
-		Character->SetHealth(consumables->UseHealthPot(Character->GetHealth()));
+		Character->SetHealth((size_t)consumables->UseHealthPot((int)Character->GetHealth()));
 	}
 	else if (Item == "Attack Potion")
 	{
-		Character->SetAttack(consumables->UseAtkBuffPot(Character->GetAttack()));
+		Character->SetAttack((size_t)consumables->UseAtkBuffPot((int)Character->GetAttack()));
 	}
 	else if (Item == "Defence Potion")
 	{
-		Character->SetDefence(consumables->UseDefBuffPot(Character->GetDefence()));
+		Character->SetDefence((size_t)consumables->UseDefBuffPot((int)Character->GetDefence()));
 	}
 	else if (Item == "Bandage")
 	{

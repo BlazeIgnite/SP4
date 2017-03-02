@@ -220,12 +220,5 @@ void LuaSystem::LoadGame(int SaveFile)
 			Player::Instance().AddCharacter("Mage", temp);
 		}
 	}
-	// Player Name
-	// Player Tag(1~3)
-	// Player Gold
-	// Player furthest stage
-	// Loop Player crafting item(add item name & count)
-	// Loop Player Consumable Item(add item name & count)
-	// Loop Player's Unit List(add Unit type & level)
 	lua = nullptr;
 }

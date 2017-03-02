@@ -31,7 +31,7 @@ void SceneCharacterSelection::Init()
 	SelectedCharacter = -1;
 	ClassNameText = "Warrior";
 	MaxSkillSelectedTimer = 1.f;
-	NoCharacterSelectedTimer = 1.5f;
+	NoCharacterSelectedTimer = 1.f;
 	SelectedSkills = std::vector<int>();
 	SelectedSkill = -1;
 	CharacterSelectedSkill = std::map <Button*, std::vector<int>>();
@@ -115,8 +115,8 @@ void SceneCharacterSelection::Update(float dt)
 	int FinalCount = 0;
 	bool SelectChar = false;
 	bool SelectSkill = false;
-	Math::Clamp(MaxSkillSelectedTimer += dt, 0.f, 1.f);
-	Math::Clamp(NoCharacterSelectedTimer += dt, 0.f, 1.5f);
+	MaxSkillSelectedTimer = Math::Clamp(MaxSkillSelectedTimer + dt, 0.f, 1.f);
+	NoCharacterSelectedTimer = Math::Clamp(NoCharacterSelectedTimer + dt, 0.f, 1.f);
 	ClickingOtherButtons = false;
 
 	for (auto it : CharacterButtonList)
@@ -222,7 +222,7 @@ void SceneCharacterSelection::Update(float dt)
 			else
 				CharacterSelectedSkill.find(it)->second = SelectedSkills;
 		}
-		else if (it->CurrentState == CLICK && SelectedCharacter == -1 && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK)
+		else if (it->CurrentState == CLICK && SelectedCharacter == -1 && InputManager::Instance().GetMouseState(MOUSE_L) == CLICK && CharacterSelectedSkill.find(it) != CharacterSelectedSkill.end())
 		{
 			char Name = it->type[it->type.size() - 1];
 			SelectedCharacter = Name - 48;
@@ -238,7 +238,7 @@ void SceneCharacterSelection::Update(float dt)
 	for (auto it : ChangeSceneList)
 	{
 		it->Update();
-		if (it->GetisSelected())
+		if (it->CurrentState == RELEASE && InputManager::Instance().GetMouseState(MOUSE_L) == RELEASE)
 			if (it->type == "Return")
 			{
 				SceneSystem::Instance().SwitchScene("Town_Scene");
@@ -246,12 +246,20 @@ void SceneCharacterSelection::Update(float dt)
 			}
 			else if (it->type == "Start")
 			{
-				bool SelectedAtLeastOne = false;
-				for (auto it2 : FinalChoiceList)
-					if (it2->type.find("Warrior") == string::npos || it2->type.find("Mage") == string::npos || it2->type.find("Synergist") == string::npos)
+					bool SelectedAtLeastOne = false;
+					for (auto it2 : FinalChoiceList)
+					{
+						if (it2->type.find("Warrior") != string::npos || it2->type.find("Mage") != string::npos || it2->type.find("Synergist") != string::npos)
+						{
+							SelectedAtLeastOne = true;
+							break;
+						}
+
+					}
+					if (!SelectedAtLeastOne)
 					{
 						NoCharacterSelectedTimer = 0.f;
-						return;
+						break;
 					}
 				BattleSystem::Instance().Init();
 				for (auto it2 : CharacterSelectedSkill)
@@ -375,7 +383,7 @@ void SceneCharacterSelection::Render()
 		modelStack->PopMatrix();
 	}
 
-	if (NoCharacterSelectedTimer < 1.5f)
+	if (NoCharacterSelectedTimer < 1.f)
 	{
 		modelStack->PushMatrix();
 		modelStack->Translate(ObjectManager::Instance().WorldWidth * 0.5f, ObjectManager::Instance().WorldHeight * 0.5f, 10);

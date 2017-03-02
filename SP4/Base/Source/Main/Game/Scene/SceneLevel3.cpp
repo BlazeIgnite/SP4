@@ -29,7 +29,7 @@ SceneLevel3::~SceneLevel3()
 void SceneLevel3::Init()
 {
 	// Init Scene
-	this->SetEntityID("Level4_Scene");
+	this->SetEntityID("Level3_Scene");
 	camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	Waves = 2; Currentwave = 1;
@@ -42,7 +42,6 @@ void SceneLevel3::Init()
 	BattleSystem::Instance().CheckTroopPositions();
 
 	AI = new AIAllAttack();
-	//BattleSystem::Instance().Debugging();
 
 	tempscale = Vector3(10, 10, 1);
 	tempscale1 = Vector3(15, 15, 1);
@@ -1163,7 +1162,7 @@ void SceneLevel3::SpawnWave(int Currentwave)
 	}
 	else
 	{
-		int baselevel = 13;
+		int baselevel = 9;
 		BattleSystem::Instance().ClearWave();
 		for (int i = 1; i <= 3; i++)
 		{

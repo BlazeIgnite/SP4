@@ -398,7 +398,7 @@ void SceneBattles::Update(float dt)
 			}
 
 
-			if ((*itr)->type == "Attack Button" && (*itr)->isitHover())
+			if ((*itr)->type == "Attack Button" && (*itr)->isitHover() && !renderDamage)
 			{
 				if (Application::IsMousePressed(0))
 				{
@@ -447,7 +447,7 @@ void SceneBattles::Update(float dt)
 				}
 			}
 
-			if ((*itr)->type == "End Turn" && (*itr)->isitHover())
+			if ((*itr)->type == "End Turn" && (*itr)->isitHover() && !renderDamage)
 			{
 				if (Application::IsMousePressed(0))
 				{

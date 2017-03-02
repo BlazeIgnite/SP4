@@ -50,6 +50,7 @@ void SceneTutorial::Init()
 
 	BattleSystem::Instance().SetAITroops(0, warrior2);
 	BattleSystem::Instance().CheckTroopPositions();
+	BattleSystem::Instance().SetTurnCost(25);
 
 	m_AI = new AITutorial();
 	//BattleSystem::Instance().Debugging();
@@ -67,6 +68,7 @@ void SceneTutorial::Init()
 			entity2->SetisSelected(false);
 		}
 	}
+	m_Turn = 1;
 	i = 0;
 	m_timer = 0;
 	m_startPosY = m_textPosY = BattleSystem::Instance().GetPlayerTroops().at(0)->GetVectorPosition().y;
@@ -357,36 +359,47 @@ void SceneTutorial::Update(float dt)
 									}
 									(*itr)->SetScale(Vector3(7, 7, 1));
 									BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(0));
+									if (m_Turn == 1)
+										m_T1pressSkill = true;
 								}
 								else if ((*itr)->type == "Skill 1")
 								{
-									for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+									if (m_Turn > 1)
 									{
-										if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
-											(*itr3)->SetScale(Vector3(6, 6, 1));
+										for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+										{
+											if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
+												(*itr3)->SetScale(Vector3(6, 6, 1));
+										}
+										(*itr)->SetScale(Vector3(7, 7, 1));
+										BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
 									}
-									(*itr)->SetScale(Vector3(7, 7, 1));
-									BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
 								}
 								else if ((*itr)->type == "Skill 2")
 								{
-									for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+									if (m_Turn > 1)
 									{
-										if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
-											(*itr3)->SetScale(Vector3(6, 6, 1));
+										for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+										{
+											if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
+												(*itr3)->SetScale(Vector3(6, 6, 1));
+										}
+										(*itr)->SetScale(Vector3(7, 7, 1));
+										BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
 									}
-									(*itr)->SetScale(Vector3(7, 7, 1));
-									BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(2));
 								}
 								else if ((*itr)->type == "Skill 3")
 								{
-									for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+									if (m_Turn > 1)
 									{
-										if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
-											(*itr3)->SetScale(Vector3(6, 6, 1));
+										for (std::vector<Button*>::iterator itr3 = m_button->GetList()->begin(); itr3 != m_button->GetList()->end(); itr3++)
+										{
+											if (((*itr3)->type == "Default Attack" || (*itr3)->type == "Skill 1" || (*itr3)->type == "Skill 2" || (*itr3)->type == "Skill 3"))
+												(*itr3)->SetScale(Vector3(6, 6, 1));
+										}
+										(*itr)->SetScale(Vector3(7, 7, 1));
+										BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(1));
 									}
-									(*itr)->SetScale(Vector3(7, 7, 1));
-									BattleSystem::Instance().SetSelectedSkill(BattleSystem::Instance().GetSelectedSkill(3));
 								}
 							}
 						}
@@ -601,6 +614,44 @@ void SceneTutorial::Render()
 		modelStack->Translate(((float)(ObjectManager::Instance().WorldWidth * 0.5f - ((float)(100 - BattleSystem::Instance().GetTurnCost()) * 0.25f))), ObjectManager::Instance().WorldHeight * 0.3f, -5.f);
 		modelStack->Scale((float)(BattleSystem::Instance().GetTurnCost() * 0.5f), 5, 1);
 		Renderer->RenderMesh("Test", false);
+		modelStack->PopMatrix();
+	}
+
+	if (m_Turn == 1)
+	{
+		modelStack->PushMatrix();
+		modelStack->Translate(25, ObjectManager::Instance().WorldHeight * 0.92f, -4.f);
+		modelStack->Scale(40, 10, 1);
+		Renderer->RenderMesh("TutorialT1", false);
+		modelStack->PopMatrix();
+	}
+	else if (m_Turn == 2)
+	{
+
+	}
+
+	if (!m_T1pressTroop)
+	{
+		modelStack->PushMatrix();
+		modelStack->Translate(BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().x, BattleSystem::Instance().GetPlayerTroopAttacking(0)->GetVectorPosition().y + 17.f, -4.f);
+		modelStack->Scale(10, 10, 1);
+		Renderer->RenderMesh("ArrowD", false);
+		modelStack->PopMatrix();
+	}
+	if (!m_T1pressSkill && m_T1pressTroop)
+	{
+		modelStack->PushMatrix();
+		modelStack->Translate(68, 25, -4.f);
+		modelStack->Scale(10, 10, 1);
+		Renderer->RenderMesh("ArrowD", false);
+		modelStack->PopMatrix();
+	}
+	if (m_T1pressSkill && m_T1pressTroop)
+	{
+		modelStack->PushMatrix();
+		modelStack->Translate(BattleSystem::Instance().GetAITroopAttacking(0)->GetVectorPosition().x, BattleSystem::Instance().GetAITroopAttacking(0)->GetVectorPosition().y + 17.f, -4.f);
+		modelStack->Scale(10, 10, 1);
+		Renderer->RenderMesh("ArrowD", false);
 		modelStack->PopMatrix();
 	}
 

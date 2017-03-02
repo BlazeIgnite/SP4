@@ -31,26 +31,39 @@ void AIAllAttack::Update(double dt)
 void AIAllAttack::Planning()
 {
 	bool planningDone = false;
+	bool AllUnable = false;
+	size_t TroopGone = 0;
+
 	for (auto it : BattleSystem::Instance().GetAITroops())
 	{
-		if (!it.second->GetDefeated())
+		if (it.second->GetDefeated() || it.second->GetStunned())
+			TroopGone++;
+		if (TroopGone == BattleSystem::Instance().GetAITroops().size())
+			planningDone = true;
+	}
+	if (!planningDone)
+	{
+		for (auto it : BattleSystem::Instance().GetAITroops())
 		{
-			size_t tempTarget = (size_t)Math::RandIntMinMax(0, 1);
-			if (BattleSystem::Instance().GetPlayerTroopAttacking(tempTarget) != nullptr)
+			if (!it.second->GetDefeated())
 			{
-				if (BattleSystem::Instance().CanActivateSkill(it.second, tempTarget, it.second->GetSkillInVector("Basic Attack")))
+				size_t tempTarget = (size_t)Math::RandIntMinMax(0, 1);
+				if (BattleSystem::Instance().GetPlayerTroopAttacking(tempTarget) != nullptr)
 				{
-					if (Calculate(it.second->GetSkillInVector("Basic Attack")))
+					if (BattleSystem::Instance().CanActivateSkill(it.second, tempTarget, it.second->GetSkillInVector("Basic Attack")))
 					{
-						AIBattlePlanner* temp = new AIBattlePlanner();
-						temp->SetSkill(it.second->GetSkillInVector("Basic Attack"));
-						temp->SetAttacker(it.first);
-						temp->SetTarget(tempTarget);
-						BattlePlanHolder.push_back(temp);
+						if (Calculate(it.second->GetSkillInVector("Basic Attack")))
+						{
+							AIBattlePlanner* temp = new AIBattlePlanner();
+							temp->SetSkill(it.second->GetSkillInVector("Basic Attack"));
+							temp->SetAttacker(it.first);
+							temp->SetTarget(tempTarget);
+							BattlePlanHolder.push_back(temp);
+						}
 					}
+					if (!CalculateCheck(it.second->GetSkillInVector("Basic Attack")))
+						planningDone = true;
 				}
-				if (!CalculateCheck(it.second->GetSkillInVector("Basic Attack")))
-					planningDone = true;
 			}
 		}
 	}
